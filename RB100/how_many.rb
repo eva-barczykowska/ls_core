@@ -4,10 +4,12 @@
 # ==============
 
 # Write a method that counts the number of occurrences of each element in a given array.
-# The words in the array are case-sensitive: 'suv' != 'SUV'. Once counted, print each element alongside the number of occurrences.
-
+# The words in the array are case-sensitive: 'suv' != 'SUV'. Once counted, print each element
+# alongside the number of occurrences.
+# additional requirement after finishing this: Try to solve the problem when words are case insensitive,
+# e.g. "suv" == "SUV".
 # (Understand the) Problem
-# ------------------------
+# ----
 # Essential to understanding how to solve a problem. In order to be able to solve
 # a problem, you have to at least understand what the problem is and what it is
 # asking. Take some time to allow the problem to load into your brain.
@@ -19,13 +21,14 @@
 # -  Input: array
 #    vehicles = ['car', 'car', 'truck', 'car', 'SUV', 'truck',
 #               'motorcycle', 'motorcycle', 'car', 'truck']
-# -  Output: hash
+# -  Output: hash - is this a hash? There are are no symbols, so this is not a hash.
+#            this is printing keys and values of a hash. How to do it?
 #                car => 4
 #                truck => 3
 #                SUV => 1
 #                motorcycle => 2
 #
-# ---
+# ----
 #
 # Check for Problem Domain: the Problem Domain is the area of expertise or
 # application that needs to be examined to solve a problem. Basically any
@@ -40,14 +43,14 @@
 #
 # **Problem Domain:**
 #
-# ---
+# ---=
 #
 # Check for Implicit Requirements. Are there requirements that are not explicitly
 # stated?
 #
 # **Implicit Requirements:**
 #
-# ---
+# ----
 #
 # Some questions to ask the interviewer (or perhaps yourself) to better understand
 # the problem.
@@ -55,10 +58,10 @@
 # **Clarifying Questions:**
 #
 # 1. How to form a hash out of the array?
-# 2. How to take a word from this array and make it a key?
-# 3. How to add a number to the value that will signify how many words I have?
+# 2. How to to count elements of the array? Is there a method for it?
+# 3. How to print the result?
 #
-# ---
+# ----
 #
 # A mental model is an explanation of someone's thought process about how
 # something works in the real world. Think of it as a summary of the "entire
@@ -72,10 +75,10 @@
 #
 # **Mental Model:**
 #
-# ---
+# ----
 #
 # Examples / Test Cases / Edge Cases
-# ----------------------------------
+# ----
 #
 # The objective is to come up with examples that validate your understanding of
 # the problem, and confirm that you are working in the right direction. Typically
@@ -142,7 +145,7 @@
 #   'motorcycle', 'motorcycle', 'car', 'truck'
 # ]
 # vehicles3 = []
-# -----------------
+# ----
 #
 # **Edge Cases:**
 #
@@ -163,16 +166,6 @@
 # Data Structure
 # --------------
 # array and hash
-# Determine what data structures you will work with to convert the input to the
-# desired output.
-#
-# The chief considerations here are your intended programming language and your
-# mental model.
-#
-# Are you going to use arrays, hashes, etc? Your data structure will influence
-# your program.
-#
-# ---
 #
 # Algorithm
 # ---------
@@ -195,45 +188,60 @@
 # -  Before implementing the algorithm, you should test it manually with test
 #    cases.
 # -----------------------------
-# iterate over the array
-# create a Hash
-# with iteration look at the first word of the array
-# if my hash, does not have a key with that name, add a key to the array
-# and add value as 1 at the same time
-# else if such a key already exists, only increament the value
-# keep iterating until the you've iterated over all the elements of the array
-# return value from the method should be the resulting hash
+# create an empty hash for occurrences
+# iterate over each unique element of the array
+# array.count
+# then print each of the occurrences in the format word => how many
 # the method should differentiate between SUV and suv as well
+#
 # Code
-def count_occurrences(array)
-  h = {}
-  array.each do |element|
-    unless h.has_key?(element)
-      h[element] = 1
-    else
-      h[element] += 1
-    end
+#
+def count_occurrences(arr)
+  occurrences = {}
+
+  arr.uniq.each do |element|
+    occurrences[element] = arr.count(element)
   end
-  p h
+
+  occurrences.each do |element, count|
+    puts "#{element} => #{count}"
+  end
 end
 
-vehicles = [
-  'car', 'car', 'truck', 'car', 'SUV', 'truck',
-  'motorcycle', 'motorcycle', 'car', 'truck'
-]
+vehicles = %w[car car truck car SUV truck motorcycle motorcycle car truck]
 
-vehicles1 = [
-  'car', 'car', 'truck', 'car', 'SUV', 'suv', 'truck',
-  'motorcycle', 'motorcycle', 'car', 'truck'
-]
-vehicles2 = [
-  'car', 'car', 'truck', 'car', 'SUV', 'suv', 'truck', 'Truck',
-  'motorcycle', 'motorcycle', 'car', 'truck'
-]
+vehicles1 = %w[car car truck car SUV suv truck motorcycle motorcycle car truck]
+vehicles2 = %w[car car truck car SUV suv truck Truck motorcycle motorcycle car truck]
 vehicles3 = []
 
 count_occurrences(vehicles)
-# count_occurrences(vehicles1)
-# count_occurrences(vehicles2)
-# count_occurrences(vehicles3)
+puts ''
+count_occurrences(vehicles1)
+puts ''
+count_occurrences(vehicles2)
+puts ''
+count_occurrences(vehicles3)
 # =end
+# ---------------------------------------------------
+# additional requirement after finishing this: Try to solve the problem when words are case insensitive,
+# e.g. "suv" == "SUV".
+
+# puts '*****'
+# def count_occurrences(arr)
+#
+#   arr = arr.map { |e|  e.downcase }
+#
+#   occurrences = {}
+#
+#   arr.uniq.each do |element|
+#     occurrences[element] = arr.count(element)
+#   end
+#
+#   occurrences.each do |element, count|
+#     puts "#{element} => #{count}"
+#   end
+# end
+#
+# vehicles2 = %w[car car truck car SUV suv truck Truck motorcycle motorcycle car truck]
+#
+# count_occurrences(vehicles2)
