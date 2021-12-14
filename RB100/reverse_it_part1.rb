@@ -1,11 +1,8 @@
 # PEDAC Template
 # ==============
 
-# Write a method that counts the number of occurrences of each element in a given array.
-# The words in the array are case-sensitive: 'suv' != 'SUV'. Once counted, print each element
-# alongside the number of occurrences.
-# additional requirement after finishing this: Try to solve the problem when words are case insensitive,
-# e.g. "suv" == "SUV".
+# Write a method that takes one argument, a string, and returns a new string with the words in reverse order.
+#
 # (Understand the) Problem
 # ----
 # Essential to understanding how to solve a problem. In order to be able to solve
@@ -16,16 +13,9 @@
 #
 # First, identify the inputs and the outputs of the problem.
 #
-# -  Input: array
-#    vehicles = ['car', 'car', 'truck', 'car', 'SUV', 'truck',
-#               'motorcycle', 'motorcycle', 'car', 'truck']
-# -  Output: hash - is this a hash? There are are no symbols, so this is not a hash.
-#            this is printing keys and values of a hash. How to do it?
-#                car => 4
-#                truck => 3
-#                SUV => 1
-#                motorcycle => 2
+# -  Input: 1 element, a string
 #
+# -  Output: a new string with the words in reverse order
 # ----
 #
 # Check for Problem Domain: the Problem Domain is the area of expertise or
@@ -40,14 +30,12 @@
 # Could one word have multiple meanings? etc
 #
 # **Problem Domain:**
-#
-# ---=
+# ---
 #
 # Check for Implicit Requirements. Are there requirements that are not explicitly
 # stated?
 #
 # **Implicit Requirements:**
-#
 # ----
 #
 # Some questions to ask the interviewer (or perhaps yourself) to better understand
@@ -55,10 +43,10 @@
 #
 # **Clarifying Questions:**
 #
-# 1. How to form a hash out of the array?
-# 2. How to to count elements of the array? Is there a method for it?
-# 3. How to print the result?
-#
+# 1. How to split that string?
+# 2. What is the method for reversing the order of the characters?
+# 3. The words are in the same order but only the order of the characters in the string are reversed?
+# 4. What happens if I have spaces, one or more?
 # ----
 #
 # A mental model is an explanation of someone's thought process about how
@@ -72,7 +60,8 @@
 # and accurately, captures the requirements of the problem.
 #
 # **Mental Model:**
-#
+# I need to split this string, reverse teh order of characters in every element and then put back together
+# the string and return it, with the words in reverse order
 # ----
 #
 # Examples / Test Cases / Edge Cases
@@ -84,28 +73,10 @@
 #
 # **Examples:**
 #
-# vehicles = [
-#   'car', 'car', 'truck', 'car', 'SUV', 'truck',
-#   'motorcycle', 'motorcycle', 'car', 'truck'
-#  ]
-# count_occurrences(vehicles)
-# car => 4
-# truck => 3
-# SUV => 1
-# motorcycle => 2
-
-# vehicles = [
-#   'car', 'car', 'truck', 'car', 'SUV', 'suv', 'truck',
-#   'motorcycle', 'motorcycle', 'car', 'truck
-#   ]
-#
-# count_occurrences(vehicles)
-# car => 4
-# truck => 3
-# SUV => 1
-# suv => 1
-# motorcycle => 2
-#
+# puts reverse_sentence('Hello World') == 'World Hello'
+# puts reverse_sentence('Reverse these words') == 'words these Reverse'
+# puts reverse_sentence('') == ''
+# puts reverse_sentence('    ') == '' # Any number of spaces results in ''
 # ---
 #
 # **Test Cases:**
@@ -129,20 +100,11 @@
 # -  Special values (`nil`, `0`, `""`, surrogate pairs, char. encoding, special
 #    char.)
 #
-# _Your Test Cases:_
-# vehicles = [
-#   'car', 'car', 'truck', 'car', 'SUV', 'truck',
-#   'motorcycle', 'motorcycle', 'car', 'truck'
-# ]
-# vehicles1 = [
-#   'car', 'car', 'truck', 'car', 'SUV', 'suv' 'truck',
-#   'motorcycle', 'motorcycle', 'car', 'truck'
-# ]
-# vehicles2 = [
-#   'car', 'car', 'truck', 'car', 'SUV', 'suv' 'truck', 'Truck'
-#   'motorcycle', 'motorcycle', 'car', 'truck'
-# ]
-# vehicles3 = []
+# # _Your Test Cases:_
+# puts reverse_sentence('Hello World') == 'World Hello'
+# puts reverse_sentence('Reverse these words') == 'words these Reverse'
+# puts reverse_sentence('') == ''
+# puts reverse_sentence('    ') == '' # Any number of spaces results in ''
 # ----
 #
 # **Edge Cases:**
@@ -163,8 +125,7 @@
 #
 # Data Structure
 # --------------
-# array and hash
-#
+# string, array
 # Algorithm
 # ---------
 # Start with your mental model if you have one. While you're still learning to
@@ -186,86 +147,26 @@
 # -  Before implementing the algorithm, you should test it manually with test
 #    cases.
 # -----------------------------
-# create an empty hash for occurrences
-# iterate over each unique element of the array
-# array.count
-# then print each of the occurrences in the format word => how many
-# the method should differentiate between SUV and suv as well
+# split the string by space, create an array of words
+# reverse all the words
+# convert the array of inverted words to 1 string
 # Code
-
-def count_occurrences(arr)
-  occurrences = {}
-
-  arr.uniq.each do |element|
-    occurrences[element] = arr.count(element)
+#
+def reverse_sentence(sentence)
+  array = sentence.split(' ')
+  res = []
+  counter = array.size
+  while counter.positive?
+    res << array.pop
+    counter -= 1
   end
-
-  occurrences.each do |element, count|
-    puts "#{element} => #{count}"
-  end
+  res.join(' ')
 end
-
-# the solution which I liked as most elegant was this one:
-# def count_occurences(array)
-#   hash = array.to_h { |ele| [ele, array.count(ele)] }
-#   hash.each do |k, v|
-#     puts "#{k} => #{v}"
-#   end
+# I really like how concise LS solution is:
+# def reverse_sentence(string)
+#   string.split.reverse.join(' ')
 # end
-
-# I also liked this as the shortest:
-# def count_occurrences(arr)
-#   arr.uniq.each { |word| puts "#{word} => #{arr.count(word)}" }
-# end
-
-# And this one is the easiest to understand quickly, like I just look at it
-# and it is immediately clear
-# def count_occurrences(array)
-#   hash = {}
-#   array.each do |el|
-#     if hash.has_key?(el)
-#       hash[el] += 1
-#     else
-#       hash[el] = 1
-#     end
-#   end
-#   hash.each { |car, number| puts "#{car} => #{number}" }
-# end
-
-vehicles = %w[car car truck car SUV truck motorcycle motorcycle car truck]
-
-vehicles1 = %w[car car truck car SUV suv truck motorcycle motorcycle car truck]
-vehicles2 = %w[car car truck car SUV suv truck Truck motorcycle motorcycle car truck]
-vehicles3 = []
-
-count_occurrences(vehicles)
-puts ''
-count_occurrences(vehicles1)
-puts ''
-count_occurrences(vehicles2)
-puts ''
-count_occurrences(vehicles3)
-# =end
-# ---------------------------------------------------
-# additional requirement after finishing this: Try to solve the problem when words are case insensitive,
-# e.g. "suv" == "SUV".
-
-# puts '*****'
-# def count_occurrences(arr)
-#
-#   arr = arr.map { |e|  e.downcase }
-#
-#   occurrences = {}
-#
-#   arr.uniq.each do |element|
-#     occurrences[element] = arr.count(element)
-#   end
-#
-#   occurrences.each do |element, count|
-#     puts "#{element} => #{count}"
-#   end
-# end
-#
-# vehicles2 = %w[car car truck car SUV suv truck Truck motorcycle motorcycle car truck]
-#
-# count_occurrences(vehicles2)
+puts reverse_sentence('Hello World') == 'World Hello'
+puts reverse_sentence('Reverse these words') == 'words these Reverse'
+puts reverse_sentence('') == ''
+puts reverse_sentence('    ') == '' # Any number of spaces results in ''
