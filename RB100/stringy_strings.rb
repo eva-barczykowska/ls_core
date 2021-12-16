@@ -3,6 +3,11 @@
 # Write a method that takes one argument, a positive integer, and returns
 # a string of alternating 1s and 0s, always starting with 1.
 # The length of the string should match the given integer.
+
+# Modify stringy so it takes an additional optional argument that defaults to 1.
+# If the method is called with this argument set to 0,
+# the method should return a String of alternating 0s and 1s, but starting
+# with 0 instead of 1.
 #
 # (Understand the) Problem
 # ----
@@ -166,6 +171,47 @@ def stringy(int)
   result.join
 end
 
+# shorter solution that I liked
+# the important thing here that I missed is that string also has the << method
+# n times starts from 0 that's why here we have x.even? string << '1'
+# it's doing something n times but starting from 0!
+# very interesting!
+# def stringy(n)
+#   string = ''
+#   n.times { |x| x.even? ? string << '1' : string << '0' }
+#   string
+# end
+
+# also I like this one
+# def stringy(num)
+#   result = ''
+#   num.times { |x| x.even? ? result += '1' : result += '0' }
+#   result
+# end
+
+# and this one, because it's the most concise:
+# I was also thinking of using range for this solution but didn't manage
+# to figure out how
+# def stringy(num)
+#   (1..num).to_a.map { |num| num.odd? ? '1' : '0' }.join
+# end
+#
+# puts stringy(6) == '101010'
+# puts stringy(9) == '101010101'
+# puts stringy(4) == '1010'
+# puts stringy(7) == '1010101'
+
+# Modify stringy so it takes an additional optional argument that defaults to 1.
+# If the method is called with this argument set to 0,
+# the method should return a String of alternating 0s and 1s, but starting
+# with 0 instead of 1.
+# def stringy(num, arg = 1)
+#   if arg.zero?
+#     (1..num).to_a.map { |x| x.odd? ? '0' : '1' }.join
+#   else
+#     (1..num).to_a.map { |x| x.odd? ? '1' : '0' }.join
+#   end
+# end
 puts stringy(6) == '101010'
 puts stringy(9) == '101010101'
 puts stringy(4) == '1010'
