@@ -12,19 +12,31 @@
 # -- how to generate a random integer in Ruby?
 # -- it has to be between 20 and 200
 # finally - Code!
+#
+# def how_old
+#   number = Random.new
+#   result = number.rand(20..200)
+#   print "Teddy is #{result} years old!"
+# end
+#
+# how_old
+# # Teddy is 69 years old!
+# puts ""
+#
+# # LS solution was not a method
+# # we are not told to write a method
+# # read and reread the task, do not rush
+# age = rand(20..200)
+# puts "Teddy is #{age} years old!"
 
-def how_old
-  number = Random.new
-  result = number.rand(20..200)
-  print "Teddy is #{result} years old!"
+# Modify this program to ask for a name, and then print the age for that person.
+# For an extra challenge, use "Teddy" as the name if no name is entered.
+# puts ""
+
+puts "Write a name here, I will give you the age of that person:"
+name = gets.chomp
+if name.empty?
+  name = "Teddy"
 end
-
-how_old
-# Teddy is 69 years old!
-puts ""
-
-# LS solution was not a method
-# we are not told to write a method
-# read and reread the task, do not rush
 age = rand(20..200)
-puts "Teddy is #{age} years old!"
+puts "#{name} is #{age} years old!"
