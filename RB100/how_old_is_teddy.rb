@@ -21,3 +21,10 @@ end
 
 how_old
 # Teddy is 69 years old!
+puts ""
+
+# LS solution was not a method
+# we are not told to write a method
+# read and reread the task, do not rush
+age = rand(20..200)
+puts "Teddy is #{age} years old!"
