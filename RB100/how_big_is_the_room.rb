@@ -73,3 +73,31 @@ square_feet = (square_meters * SQMETERS_TO_SQFEET).round(2)
 
 puts "The area of the room is #{square_meters} " + \
      "square meters (#{square_feet} square feet)."
+
+# Futher exploration:
+# Modify this program to ask for the input measurements in feet,
+# and display the results in square feet, square inches,
+# and square centimeters.
+
+SQFEET_TO_SQCENTIMETERS = 329.03
+SQFEET_TO_SQINCHES = 144
+
+puts "Hello. Enter the length of the room in square feet:"
+length = gets.chomp.to_f
+
+puts "And now enter the width of the room in square feet:"
+width = gets.chomp.to_f
+
+area_in_sqfeet = length * width.round(2)
+
+area_in_sqcentimeters = (area_in_feet * SQFEET_TO_SQCENTIMETERS).round(2)
+
+area_in_sqinches = (area_in_sqfeet * SQFEET_TO_SQINCHES).round(2)
+
+puts "The area of the room is #{area_in_sqfeet} square feet,\
+ #{area_in_sqinches} square inches or #{area_in_sqcentimeters} square centimeters."
+
+# inputs
+# -- width and length in feet
+# output
+# -- display results in square feet, in square inches and square centimeters
