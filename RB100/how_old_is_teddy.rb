@@ -3,11 +3,21 @@
 
 # PEDAC
 # understand the Problem, input, output
-# -- none, just call the method
+# inputs
+# -- none, we just run the programme
+# -- unless it's further exploration exercise and there we ask the user to input name
+# output
+# -- A string with interpolated random number
+
 # provide Examples
-# -- how_old
+# -- we run the program and the output is for example: Teddy is 69 years old!
+#                                                      Ewa is 109 years old!
+# -- in further exploration the output is the name we gave when prompted followed
+#    by the age
+
 # what are the Data Structures you will work with
 # -- strings (for printing out the message), integers (for providing the random number within a range)
+
 # define your Algorithm
 # -- how to generate a random integer in Ruby?
 # -- it has to be between 20 and 200
@@ -18,7 +28,7 @@
 #   result = number.rand(20..200)
 #   print "Teddy is #{result} years old!"
 # end
-#
+# #
 # how_old
 # # Teddy is 69 years old!
 # puts ""
