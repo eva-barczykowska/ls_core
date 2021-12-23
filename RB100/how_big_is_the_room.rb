@@ -79,13 +79,13 @@ puts "The area of the room is #{square_meters} " + \
 # and display the results in square feet, square inches,
 # and square centimeters.
 
-SQFEET_TO_SQCENTIMETERS = 329.03
+SQFEET_TO_SQCENTIMETERS = 929.03
 SQFEET_TO_SQINCHES = 144
 
-puts "Hello. Enter the length of the room in square feet:"
+puts "Hello. Enter the length of the room in feet:"
 length = gets.chomp.to_f
 
-puts "And now enter the width of the room in square feet:"
+puts "And now enter the width of the room in feet:"
 width = gets.chomp.to_f
 
 area_in_sqfeet = length * width.round(2)
@@ -101,3 +101,21 @@ puts "The area of the room is #{area_in_sqfeet} square feet,\
 # -- width and length in feet
 # output
 # -- display results in square feet, in square inches and square centimeters
+
+
+# I liked this code because it's clear to read BUT:
+# I found an error here
+# he is declaring FOOT_TO_INCH constant but on line 118 he is calculating
+# square area times normal(not square conversion)
+FOOT_TO_INCH = 12
+FOOT_TO_CENTIMETER = 30.48
+
+puts "Enter the length of the room in feet:"
+length = gets.to_f
+puts "Enter the width of the room in feet:"
+width = gets.to_f
+
+area_f = (length * width).round(2)
+area_i = (area_f * FOOT_TO_INCH).round(2)
+area_c = (area_f * FOOT_TO_CENTIMETER).round(2)
+puts "The area of the room is #{area_f} square feet, #{area_i} square inches, and #{area_c} square centimeters."
