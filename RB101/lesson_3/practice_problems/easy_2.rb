@@ -43,12 +43,12 @@ flintstones = ['Fred', 'Barney', 'Wilma', 'Betty', 'BamBam', 'Pebbles']
 p flintstones_easier = %w[Fred Barney Wilma Betty BamBam Pebbles]
 
 # 6. How can we add the family pet Dino?
-flintstones << "Dino"
+flintstones << 'Dino'
 p flintstones
 
 # 7. In the previous practice problem we added Dino to our array like this:
 
-flintstones = %w(Fred Barney Wilma Betty BamBam Pebbles)
+flintstones = %w[Fred Barney Wilma Betty BamBam Pebbles]
 flintstones << 'Dino'
 
 # We could have used either Array#concat or Array#push to add Dino to the family.
@@ -76,7 +76,6 @@ advice = 'Few things in life are as important as house training your pet dinosau
 
 advice.slice!(0, advice.index('house')) # => "Few things in life are as important as "
 p advice # => "house training your pet dinosaur."
-
 
 # 9. Write a one-liner to count the number of lower-case 't'
 # characters in the following string:
