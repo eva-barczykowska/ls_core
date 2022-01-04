@@ -73,10 +73,25 @@ end
 p find_greatest([2, 6, 7, 44,5])
 
 # ***EXERCISES***
+
+# remarks from Srđan Ćorić
+# - include input and output
+# - include 'higher level algorithm', which in these small problems will just be the goal of the problem
+# - in more complex problems, higher level algorithm would consist of multiple smaller goals
+# - we are doing this in order to keep in mind at all times what is our goal, while we write implementation details
+# - in more complex problems, you would have several of those goals making the algorithm, for example:
+# find all the substrings from a given string
+# select only palindrome substrings
+# sort palindrome substrings and return the longest one
+
+
 # Write in pseudo-code(both casual and formal):
 # 1) a method that returns the sum of two integers
 
 # ***CASUAL***
+# input: 2 integers
+# output: 1 integer
+# highlevel algorithm: add 2 integers
 # Given there are 2 integers
 #
 # add one to another
@@ -99,6 +114,11 @@ p find_greatest([2, 6, 7, 44,5])
 # 2)a method that takes an array of strings, and returns a string that is all those strings concatenated together
 
 # ***CASUAL***
+
+# input: an array of strings
+# output: 1 string
+# Highlevel goal: Concatenate all the strings from the given array
+
 # Given an array of strings
 #
 # iterate through this array
@@ -119,9 +139,13 @@ p find_greatest([2, 6, 7, 44,5])
 #
 # PRINT result
 #
-# 3)a method that takes an array of integers, and returns a new array with every other element
+#
+# 3) a method that takes an array of integers, and returns a new array with every other element
 #
 # ***CASUAL***
+# input: array of integers
+# output: an array of integers
+# highlevel algorithm: add every odd element in the array
 # Given an array of integers
 
 # make a new array which will be the result
