@@ -206,3 +206,39 @@ p find_3rd_character(str, char)
 # array should becoome the elements at the odd indexes. For instance:
 # merge([1, 2, 3], [4, 5, 6]) # => [1, 4, 2, 5, 3, 6]
 # You may assume that both array arguments have the same number of elements.
+
+# ***CASUAL***
+# input: 2 arrays of numbers
+# output: the result of merging of the 2 arrays, elements of the 1st array should become
+# elements at the even indexes of the returned array
+# elements of the 2nd array should become the elements at the odd indexes
+# example: merge([1, 2, 3], [4, 5, 6]) # => [1, 4, 2, 5, 3, 6]
+# algorithm:
+# - create a result array
+# - iterate through both the arrays
+# - add all elements from the 2nd array to the indexes on the result array which are odd
+# - add all elements from the 1st array to the indexes of the result array that are even
+# - return the result array
+
+puts "merge method:"
+def merge(arr1, arr2)
+  i = 0
+  result = []
+  k = 0
+  j = 0
+  while i < arr1.size
+    result[k] = arr1[i]
+    i += 1
+    k += 1
+
+    result[k] = arr2[j]
+    j += 1
+    k += 1
+  end
+
+  result
+end
+
+arr1 = [1, 2, 3]
+arr2 = [4, 5, 6]
+p merge(arr1, arr2)
