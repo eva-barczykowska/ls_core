@@ -72,7 +72,7 @@ def find_greatest(numbers)
 end
 p find_greatest([2, 6, 7, 44,5])
 
-# ***EXERCISES***
+# ***************************************EXERCISES*******************************************************
 
 # remarks from Srđan Ćorić
 # - include input and output
@@ -86,7 +86,8 @@ p find_greatest([2, 6, 7, 44,5])
 
 
 # Write in pseudo-code(both casual and formal):
-# 1) a method that returns the sum of two integers
+
+# ------ 1) a method that returns the sum of two integers
 
 # ***CASUAL***
 # input: 2 integers
@@ -98,8 +99,8 @@ p find_greatest([2, 6, 7, 44,5])
 # save the result to a variable
 #
 # return the result
-#
-#
+
+
 # ***FORMAL***
 # START
 #
@@ -111,7 +112,7 @@ p find_greatest([2, 6, 7, 44,5])
 #
 # END
 
-# 2)a method that takes an array of strings, and returns a string that is all those strings concatenated together
+# ------- 2)a method that takes an array of strings, and returns a string that is all those strings concatenated together
 
 # ***CASUAL***
 
@@ -126,7 +127,7 @@ p find_greatest([2, 6, 7, 44,5])
 # save the result a a new variable
 #
 # return that variable
-#
+
 # ***FORMAL***
 # START
 #
@@ -139,21 +140,21 @@ p find_greatest([2, 6, 7, 44,5])
 #
 # PRINT result
 #
-#
-# 3) a method that takes an array of integers, and returns a new array with every other element
+
+# ------- 3) a method that takes an array of integers, and returns a new array with every other element
 #
 # ***CASUAL***
 # input: array of integers
 # output: an array of integers
 # highlevel algorithm: add every odd element in the array
 # Given an array of integers
-
+#
 # make a new array which will be the result
 # iterate over the array
 # add to the result array the first element and skip the next. Like this proceed until the last element of the array
 #
 # print the result
-#
+
 # ***FORMAL***
 # START
 #
@@ -168,3 +169,40 @@ p find_greatest([2, 6, 7, 44,5])
 # return the result
 #
 # END
+#
+# ------- 4) a method that determines the index of the 3rd occurrence of a given
+# character in a string. For instance, if the given character is 'x' and the string
+# is 'axbxcdxex', the method should return 6 (the index of the 3rd 'x').
+# If the given character does not occur at least 3 times, return nil.
+
+# ***CASUAL***
+# input: string
+# output: integer
+# goal: return the index of the 3rd occurrence of a given character in a string
+# algorithm:
+# - determine if a given character occurs at least 3 times (count method)
+# - if it does not occur at least 3 times, return nil
+# - if it does occur at least 3 times, iterate through a string
+# - find all occurences of the character
+# - determine which is the 3rd occurence
+# return the index for the 3rd occurence of that character
+
+def find_3rd_character(str, character)
+  how_many = str.count(character)
+  if how_many < 3
+    return nil
+  else
+    occurences = (0 ... str.length).find_all { |index| str[index] == 'x' }
+  end
+  occurences[2]
+end
+
+str = 'axbxcdxex'
+char = 'x'
+p find_3rd_character(str, char)
+# ------- 5) a method that takes two arrays of numbers and returns the result of
+# merging the arrays. The elements of the first array should become the elements
+# at the even indexes of the returned array, while the elements of the second
+# array should becoome the elements at the odd indexes. For instance:
+# merge([1, 2, 3], [4, 5, 6]) # => [1, 4, 2, 5, 3, 6]
+# You may assume that both array arguments have the same number of elements.
