@@ -10,7 +10,7 @@
 #
 # After iterating through the collection, return the saved value.
 
-arr = [2, 4, 5, 3, 8, 44,22, 9, 9]
+arr = [2, 4, 5, 3, 8, 44, 22, 9, 9]
 
 def find_greatest(array)
   saved_number = arr[0]
@@ -21,6 +21,22 @@ def find_greatest(array)
     else
       saved_number = number
     end
+  end
+  saved_number
+end
 
-   saved_number
- end
+p find_greatest(arr)
+
+
+# rubocop style corrections implemented, it is less lines but also less clear for me to read at this point
+
+def find_greatest(array)
+  saved_number = arr[0]
+
+  arr.each do |number|
+    next if saved_number >= number
+
+    saved_number = number
+  end
+  saved_number
+end
