@@ -7,10 +7,10 @@
 # Kernel.puts(answer)
 
 def prompt message
-  Kernel.puts"=> #{message}"
+  Kernel.puts "=> #{message}"
 end
 
-def valid_number?num
+def valid_number? num
   num.to_i != 0
 end
 
@@ -42,19 +42,19 @@ end
 loop do
   number1 = ''
   loop do
-    prompt"What's the first number?"
+    prompt "What's the first number?"
     number1 = Kernel.gets.chomp
 
     if valid_number? number1
       break
     else
-      prompt"Hmmm. This does not look like a valid number..."
+      prompt "Hmmm. This does not look like a valid number..."
     end
   end
 
   number2 = ''
   loop do
-    prompt"What's the second number?"
+    prompt "What's the second number?"
     number2 = Kernel.gets.chomp
 
     if valid_number? number2
@@ -82,7 +82,7 @@ loop do
   end
 end
 
-prompt"#{operation_to_message(operator)} the two numbers"
+prompt "#{operation_to_message(operator)} the two numbers"
 
   result = case operator
            when '1'
