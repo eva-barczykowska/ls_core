@@ -5,8 +5,8 @@
 # - use a range
 # - print odd numbers from the range
 
-range = (1..100)
-range = range.to_a.each { |element| puts element if element.odd? }
+# range = (1..100)
+# range = range.to_a.each { |element| puts element if element.odd? }
 #
 # ls solution
 #
@@ -31,3 +31,7 @@ range = range.to_a.each { |element| puts element if element.odd? }
 #   puts counter if counter.odd?
 #   counter += 1
 # end
+
+#other solutions I liked:
+puts (1..99).to_a.select(&:odd?)
+(1..99).step(2) { |x| puts x }
