@@ -8,8 +8,9 @@
 # algorithm:
 # - get input for every number
 # - change it to integer using .to_i method
-# - build an array from all the integers
-# - iterate over the whole array and see if any of the elements == num_6
+# - build an array from all the integers minus the last one
+# - iterate over the whole array and see if any of the first five elements
+# elements == num_6
 
 numbers = []
 puts "==> Enter the 1st number:"
@@ -26,7 +27,7 @@ puts "==> Enter the last number:"
 last_number = gets.chomp.to_i
 
 numbers << num1 << num2 << num3 << num4 << num5
-# remove_last_number = numbers.pop
+
 if numbers.any? { |number| number == last_number }
   puts "The number #{last_number} appears in #{numbers}."
 else
@@ -61,3 +62,25 @@ end
 # ==> Enter the last number:
 # 18
 # The number 18 does not appear in [25, 15, 20, 17, 23].
+
+# ls solution:
+numbers = []
+
+puts "Enter the 1st number:"
+numbers << gets.chomp.to_i
+puts "Enter the 2nd number:"
+numbers << gets.chomp.to_i
+puts "Enter the 3rd number:"
+numbers << gets.chomp.to_i
+puts "Enter the 4th number:"
+numbers << gets.chomp.to_i
+puts "Enter the 5th number:"
+numbers << gets.chomp.to_i
+puts "Enter the last number:"
+last_number = gets.chomp.to_i
+
+if numbers.include? last_number
+  puts "The number #{last_number} appears in #{numbers}."
+else
+  puts "The number #{last_number} does not appear in #{numbers}."
+end
