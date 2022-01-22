@@ -24,7 +24,49 @@ def oddities(arr)
       res << element
     end
   end
- res
+  res
+end
+
+p oddities([2, 3, 4, 5, 6]) == [2, 4, 6]
+p oddities([1, 2, 3, 4, 5, 6]) == [1, 3, 5]
+p oddities(['abc', 'def']) == ['abc']
+p oddities([123]) == [123]
+p oddities([]) == []
+
+# ls solution:
+def oddities(array)
+  odd_elements = []
+  index = 0
+  while index < array.size
+    odd_elements << array[index]
+    index += 2
+  end
+  odd_elements
+end
+
+# Further Exploration
+# Write a companion method that returns the 2nd, 4th, 6th, and so on elements
+# of an array.
+# Try to solve this exercise in at least 2 additional ways.
+
+def oddities(arr)
+  res = []
+  arr.each_with_index do |element, index|
+    if index.odd?
+      res << element
+    end
+  end
+  res
+end
+
+p oddities([2, 3, 4, 5, 6]) == [3, 5]
+p oddities([1, 2, 3, 4, 5, 6]) == [2, 4, 6]
+p oddities(['abc', 'def']) == ['def']
+p oddities([123]) == []
+p oddities([]) == []
+
+def oddities(arr)
+  arr.select.with_index { |element| arr.index(element).even? }
 end
 
 p oddities([2, 3, 4, 5, 6]) == [2, 4, 6]
