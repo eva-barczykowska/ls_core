@@ -74,3 +74,14 @@ p oddities([1, 2, 3, 4, 5, 6]) == [1, 3, 5]
 p oddities(['abc', 'def']) == ['abc']
 p oddities([123]) == [123]
 p oddities([]) == []
+
+### Further Exploration
+# 1)
+def oddities(array)
+  array.delete_if { |ele| array.index(ele).odd? }
+end
+
+# 2)
+def oddities(array)
+  array.keep_if { |ele| array.index(ele).even? }
+end
