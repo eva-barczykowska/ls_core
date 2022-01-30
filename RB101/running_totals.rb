@@ -13,13 +13,24 @@
 #  Output: array
 #
 #  Algorithm:
-# -build a new result array into which you add
-# -first element of the array argument
-# -then the subsequent sum of current element(starting with the first)
-#  and next
-# -when elements are finished, also add the sum of all elements from the 1st array
+# -define result
+# -define current total
+# -look at the 1st element of the array and add it with the 2nd, this is now
+# your current total
+# -then add next element to your current total and so on until the end
+# -return the result
 
-running_total([2, 5, 13]) == [2, 7, 20]
-running_total([14, 11, 7, 15, 20]) == [14, 25, 32, 47, 67]
-running_total([3]) == [3]
-running_total([]) == []
+def running_total(array)
+  result = []
+  current_total = 0
+  array.each do |elem|
+    current_total = current_total + elem
+    result << current_total
+  end
+  result
+end
+
+p running_total([2, 5, 13]) == [2, 7, 20]
+p running_total([14, 11, 7, 15, 20]) == [14, 25, 32, 47, 67]
+p running_total([3]) == [3]
+p running_total([]) == []
