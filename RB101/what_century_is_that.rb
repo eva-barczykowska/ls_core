@@ -62,3 +62,30 @@ p century(11201) == '113th'
 # check. If the century's value mod 100 ends in either 11, 12, or 13, then we
 # should return 'th'. Any other time, we can return a suffix determined by our
 # case statement and the value of century % 10.
+
+# other people solutions:
+def century(year)
+  ary = year.divmod(100)
+
+  if ary.last == 0
+    temp = ary.first
+  elsif ary.last >= 1
+    temp = ary.first + 1
+  end
+
+  temp = temp.to_s
+  return temp << 'th' if temp.end_with?('0', '11', '12', '13')
+  return temp << 'st' if temp.end_with?('1')
+  return temp << 'nd' if temp.end_with?('2')
+  return temp << 'rd' if temp.end_with?('3')
+end
+
+p century(2000) == '20th'
+p century(2001) == '21st'
+p century(1965) == '20th'
+p century(256) == '3rd'
+p century(5) == '1st'
+p century(10103) == '102nd'
+p century(1052) == '11th'
+p century(1127) == '12th'
+p century(11201) == '113th'
