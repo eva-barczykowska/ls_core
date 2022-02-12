@@ -6,6 +6,34 @@
 # the string will always contain at least one word. You may also assume that
 # each string contains nothing but words and spaces
 
+#  Explicit requirement
+# -a method
+# -takes a string as an input
+# -returns a string
+# -in that string, first and last letters of every word are swapped
+# -every word has at least 1 character
+# -only words and spaces
+
+# Data structures:
+# input: string
+# output: string
+
+# Algorithm
+# -split the string, you get an array
+# -look at every word in the array
+# -take its first letter and last letter
+# -swap them
+# -return the string
+# -result variable where I append << the changed word?
+
+# IMPORTANT CONCEPT
+# # str[0], str[-1] = str[-1], str[0]
+#
+# str = 'what'
+# tmp = str[0] #-> 'what'
+# str[0] = str[-1] #-> 'that'
+# str[-1] = tmp #-> 'thaw'
+
 def swap(str)
   result = []
   array = str.split
