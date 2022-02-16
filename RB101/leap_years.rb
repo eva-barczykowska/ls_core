@@ -13,36 +13,21 @@
 # leap year - each year divisible by 4
 # but NOT if it is evenly divisible by 4 and 100
 # unless it's evenly divisible by 4 and 100 and 400 then it's a leap year.
-# #
-# # Data structures:
-# # -input: integer
-# # -output: boolean
-# #
-# # # Algorithm:
-# verify if the year is divisible by 4
-# check if it's divisible by 100 as well
-# check if it's divisible by 400 as well
-# by 4 yes
-# by 4 and by 100 no
-# by 4, 100 and 400 yes
-
-def divisible_by_four(number)
-  number % 4 == 0
-end
-
-def divisible_by_four_and_a_hundred(number)
-  number % 4 == 0 && number % 100 == 0
-end
-
-def divisible_by_four_hundred(number)
-  number % 400 == 0
-end
+#
+# Data structures:
+# -input: integer
+# -output: boolean
+#
+# # Algorithm:
+# verify if the year is evenly divisible by 4 and 400
+# return true if yes
+# check if the year is divisible by 4 and return true if yes
 
 def leap_year?(year)
-  if divisible_by_four(year) && divisible_by_four_and_a_hundred(year) && divisible_by_four_hundred(year)
-    return true
-  else
-    return false
+  if year % 4 == 0 && year % 400 == 0
+    true
+  elsif year % 4 == 0
+    true
   end
 end
 
