@@ -68,7 +68,8 @@ p center_of('x') == 'x'
 #
 # The first step is to determine the index of the centermost character in the
 # string. This is easy for odd-length strings: the center point of a 5 character
-# string, for instance, is the 3rd character, or index 2. For even-length strings,
+# string, for instance, is the 3rd character, or index 2. For even-length
+# strings,
 # things are slightly more complicated: we need the index of two characters,
 # the character to the left of the centerpoint, and the character to the right.
 # For a 4 character string, these are the 2nd and 3rd characters, or
