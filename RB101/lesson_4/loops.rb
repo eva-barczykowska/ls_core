@@ -245,3 +245,122 @@ end
 # counter
 # way to retrieve the current value
 # way to exit the loop
+puts
+#*******************************************************************************
+# notes from the Ruby book
+
+# useful_loop.rb
+
+i = 0
+loop do
+  i += 1
+  puts i
+  break  # this will cause execution to exit the loop
+end
+
+# Let's look at adding conditions within a loop by printing all even numbers
+# from 0 up to 10. Let's create a file named conditional_loop.rb
+
+# conditional_loop.rb
+
+i = 0
+loop do
+  i += 2
+  puts i
+  if i == 10 #this could be also just 1 line
+    break # this will cause execution to exit the loop
+  end
+end
+
+puts
+# next_loop.rb
+
+i = 0
+loop do
+  i += 1
+  if i == 4
+    next # skip rest of the code in this iteration
+  end
+  puts i
+  if i == 10
+    break
+  end
+end
+
+puts
+
+# as with any other block, the block that follows loop introduces a new scope
+# variables initialized in the innder scope are not accessible in the outer scope
+
+loop do
+  x = 42
+  break
+end
+
+# p x # will throw an error
+
+puts
+
+# but we can access the variable declared in the outer scope and even change
+# its value
+
+x = 42
+loop do
+  puts x  # Prints 42 -- x is in scope inside the block
+  x = 155 # We can even change the value of x
+  break
+end
+
+p x  # 155 -- the value was changed
+
+puts
+
+# WHILE loops
+
+# countdown.rb
+
+# x = gets.chomp.to_i
+#
+# while x >= 0
+#   puts x
+#   x = x - 1
+# end
+#
+# puts "Done!"
+
+puts
+
+# contrary to loop, while, until and for ARE NOT IMPLEMENTED AS METHODS.
+# so they don't have their own scope
+
+counter = 0
+while counter < 5
+  y = counter * counter
+  counter += 1
+end
+
+p y # even though y is initialized in the body of the while loop, it's still in scope after the loop finishes running.
+
+puts
+
+# UNTIL loop, which is the opposite of WHILE
+# countdown.rb
+
+# x = gets.chomp.to_i
+#
+# until x < 0
+#   puts x
+#   x -= 1
+# end
+#
+# puts "Done!"
+
+# DO...WHILE
+# Ruby doesn't have an inbuild do...while condition but we can emulate this kind
+# of loop using loop and break
+
+loop do
+  puts "Do you want to play again?"
+  answer = gets.chomp
+  break if answer != 'Y'
+end
