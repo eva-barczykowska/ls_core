@@ -145,21 +145,49 @@ p min_age
 
 puts "*************************************************************************"
 
-LOOP OVER THIS ==========================
-ages = { "Herman" => 32, "Lily" => 30, "Grandpa" => 5843, "Eddie" => 10, "Marilyn" => 22, "Spot" => 237 }
+# 5.
+# Find the index of the first name that starts with "Be"
 
-hash_keys = ages.keys
-hash_values = ages.values
+flintstones = %w(Fred Barney Wilma Betty BamBam Pebbles)
+flintstones.each do |elem|
+  first_two_characters = elem[0..1]
+  if first_two_characters == 'Be'
+    print elem
+    break
+  end
+end
 
-youngest = {}
+puts "*************************************************************************"
+
+flintstones = %w(Fred Barney Wilma Betty BamBam Pebbles)
 counter = 0
 
 loop do
-  current_person = hash_keys[counter]
-  current_age = ages[current_person]
-
-  if current_age ==
+  current_flintstone = flintstones[counter]
+  if current_flintstone[0..1] == "Be"
+    p current_flintstone
+    break
+  else
+    counter += 1
+  end
 end
 
-p "here"
-p youngest
+puts "*************************************************************************"
+
+flintstones = %w(Fred Barney Wilma Betty BamBam Pebbles)
+flintstones.index { |name| name[0, 2] == "Be" }
+
+puts "*************************************************************************"
+
+# 6.
+# Amend this array so that the names are all shortened to
+# just the first three characters:
+
+flintstones = %w(Fred Barney Wilma Betty BamBam Pebbles)
+
+transformed = flintstones.map!{ |name| name[0..1] }
+p transformed
+
+puts "*************************************************************************"
+
+# 7.
