@@ -191,3 +191,53 @@ p transformed
 puts "*************************************************************************"
 
 # 7.
+# Create a hash that expresses the frequency with which
+# each letter occurs in this string:
+# Are we supposed to differentiate between capital letters and lower case letters?
+
+statement = "The Flintstones Rock"
+statement = statement.delete(" \t\r\n").downcase
+
+# Example outcome: { "F"=>1, "R"=>1, "T"=>1, "c"=>1, "e"=>2, ... }
+
+counter = 0
+result = Hash.new(0)
+
+loop do
+  break if counter == statement.size
+  current_character = statement[counter]
+  p current_character
+  if result.key?(current_character)
+    result[current_character] += 1
+  else
+    result[current_character] = 1
+  end
+  counter += 1
+end
+
+p result
+
+puts "*************************************************************************"
+
+statement = "The Flintstones Rock"
+
+res = {}
+statement = statement.delete(" \t\r\n").downcase.chars
+
+statement.each do |char|
+  res[char] = statement.count(char)
+end
+
+p res
+
+puts "*************************************************************************"
+
+result = {}
+letters = ('A'..'Z').to_a + ('a'..'z').to_a
+
+letters.each do |letter|
+  letter_frequency = statement.count(letter)
+  result[letter] = letter_frequency if letter_frequency > 0
+end
+
+# 8.
