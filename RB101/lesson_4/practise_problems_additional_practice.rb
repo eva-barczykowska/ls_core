@@ -241,3 +241,129 @@ letters.each do |letter|
 end
 
 # 8.
+
+# What happens when we modify an array while we are iterating over it?
+# What would be output by this code?
+
+numbers = [1, 2, 3, 4]
+numbers.each do |number|
+  p number
+  numbers.shift(1)
+end
+
+puts "*************************************************************************"
+puts "debugging"
+# for debugging
+
+numbers = [1, 2, 3, 4]
+numbers.each_with_index do |number, index|
+  p "#{index}  #{numbers.inspect}  #{number}"
+  numbers.shift(1)
+end
+
+# From this we see that our array is being changed as we go
+# (shortened and shifted), and the loop counter used by
+# #each is compared against the current length of the array rather than
+# its original length.
+#
+# In our first example, the removal of the first item in the first pass changes
+# the value found for the second pass.
+#
+# In our second example, we are shortening the array each pass just as in the
+# first example...but the items removed are beyond the point we are sampling
+# from in the abbreviated loop.
+#
+# In both cases we see that iterators DO NOT work on a copy of the original array
+# or from stale meta-data (length) about the array. They operate on the original
+# array in real time.
+
+puts "*************************************************************************"
+
+numbers = [1, 2, 3, 4]
+numbers.each do |number|
+  p number
+  numbers.pop(1)
+end
+
+puts "*************************************************************************"
+
+# 9.
+# As we have seen previously we can use some built-in string methods to change
+# the case of a string. A notably missing method is something provided in Rails,
+# but not in Ruby itself...titleize. This method in Ruby on Rails creates
+# a string that has each word capitalized as it would be in a title.
+# For example, the string:
+
+words = "the flintstones rock"
+words = words.split.each do |word|
+  word.capitalize!
+end
+
+p words.join(" ")
+
+puts "*************************************************************************"
+
+words = "the flintstones rock"
+words = words.split.map{ |word| word.capitalize }.join(" ")
+p words
+
+puts "*************************************************************************"
+
+# 10.
+
+# Modify the hash such that each member of the Munster family has an additional
+# "age_group" key that has one of three values describing the age group the family
+# member is in (kid, adult, or senior). Your solution should produce the hash below
+# Note: a kid is in the age range 0 - 17, an adult is in the range 18 - 64 and a senior is aged 65+.
+munsters = {
+  "Herman" => { "age" => 32, "gender" => "male" },
+  "Lily" => { "age" => 30, "gender" => "female" },
+  "Grandpa" => { "age" => 402, "gender" => "male" },
+  "Eddie" => { "age" => 10, "gender" => "male" },
+  "Marilyn" => { "age" => 23, "gender" => "female"}
+}
+
+# this should be the output
+{ "Herman" => { "age" => 32, "gender" => "male", "age_group" => "adult" },
+  "Lily" => {"age" => 30, "gender" => "female", "age_group" => "adult" },
+  "Grandpa" => { "age" => 402, "gender" => "male", "age_group" => "senior" },
+  "Eddie" => { "age" => 10, "gender" => "male", "age_group" => "kid" },
+  "Marilyn" => { "age" => 23, "gender" => "female", "age_group" => "adult" } }
+
+munster_names = munsters.keys
+munster_data = munsters.values
+
+counter = 0
+loop do
+  break if counter == munsters.size
+  current_munster = munster_names[counter]
+  current_munster_data = munsters[current_munster]
+  age = current_munster_data["age"] #grabbing the age from the hash in the muster_data array
+  case age
+  when 0..17
+    current_munster_data[:age_group] = "kid"
+  when 18..64
+    current_munster_data[:age_group] = "adult"
+  else
+    current_munster_data[:age_group] = "adult"
+  end
+  counter += 1
+end
+
+p munsters
+
+puts "*************************************************************************"
+
+# ls solution, which is shorter
+# I used loop but this is shorter and cleaner looking done with .each
+
+munsters.each do |name, details|
+  case details["age"]
+  when 0...18
+    details["age_group"] = "kid"
+  when 18...65
+    details["age_group"] = "adult"
+  else
+    details["age_group"] = "senior"
+  end
+end
