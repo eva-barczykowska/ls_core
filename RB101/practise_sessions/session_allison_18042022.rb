@@ -51,9 +51,8 @@ p my_arr_two
 # Inside the outer invocation of `map` there is a second, inner invocation of
 # `map` on `line 32`. This inner `map` is invoked on the current value of
 # `arr`. The inner invocation of `map` takes `num` as its block parameter.
-# Each time `map` is invoked, `num` will reference subsequent values in the
-# inner arrays that are defined in the top-level array
-# on `line 31`, `[[1, 2], [3, 4]]`.
+# When `map` is invoked on `arr`, each element from the array is in turn
+# assigned to the block parameter `num`.
 
 # When inner `map` method is called, we will multiply the current value of
 # `num` by `2` on `line 14`. Because Ruby returns the last evaluated value in a
@@ -66,8 +65,8 @@ p my_arr_two
 
 # For the outer `map` that is the return value of its block, so it will take it
 # and transform the original array accordingly.
-# So the outer `map` invocation will take these returned arrays and create a new
-# array from them, returning the array `[[2, 4], [3, 8]]` and storing
-# it  in the local variable `my_arr_two`.
+# So the local variable `my_arr_two` now points to return value of the
+# outer map method, which transformed the original array according to the
+# return value of the block, to [[2, 4] , [3, 8]].
 
 # There are no side effects in this code.
