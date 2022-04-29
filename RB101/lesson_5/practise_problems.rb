@@ -5,7 +5,7 @@
 
 arr = ['10', '11', '9', '7', '8']
 
-arr.map do |a, b|
+arr.sort do |a, b|
   b.to_i <=> a.to_i
 end
 
@@ -22,13 +22,9 @@ books = [
   {title: 'Ulysses', author: 'James Joyce', published: '1922'}
 ]
 
-# access the key published:
-# convert it to an integer
-# order it from the eaerliest
-
-p books[0][:published].to_i
-
-# books.sort_by |hash|
+books.sort_by do |hash|
+  hash[:published]
+end
 
 puts "************************************************************************"
 
@@ -45,6 +41,16 @@ arr3 = [['abc'], ['def'], {third: ['ghi']}]
 hsh1 = {'a' => ['d', 'e'], 'b' => ['f', 'g'], 'c' => ['h', 'i']}
 
 hsh2 = {first: {'d' => 3}, second: {'e' => 2, 'f' => 1}, third: {'g' => 0}}
+
+p arr1[2][1][3]
+
+p arr2[1][:third][0]
+
+p arr3[2][:third][0][0]
+
+p hsh1['b'][1]
+
+p hsh2[:third].keys[0]
 
 puts "************************************************************************"
 
