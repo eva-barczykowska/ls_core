@@ -66,8 +66,19 @@ hsh1 = {first: [1, 2, [3]]}
 
 hsh2 = {['a'] => {a: ['1', :two, 3], b: 4}, 'b' => 5}
 
-puts "************************************************************************"
+arr1[1][1] = 4
+p arr1
 
+arr2[2] = 4
+p arr2
+
+hsh1[:first][2] = 4
+p hsh1
+
+hsh2[['a']][:a][2] = 4 # this was interesting, I need to put [[]], double square braces, one for the key, and one because they key is an array
+p hsh2
+
+puts "************************************************************************"
 # Practice Problem 5
 
 # Figure out the total age of just the male members of the family.
@@ -79,6 +90,23 @@ munsters = {
   "Eddie" => { "age" => 10, "gender" => "male" },
   "Marilyn" => { "age" => 23, "gender" => "female"}
 }
+age = []
+munsters.each do |munster|
+  munster.each do |name|
+    age << name["age"] if name["gender"] == "male"
+  end
+  age
+end
+p age.inject(:+)
+
+# ls solution
+
+total_male_age = 0 # remember to define this variable first and make it reference an integer 0
+munsters.each do |name, details|
+  total_male_age += details["age"] if details["gender"] == "male"
+end
+
+p total_male_age
 
 puts "************************************************************************"
 
@@ -101,7 +129,9 @@ munsters = {
   "Marilyn" => { "age" => 23, "gender" => "female"}
 }
 
-
+munsters.each do |munster, details| # if it's a hash, it can have 2 block parameters, for key but also for value
+  p "#{munster} is a #{details["age"]}-year-old #{details["gender"]}" # that's how we grab a part of the value
+end
 puts "************************************************************************"
 
 # Practice Problem 7
@@ -115,6 +145,14 @@ arr = [a, b]
 
 arr[0] += 2
 arr[1][0] -= a
+
+# p a
+# p arr
+
+a = 2
+b = [3, 8]
+
+puts "************************************************************************"
 
 # Practice Problem 8
 
