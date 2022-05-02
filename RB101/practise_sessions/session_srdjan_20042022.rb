@@ -1,6 +1,23 @@
 # Given integer array nums, return the third largest number in this array. If the third largest number does not exist, return the largest number..
 # You are not allowed to sort the array
 
+def third_max(array)
+  elements = array.uniq
+
+  3.times do |n|
+    index = 0
+    while index < (elements.size - 1 - n)
+      if elements[index] > elements[index + 1]
+        elements[index], elements[index + 1] = elements[index + 1], elements[index]
+      end
+      index += 1
+    end
+  end
+  elements[-3] ? elements[-3] : elements[-1]
+
+end
+
+
 # p third_max([3,2,1]) == 1
 # p third_max([1,2]) == 2
 # p third_max([2,2,3,1]) == 1
@@ -12,9 +29,24 @@
 
 # You can asume there is never an empty array and there will always be an integer.
 
-# p sum_consecutives([1,4,4,4,0,4,3,3,1, 1]) == [1,12,0,4,6,2]
-# p sum_consecutives([1,1,7,7,3]) == [2,14,3]
-# p sum_consecutives([-5,-5,7,7,12,0]) ==  [-10,14,12,0]
+def sum_consecutives(array)
+  result = []
+  result << array[0]
+  index = 1
+  while index < array.size
+    if array[index] == array[index - 1]
+      result[-1] += array[index]
+    else
+      result << array[index]
+    end
+  index += 1
+  end
+  result
+end
+
+p sum_consecutives([1,4,4,4,0,4,3,3,1, 1]) == [1,12,0,4,6,2]
+p sum_consecutives([1,1,7,7,3]) == [2,14,3]
+p sum_consecutives([-5,-5,7,7,12,0]) ==  [-10,14,12,0]
 
 # 25 min each
 
@@ -43,8 +75,9 @@ puts var
 # but not vice versa.
 # `line 37` will output 'cat' because this variable is defined but `line 38`
 # will produce `undefined variable or method` error because the variable `var`
-# is define in in inner scope (defined by the block), and therefore
+# is defined in in inner scope (defined by the block), and therefore
 # not accessible outside the block.
+The block takes a block parameter `_`, which is convention for a block parameter which isn't used.
 
 def test(str)
   str += "!!!"
