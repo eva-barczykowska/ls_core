@@ -161,9 +161,40 @@ puts "************************************************************************"
 
 hsh = {first: ['the', 'quick'], second: ['brown', 'fox'], third: ['jumped'], fourth: ['over', 'the', 'lazy', 'dog']}
 
-hsh.each do |key, value|
-  p value
+result = []
+hsh.each do |key, details|
+  details.each do |word|
+    result << word.delete("^aeiou")
+  end
 end
+p result
+p result.join("")
+
+puts "***"
+# ls solution - done by me after reading the 'hint' section
+
+VOWELS = 'aeiou'
+hsh.each do |key, value|
+  value.each do |word|
+    p word.chars.select { |char| VOWELS.include?(char) }
+  end
+end
+
+puts "***"
+
+# exact solution by ls
+
+vowels = 'aeiou'
+
+hsh.each do |_, value|  # we are not concerned by key and here it's expressed by "_" block parameter choice
+  value.each do |str|
+    str.chars.each do |char|
+      puts char if vowels.include?(char)
+    end
+  end
+end
+
+puts "************************************************************************"
 
 # Practice Problem 9
 
@@ -173,6 +204,15 @@ end
 
 arr = [['b', 'c', 'a'], [2, 1, 3], ['blue', 'black', 'green']]
 
+sorted_descending = arr.each do |sub_arr|
+  sub_arr.sort do |a, b|
+    b <=> a
+  end
+end
+
+p sorted_descending
+
+puts "************************************************************************"
 
 # Practice Problem 10
 
@@ -180,7 +220,16 @@ arr = [['b', 'c', 'a'], [2, 1, 3], ['blue', 'black', 'green']]
 # use the map method to return a new array identical in structure to the original
 # but where the value of each integer is incremented by 1.
 
-[{a: 1}, {b: 2, c: 3}, {d: 4, e: 5, f: 6}]
+arr = [{a: 1}, {b: 2, c: 3}, {d: 4, e: 5, f: 6}]
+
+arr = arr.map do |hash|
+  hash.map do |k, v|
+    hash[k] = v.next
+  end
+end
+
+p arr
+puts "************************************************************************"
 
 # Practice Problem 11
 
@@ -190,3 +239,7 @@ arr = [['b', 'c', 'a'], [2, 1, 3], ['blue', 'black', 'green']]
 # multiples of 3.
 
 arr = [[2], [3, 5, 7], [9], [11, 13, 15]]
+
+arr.select
+
+# add more problems, there are 15 in total
