@@ -239,7 +239,6 @@ puts "************************************************************************"
 # multiples of 3.
 
 arr = [[2], [3, 5, 7], [9], [11, 13, 15]]
-
-arr.select
+arr.
 
 # add more problems, there are 15 in total
