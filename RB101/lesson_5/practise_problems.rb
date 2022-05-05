@@ -229,6 +229,43 @@ arr = arr.map do |hash|
 end
 
 p arr
+
+# ls solution
+[{a: 1}, {b: 2, c: 3}, {d: 4, e: 5, f: 6}].map do |hsh|
+  incremented_hash = {} # define a new hash and add to it, then return it
+  hsh.each do |key, value|
+    incremented_hash[key] = value + 1
+  end
+  incremented_hash # returning the hash
+end
+# => [{:a=>2}, {:b=>3, :c=>4}, {:d=>5, :e=>6, :f=>7}]
+
+# Here map is iterating through the array. On each iteration it is creating
+# a new hash (incremented_hash) and then iterating through the hsh object for
+# that iteration in order to add key-value pairs to this hash using the original
+# keys but values incremented by 1. The outer block then returns this
+# incremented_hash to map which uses it to transform each element in the array.
+#
+# When approaching problems like this there is often more than one way to solve
+# them. Here is a solution to the same problem using each_with_object instead of map.
+
+# same solution but using #each_with_object
+
+[{a: 1}, {b: 2, c: 3}, {d: 4, e: 5, f: 6}].each_with_object([]) do |hsh, arr|
+  incremented_hash = {}
+  hsh.each do |key, value|
+    incremented_hash[key] = value + 1
+  end
+  arr << incremented_hash
+end
+# => [{:a=>2}, {:b=>3, :c=>4}, {:d=>5, :e=>6, :f=>7}]
+
+# Sometimes a particular method will be more suited than another. Here map is
+# probably more suitable since we know it will return a new array in any case.
+# When deciding which method to use it is important to clearly understand the
+# method implementation, what arguments and blocks can be passed to it and its
+# return value.
+
 puts "************************************************************************"
 
 # Practice Problem 11
@@ -239,6 +276,138 @@ puts "************************************************************************"
 # multiples of 3.
 
 arr = [[2], [3, 5, 7], [9], [11, 13, 15]]
-arr.
+result = arr.map do |sub_arr|
+  sub_arr.select { |elem| elem % 3 == 0 }
+end
 
-# add more problems, there are 15 in total
+p result
+
+# ls solution
+arr.map do |element|
+  element.select do |num|
+    num % 3 == 0
+  end
+end
+# => [[], [3], [9], [15]]
+# We know that we want to return a new array, so map is a good choice to call on
+# the original array. Technically you could use either select or reject for the
+# nested arrays as both would work, however choosing to use select makes the code
+# a bit more readable. This is what the same solution would look like with reject:
+
+arr.map do |element|
+  element.reject do |num|
+    num % 3 != 0
+  end
+end
+# => [[], [3], [9], [15]]
+
+# Since the method rejects elements based on the truthiness of the evaluated
+# condition, combining reject with the != operator seems somewhat like a double
+# negative and is more difficult to parse than select combined with ==.
+
+puts "************************************************************************"
+
+# Practice Problem 12
+
+# Given the following data structure, and without using the Array#to_h method,
+# write some code that will return a hash where the key is the first item in
+# each sub array and the value is the second item.
+
+arr = [[:a, 1], ['b', 'two'], ['sea', {c: 3}], [{a: 1, b: 2, c: 3, d: 4}, 'D']]
+p arr
+# expected return value: {:a=>1, "b"=>"two", "sea"=>{:c=>3}, {:a=>1, :b=>2, :c=>3, :d=>4}=>"D"}
+p arr.to_h
+# take each array, first element is the key, second is the value
+
+# arr.each do |sub_arr|
+#   hsh = {}
+#   sub_arr.each do |first, last|
+#     hsh[first] = last
+#   end
+#   hsh
+# end
+# p hsh
+
+# this code prints this {{:a=>1, :b=>2, :c=>3, :d=>4}=>nil, "D"=>nil}
+# that's because it's using the last return value of the block, I need to push ALL values on the hash, not only the last one
+
+hsh = {}
+
+arr.each do |sub_arr|
+  hsh[sub_arr[0]] = sub_arr[-1]
+end
+
+p hsh
+
+# ls solution
+
+hsh = {}
+arr.each do |item|
+  hsh[item[0]] = item[1]
+end
+hsh # => {:a=>1, "b"=>"two", "sea"=>{:c=>3}, {:a=>1, :b=>2, :c=>3, :d=>4}=>"D"}
+
+# Although this task may at first seem complicated because the collection contains
+# different object types, sometimes nested three levels deep, you only really have
+# to work at the initial sub-level in order to reach a solution. Remember that
+#
+# any Ruby object can be a hash key and any Ruby object can be a hash value!!!
+
+puts "************************************************************************"
+
+# Practice Problem 13
+
+# Given the following data structure, return a new array containing the same
+# sub-arrays as the original but ordered logically by only taking into
+# consideration the odd numbers they contain.
+
+arr = [[1, 6, 9], [6, 1, 7], [1, 8, 3], [1, 5, 9]]
+
+# The sorted array should look like this:
+# [[1, 8, 3], [1, 5, 9], [6, 1, 7], [1, 6, 9]]
+
+puts "************************************************************************"
+
+# Practice Problem 14
+# Given this data structure write some code to return an array containing
+# the colors of the fruits and the sizes of the vegetables. The sizes should be
+# uppercase and the colors should be capitalized.
+
+hsh = {
+  'grape' => {type: 'fruit', colors: ['red', 'green'], size: 'small'},
+  'carrot' => {type: 'vegetable', colors: ['orange'], size: 'medium'},
+  'apple' => {type: 'fruit', colors: ['red', 'green'], size: 'medium'},
+  'apricot' => {type: 'fruit', colors: ['orange'], size: 'medium'},
+  'marrow' => {type: 'vegetable', colors: ['green'], size: 'large'},
+}
+
+# The return value should look like this:
+# [["Red", "Green"], "MEDIUM", ["Red", "Green"], ["Orange"], "LARGE"]
+
+puts "************************************************************************"
+
+# Practice Problem 15
+
+# Given this data structure write some code to return an array which contains
+# only the hashes where all the integers are even.
+
+arr = [{a: [1, 2, 3]}, {b: [2, 4, 6], c: [3, 6], d: [4]}, {e: [8], f: [6, 10]}]
+
+puts "************************************************************************"
+
+# Practice Problem 16
+
+# A UUID is a type of identifier often used as a way to uniquely identify items...
+# which may not all be created by the same system. That is, without any form of
+# synchronization, two or more separate computer systems can create new items and
+# label them with a UUID with no significant chance of stepping on each other's toes.
+#
+# It accomplishes this feat through massive randomization. The number of
+# possible UUID values is approximately 3.4 X 10E38.
+#
+# Each UUID consists of 32 hexadecimal characters, and is typically broken into 5
+# sections like this 8-4-4-4-12 and represented as a string.
+#
+# It looks like this: "f65c57f6-a6aa-17a8-faa1-a67f2dc9fa91"
+
+# Write a method that returns one UUID when called with no parameters.
