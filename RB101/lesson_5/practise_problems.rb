@@ -16,10 +16,10 @@ puts "************************************************************************"
 # each book, from the earliest to the latest?
 
 books = [
-  {title: 'One Hundred Years of Solitude', author: 'Gabriel Garcia Marquez', published: '1967'},
-  {title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', published: '1925'},
-  {title: 'War and Peace', author: 'Leo Tolstoy', published: '1869'},
-  {title: 'Ulysses', author: 'James Joyce', published: '1922'}
+  { title: 'One Hundred Years of Solitude', author: 'Gabriel Garcia Marquez', published: '1967' },
+  { title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', published: '1925' },
+  { title: 'War and Peace', author: 'Leo Tolstoy', published: '1869' },
+  { title: 'Ulysses', author: 'James Joyce', published: '1922' }
 ]
 
 books.sort_by do |hash|
@@ -34,13 +34,13 @@ puts "************************************************************************"
 
 arr1 = ['a', 'b', ['c', ['d', 'e', 'f', 'g']]]
 
-arr2 = [{first: ['a', 'b', 'c'], second: ['d', 'e', 'f']}, {third: ['g', 'h', 'i']}]
+arr2 = [{ first: ['a', 'b', 'c'], second: ['d', 'e', 'f'] }, { third: ['g', 'h', 'i'] }]
 
-arr3 = [['abc'], ['def'], {third: ['ghi']}]
+arr3 = [['abc'], ['def'], { third: ['ghi'] }]
 
 hsh1 = {'a' => ['d', 'e'], 'b' => ['f', 'g'], 'c' => ['h', 'i']}
 
-hsh2 = {first: {'d' => 3}, second: {'e' => 2, 'f' => 1}, third: {'g' => 0}}
+hsh2 = { first: { 'd' => 3 }, second: { 'e' => 2, 'f' => 1 }, third: { 'g' => 0 } }
 
 p arr1[2][1][3]
 
@@ -60,11 +60,11 @@ puts "************************************************************************"
 
 arr1 = [1, [2, 3], 4]
 
-arr2 = [{a: 1}, {b: 2, c: [7, 6, 5], d: 4}, 3]
+arr2 = [{ a: 1 }, { b: 2, c: [7, 6, 5], d: 4 }, 3]
 
-hsh1 = {first: [1, 2, [3]]}
+hsh1 = { first: [1, 2, [3]] }
 
-hsh2 = {['a'] => {a: ['1', :two, 3], b: 4}, 'b' => 5}
+hsh2 = { ['a'] => { a: ['1', :two, 3], b: 4 }, 'b' => 5 }
 
 arr1[1][1] = 4
 p arr1
@@ -88,7 +88,7 @@ munsters = {
   "Lily" => { "age" => 30, "gender" => "female" },
   "Grandpa" => { "age" => 402, "gender" => "male" },
   "Eddie" => { "age" => 10, "gender" => "male" },
-  "Marilyn" => { "age" => 23, "gender" => "female"}
+  "Marilyn" => { "age" => 23, "gender" => "female" }
 }
 age = []
 munsters.each do |munster|
@@ -251,7 +251,7 @@ end
 
 # same solution but using #each_with_object
 
-[{a: 1}, {b: 2, c: 3}, {d: 4, e: 5, f: 6}].each_with_object([]) do |hsh, arr|
+[{ a: 1 }, { b: 2, c: 3 }, { d: 4, e: 5, f: 6 }].each_with_object([]) do |hsh, arr|
   incremented_hash = {}
   hsh.each do |key, value|
     incremented_hash[key] = value + 1
@@ -362,9 +362,34 @@ puts "************************************************************************"
 # consideration the odd numbers they contain.
 
 arr = [[1, 6, 9], [6, 1, 7], [1, 8, 3], [1, 5, 9]]
+puts "Original array"
+p arr
+
+sorted_by_odd = arr.sort_by do |sub_arr| # first we use sort because this is our goal
+  sub_arr.select do |elem| # then we use select because we need to specify which integers should be sorted, we want only odd integers to be sorted
+    elem.odd? # this 1 line returns true or false, this is what we need for select, which returns a new array based on the truthiness of the block
+  end
+end
 
 # The sorted array should look like this:
-# [[1, 8, 3], [1, 5, 9], [6, 1, 7], [1, 6, 9]]
+puts "Expected result"
+p [[1, 8, 3], [1, 5, 9], [6, 1, 7], [1, 6, 9]]
+puts "Actual result - sorted by odd"
+p sorted_by_odd
+
+puts " "
+arr = [[1, 6, 9], [6, 1, 7], [1, 8, 3], [1, 5, 9]]
+puts "Original array"
+p arr
+puts "Actual result - sorted by even"
+
+sorted_by_even = arr.sort_by do |sub_arr|
+  sub_arr.select do |elem|
+    elem.even?
+  end
+end
+
+p sorted_by_even
 
 puts "************************************************************************"
 
@@ -374,15 +399,28 @@ puts "************************************************************************"
 # uppercase and the colors should be capitalized.
 
 hsh = {
-  'grape' => {type: 'fruit', colors: ['red', 'green'], size: 'small'},
-  'carrot' => {type: 'vegetable', colors: ['orange'], size: 'medium'},
-  'apple' => {type: 'fruit', colors: ['red', 'green'], size: 'medium'},
-  'apricot' => {type: 'fruit', colors: ['orange'], size: 'medium'},
-  'marrow' => {type: 'vegetable', colors: ['green'], size: 'large'},
+  'grape' => { type: 'fruit', colors: ['red', 'green'], size: 'small' },
+  'carrot' => { type: 'vegetable', colors: ['orange'], size: 'medium' },
+  'apple' => { type: 'fruit', colors: ['red', 'green'], size: 'medium' },
+  'apricot' => { type: 'fruit', colors: ['orange'], size: 'medium' },
+  'marrow' => { type: 'vegetable', colors: ['green'], size: 'large' }
 }
 
 # The return value should look like this:
 # [["Red", "Green"], "MEDIUM", ["Red", "Green"], ["Orange"], "LARGE"]
+
+p hsh
+p hsh['grape'][:colors].map(&:capitalize)
+p hsh['grape'][:size].upcase
+
+result = []
+result = hsh.select do |hash|
+  hash.select do |k, v|
+  result << hsh[k] = hsh[v] if hsh[k] == :colors
+end
+end
+
+p result
 
 puts "************************************************************************"
 
@@ -391,7 +429,18 @@ puts "************************************************************************"
 # Given this data structure write some code to return an array which contains
 # only the hashes where all the integers are even.
 
-arr = [{a: [1, 2, 3]}, {b: [2, 4, 6], c: [3, 6], d: [4]}, {e: [8], f: [6, 10]}]
+arr = [{ a: [1, 2, 3] }, { b: [2, 4, 6], c: [3, 6], d: [4] }, { e: [8], f: [6, 10] }]
+p arr
+
+only_even = arr.select do |hsh|
+  hsh.all? do |_, value|
+    value.all? do |num|
+      num.even?
+    end
+  end
+end
+
+p only_even
 
 puts "************************************************************************"
 
