@@ -40,6 +40,7 @@
 # puts
 
 # Further exploration:
+# 1.
 # Modify this method so it will truncate the message if it will be too wide
 # to fit inside a standard terminal window
 # (80 columns, including the sides of the box).
@@ -77,3 +78,6 @@ def print_in_box(phrase)
  end
 end
 print_in_box('Borders? I have never seen one. But I have heard they exist in the minds of other people.')
+
+# 2. For a real challenge, try word wrapping very long messages so they appear
+# on multiple lines, but still within a box.
