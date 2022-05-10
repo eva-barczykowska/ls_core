@@ -14,14 +14,12 @@ def third_max(array)
     end
   end
   elements[-3] ? elements[-3] : elements[-1]
-
 end
 
-
-# p third_max([3,2,1]) == 1
-# p third_max([1,2]) == 2
-# p third_max([2,2,3,1]) == 1
-# p third_max([1, 3, 4, 2, 2, 5, 6]) == 4
+p third_max([3,2,1]) == 1
+p third_max([1,2]) == 2
+p third_max([2,2,3,1]) == 1
+p third_max([1, 3, 4, 2, 2, 5, 6]) == 4
 
 # You are given an array which contains only integers (positive and negative).
 # Your job is to sum only the numbers that are the same and consecutive.
@@ -67,7 +65,7 @@ loop do |_|
 end
 
 puts animal
-puts var
+# puts var
 
 # The question here is what will be the output of `line 37` and `line 38`
 # This code illustrates the concept that variables initialized in the outer
@@ -77,7 +75,7 @@ puts var
 # will produce `undefined variable or method` error because the variable `var`
 # is defined in in inner scope (defined by the block), and therefore
 # not accessible outside the block.
-The block takes a block parameter `_`, which is convention for a block parameter which isn't used.
+# The block takes a block parameter `_`, which is convention for a block parameter which isn't used.
 
 def test(str)
   str += "!!!"
