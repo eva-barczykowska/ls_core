@@ -217,8 +217,8 @@ puts "************************************************************************"
 # Practice Problem 10
 
 # Given the following data structure and without modifying the original array,
-# use the map method to return a new array identical in structure to the original
-# but where the value of each integer is incremented by 1.
+# use the map method to return a new array identical in structure
+# to the original but where the value of each integer is incremented by 1.
 
 arr = [{a: 1}, {b: 2, c: 3}, {d: 4, e: 5, f: 6}]
 
@@ -413,15 +413,17 @@ p hsh
 p hsh['grape'][:colors].map(&:capitalize)
 p hsh['grape'][:size].upcase
 
-result = []
-result = hsh.select do |hash|
-  hash.select do |k, v|
-  result << hsh[k] = hsh[v] if hsh[k] == :colors
-end
+res = hsh.map do |_, value|
+  if value[:type] == 'fruit'
+    value[:colors].map do |color|
+      color.capitalize
+    end
+  elsif value[:type] == 'vegetable'
+    value[:size].upcase
+  end
 end
 
-p result
-
+p res
 puts "************************************************************************"
 
 # Practice Problem 15
@@ -440,23 +442,96 @@ only_even = arr.select do |hsh|
   end
 end
 
+p "only the hashes where all integers are even"
 p only_even
 
 puts "************************************************************************"
 
 # Practice Problem 16
 
-# A UUID is a type of identifier often used as a way to uniquely identify items...
+# A UUID is a type of identifier often used as a way to uniquely identify items,
 # which may not all be created by the same system. That is, without any form of
-# synchronization, two or more separate computer systems can create new items and
-# label them with a UUID with no significant chance of stepping on each other's toes.
-#
+# synchronization, two or more separate computer systems can create new items,
+# and label them with a UUID with no significant chance of stepping on each
+# other's toes.
+
 # It accomplishes this feat through massive randomization. The number of
 # possible UUID values is approximately 3.4 X 10E38.
 #
-# Each UUID consists of 32 hexadecimal characters, and is typically broken into 5
-# sections like this 8-4-4-4-12 and represented as a string.
+# Each UUID consists of 32 hexadecimal characters, and is typically broken into
+# 5 sections like this 8-4-4-4-12 and represented as a string.
 #
 # It looks like this: "f65c57f6-a6aa-17a8-faa1-a67f2dc9fa91"
 
 # Write a method that returns one UUID when called with no parameters.
+
+#Problem
+# I need to write a method.
+# Input is none.
+# Ouput is uuid number.
+# Uuid number consists of 32 hexadecimal characters.
+# The characters are in sets 8-4-4-4-12, divided by dashes.
+# The dashes are not part of the 32 numbers, they are extra.
+# So it's 32 characters plus 4 dashes altogether.
+# Hexadecimal characters are '0123456789abcdef'
+#
+# #Algorithm
+# initialize an empty uuid variable
+# initialize a variable which points to the hexadecimal characters
+# generate a random number from the hexadecimal characters
+# use a loop for generating the number
+# insert a dash after character 8, 12, 16 and 20.
+# return the uuid
+
+def generate_uuid
+  uuid = ''
+  hex = '0123456789abcdef'.chars
+  while uuid.size < 32
+    uuid << hex.sample
+  end
+  uuid = uuid.insert(8, '-')
+  uuid = uuid.insert(13, '-')
+  uuid = uuid.insert(18, '-')
+  uuid = uuid.insert(23, '-')
+  uuid
+end
+
+p generate_uuid
+
+# 2nd code, where I define the uuid as an array
+# I think it doesn't really matter how I define the uuid but if it is a string
+# I have less code to write because I don't need to join it in the end
+def generate_uuid
+  uuid = []
+  hex = '0123456789abcdef'.chars
+  while uuid.size < 32
+    uuid << hex.sample
+  end
+  uuid = uuid.insert(8, '-')
+  uuid = uuid.insert(13, '-')
+  uuid = uuid.insert(18, '-')
+  uuid = uuid.insert(23, '-')
+  uuid.join
+end
+
+p generate_uuid
+
+# ls solution
+
+def generate_UUID
+  characters = []
+  (0..9).each { |digit| characters << digit.to_s } # here I added digits to the characters array
+  ('a'..'f').each { |digit| characters << digit } # here I added letters to the characters array
+  p "characters"
+  p characters #now the array is not empty anymore, it contains all hexadecimal characters
+  uuid = "" #defining the resutl string
+  sections = [8, 4, 4, 4, 12] #defining sections to be able to use the method .each_with_index
+  sections.each_with_index do |section, index|
+    section.times { uuid += characters.sample }
+    uuid += '-' unless index >= sections.size - 1
+  end
+
+  uuid
+end
+
+p generate_UUID
