@@ -39,3 +39,31 @@ main-scoped local variable t. If we print t, it will output 'HELLO!'.
 This code demonstrates the concept of Variables as Pointers,
 specifically Pass by reference.
 26 min.
+
+
+
+
+
+
+
+
+
+a = "Hello"
+
+if a
+  puts "Hello is truthy"
+else
+  puts "Hello is falsey"
+end
+
+Line 1 initializes main-scoped local variable a to the String object 'Hello'.
+Lines 3 through 7 make up a conditional statement that will output
+"Hello is truthy" if the value of a is truthy and "Hello is falsey" if
+the value of a is false or nil.
+
+The code will output "Hello is truthy" because a is truthy. In Ruby everything
+is truthy except false and nil. The code will return nil because the last
+evaluated expression contains a call the the puts method and puts always returns
+nil.
+
+The concept demonstrated here is truthiness.
