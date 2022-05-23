@@ -55,8 +55,8 @@ def is_valid_walk(walk)
   walk = walk.sum.zero?
 end
 
-p is_valid_walk(['n', 's', 'n', 's', 'n', 's', 'n', 's', 'n', 's']) #== true
-p is_valid_walk(['w', 'e', 'w', 'e', 'w', 'e', 'w', 'e', 'w', 'e', 'w', 'e'])# == false
-p is_valid_walk(['n', 'w', 'e', 's']) #== false
-p is_valid_walk(['w']) #== false
-p is_valid_walk(['n', 'n', 'n', 's', 'n', 's', 'n', 's', 'n', 's']) #== false
+p is_valid_walk(['n', 's', 'n', 's', 'n', 's', 'n', 's', 'n', 's']) == true
+p is_valid_walk(['w', 'e', 'w', 'e', 'w', 'e', 'w', 'e', 'w', 'e', 'w', 'e']) == false
+p is_valid_walk(['n', 'w', 'e', 's']) == false
+p is_valid_walk(['w']) == false
+p is_valid_walk(['n', 'n', 'n', 's', 'n', 's', 'n', 's', 'n', 's']) == false
