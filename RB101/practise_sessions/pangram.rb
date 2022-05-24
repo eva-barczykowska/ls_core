@@ -408,3 +408,57 @@ Algorithm
 #
 # p kebabize('myCamelCasedString') == 'my-camel-cased-string'
 # p kebabize('myCamelHas3Humps') == 'my-camel-has-humps'
+
+############################################################
+# another way with validating the integer
+# the solution takes care only of getting getting rid of integers,
+# but does not account for other non-alphabet characters like for example '!'
+
+def kebabize(str)
+  result = []
+  str = str.chars.select { |char| char.to_i.to_s != char }
+  str.each do |char|
+    if char == char.upcase
+      result << "-"
+      result << char.downcase
+    else
+      result << char
+    end
+  end
+  result.join
+end
+
+p kebabize('myCamelCasedString') == 'my-camel-cased-string'
+p kebabize('myCamelHas3Humps') == 'my-camel-has-humps'
+p kebabize('myDogHas0Legs0') == 'my-dog-has-legs'
+p kebabize('myDogHas0Legs!') == 'my-dog-has-legs'
+
+puts ""
+puts "string after changing to integer and back to string will have the value 0 so it will be different than the original string"
+
+char = "m"
+p char
+char = char.to_i
+p char
+char = char.to_s
+p char
+
+puts ""
+puts "while integer after changing to string and back to integer will have its own previous value"
+
+num = 3
+p num
+num = num.to_s
+p num
+num = num.to_i
+p num
+
+puts ""
+puts "and if the integer is 0"
+
+num = 0
+p num
+num = num.to_s
+p num
+num = num.to_i
+p num
