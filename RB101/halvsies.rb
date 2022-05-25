@@ -64,3 +64,37 @@ p halvsies([1, 2, 3, 4]) == [[1, 2], [3, 4]]
 p halvsies([1, 5, 2, 4, 3]) == [[1, 5, 2], [4, 3]]
 p halvsies([5]) == [[5], []]
 p halvsies([]) == [[], []]
+
+puts ""
+# ls solution
+def halvsies(array)
+  middle = (array.size / 2.0).ceil
+  first_half = array.slice(0, middle)
+  second_half = array.slice(middle, array.size - middle)
+  [first_half, second_half]
+end
+p halvsies([1, 2, 3, 4]) == [[1, 2], [3, 4]]
+p halvsies([1, 5, 2, 4, 3]) == [[1, 5, 2], [4, 3]]
+p halvsies([5]) == [[5], []]
+p halvsies([]) == [[], []]
+
+puts ""
+#other people's solution
+def halvsies(orig_array)
+  sub_1_arr = []
+  sub_2_arr = []
+
+  if orig_array.size.odd?
+    sub_1_arr << orig_array[0..(orig_array.size) / 2]
+    sub_2_arr << orig_array[(orig_array.size / 2) + 1..-1]
+    return sub_1_arr + sub_2_arr
+  else
+    sub_1_arr << orig_array[0..(orig_array.size / 2) - 1]
+    sub_2_arr << orig_array[(orig_array.size) / 2..-1]
+    return sub_1_arr + sub_2_arr
+  end
+end
+p halvsies([1, 2, 3, 4]) == [[1, 2], [3, 4]]
+p halvsies([1, 5, 2, 4, 3]) == [[1, 5, 2], [4, 3]]
+p halvsies([5]) == [[5], []]
+p halvsies([]) == [[], []]
