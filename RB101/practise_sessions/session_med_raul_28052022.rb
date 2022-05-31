@@ -147,6 +147,15 @@ end
 
 puts n #=>
 
+# On line 1 we declare a locally-scoped variabe n and make it reference an Integer
+# object 10. On line 3 we invoke the #times method on Integer 1 and pass it a block,
+# denoted by the keywords do… end. and a block parameter |n|.
+#   The block creates its own scope. Within the body of the block we declare
+#   a block-scoped variable n and make it reference an Integer Object 11.
+#   The question is what line 7 will ouput. It will output 10 because of a
+#   concept called shadowing , the block scoped variable |n| covers
+#   the main-scoped variable n and we are not able to access it and change it.
+#   Therefore, it remains unchanged.
 ################################################################################
 animal = "dog"
 
