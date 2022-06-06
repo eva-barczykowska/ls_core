@@ -21,7 +21,7 @@
 #
 # Algorithm
 # -iterate over the array
-# -verify if the provided value is there *** write more details, USE LOOP
+# -verify if the provided value is there ****************************************write more details, USE LOOP
 # -if it is there, return true
 # -otherwise return false
 #
@@ -54,3 +54,78 @@ p include?([1,2,3,4,5], 6) == false
 p include?([], 3) == false
 p include?([nil], nil) == true
 p include?([], nil) == false
+
+
+puts ""
+# ls solution
+def include?(array, value)
+  !!array.find_index(value)
+end
+
+p include?([1,2,3,4,5], 3) == true
+p include?([1,2,3,4,5], 6) == false
+p include?([], 3) == false
+p include?([nil], nil) == true
+p include?([], nil) == false
+
+puts ""
+
+def include?(array, value)
+  array.each { |element| return true if value == element }
+  false
+end
+
+puts ""
+
+# The first method uses Array#find_index to scan the array for the first element
+# that has the specified value. find_index returns the index number of the found
+# element, which will always have a truthy value, or nil if no such element is
+# present. We then use !! to force the return value to true or false in accordance
+# with the implied promise of the ? in include?.
+#
+# The second method does essentially the same thing, but it uses each instead of
+# find_index. This takes a little bit more work, since we are explicitly returning
+# false if the value is not found.
+
+# other people's solution
+
+def include?(array, search_value)
+  array.any?(search_value)
+end
+p include?([1,2,3,4,5], 3) == true
+p include?([1,2,3,4,5], 6) == false
+p include?([], 3) == false
+p include?([nil], nil) == true
+p include?([], nil) == false
+
+puts ""
+
+# will work in latest versions of ruby:
+# def include?(arr, value)
+#   arr.intersect?([value])
+# end
+# p include?([1,2,3,4,5], 3) == true
+# p include?([1,2,3,4,5], 6) == false
+# p include?([], 3) == false
+# p include?([nil], nil) == true
+# p include?([], nil) == false
+
+puts ""
+
+def include?(array,value)
+  false
+  true if array.count(value) > 0
+end
+
+p include?([1,2,3,4,5], 3) == true
+p include?([1,2,3,4,5], 6) == false
+p include?([], 3) == false
+p include?([nil], nil) == true
+p include?([], nil) == false
+
+
+p include?([1,2,3,4,5], 3)
+p include?([1,2,3,4,5], 6)
+p include?([], 3)
+p include?([nil], nil)
+p include?([], nil)
