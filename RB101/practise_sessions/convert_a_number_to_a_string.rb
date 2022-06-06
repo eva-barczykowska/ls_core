@@ -56,3 +56,45 @@ end
 p integer_to_string(4321) == '4321'
 p integer_to_string(0) == '0'
 p integer_to_string(5000) == '5000'
+
+puts ""
+
+# ls solution
+puts "ls"
+DIGITS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+
+def integer_to_string(number)
+  result = ''
+  loop do
+    number, remainder = number.divmod(10)
+    result.prepend(DIGITS[remainder])
+    break if number == 0
+  end
+  result
+end
+p integer_to_string(4321) == '4321'
+p integer_to_string(0) == '0'
+p integer_to_string(5000) == '5000'
+
+puts ""
+
+# other people solutions
+
+def integer_to_string(integer)
+  integer.digits.join.reverse
+end
+
+p integer_to_string(4321) == '4321'
+p integer_to_string(0) == '0'
+p integer_to_string(5000) == '5000'
+
+puts ""
+
+def integer_to_string(integer)
+  new_array = []
+  new_array << integer
+  new_array.join
+end
+p integer_to_string(4321) == '4321'
+p integer_to_string(0) == '0'
+p integer_to_string(5000) == '5000'
