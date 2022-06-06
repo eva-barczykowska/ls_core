@@ -13,7 +13,7 @@
 # print_in_box('Love is all around.')
 # print_in_box('Ewa is the best.')
 # print_in_box('')
-
+#
 # print_in_box('To boldly go where no one has gone before.')
 # +--------------------------------------------+
 # |                                            |
@@ -22,22 +22,22 @@
 # +--------------------------------------------+
 
 # ls solution:
-# def print_in_box(message)
-#   horizontal_rule = "+#{'-' * (message.size + 2)}+"
-#   empty_line = "|#{' ' * (message.size + 2)}|"
-#
-#   puts horizontal_rule
-#   puts empty_line
-#   puts "| #{message} |"
-#   puts empty_line
-#   puts horizontal_rule
-# end
-#
-# print_in_box('To boldly go where no one has gone before.')
-# print_in_box('Love is all around.')
-# print_in_box('Ewa is the best.')
-# print_in_box('')
-# puts
+def print_in_box(message)
+  horizontal_rule = "+#{'-' * (message.size + 2)}+"
+  empty_line = "|#{' ' * (message.size + 2)}|"
+
+  puts horizontal_rule
+  puts empty_line
+  puts "| #{message} |"
+  puts empty_line
+  puts horizontal_rule
+end
+
+print_in_box('To boldly go where no one has gone before.')
+print_in_box('Love is all around.')
+print_in_box('Ewa is the best.')
+print_in_box('')
+puts
 
 # Further exploration:
 # 1.
@@ -49,9 +49,8 @@
 
 # Algorithm:
 # -the length of the box depends on the first line, which is 80 characters
-# -only print as many words as fits, don't cut the words i half
+# -only print as many words as fits, don't cut the words in half
 # -print the rest of the phrase on the consequitive line
-
 
 def print_in_box(phrase)
   p phrase.size
@@ -81,3 +80,15 @@ print_in_box('Borders? I have never seen one. But I have heard they exist in the
 
 # 2. For a real challenge, try word wrapping very long messages so they appear
 # on multiple lines, but still within a box.
+# PEDAC
+# Problem
+# -so if a line is more than 76 characters it has to be split
+# -74 because + 2 for the border  + 4 for spaces from each side
+# -so basically print 74 characters on 1 line, 74 on the next etc. until string is over
+
+puts "further explanation --- WIP"
+
+print_in_box('Borders? I have never seen one. But I have heard they exist in the minds of  |
+| other people. Borders? I have never seen one. But I have heard they exist in the minds of  |
+| other people.  Borders? I have never seen one. But I have heard they exist in the minds of  |
+| other people.  ')
