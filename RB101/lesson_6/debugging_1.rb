@@ -1,8 +1,9 @@
 require 'pry'
+# require 'pry-gem'
 
 puts "Please enter 1 or 2"
 input = gets.chomp
-# binding.pry
+binding.pry
 if input == 1
   puts "Your inpunput is 1"
 elsif input == 2
