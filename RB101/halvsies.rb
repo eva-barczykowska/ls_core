@@ -98,3 +98,27 @@ p halvsies([1, 2, 3, 4]) == [[1, 2], [3, 4]]
 p halvsies([1, 5, 2, 4, 3]) == [[1, 5, 2], [4, 3]]
 p halvsies([5]) == [[5], []]
 p halvsies([]) == [[], []]
+
+#jd solution from our study session
+def halvsies(array)
+  half = (array.size / 2.0).ceil
+
+  first_half = array[0, half]
+  second_half = array[half, array.size - half]
+
+  [first_half, second_half] #I especially like this returning of 2 nested arrays
+end
+
+p halvsies([1, 2, 3, 4]) == [[1, 2], [3, 4]]
+p halvsies([1, 5, 2, 4, 3]) == [[1, 5, 2], [4, 3]]
+p halvsies([5]) == [[5], []]
+p halvsies([]) == [[], []]
+
+puts ""
+# So the slice array starts with the first element mentioned(we slice from this element, including)
+# and then we mention the number of elements we want to take, so
+# array = [1, 2, 3, 4, 5]
+# array[0, 3] #=> will give me [1, 2, 3]
+# array[0, 2] #=> will give me [1, 2]
+# array[0, 4] #=> will give me [1, 2, 3, 4]
+# array[0, 5] #=> will give me [1, 2, 3, 4, 5]

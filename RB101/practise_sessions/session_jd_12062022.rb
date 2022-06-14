@@ -180,7 +180,25 @@ puts ""
 #
 #   result[0]
 # end
+puts "About the count method"
+puts "without any arguments or a block it counts just the number of elements, like size"
+arr = [0, 1, 2, 3, 4, 5, 5, 5, 555, 5]
+p arr.count
 
+puts "counting specific elements = how many of them?"
+#With argument obj, count returns the count of elements == to obj:
+arr = [0, 1, 2, 3, 4, 5, 5, 5, 555, 5]
+p arr.count(0)
+p arr.count(5)
+
+puts "count with a block - returns all elements for which the block is evaluates to true"
+# With no argument and a block given, calls the block with each element;
+# returns the count of elements for which the block returns a truthy value:
+arr = [0, 1, 2, 3]
+p arr.count {|element| element > 1} # => 2
+
+arr = [1, 5, 3, 1]
+arr.select { |num| arr.count(num) >= 2 }
 # solution I liked
 def find_dup(array)
   array.select { |num| array.count(num) >= 2 }.pop
