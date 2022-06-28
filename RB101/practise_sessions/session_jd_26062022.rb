@@ -117,6 +117,10 @@
 # # -when I have finished all the rounds
 # # -key-value for toggle number and switch
 
+# -iterate over this Hash
+# -start with 2
+# -iteration counter number is the number that you will multiply in order to know which switches to turn ON/OFF
+
 (1..4).each_with_object([]) { |i, a| a.push(i**2) } # => [1, 4, 9, 16]
 # h.each_with_object({}) {|element, h| k, v = *element; h[v] = k }
 # => {0=>:foo, 1=>:bar, 2=>:baz}
