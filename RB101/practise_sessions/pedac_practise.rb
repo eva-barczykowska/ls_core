@@ -1,3 +1,4 @@
+# Repeat Yourself
 # Write a method that takes two arguments, a string and a positive integer,
 # and prints the string as many times as the integer indicates.
 #
@@ -30,9 +31,9 @@
 
 # Algorithm
 # 1. define a method with 2 parameters, a str and an int
-# 2. within the body of the method /CORRECTION:concatenate the input str to itself an integer number of times
-# 3. The above will give me `HelloHelloHello`
-# 4. I will print each str on a separate line
+# 2. within the body of the method concatenate the input str to itself an integer number of times
+# 3. The above will produce `HelloHelloHello`
+# 4. Each of the strings needs to be printed on separate lines
 
 # Feedback from Allison
 # Algorithm
@@ -63,3 +64,68 @@ def repeat(str, number)
 end
 
 p repeat('Hello', 3)
+
+# Odd
+# Write a method that takes one integer argument, which may be positive, negative, or zero.
+# This method returns true if the number's absolute value is odd.
+# You may assume that the argument is a valid integer value.
+#
+# PEDAC
+
+# Problem
+# -a method that takes 1 argument, which is an integer
+# -the integer may be positive, negative or zero
+# -the method returns true if the number's absolute value is odd
+# -what is absolute value?
+# -Absolute value describes the distance from zero that a number is on the number line,
+# without considering direction. The absolute value of a number is never negative.
+# -the argument is a valid integer value
+# -the method returns true if the number's absolute value is odd
+# -conversely, it returns false if number's absolute value is even
+# -zero is considered even so in case of zero, it should also return false
+#
+# Examples:
+# puts is_odd?(2)    # => false
+# puts is_odd?(5)    # => true
+# puts is_odd?(-17)  # => true
+# puts is_odd?(-8)   # => false
+# puts is_odd?(0)    # => false
+# puts is_odd?(7)    # => true
+#
+# Data Structures
+# -input: integer, positive, negative or zero
+# -output: boolean, the method returns true if the number's absolute value is odd
+#
+# Algorithm
+# -define a method with 1 argument, `int`
+# -within the body of the method establish if the `int` is odd
+# (notes: can check using the % modulo method or odd? or even? method)
+# -if the `int` is odd, the method will return implicitly true, else it will return false
+
+  def is_odd?(int)
+    int.odd?
+  end
+
+  def is_odd?(int)
+    int % 2 != 0
+  end
+
+puts is_odd?(2)    # => false
+puts is_odd?(5)    # => true
+puts is_odd?(-17)  # => true
+puts is_odd?(-8)   # => false
+puts is_odd?(0)    # => false
+puts is_odd?(7)    # => true
+
+puts ""
+
+def is_odd?(int)
+  int % 2 != 0
+end
+
+puts is_odd?(2)    # => false
+puts is_odd?(5)    # => true
+puts is_odd?(-17)  # => true
+puts is_odd?(-8)   # => false
+puts is_odd?(0)    # => false
+puts is_odd?(7)    # => true
