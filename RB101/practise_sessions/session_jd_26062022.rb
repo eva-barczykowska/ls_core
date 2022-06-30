@@ -115,7 +115,9 @@
 # -so e.g.if n = 8, we will ask which keys <=8 are divisible by 2. These will be keys 2, 4, 6, and 8.
 # -Now we change the VALUES for those keys in the following way
 # -if the value is `ON`, we change it to `OFF`. If the value is `OFF`, we change it to `ON`
+
 # -we populate the hash with the new values
+# -we increase the round_counter value
 #
 # -during the 3rd round we will do the same as during the 2nd but we will ask which keys <=8 are divisible by the round number, so 3.
 # - and in this fasshion we go through all the rounds
@@ -124,19 +126,26 @@
 # -iterate over this Hash and ask which values for which keys are `ON`.
 # The keys whose value is `ON` will be the return value of the method. The return value of the method will be an Array.
 
-(1..4).each_with_object([]) { |i, a| a.push(i**2) } # => [1, 4, 9, 16]
-# h.each_with_object({}) {|element, h| k, v = *element; h[v] = k }
-# => {0=>:foo, 1=>:bar, 2=>:baz}
-# Code
-def get_the_on_switches(n)
-  h = (1..n).each_with_object({}) { |element, h| h[element] = 'ON' }
-  round = 2
-  while round <= n
-    if h.values
 
-
-  rounds += 1
-  p h
+def get_the_on_switches(int)
+  h = (1..int).each_with_object({}) { |element, h| h[element] = 'ON' }
+  p h.keys
+  round_counter = 2
+  while round_counter <= int
+    h.keys.each do |key, value| #this method does not take 2 arguments
+      if key % round_counter == 0
+        if h[value] == 'ON'
+          h[value] = 'OFF'
+        else
+          h[value] ='ON'
+        end
+      else
+        h[value] = h[value]
+      end
+    end
+    round_counter += 1
+  end
+  h
 end
 
-get_the_on_switches(5)
+p get_the_on_switches(5)
