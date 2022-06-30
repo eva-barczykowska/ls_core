@@ -107,19 +107,22 @@
 # Output - Array
 
 # Algorithm
-# -I will store the lights and their state in a hash
-# # -I have rounds to toggle switches
-# # -How many rounds? n number will tell me
-# # -create a round counter and iterate through the numbers according to how many rounds you have
-# # eg 5 rounds will be 5 iterations
-# # -each round I will need to take the round number and start toggling starting with this number and
-# # its multiples until the array size < n argument
-# # -when I have finished all the rounds
-# # -key-value for toggle number and switch
-
-# -iterate over this Hash
-# -start with 2
-# -iteration counter number is the number that you will multiply in order to know which switches to turn ON/OFF
+# -define the method `get_the_on_switches` and pass an `int` as a parameter
+# -within the body of the method, create a hash with all the lights and their intial state as `on`
+# -we have several rounds during which we toggle switches. How many rounds? Argument `n` indicates how many rounds.
+# -initialize a `round_counter` variable and assign Integer 2 to it (first round was the creaton of the hash)
+# -during the 2nd round iterate over the hash and ask which keys are divisible by 2 and its mutliples until the `n` number is reached
+# -so e.g.if n = 8, we will ask which keys <=8 are divisible by 2. These will be keys 2, 4, 6, and 8.
+# -Now we change the VALUES for those keys in the following way
+# -if the value is `ON`, we change it to `OFF`. If the value is `OFF`, we change it to `ON`
+# -we populate the hash with the new values
+#
+# -during the 3rd round we will do the same as during the 2nd but we will ask which keys <=8 are divisible by the round number, so 3.
+# - and in this fasshion we go through all the rounds
+#
+# -when we have finished all the rounds, I have a hash with the final `ON` and `OFF` values
+# -iterate over this Hash and ask which values for which keys are `ON`.
+# The keys whose value is `ON` will be the return value of the method. The return value of the method will be an Array.
 
 (1..4).each_with_object([]) { |i, a| a.push(i**2) } # => [1, 4, 9, 16]
 # h.each_with_object({}) {|element, h| k, v = *element; h[v] = k }
