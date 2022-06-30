@@ -12,17 +12,17 @@
 # rotate_array(x) == [2, 3, 4, 1]   # => true
 # x == [1, 2, 3, 4]                 # => true
 
-# # Problem
-# # without modifying the original array, take the first element and move it to the last element
+# Problem
+# without modifying the original array, take the first element and move it to the last element
 
-# # Data
-# # input Array
-# # output new_array
+# Data
+# input Array
+# output new_array
 
 # algorithm
-# # make a copy of the original array to a different object_id
-# # remove the first element from the copied array
-# # append it to the end
+# make a copy of the original array to a different object_id
+# remove the first element from the copied array
+# append it to the end
 
 
 # def rotate_array(array)

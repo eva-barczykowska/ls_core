@@ -195,7 +195,7 @@
 # {1: 'ON' 2: "OFF", 3: 'ON', 4: 'ON', 5: 'ON', 6: 'ON'}
 
 # My Algorithm -- corrected after session with Allison
--the method takes 1 argument, n, which signifies the number of rounds
+-the method takes 1 argument, `n`, which signifies the number of rounds
 
 -create a `round` variable, this variable will tell me which round we are currently on, the initial value is 2
 

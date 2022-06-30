@@ -129,3 +129,53 @@ puts is_odd?(-17)  # => true
 puts is_odd?(-8)   # => false
 puts is_odd?(0)    # => false
 puts is_odd?(7)    # => true
+
+# List of Digits
+# Write a method that takes one argument, a positive integer, and returns a list of the digits in the number.
+
+# PEDAC
+# Problem
+# -write a method
+# -the method takes 1 argument, a positive integer
+# -the method returns the list of the digits in the integer
+
+# Examples
+# puts digit_list(12345) == [1, 2, 3, 4, 5]     # => true
+# puts digit_list(7) == [7]                     # => true
+# puts digit_list(375290) == [3, 7, 5, 2, 9, 0] # => true
+# puts digit_list(444) == [4, 4, 4]             # => true
+#
+# Data Structures
+# -input: Integer
+# -output: Array
+#
+# Algorithm:
+# -define `digit_list` method with `int` parameter
+# -define a `result` array
+# -within the body of the method split the `int` into numbers,
+# -iterate through the numbers and add them in turn to the `result` array
+# -return the `result` array
+
+puts ""
+
+def digit_list(int)
+  int.digits.reverse
+end
+
+
+puts digit_list(12345) == [1, 2, 3, 4, 5]     # => true
+puts digit_list(7) == [7]                     # => true
+puts digit_list(375290) == [3, 7, 5, 2, 9, 0] # => true
+puts digit_list(444) == [4, 4, 4]             # => true
+
+puts ""
+
+def digit_list(int)
+  int.to_s.split("").map {|num| num.to_i}
+end
+
+
+puts digit_list(12345) == [1, 2, 3, 4, 5]     # => true
+puts digit_list(7) == [7]                     # => true
+puts digit_list(375290) == [3, 7, 5, 2, 9, 0] # => true
+puts digit_list(444) == [4, 4, 4]             # => true
