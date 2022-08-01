@@ -88,8 +88,8 @@ p word_sizes('') == {}
 
 puts ""
 
-word = "ewa is very lucky"
-p word.split.group_by do |word|
+sentence = "ewa is very lucky" # =>["ewa", "is", "very", "lucky"]
+p sentence.split.group_by do |word|
   word.size
 end
 
@@ -100,6 +100,10 @@ puts ""
 def word_sizes(sentence)
   sentence.split.map(&:size).tally.sort.to_h
 end
+
+# *** after split # =>["ewa", "is", "very", "lucky"]
+# *** after tally # =>[3, 2, 4, 5]
+# *** after sort #=> {3=>1, 2=>1, 4=>1, 5=>1}
 
 p word_sizes('Four score and seven.') == { 3 => 1, 4 => 1, 5 => 1, 6 => 1 }
 p word_sizes('Hey diddle diddle, the cat and the fiddle!') == { 3 => 5, 6 => 1, 7 => 2 }
