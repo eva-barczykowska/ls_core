@@ -19,20 +19,18 @@
 # -output: boolean
 #
 # # Algorithm:
-# verify if the year is evenly divisible by 4 AND 400 --
+# verify if the year is evenly divisible 400 --
 # all those years are 100% leap years
 # return true if yes
-# we don't care about the 100 coz we took care of this condition already in our
-# 1st line
-# then if a year is not evenly divisible by 4 AND 400, we ask if it's evenly
-# divisible by 4, then it's still a leap year
-# check if the year is divisible by 4 and return true if yes
+# then check if the year is divisible by 100 and return false if it is
+# then check if the year is evenly divisible by 4
 
 def leap_year?(year)
-  if year % 4 == 0 && year % 400 == 0
+  if year % 400 == 0
     true
-  elsif year % 4 == 0
-    true
+  elsif year % 100 == 0
+    false
+  else year % 4 == 0
   end
 end
 
