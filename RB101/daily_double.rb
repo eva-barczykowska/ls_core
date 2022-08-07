@@ -44,3 +44,117 @@ p crunch('4444abcabccba') == '4abcabcba'
 p crunch('ggggggggggggggg') == 'g'
 p crunch('a') == 'a'
 p crunch('') == ''
+
+
+puts ""
+#ls solution
+
+def crunch(text)
+  index = 0
+  crunch_text = ''
+  while index <= text.length - 1
+    crunch_text << text[index] unless text[index] == text[index + 1]
+    index += 1
+  end
+  crunch_text
+end
+
+p crunch('ddaaiillyy ddoouubbllee') == 'daily double'
+p crunch('4444abcabccba') == '4abcabcba'
+p crunch('ggggggggggggggg') == 'g'
+p crunch('a') == 'a'
+p crunch('') == ''
+
+#write PEDAC for the ls solution
+# -initialize the index variable to integer 0
+# -initialize the variable that will be my result, crunch_text
+# -use a loop to go over the text and while looping add the character at
+#  the current index unless that character is the same as a character at the previous index
+# -increase the index
+# -end the loop when the index is 1 less than the text length(because the text starts from 0)
+# -return the crunch_text variable
+
+puts ""
+
+#Further exploration
+# You may have noticed that we continue iterating until index points past the end
+# of the string. As a result, on the last iteration text[index] is the last
+# character in text, while text[index + 1] is nil. Why do we do this?
+# What happens if we stop iterating when index is equal to text.length?
+# -the last character will not be included in the result string
+
+def crunch(text)
+  index = 0
+  crunch_text = ''
+  text = text.chars
+  while index <= text.length - 1 #here when the text lengh is 1, it will result in 0 and nothing will be added
+    # p text[index]
+    crunch_text << text[index] unless text[index] == text[index + 1]
+    index += 1
+  end
+  crunch_text
+end
+
+p 'xxx'
+p crunch('ddaaiillyy ddoouubbllee') #== 'daily double'
+p crunch('4444abcabccba') #== '4abcabcba'
+p crunch('ggggggggggggggg') #== 'g'
+p crunch('a') #== 'a'
+p crunch('') #== ''
+
+# Can you determine why we didn't useString#each_char or String#chars to iterate
+# through the string? How would you update this method to use String#each_char or String#chars?
+
+puts ""
+def crunch(string)
+  counter = 0
+  clean = ''
+  until counter == string.length
+    if string[counter] != string[counter + 1]
+      clean << string[counter]
+    end
+    counter += 1
+  end
+  clean
+end
+p crunch('ddaaiillyy ddoouubbllee') == 'daily double'
+p crunch('4444abcabccba') == '4abcabcba'
+p crunch('ggggggggggggggg') == 'g'
+p crunch('a') == 'a'
+p crunch('') == ''
+
+puts ""
+
+#with_object can create the string without needing to initialize it above the iterator:
+def crunch(string)
+  string.each_char.with_object('') do |letter, new_string|
+    new_string << letter unless new_string[-1] == letter
+  end
+end
+p crunch('ddaaiillyy ddoouubbllee') == 'daily double'
+p crunch('4444abcabccba') == '4abcabcba'
+p crunch('ggggggggggggggg') == 'g'
+p crunch('a') == 'a'
+p crunch('') == ''
+
+puts ""
+
+def crunch(str)
+  str.chars.slice_when {|chr1, chr2| chr1 != chr2}.map(&:uniq).join
+end
+
+p crunch('ddaaiillyy ddoouubbllee') #== 'daily double'
+p crunch('4444abcabccba') #== '4abcabcba'
+p crunch('ggggggggggggggg') #== 'g'
+p crunch('a') #== 'a'
+p crunch('') #== ''
+
+puts ""
+def crunch(str)
+  str.gsub(/(.)\1+/, '\1')
+end
+p crunch('ddaaiillyy ddoouubbllee') == 'daily double'
+p crunch('4444abcabccba') == '4abcabcba'
+p crunch('ggggggggggggggg') == 'g'
+p crunch('a') == 'a'
+p crunch('') == ''
