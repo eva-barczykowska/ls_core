@@ -20,9 +20,8 @@ input: integer
 output: integer
 
 Algorithm
--verify if the number is negative and if so, return it
--if the number is zero, return zero
--if the number is positive, return the negative
+-verify if the number is positive and and if so, return the negative version of it
+-else just return the number
 
 Code
 =end
