@@ -43,7 +43,7 @@ def leading_substrings(str)
   loop do
     res << str.slice(0, counter)
     counter += 1
-    break 'something' if counter > str.size
+    break if counter > str.size #break returns what we tell it to, try to put 'something' after it and comment res below, and if we don't give it anything? what does it return?
   end
   res
 end
