@@ -35,6 +35,13 @@ p repeater('') == ''
 puts ""
 
 # ls solution
+=begin
+Algorithm
+initialize the result variable and point it to an empty string
+have a look at every character and add it twice to the result string
+return the result string
+=end
+
 def repeater(string)
   result = ''
   string.each_char do |char|
