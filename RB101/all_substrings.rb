@@ -30,23 +30,98 @@ Algorithm
 =end
 
 #my method
+# def leading_substrings(str)
+#   res = []
+#   counter = 1
+#   loop do
+#     res << str.slice(0, counter)
+#     counter += 1
+#     break if counter > str.size
+#   end
+#   res
+# end
+
 def substrings(str)
   res = []
-  counter = 1
-  index = 0
+  counter = 0
+  index = counter # so we start from 0 like this str[0..0], which will give us 1 character, the first character from the string
 loop do
+
   loop do
-    res << str.slice(index, counter)
-    counter += 1
-    break if counter > str.size
+    res << str[index..counter] #s[0..0] will give me 'a', s[1..1] will give me 'b'
+    counter += 1 #counter will be 1, then 2, 3,4 and 5, when it's 5 then it equals str.size and we break out of the loop
+    break if counter >= str.size
   end
- index += 1
- counter = 1
- break if index == str.size - 1
+
+  index += 1 #now, starting from the 2nd character so we increase the index to 2, coz we want to start with 'b'
+  counter = index #we also increase the counter, in order to grab the correct number of characters, we start with 1
+  break if index == str.size
 end
   res
 end
 
+p substrings('abcde')
+p substrings('abcde') == [
+  'a', 'ab', 'abc', 'abcd', 'abcde',
+  'b', 'bc', 'bcd', 'bcde',
+  'c', 'cd', 'cde',
+  'd', 'de',
+  'e'
+]
+
+puts ""
+
+# ls solution
+
+def leading_substrings(string)
+  result = []
+  0.upto(string.size - 1) do |index|
+    result << string[0..index]
+  end
+  result
+end
+
+def substrings(string)
+  results = []
+  (0...string.size).each do |start_index|
+    this_substring = string[start_index..-1]
+    results.concat(leading_substrings(this_substring))
+  end
+  results
+end
+
+p substrings('abcde')
+p substrings('abcde') == [
+  'a', 'ab', 'abc', 'abcd', 'abcde',
+  'b', 'bc', 'bcd', 'bcde',
+  'c', 'cd', 'cde',
+  'd', 'de',
+  'e'
+]
+
+puts "
+"
+# Other solutions
+def substrings(str)
+  (0...str.size).each_with_object([]) do |index, substrings|
+    1.upto(str.size - index) {|length| substrings << str[index, length]}
+  end
+end
+
+p substrings('abcde')
+p substrings('abcde') == [
+  'a', 'ab', 'abc', 'abcd', 'abcde',
+  'b', 'bc', 'bcd', 'bcde',
+  'c', 'cd', 'cde',
+  'd', 'de',
+  'e'
+]
+
+puts ""
+
+def leading_substrings(string)
+  string.chars.map.with_index { |_, i|string[0..i] }
+end
 
 p substrings('abcde')
 p substrings('abcde') == [
