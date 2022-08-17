@@ -147,3 +147,50 @@ p palindromes('hello-madam-did-madam-goodbye') == [
 p palindromes('knitting cassettes') == [
   'nittin', 'itti', 'tt', 'ss', 'settes', 'ette', 'tt'
 ]
+
+puts ""
+
+=begin
+Further exploration
+Can you modify this method (and/or its predecessors) to ignore non-alphanumeric
+characters and case? Alphanumeric characters are alphabetic characters(upper and lowercase) and digits.
+-simply clean the string first so:
+-downcase
+-remove non-alphabetic characters
+=end
+
+def palindromes(str)
+  alphabet = ('a'..'z').to_a + ('A'..'Z').to_a
+  str = str.downcase.chars.delete_if{ |char| !alphabet.include?(char)}.join
+  substrings = []
+  palindromic_substrings = []
+  index = 0
+  counter = index
+  loop do
+    loop do
+      substrings << str[index..counter]
+      counter += 1
+      break if counter == str.size
+     end
+    index += 1
+    counter = index
+    break if counter == str.size
+  end
+  substrings.each do |substring|
+    palindromic_substrings << substring if (substring == substring.reverse)
+  end
+  palindromic_substrings.select{|palindrome| palindrome.size > 1}
+end
+
+p palindromes('abcd') == []
+p palindromes('madam') == ['madam', 'ada']
+p palindromes('99m adam') == ['madam', 'ada']
+p palindromes('99mad#$%^am') == ['madam', 'ada']
+p palindromes('hello-madam-did-madam-goodbye') == [ #these strings here will be different so this will return false
+  'll', '-madam-', '-madam-did-madam-', 'madam', 'madam-did-madam', 'ada',
+  'adam-did-mada', 'dam-did-mad', 'am-did-ma', 'm-did-m', '-did-', 'did',
+  '-madam-', 'madam', 'ada', 'oo'
+]
+p palindromes('knitting cassettes') == [
+  'nittin', 'itti', 'tt', 'ss', 'settes', 'ette', 'tt'
+]
