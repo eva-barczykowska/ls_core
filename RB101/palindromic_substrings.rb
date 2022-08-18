@@ -115,6 +115,27 @@ def leading_substrings(string)
   result
 end
 
+=begin
+We define `leading_substrings` method with 1 parameter, a `string` object.
+
+In the body of the method, first we initialize `result` variable to an empty array.
+Then we invoke the `Integer#upto` method on integer `0` and pass `str.size - 1` as an argument.
+`upto` method iterates over the given block 5 times, passing in integer values from 0 to 4.
+The #upto method also takes a block with the block and we use the block parameter `index`.
+
+When the `leading_substrings` method is called, each number from 0 to 4 will be passed in turn as a block argument to the `upto` method
+and subsequently, because in the body of the block we call the `String[range]` method, a string will be cut from position 0
+to the position equal to index, i.e. subsequently str[0..0], str[0..1], str[0..2], str[0..3], str[0..4].
+
+Those 5 strings, as they are extrapolated from our argument string, will be added to the `result` array as its elements.
+Finally, the result array will be returned.
+If we pass string 'abcde' as an argument, an array `["a", "ab", "abc", "abcd", "abcde"]` will be returned.
+=end
+
+p 'leading_substrings method'
+p 'cutting from 0, first just one character, then 2, then 3, then 4, then 5'
+p leading_substrings('abcde')
+
 def substrings(string)
   results = []
   (0...string.size).each do |start_index|
@@ -124,6 +145,33 @@ def substrings(string)
   results
 end
 
+When we invoke the substrings method and pass it a `string` object as an argument,
+first we initialize results variable to an empty array.
+Then on the range `0` to `str.size` we call the `each` method.
+`Each` takes a block and we use start_index as a block parameter.
+Inside the block, we define `this_substring` variable and make it reference the string range starting
+from the character at start_index to the character at the last index of the string.
+The `start_index` argument will change with every iteration as it depends on the `0..string.size` range.
+So first 0 will be our parameter and string[0..-1] will be saved as `this_substring` variable. *** now we call 'leading_substrings' method
+We will concatenate the contents of this variable to our results array.
+The second time that the block is executed string[0..-1] will be saved as `this_substring` variable.
+Again we will concatenate the contents of this variable to our results array.
+This will continue until we reach
+
+p 'substrings method'
+p 'this is cutting first like the previous method but...'
+p 'then starts to cut from 2nd character and cuts 1 character, then 2, then 3 until the end of the str'
+p substrings('abcde')
+
+
+def palindrome?(string)
+  string == string.reverse && string.size > 1
+end
+p 'this method is responsible only for verifying if a str is a palindrome and if its size is greater than 1'
+p palindrome?('abcde')
+p palindrome?('a')
+p palindrome?('madam')
+
 def palindromes(string)
   all_substrings = substrings(string)
   results = []
@@ -132,10 +180,14 @@ def palindromes(string)
   end
   results
 end
+p 'finally, this method is using the previous 2 plus dealing with establishing whether a method is a palindrome'
+p palindromes('abcde')
+p palindrome?('a')
+p palindrome?('madam')
+p 'end of explanation'
 
-def palindrome?(string)
-  string == string.reverse && string.size > 1
-end
+puts ''
+
 
 p palindromes('abcd') == []
 p palindromes('madam') == ['madam', 'ada']
