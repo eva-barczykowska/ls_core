@@ -120,16 +120,17 @@ We define `leading_substrings` method with 1 parameter, a `string` object.
 
 In the body of the method, first we initialize `result` variable to an empty array.
 Then we invoke the `Integer#upto` method on integer `0` and pass `str.size - 1` as an argument.
-`upto` method iterates over the given block 5 times, passing in integer values from 0 to 4.
-The #upto method also takes a block with the block and we use the block parameter `index`.
+The uptomethod iterates over the given block passing in integer values from integer up to and including the limit.
+In our case integer is 0 and limit is str.size -1, so for example when a string 'abcde'is passed as an argument,
+upto method iterates over the given block 5 times, because the integers values passed are in turn 0, 1, 2, 3, and 4.
+The #upto method also takes a block and we use `index` as the block parameter.
 
-When the `leading_substrings` method is called, each number from 0 to 4 will be passed in turn as a block argument to the `upto` method
-and subsequently, because in the body of the block we call the `String[range]` method, a string will be cut from position 0
-to the position equal to index, i.e. subsequently str[0..0], str[0..1], str[0..2], str[0..3], str[0..4].
-
+When the `leading_substrings` method is called, numbers from 0 to 4 will be passed in turn as a block argument to the `upto` method
+and then, because in the body of the block we call the `String[range]` method, a string will be cut from position 0
+to the position equal to the index value, i.e. subsequently str[0..0], str[0..1], str[0..2], str[0..3], str[0..4].
 Those 5 strings, as they are extrapolated from our argument string, will be added to the `result` array as its elements.
 Finally, the result array will be returned.
-If we pass string 'abcde' as an argument, an array `["a", "ab", "abc", "abcd", "abcde"]` will be returned.
+If we pass string ‘abcde’ as an argument, an array `[“a”, “ab”, “abc”, “abcd”, “abcde”]` will be returned.
 =end
 
 p 'leading_substrings method'
@@ -145,6 +146,7 @@ def substrings(string)
   results
 end
 
+=begin
 When we invoke the substrings method and pass it a `string` object as an argument,
 first we initialize results variable to an empty array.
 Then on the range `0` to `str.size` we call the `each` method.
@@ -157,6 +159,7 @@ We will concatenate the contents of this variable to our results array.
 The second time that the block is executed string[0..-1] will be saved as `this_substring` variable.
 Again we will concatenate the contents of this variable to our results array.
 This will continue until we reach
+=end
 
 p 'substrings method'
 p 'this is cutting first like the previous method but...'
