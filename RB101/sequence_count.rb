@@ -32,18 +32,33 @@ Data structures
 -output:an array
 
 Algorithm
-define a  method with 2 arguments
-then add to the array second number and its mutliplications so like a * 1, a * 2, a * 3
-keep adding until the pre-defined size of the array is reached
-so I need a counter to multiply these numbers
-initialize counter variable
-make the first argument as size of the array
-iterate though numbers up to the size of the array so if the size is 4, then 0.upto(3)
-place multiplied 2nd argument in the array
+-define a  method with 2 arguments
+-initialize a res variable to an empty array
+-then push to the array second number and its mutliplications so like a * 1, a * 2, a * 3 and
+ keep adding until the pre-defined size of the array is reached
+-so I need a counter to be able to multiply a * 1, a * 2, etc.
+- initialize counter variable to 1
+- until the size of the array reaches the value of passed argument a, push into the result array the multiplied values of b argument
 return that array
 
 Code
 =end
+def sequence(a, b)
+  res = []
+  counter = 1
+  until res.size == a
+    res << counter * b
+    counter += 1
+  end
+  res
+end
+
+p sequence(5, 1) == [1, 2, 3, 4, 5]
+p sequence(4, -7) == [-7, -14, -21, -28]
+p sequence(3, 0) == [0, 0, 0]
+p sequence(0, 1000000) == []
+
+puts " "
 
 def sequence(first, second)
   res = []
@@ -55,6 +70,74 @@ def sequence(first, second)
   end
   res
 end
+
+p sequence(5, 1) == [1, 2, 3, 4, 5]
+p sequence(4, -7) == [-7, -14, -21, -28]
+p sequence(3, 0) == [0, 0, 0]
+p sequence(0, 1000000) == []
+
+puts " "
+
+def sequence(a, b)
+  res = []
+  1.upto(a){ |number| res << (number * b) }
+  res
+end
+
+p sequence(5, 1) == [1, 2, 3, 4, 5]
+p sequence(4, -7) == [-7, -14, -21, -28]
+p sequence(3, 0) == [0, 0, 0]
+p sequence(0, 1000000) == []
+
+puts ""
+# ls solution
+def sequence(count, first)
+  sequence = []
+  number = first
+
+  count.times do
+    sequence << number
+    number += first
+  end
+
+  sequence
+end
+
+p sequence(5, 1) == [1, 2, 3, 4, 5]
+p sequence(4, -7) == [-7, -14, -21, -28]
+p sequence(3, 0) == [0, 0, 0]
+p sequence(0, 1000000) == []
+
+=begin
+We initialize a sequence variable as an empty array and a number variable that
+we set to the value of first, as it will be the first element of the sequence.
+
+We then use the Integer#times method. It will execute the content of the block
+the number of times specified by the integer. In this case, on each iteration,
+we first append number to our sequence array and then increment number by the value of first.
+When all iterations are completed, the sequence array contains all the elements
+needed and we just have to return it.
+=end
+
+puts ""
+
+def sequence(count, first)
+  (1..count).map { |value| value * first }
+end
+=begin
+This solution is more concise, and maybe more difficult to parse.
+First we create a Range from 1 to count, as we realize that the array our method needs to return
+will have that many elements in it.
+Note that ranges have access to Enumerable methods, such as map.
+You don't need to convert it to an array before, it will be treated as one.
+Let's look at a simple example:
+
+(1..5).map { |num| num }
+#=> [1, 2, 3, 4, 5]
+
+Within the block we then simply multiply the index (that is, each number of the range)
+by the sequential multiplier which gives us our value for each position in the array.
+=end
 
 p sequence(5, 1) == [1, 2, 3, 4, 5]
 p sequence(4, -7) == [-7, -14, -21, -28]
