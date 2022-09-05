@@ -61,7 +61,7 @@ Code
 words =  ['demo', 'none', 'tied', 'evil', 'dome', 'mode', 'live',
           'fowl', 'veil', 'wolf', 'diet', 'vile', 'edit', 'tide',
           'flow', 'neon']
-          
+
 def anagrams(array)
   h = {}
   h[array.shift] = []
@@ -118,3 +118,54 @@ In the end, we print only the values from the hash, just as the exercise require
 words =  ['demo', 'none', 'tied', 'evil', 'dome', 'mode', 'live',
           'fowl', 'veil', 'wolf', 'diet', 'vile', 'edit', 'tide',
           'flow', 'neon']
+
+puts ""
+
+# other solutions
+p 'Grace'
+def anagrams(words)
+  index = 0
+  list = []
+
+  loop do
+    list << words.select {|word| word.chars.sort == words[index].chars.sort } #this will give me all possible combinations, result will be many arrays
+    index += 1
+    break if index == words.size #we finish when we reach the end of the array
+  end
+
+  list.uniq.each {|sub_list| p sub_list}
+end
+
+words =  ['demo', 'none', 'tied', 'evil', 'dome', 'mode', 'live',
+          'fowl', 'veil', 'wolf', 'diet', 'vile', 'edit', 'tide',
+          'flow', 'neon']
+
+anagrams(words)
+
+puts "***"
+
+hash = Hash.new([]) #look how he's initalized the hash, both keys and values are hashes
+
+words.each do |word|
+  key = word.chars.sort
+  hash[key] += [word]
+  # p hash
+end
+
+hash.each { |_, anagrams| p anagrams }
+
+words =  ['demo', 'none', 'tied', 'evil', 'dome', 'mode', 'live',
+          'fowl', 'veil', 'wolf', 'diet', 'vile', 'edit', 'tide',
+          'flow', 'neon']
+
+puts "****"
+def anagrams(word_list)
+  word_list = word_list.group_by { |word| word.chars.sort }.values
+  # p word_list
+  # word_list.values.reject{|anagrams| anagrams.size == 1}
+end
+
+words =  ['demo', 'none', 'tied', 'evil', 'dome', 'mode', 'live',
+          'fowl', 'veil', 'wolf', 'diet', 'vile', 'edit', 'tide',
+          'flow', 'neon']
+p anagrams(words)
