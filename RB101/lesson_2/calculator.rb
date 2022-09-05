@@ -13,6 +13,7 @@ end
 # def valid_number?(num)
 #   num.to_i != 0
 # end
+
 def integer?(input)
   input.to_i.to_s == input
 end
@@ -50,9 +51,11 @@ loop do
   end
 end
 
-loop do
+prompt("Hi #{name}!")
+
+loop do # main loop
   number1 = ''
-  loop do
+  loop do # here we are prompting user to enter the correct number
     prompt "What's the first number?"
     number1 = Kernel.gets.chomp
 
@@ -84,8 +87,11 @@ loop do
   MSG
 
   prompt operator_prompt
-  operator = Kernel.gets.chomp
+
+  operator = ''
+
   loop do
+    operator = Kernel.gets.chomp
     if %w(1 2 3 4).include? operator
       break
     else
@@ -93,7 +99,7 @@ loop do
     end
   end
 
-  prompt "#{operation_to_message(operator)} the two numbers"
+  prompt "#{operation_to_message(operator)} the two numbers..."
 
   result = case operator
            when '1'
