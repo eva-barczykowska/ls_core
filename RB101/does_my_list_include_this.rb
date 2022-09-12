@@ -34,6 +34,9 @@ Algorithm
 =end
 
 =begin
+this is a common pattern to iterate over the array and if the something was not found,
+return false
+js:
 function demonstrate(inputData, condition) {
   for (let i = 0; i < inputData.length; i++) {
     if (something in the inputData meets a condition) return true;
@@ -54,17 +57,90 @@ def include?(array, search_value)
   return false
 end
 
-# def include?(array, search_value)
-#   return false if array.empty?
+p include?([1,2,3,4,5], 3) == true
+p include?([1,2,3,4,5], 6) == false
+p include?([], 3) == false
+p include?([nil], nil) == true
+p include?([], nil) == false
 
-#   array.each do |element|
-#     if element == search_value
-#       return true
-#     else next
-#     end
-#   end
-#   return false
-# end
+puts ""
+
+# ls solution
+def include?(array, value)
+  !!array.find_index(value)
+end
+
+p include?([1,2,3,4,5], 3) == true
+p include?([1,2,3,4,5], 6) == false
+p include?([], 3) == false
+p include?([nil], nil) == true
+p include?([], nil) == false
+
+puts ""
+
+def include?(array, value)
+  array.each { |element| return true if value == element }
+  false
+end
+
+p include?([1,2,3,4,5], 3) == true
+p include?([1,2,3,4,5], 6) == false
+p include?([], 3) == false
+p include?([nil], nil) == true
+p include?([], nil) == false
+
+=begin
+The first method uses Array#find_index to scan the array for the first element
+that has the specified value. find_index returns the index number of the found
+element, which will always have a truthy value, or nil if no such element is
+present. We then use !! to force the return value to true or false in accordance
+with the implied promise of the ? in include?.
+=end
+
+puts ""
+
+# other solutions
+
+def include?(arr, arg)
+  arr.any? do |el|
+    el == arg
+  end
+end
+
+p include?([1,2,3,4,5], 3) == true
+p include?([1,2,3,4,5], 6) == false
+p include?([], 3) == false
+p include?([nil], nil) == true
+p include?([], nil) == false
+
+puts ""
+
+def include?(array, search_value)
+  array.any? (search_value)
+end
+
+p include?([1,2,3,4,5], 3) == true
+p include?([1,2,3,4,5], 6) == false
+p include?([], 3) == false
+p include?([nil], nil) == true
+p include?([], nil) == false
+
+puts ""
+
+# my old solution
+
+def include?(array, search_value)
+  counter = 0
+  while counter < array.size
+    if array[counter] != search_value
+      counter += 1
+      next
+    else
+      return true
+    end
+  end
+  return false
+end
 
 p include?([1,2,3,4,5], 3) == true
 p include?([1,2,3,4,5], 6) == false
