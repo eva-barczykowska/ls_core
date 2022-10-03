@@ -111,9 +111,16 @@ puts ""
 # Can you modify this method so the caller can request that the first character
 # be downcased rather than upcased? If the 1st character is downcased, then the
 # second character should be upcased, and so on.
-# Hint: Use a keyword argument.
+# Hint: Use a keyword argument. => https://thoughtbot.com/upcase/videos/ruby-keyword-arguments
 
-# changing my method first
+puts "--- positional arguments - introduction ---"
+def foo(bar: "default")
+  puts bar
+end
+
+foo
+foo(bar: "now I want to print this instead of default")
+# changing my method first(this is not with the use of positional arguments)
 def staggered_case(str)
   array = str.split.each do |word|
     word.downcase!
@@ -146,8 +153,66 @@ def staggered_case(string)
     end
     need_upper = !need_upper
   end
-  # result.swapcase!
   result
+end
+
+p staggered_case('I Love Launch School!') == "i lOvE LaUnCh sChOoL!"
+p staggered_case('ALL_CAPS') == "aLl_cApS"
+p staggered_case('ignore 77 the 444 numbers') == "iGnOrE 77 tHe 444 nUmBeRs"
+
+puts ""
+puts "Trying positional arguments, changing ls method"
+puts ""
+# ls code
+def staggered_case(string, need_upper: false)
+  result = ''
+  string.chars.each do |char|
+    if need_upper
+      result += char.upcase
+    else
+      result += char.downcase
+    end
+    need_upper = !need_upper
+  end
+  result
+end
+
+p staggered_case('I Love Launch School!') == "i lOvE LaUnCh sChOoL!"
+p staggered_case('ALL_CAPS') == "aLl_cApS"
+p staggered_case('ignore 77 the 444 numbers') == "iGnOrE 77 tHe 444 nUmBeRs"
+
+# other solutions
+def staggered_case(str)
+  letters = (("a".."z").to_a << ("A".."Z").to_a).flatten!
+  count = -1
+  arr = str.chars.map do |char|
+    count += 1
+    if (count.odd? && letters.include?(char)) then char.downcase
+    elsif (count.even? && letters.include?(char)) then char.upcase
+    else char end
+  end
+  p arr.join
+end
+
+p staggered_case('I Love Launch School!') == 'I LoVe lAuNcH ScHoOl!'
+p staggered_case('ALL_CAPS') == 'AlL_CaPs'
+p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 NuMbErS'
+
+# To reverse the cases, I would just need to swap my even? and odd? methods
+# or change my count initialization to 0.
+
+puts ""
+
+def staggered_case(str)
+  letters = (("a".."z").to_a << ("A".."Z").to_a).flatten!
+  count = 0
+  arr = str.chars.map do |char|
+    count += 1
+    if (count.odd? && letters.include?(char)) then char.downcase
+    elsif (count.even? && letters.include?(char)) then char.upcase
+    else char end
+  end
+  arr.join
 end
 
 p staggered_case('I Love Launch School!') == "i lOvE LaUnCh sChOoL!"
