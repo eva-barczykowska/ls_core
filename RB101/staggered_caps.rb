@@ -24,18 +24,23 @@ def staggered_case(str)
   array = str.split.each do |word|
     word.downcase!
   end
+  p array
   split_array = array.join(" ").split("")
+  p split_array
   split_array.each_with_index do |char, index|
     char.upcase! if index.even?
   end
-  split_array.join
+  p split_array.join
 end
 
 p staggered_case('I Love Launch School!') == 'I LoVe lAuNcH ScHoOl!'
 p staggered_case('ALL_CAPS') == 'AlL_CaPs'
 p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 NuMbErS'
 
-# ls solution:
+puts ""
+puts "LS solution"
+puts ""
+
 def staggered_case(string)
   result = ''
   need_upper = true
@@ -54,52 +59,7 @@ p staggered_case('I Love Launch School!') == 'I LoVe lAuNcH ScHoOl!'
 p staggered_case('ALL_CAPS') == 'AlL_CaPs'
 p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 NuMbErS'
 
-# Further Exploration
-# Can you modify this method so the caller can request that the first character
-# be downcased rather than upcased? If the 1st character is downcased, then the
-# second character should be upcased, and so on.
-# Hint: Use a keyword argument.
-
-# changing my method first
-def staggered_case(string, which="odd")
-  result = ''
-  need_upper = true
-  string.chars.each do |char|
-    if need_upper
-      result += char.upcase
-    else
-      result += char.downcase
-    end
-    need_upper = !need_upper
-  end
-  result.swapcase! if which == "even"
-  result
-end
-
-p staggered_case('I Love Launch School!', 'even') == 'I LoVe lAuNcH ScHoOl!'
-p staggered_case('ALL_CAPS', 'even') == 'AlL_CaPs'
-p staggered_case('ignore 77 the 444 numbers', 'even') == 'IgNoRe 77 ThE 444 NuMbErS'
-
-# changing ls method
-
-def staggered_case(string, which="even")
-  result = ''
-  need_upper = true
-  string.chars.each do |char|
-    if need_upper
-      result += char.upcase
-    else
-      result += char.downcase
-    end
-    need_upper = !need_upper
-  end
-  result.swapcase! if which == "odd"
-  result
-end
-
-p staggered_case('I Love Launch School!', "odd") == 'I LoVe lAuNcH ScHoOl!'
-p staggered_case('ALL_CAPS', "odd") == 'AlL_CaPs'
-p staggered_case('ignore 77 the 444 numbers', "odd") == 'IgNoRe 77 ThE 444 NuMbErS'
+puts ""
 
 # a concise solution I liked:
 def staggered_case(string)
@@ -112,8 +72,9 @@ p staggered_case('I Love Launch School!') == 'I LoVe lAuNcH ScHoOl!'
 p staggered_case('ALL_CAPS') == 'AlL_CaPs'
 p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 NuMbErS'
 
-# also this:
+puts ""
 
+# also this:
 
 def staggered_case(string)
   result = []
@@ -123,8 +84,11 @@ def staggered_case(string)
   result.join
 end
 
-# and this one:
+p staggered_case('I Love Launch School!') == 'I LoVe lAuNcH ScHoOl!'
+p staggered_case('ALL_CAPS') == 'AlL_CaPs'
+p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 NuMbErS'
 
+# and this one:
 def staggered_case(string)
   othrstr = ''
   i = 0
@@ -134,3 +98,58 @@ def staggered_case(string)
   end
   othrstr
 end
+
+p staggered_case('I Love Launch School!') == 'I LoVe lAuNcH ScHoOl!'
+p staggered_case('ALL_CAPS') == 'AlL_CaPs'
+p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 NuMbErS'
+
+puts ""
+puts "Further exploration"
+puts ""
+
+# Further Exploration
+# Can you modify this method so the caller can request that the first character
+# be downcased rather than upcased? If the 1st character is downcased, then the
+# second character should be upcased, and so on.
+# Hint: Use a keyword argument.
+
+# changing my method first
+def staggered_case(str)
+  array = str.split.each do |word|
+    word.downcase!
+  end
+  p array
+  split_array = array.join(" ").split("")
+  p split_array
+  split_array.each_with_index do |char, index|
+    char.upcase! if index.odd?
+  end
+  split_array.join
+end
+
+p staggered_case('I Love Launch School!') == "i lOvE LaUnCh sChOoL!"
+p staggered_case('ALL_CAPS') == "aLl_cApS"
+p staggered_case('ignore 77 the 444 numbers') == "iGnOrE 77 tHe 444 nUmBeRs"
+
+puts ""
+
+# changing ls method
+
+def staggered_case(string)
+  result = ''
+  need_upper = false
+  string.chars.each do |char|
+    if need_upper
+      result += char.upcase
+    else
+      result += char.downcase
+    end
+    need_upper = !need_upper
+  end
+  # result.swapcase!
+  result
+end
+
+p staggered_case('I Love Launch School!') == "i lOvE LaUnCh sChOoL!"
+p staggered_case('ALL_CAPS') == "aLl_cApS"
+p staggered_case('ignore 77 the 444 numbers') == "iGnOrE 77 tHe 444 nUmBeRs"
