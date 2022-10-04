@@ -76,7 +76,7 @@ def sort_by_character(arr, n)
   n = n - 1
   temp = arr.map{ |word| word[n] }.sort # this will give me ["x", "y", "z"]
   temp.each do |letter|
-    arr.any? { |word| result << word if word[n] == letter }
+    arr.find { |word| result << word if word[n] == letter }
   end
  result
 end
