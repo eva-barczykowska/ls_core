@@ -54,6 +54,21 @@ p letter_case_count('') == { lowercase: 0, uppercase: 0, neither: 0 }
 
 puts ""
 
+def letter_case_count(str)
+  result = { lowercase: 0, uppercase: 0, neither: 0}
+  result[:lowercase] = str.scan(/[a-z]/).count
+  result[:uppercase] = str.scan(/[A-Z]/).count
+  result[:neither] = str.scan(/[^a-zA-Z]/).count
+  return result
+end
+
+p letter_case_count('abCdef 123') == { lowercase: 5, uppercase: 1, neither: 4 }
+p letter_case_count('AbCd +Ef') == { lowercase: 3, uppercase: 3, neither: 2 }
+p letter_case_count('123') == { lowercase: 0, uppercase: 0, neither: 3 }
+p letter_case_count('') == { lowercase: 0, uppercase: 0, neither: 0 }
+
+puts ""
+
 # ls solution
 
 UPPERCASE_CHARS = ('A'..'Z').to_a
@@ -104,7 +119,7 @@ def letter_case_count(string)
   result = { lowercase: 0, uppercase: 0, neither: 0 }
 
   string_array.each do |character|
-    ascii_value = character.ord
+    ascii_value = character.ord # very interesting to think about it like that
 
     case ascii_value
     when 65..90
