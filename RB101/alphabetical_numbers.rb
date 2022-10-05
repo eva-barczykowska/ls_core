@@ -131,3 +131,80 @@ end
 
 p alphabetic_number_sort((0..19).to_a) == [8, 18, 11, 15, 5, 4, 14, 9, 19, 1, 7, 17, 6, 16, 10, 13, 3, 12, 2, 0]
 p alphabetic_number_sort((1..3).to_a) == [1, 3, 2]
+
+puts ""
+
+
+ENGLISH_WORDS = %w(zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen)
+INTEGERS = (0..19).to_a
+INTEGERS_TO_WORDS = INTEGERS.zip(ENGLISH_WORDS).to_h
+
+def alphabetic_number_sort(arr)
+  arr.sort_by { |int| INTEGERS_TO_WORDS[int]}
+end
+
+
+p alphabetic_number_sort((0..19).to_a) == [8, 18, 11, 15, 5, 4, 14, 9, 19, 1, 7, 17, 6, 16, 10, 13, 3, 12, 2, 0]
+p alphabetic_number_sort((1..3).to_a) == [1, 3, 2]
+
+puts ""
+
+# Further exploration
+# For an extra challenge, rewrite your method to use Enumerable#sort
+
+WORD_VALUES = %w(zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen)
+
+def alphabetic_number_sort(int_keys)
+  pair_chart = int_keys.zip(WORD_VALUES)
+  p pair_chart
+  pair_chart.sort { |(a,b),(c,d)| b <=> d }.map {|a,_| a }
+end
+
+p alphabetic_number_sort((0..19).to_a) == [8, 18, 11, 15, 5, 4, 14, 9, 19, 1, 7, 17, 6, 16, 10, 13, 3, 12, 2, 0]
+p alphabetic_number_sort((1..3).to_a) == [1, 3, 2] # this method fails if the input array does not start form zero
+
+puts ""
+
+def alphabetic_number_sort(num_arr)
+  words = %w(zero, one, two, three, four, five, six, seven, eight, nine, ten,
+    eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen,
+    eighteen, nineteen)
+  sorted_pair_arr = words.zip(num_arr).sort
+  p sorted_pair_arr
+  sorted_pair_arr.map {|pair| pair[1]}
+end
+
+p alphabetic_number_sort((0..19).to_a) == [8, 18, 11, 15, 5, 4, 14, 9, 19, 1, 7, 17, 6, 16, 10, 13, 3, 12, 2, 0]
+p alphabetic_number_sort((1..3).to_a) == [1, 3, 2] # this method fails if the input array does not start form zero
+
+puts ""
+
+NUM_WORDS = %w( zero one two three four
+five six seven eight nine ten eleven twelve
+thirteen fourteen fifteen sixteen seventeen
+eighteen nineteen)
+
+def alphabetic_number_sort(array)
+  array.sort { |number1, number2| NUM_WORDS[number1] <=> NUM_WORDS[number2] }
+end
+
+p alphabetic_number_sort((0..19).to_a) == [8, 18, 11, 15, 5, 4, 14, 9, 19, 1, 7, 17, 6, 16, 10, 13, 3, 12, 2, 0]
+p alphabetic_number_sort((1..3).to_a) == [1, 3, 2] # this method fails if the input array does not start form zero
+
+# Why do you think we didn't use Array#sort_by! instead of Enumerable#sort_by?
+# possible explanation:
+# Since the array we want to sort is initialized within the method call itself,
+# there isn't actually anything to mutate in terms of scope beyond the method itself.
+# At least, after the method call, the only way to access the result is
+# by assigning the return value to some other variable like...
+# sorted_arr = alphabetic_number_sort((0..19).to_a)
+# Therefore calling sort_by! is pointless, because there's no variable to mutate
+# as it was initialized within the method call and has only that scope
+# If the method call looked something like this...
+#
+# arr = (0..19).to_a
+# alphabetic_number_sort(arr)
+#
+# Then using sort_by! would be acceptable, but only if the method itself
+# ended in something that returns nil, so you're ONLY mutating
+# and not returning a value.
