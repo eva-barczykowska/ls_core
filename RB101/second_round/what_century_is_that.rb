@@ -62,30 +62,29 @@ Code
 =end
 
 def append_century_ending(century)
-  exceptions = [11, 12, 13]
-  if exceptions.include?(century)
-    century.to_s << "th"
+  century = century.to_s
+  if century.end_with?("11") || century.end_with?("12") || century.end_with?("13")
+    century << "th" # first take care of exceptions, then deal with everything else
   else
-    if century.to_s.split("").last == "1"
-      century.to_s << "st"
-    elsif century.to_s.split("").last == "2"
-      century.to_s << "nd"
-    elsif century.to_s.split("").last == "3"
-      century.to_s << "rd"
+    if century.end_with?("1")
+      century << "st"
+    elsif century.end_with?("2")
+      century << "nd"
+    elsif century.end_with?("3")
+      century << "rd"
     else
-      century.to_s << "th"
+      century << "th"
     end
   end
 end
 
 def century(number)
   if number % 100 == 0
-    century = number / 100
+    century = number / 100 # e.g. 2000 / 100 = 20
   else
-    century = (number / 100) + 1
+    century = (number / 100) + 1 # e.g. 2001 is century 21
   end
-  p "century is #{century}"
-  append_century_ending(century)
+  append_century_ending(century) # when we have the number, we convert it to a strting and append the ending
 end
 
 p century(2000) == '20th'
@@ -96,4 +95,6 @@ p century(5) == '1st'
 p century(10103) == '102nd'
 p century(1052) == '11th'
 p century(1127) == '12th'
-p century(11201) #== '113th'
+p century(11201) == '113th'
+
+puts ""
