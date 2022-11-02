@@ -50,13 +50,16 @@ input: Integer
 output: String
 
 Algorithm
+-century is 100 years so:
 -see if the number is evenly divisible by 100, if yes, this is my century right there
--if it is not, it means I need to add 1 to the century (e.g. 1956/100 = 19 BUT years 1901-2000 comprise 20th century)
+-if it is not, it means there is a remainder and...
+-I need to add 1 to the century to account for that remainder because the remainder means that
+-the century has become the next century (e.g. 1956/100 = 19 BUT years 1901-2000 comprise 20th century so I need to do 19 + 1)
 -how to get the proper ending?
 -write a method for the right ending
 -if the year ends in 1, 2, 3, the ending is 'st', 'nd' and 'rd' respectively
  -however, there is an exception to this 11th, 12th, 13th
--while coding, deal with the nubmer first, then worry about the ending
+-while coding, deal with the number first, then worry about the ending
 
 Code
 =end
@@ -84,7 +87,7 @@ def century(number)
   else
     century = (number / 100) + 1 # e.g. 2001 is century 21
   end
-  append_century_ending(century) # when we have the number, we convert it to a strting and append the ending
+  append_century_ending(century) # when we have the number, we convert it to a string and append the ending
 end
 
 p century(2000) == '20th'
@@ -97,6 +100,45 @@ p century(1052) == '11th'
 p century(1127) == '12th'
 p century(11201) == '113th'
 
+puts ""
+puts "implement case statement"
+puts ""
+def append_century_ending(century)
+  century = century.to_s
+  if century.end_with?("11") || century.end_with?("12") || century.end_with?("13")
+    century << "th" # first take care of exceptions, then deal with everything else
+  else
+    case century
+    when century.end_with?("1")
+      century << "st"
+    when century.end_with?("2")
+      century << "nd"
+    when century.end_with?("3")
+      century << "rd"
+    else
+      century << "th"
+    end
+  end
+end
+
+def century(number)
+  if number % 100 == 0
+    century = number / 100 # e.g. 2000 / 100 = 20
+  else
+    century = (number / 100) + 1 # e.g. 2001 is century 21
+  end
+  append_century_ending(century) # when we have the number, we convert it to a strting and append the ending
+end
+
+p century(2000) == '20th'
+p century(2001) == '21st'
+p century(1965) == '20th'
+p century(256) == '3rd'
+p century(5) == '1st'
+p century(10103) == '102nd'
+p century(1052) == '11th'
+p century(1127) == '12th'
+p century(11201) == '113th'
 puts ""
 
 def century(year)
@@ -191,10 +233,10 @@ puts ""
 
 def century(number)
   century_num = number % 100 == 0 ? (number / 100).to_s : (number / 100 + 1).to_s
-  return century_num += 'th' if century_num[-2] == '1'
-  return century_num += 'st' if century_num[-1] == '1'
-  return century_num += 'nd' if century_num[-1] == '2'
-  return century_num += 'rd' if century_num[-1] == '3'
+  return century_num += 'th' if century_num[-2] == '1' # all teens basically: elevenTH, twelveTH, thirteenTH, fourteenTH, fifteenTH, etc.
+  return century_num += 'st' if century_num[-1] == '1' # if the last number is 1
+  return century_num += 'nd' if century_num[-1] == '2' # if the last number is 2
+  return century_num += 'rd' if century_num[-1] == '3' # if the last number is 3
   return century_num += 'th'
 end
 
