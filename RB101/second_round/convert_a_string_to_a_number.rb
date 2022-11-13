@@ -27,8 +27,6 @@
 # then hundreds then thousands then ten-thousands, etc.
 
 # Examples:
-# p string_to_integer('4321') == 4321
-# p string_to_integer('570') == 570
 #
 # Data structures:
 # input: String
@@ -69,5 +67,126 @@ def string_to_integer(str)
   value
 end
 
-p string_to_integer('4321') #== 4321
-# p string_to_integer('570') == 570
+p string_to_integer('4321') == 4321
+p string_to_integer('570') == 570
+
+# The actual computation of the numeric value of string is mechanical.
+# We take each digit and add it to 10 times the previous value,
+# which yields the desired result in almost no time.
+# For example, if we have 4, 3, and 1, we compute the result as:
+# 10 * 0 + 4 -> 4
+# 10 * 4 + 3 -> 43
+# 10 * 43 + 1 -> 431
+
+puts
+# other solutions
+
+def string_to_integer(n)
+  integer = 0
+
+  loop do
+    break if integer.to_s == n
+    integer += 1
+  end
+  integer
+end
+
+p string_to_integer('4321') == 4321
+p string_to_integer('570') == 570
+
+puts
+
+def matcher(input)
+  output = nil
+  case input
+  when '0'
+    output = 0
+  when '1'
+    output = 1
+  when '2'
+    output = 2
+  when '3'
+    output = 3
+  when '4'
+    output = 4
+  when '5'
+    output = 5
+  when '6'
+    output = 6
+  when '7'
+    output = 7
+  when '8'
+    output = 8
+  when '9'
+    output = 9
+  end
+end
+
+def str_to_i_converter(string_num)
+  array = string_num.split('')
+  integer_array = []
+
+  array.each do |element|
+    integer_array << matcher(element)
+  end
+  p integer_array
+
+
+  integer_array.inject(0){ |sum,i| sum * 10 + i} # is the default argument of inject 0?
+end
+
+p "last one"
+p str_to_i_converter('4321') == 4321
+p str_to_i_converter('570') == 570
+
+puts
+
+# ls solution
+
+DIGITS = {
+  '0' => 0, '1' => 1, '2' => 2, '3' => 3, '4' => 4,
+  '5' => 5, '6' => 6, '7' => 7, '8' => 8, '9' => 9
+}
+
+def string_to_integer(string)
+  digits = string.chars.map { |char| DIGITS[char] }
+
+  value = 0
+  digits.each { |digit| value = 10 * value + digit }
+  value
+end
+
+puts "other solutions"
+
+def string_to_integer(num)
+  target = 0
+  loop do
+    target += 1
+    break if target.to_s == num
+  end
+  target
+end
+
+p string_to_integer('4321') == 4321
+p string_to_integer('570') == 570
+
+puts
+puts "study session with AJ"
+
+NUMBERS = {
+  '0' => 0, '1' => 1, '2' => 2, '3' => 3, '4' => 4,
+  '5' => 5, '6' => 6, '7' => 7, '8' => 8, '9' => 9
+}
+
+def string_to_integer(string)
+  sum = 0
+  digits = []
+  string.each_char { |char| digits << NUMBERS[char] }
+  digits.each do |num|
+    sum = sum * 10 + num #4, 43, 432, 4321
+  end
+  sum
+end
+
+p string_to_integer('4321') == 4321
+p string_to_integer('570') == 570
