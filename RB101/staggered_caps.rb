@@ -92,9 +92,9 @@ p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 NuMbErS'
 def staggered_case(string)
   othrstr = ''
   i = 0
-  while i < string.size-1
-    othrstr << string[i].upcase << string[i+1].downcase
-    i +=2
+  while i < string.size - 1
+    othrstr << string[i].upcase << string[i + 1].downcase
+    i += 2
   end
   othrstr
 end
@@ -121,6 +121,7 @@ end
 foo
 foo(bar: "now I want to print this instead of default")
 # changing my method first(this is not with the use of positional arguments)
+
 def staggered_case(str)
   array = str.split.each do |word|
     word.downcase!
