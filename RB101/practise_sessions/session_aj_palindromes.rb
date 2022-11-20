@@ -113,7 +113,7 @@ def substrings(string)
     num_of_chars = 2
     loop do
       substring_arr << string[current_start_index, num_of_chars]
-      break if num_of_chars.eql?(string.length - current_start_index)
+      break if num_of_chars.eql?(string.length - current_start_index) #interesting way he did this
       num_of_chars += 1
     end
     break if current_start_index.eql?(string.length - 2)
