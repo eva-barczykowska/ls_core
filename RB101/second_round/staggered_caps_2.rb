@@ -30,7 +30,8 @@ p staggered_case('ALL CAPS') == 'AlL cApS'
 p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 nUmBeRs'
 
 puts
-puts "solution, has next"
+puts "solution, has a variable whose value we toggle and also has next"
+puts "next is really the answer to how to skip characters if they don't belong to the alphabet"
 
 ALPHABET = ('a'..'z').to_a + ('A'..'Z').to_a
 
@@ -49,31 +50,6 @@ def staggered_case(string)
     need_upper = !need_upper
   end
   result
-end
-
-p staggered_case('I Love Launch School!') == 'I lOvE lAuNcH sChOoL!'
-p staggered_case('ALL CAPS') == 'AlL cApS'
-p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 nUmBeRs'
-
-puts
-puts "solution, without next but also giving correct result"
-
-def staggered_case(str)
-  res = ''
-  need_upper = true
-
-  str.chars.each do |char|
-    if !ALPHABET.include?(char)
-      res += char
-      next #next make it skip everything else and go back to the next characters (and it does not reach ot of the each so need_upper stays the same)
-    elsif need_upper
-      res += char.upcase
-    else
-      res += char.downcase
-    end
-    need_upper = !need_upper # very important where we place this
-  end
-  res
 end
 
 p staggered_case('I Love Launch School!') == 'I lOvE lAuNcH sChOoL!'
