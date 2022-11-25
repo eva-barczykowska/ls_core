@@ -29,6 +29,7 @@ def prompt(msg)
 end
 
 def display_board(brd) # method definition, brd is a parameter
+  system 'clear' #this is very interesting how it clears previous and makes changes, info coming from the changing hash
   puts ""
   puts "     |     |"
   puts "  #{brd[1]}  |  #{brd[2]}  |  #{brd[3]}"
@@ -64,14 +65,33 @@ def player_places_piece!(brd)
     break if empty_squares(brd).include?(square)
     puts "Sorry, that's not a valid choice. Choose a square (1-9):"
   end
-  binding.pry
+  # binding.pry
   brd[square] = PLAYER_MARKER
-  binding.pry
+  # binding.pry
+end
+
+def computer_places_piece!(brd)
+  square = empty_squares(brd).sample
+  brd[square] = COMPUTER_MARKER
+end
+
+def board_full?(brd)
+  empty_squares(brd).empty?
+end
+
+def someone_won?(board)
+  false
 end
 
 board = initialize_board # creating a hash with keys and values
 display_board(board) # displaying th e board, i.e.
 
-player_places_piece!(board)
-puts board.inspect
+loop do
+  player_places_piece!(board)
+  computer_places_piece!(board)
+  # puts board.inspect
+  display_board(board)
+  break if someone_won?(board) || board_full?(board)
+end
+
 display_board(board)
