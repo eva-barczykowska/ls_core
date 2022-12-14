@@ -29,6 +29,7 @@
 # end
 
 def reverse!(arr)
+  return arr if arr.empty?
   target = arr.size
   mutated_array_index = 0
   last_element_index = arr.size - 1
@@ -63,6 +64,6 @@ p list == ["abc"] # true
 
 puts
 
-# p list = []
-# p reverse!(list) == [] # true
-# p list == [] # true
+p list = [] # had to deal separately with this
+p reverse!(list) == [] # true
+p list == [] # true
