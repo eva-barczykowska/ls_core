@@ -72,7 +72,7 @@
 
 def reverse!(arr)
   return arr if arr.empty?
-  target = arr.size  # I want to have that many elements
+  target = arr.size # I want to have that many elements
   mutated_array_index = 0 # I have that many elements
   last_element_index = arr.size - 1 # I will start reversing/building my target array with this element
   loop do
@@ -158,14 +158,18 @@ puts
 puts "Kim's solution"
 
 def reverse!(list)
-  positive = 0
-  negative = -1
-  arr = []
-  loop do
-   list[positive], list[negative] = list[negative], list[positive]
-   negative -= 1
-   positive += 1
-   break if positive == list.length / 2
+  if list.empty? || list.size == 1
+    return list
+  else
+    positive = 0
+    negative = -1
+    arr = []
+    loop do
+     list[positive], list[negative] = list[negative], list[positive]
+     negative -= 1
+     positive += 1
+     break if positive == list.length / 2
+    end
   end
   arr
 end
