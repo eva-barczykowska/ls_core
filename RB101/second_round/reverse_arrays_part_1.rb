@@ -153,3 +153,37 @@ p
 p list = []
 p reverse!(list) == [] # true
 p list == [] # true
+
+puts
+puts "Kim's solution"
+
+def reverse!(list)
+  positive = 0
+  negative = -1
+  arr = []
+  loop do
+   list[positive], list[negative] = list[negative], list[positive]
+   negative -= 1
+   positive += 1
+   break if positive == list.length / 2
+  end
+  arr
+end
+
+  p list = [1, 2, 3, 4]
+  p result = reverse!(list)
+  p result == [4, 3, 2, 1] # true
+  p list == [4, 3, 2, 1] # true
+  p list.object_id == result.object_id # true
+  p
+  p list = %w(a b e d c)
+  p reverse!(list) == ["c", "d", "e", "b", "a"] # true
+  p list == ["c", "d", "e", "b", "a"] # true
+  p
+  p list = ['abc']
+  p reverse!(list) == ["abc"] # true
+  p list == ["abc"] # true
+  p
+  p list = []
+  p reverse!(list) == [] # true
+  p list == [] # true
