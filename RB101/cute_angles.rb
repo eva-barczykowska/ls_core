@@ -90,69 +90,81 @@ DEGREE = "\xC2\xB0"
 #   number.instance_of?(Integer)
 # end
 
-def dms(number)
-  degrees = number.to_i
-
-  minutes = number.to_s.split('.') # gives the decimal part of the number as the 2nd element in the array -- to calculate minutes
-  minutes = ((minutes[1].to_i / 100.00) * 60) # dividing by 100.00 to get the decimal float, multiplying by 60 to get the minutes
-
-  seconds = minutes.to_s.split(".") # gives me the remaining decimal part the as the 2nd element of the array -- to calculate seconds
-  seconds = ((seconds[1].to_i / 10.00) * 60).to_i
-
-  minutes = minutes.to_i # I get get rid of decimal part after extracting seconds out of it on the 2 previous lines
-
-  format(%(#{degrees}#{DEGREE}%02d'%02d"), minutes, seconds)
-end
-
-# format(%(#{degrees}#{DEGREE}%02d'%02d"), minutes, seconds)
-
-p dms(30) #== %(30°00'00")
-p dms(76.73) #== %(76°43'48")
-p dms(254.6) #== %(254°36'00")
-p dms(93.034773) #== %(93°02'05")
-p dms(0) #== %(0°00'00")
-p dms(360) #== %(360°00'00") || dms(360) == %(0°00'00")
-
-# puts
-# puts "AJ's solution"
-# DEGREE = "\xC2\xB0"
-#
 # def dms(float)
-#   conversion = { degrees: 0, minutes: 0, seconds: 0 }
-#   conversion[:degrees] = float.to_i
-#   temp_minutes = float - conversion[:degrees]
-#   conversion[:minutes] = (temp_minutes * 60).to_i
-#   temp_seconds = (temp_minutes * 60) - conversion[:minutes]
-#   conversion[:seconds] = (temp_seconds * 60).to_i
-#   degrees = conversion[:degrees] # Used to make formatting line shorter
-#   minutes = format("%02d", conversion[:minutes]) # Used to make formatting line shorter
-#   seconds = format("%02d", conversion[:seconds]) # Used to make formatting line shorter
-#   format(%(#{degrees}#{DEGREE}#{minutes}'#{seconds}"), conversion[:minutes],
-#          conversion[:seconds])
-# end
+#   degrees = float.to_i
 #
+#   minutes = float.to_s.split('.')[1].to_i # gives the decimal part of the number as the 2nd element in the array -- to calculate minutes
+#   # minutes = ((minutes.to_f - float) * 60) # dividing by 100.00 to get the decimal float, multiplying by 60 to get the minutes
+#   minutes = ((float - degrees) * 60).to_i
+#   p minutes
+#   seconds = ((float - minutes) * 60).to_i
+#   p seconds
+
+
+  # seconds = minutes.to_s.split(".") # gives me the remaining decimal part the as the 2nd element of the array -- to calculate seconds
+  # # p seconds
+  # # seconds = ((seconds[1].to_i / 10.00) * 60).to_i
+  #
+  # minutes = minutes.to_i # I get get rid of decimal part after extracting seconds out of it on the 2 previous lines
+
+  # format(%(#{degrees}#{DEGREE}%02d'%02d"), minutes, seconds)
+# end
+
 # p dms(30) #== %(30°00'00")
 # p dms(76.73) #== %(76°43'48")
 # p dms(254.6) #== %(254°36'00")
 # p dms(93.034773) #== %(93°02'05")
 # p dms(0) #== %(0°00'00")
 # p dms(360) #== %(360°00'00") || dms(360) == %(0°00'00")
-#
+
 # puts
-# puts "LS solution"
-# # DEGREE = "\xC2\xB0"
-# MINUTES_PER_DEGREE = 60
-# SECONDS_PER_MINUTE = 60
-# SECONDS_PER_DEGREE = MINUTES_PER_DEGREE * SECONDS_PER_MINUTE
+# puts "AJ's solution"
+# DEGREE = "\xC2\xB0"
 #
-# def dms(degrees_float)
-#   total_seconds = (degrees_float * SECONDS_PER_DEGREE).round
-#   degrees, remaining_seconds = total_seconds.divmod(SECONDS_PER_DEGREE)
-#   minutes, seconds = remaining_seconds.divmod(SECONDS_PER_MINUTE)
-#   format(%(#{degrees}#{DEGREE}%02d'%02d"), minutes, seconds)
-# end
+def dms(float) # 76.73
+  conversion = { degrees: 0, minutes: 0, seconds: 0 }
+  conversion[:degrees] = float.to_i # 76
+  p "degrees:"
+  p conversion[:degrees]
+  temp_minutes = float - conversion[:degrees] # 76.73 - 76 = 0.73 -- I need temp_minutes for later, to have the decimal
+  p "temp_minutes:"
+  p temp_minutes
+  conversion[:minutes] = (temp_minutes * 60).to_i # 0.73 * 60 =  43
+  p conversion[:minutes] # 43
+  p temp_minutes * 60 # 43.80000000000024
+  temp_seconds = (temp_minutes * 60) - conversion[:minutes] # -- here I need temp_minutes (0.730000000000004 * 60) - 43)
+  p "temp_seconds:"
+  p temp_seconds
+  conversion[:seconds] = (temp_seconds * 60).to_i
+  degrees = conversion[:degrees] # Used to make formatting line shorter
+  minutes = format("%02d", conversion[:minutes]) # Used to make formatting line shorter
+  seconds = format("%02d", conversion[:seconds]) # Used to make formatting line shorter
+  format(%(#{degrees}#{DEGREE}#{minutes}'#{seconds}"), conversion[:minutes],
+         conversion[:seconds])
+end
+
 # p dms(30) #== %(30°00'00")
-# p dms(76.73) #== %(76°43'48")
+p dms(76.73) #== %(76°43'48")
+# p dms(254.6) #== %(254°36'00")
+# p dms(93.034773) #== %(93°02'05")
+# p dms(0) #== %(0°00'00")
+# p dms(360) #== %(360°00'00") || dms(360) == %(0°00'00")
+
+puts
+puts "LS solution"
+DEGREE = "\xC2\xB0"
+MINUTES_PER_DEGREE = 60
+SECONDS_PER_MINUTE = 60
+SECONDS_PER_DEGREE = MINUTES_PER_DEGREE * SECONDS_PER_MINUTE
+
+def dms(float)
+  total_seconds = (float * SECONDS_PER_DEGREE).round # get seconds and then go up from here, dividing
+  degrees, remaining_seconds = total_seconds.divmod(SECONDS_PER_DEGREE) # nice multiple assignment
+  minutes, seconds = remaining_seconds.divmod(SECONDS_PER_MINUTE) # same here
+  format(%(#{degrees}#{DEGREE}%02d'%02d"), minutes, seconds)
+end
+# p dms(30) #== %(30°00'00")
+p dms(76.73) #== %(76°43'48")
 # p dms(254.6) #== %(254°36'00")
 # p dms(93.034773) #== %(93°02'05")
 # p dms(0) #== %(0°00'00")
