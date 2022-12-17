@@ -67,55 +67,42 @@
 # represented with leading zeros
 
 # Algorithm
-# -if the argument is an integer, return the integer in the correct format,
-# indicating degrees, minutes and seconds
-# -if the argument is a float, there will be a few stages
-# (info above)
-# e.g. when the number is 121.135
-# -save the number before the floating point into a variable `degrees`
-# -to calcuate minutes (hint above), mutliply the decimal portion of the figure
-# by 60 and save it to `minutes` variable
-# -how will I get the decimal portion of the number?
-# 121.135 - convert it to a string and split it on a dot, prepend a zero
-# and finally insert a dot after zero, this will give me a floating point number
-# -write a method for this?
-# -to get minutes, take the remaining decimal and multiply it by 60, save it
-# to a variable `minutes`
-# -repeat the process above to get seconds
-# -lastly, format the string to the desired output
+# initialize `degrees` variable and save it to the return value of calling the to_i method on the input float
+# initialize `temp_minutes` variable which points to the return value of the `-` method called on 2 arguments,
+# the input flat and the variable `degrees`
+# multiply `temp_minutes` by 60, the result will be a float, convert it to an integer
+# multiply temp minutes by 60 and subtract minutes from the result, save the result to `temp_seconds` variable
+# multiply temp_seconds by 60 and convert the float result to an integer number, save it to `seconds variable`
+# now I have degrees, minutes and seconds
+# display in the required format so the minutes and seconds have to be 2-digit
+# use the degree special character, then ' for minutes and " for seconds
+#
+# Code
+#
+puts "my solution"
 
 DEGREE = "\xC2\xB0"
 
-# def integer?(number)
-#   number.instance_of?(Integer)
-# end
+def dms(float) # 76.73
+  degrees = float.to_i
+  puts "degrees is #{degrees}"
+  temp_minutes = float - degrees # 76.73 - 76 = 0.730000000000004 -- I have a temp variable because I need it for later
+  puts "temp_minutes is #{temp_minutes}"
+  minutes = (temp_minutes * 60).to_i # 43
+  puts "minutes is #{minutes}"
+  temp_seconds = (temp_minutes * 60) - minutes # (0.730000000000004 * 60) - minutes = 43.80000000000024 - 43 = 0.8000000000002387
+  puts "temp_seconds is #{temp_seconds}"
+  seconds = (temp_seconds * 60).to_i # 48
+  puts "seconds is #{seconds}"
+  format(%(#{degrees}#{DEGREE}%02d'%02d"), minutes, seconds)
+end
 
-# def dms(float)
-#   degrees = float.to_i
-#
-#   minutes = float.to_s.split('.')[1].to_i # gives the decimal part of the number as the 2nd element in the array -- to calculate minutes
-#   # minutes = ((minutes.to_f - float) * 60) # dividing by 100.00 to get the decimal float, multiplying by 60 to get the minutes
-#   minutes = ((float - degrees) * 60).to_i
-#   p minutes
-#   seconds = ((float - minutes) * 60).to_i
-#   p seconds
-
-
-  # seconds = minutes.to_s.split(".") # gives me the remaining decimal part the as the 2nd element of the array -- to calculate seconds
-  # # p seconds
-  # # seconds = ((seconds[1].to_i / 10.00) * 60).to_i
-  #
-  # minutes = minutes.to_i # I get get rid of decimal part after extracting seconds out of it on the 2 previous lines
-
-  # format(%(#{degrees}#{DEGREE}%02d'%02d"), minutes, seconds)
-# end
-
-# p dms(30) #== %(30°00'00")
-# p dms(76.73) #== %(76°43'48")
-# p dms(254.6) #== %(254°36'00")
-# p dms(93.034773) #== %(93°02'05")
-# p dms(0) #== %(0°00'00")
-# p dms(360) #== %(360°00'00") || dms(360) == %(0°00'00")
+p dms(30) == %(30°00'00")
+p dms(76.73) == %(76°43'48")
+p dms(254.6) == %(254°36'00") || %(254°35'59")
+p dms(93.034773) == %(93°02'05")
+p dms(0) == %(0°00'00")
+p dms(360) == %(360°00'00") || dms(360) == %(0°00'00")
 
 # puts
 # puts "AJ's solution"
