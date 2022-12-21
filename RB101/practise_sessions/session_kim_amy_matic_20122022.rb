@@ -65,12 +65,12 @@ def longest_palindrome(str)
   result
 end
 
-# p longest_palindrome('abccccdd') == 7
-# p longest_palindrome('a') == 1
-# p longest_palindrome('damam') == 5
-# p longest_palindrome('wow') == 3
-# p longest_palindrome('akayk') == 5
-# p longest_palindrome('vicic') == 5
+p longest_palindrome('abccccdd') == 7
+p longest_palindrome('a') == 1
+p longest_palindrome('damam') == 5
+p longest_palindrome('wow') == 3
+p longest_palindrome('akayk') == 5
+p longest_palindrome('vicic') == 5
 p longest_palindrome('ewa') == 1
 
 puts
@@ -83,13 +83,13 @@ def longest_palindrome(str)
   result.uniq.max_by { |subarr| subarr.size }.size
 end
 
-# p longest_palindrome('abccccdd') == 7
-# p longest_palindrome('a') == 1
-p longest_palindrome('damam') #== 5
-# p longest_palindrome('wow') == 3
-# p longest_palindrome('akayk') == 5
-# p longest_palindrome('vicic') == 5
-# p longest_palindrome('ewa') == 1 # but it's not a palindrome!
+p longest_palindrome('abccccdd') == 7
+p longest_palindrome('a') == 1
+p longest_palindrome('damam') == 5
+p longest_palindrome('wow') == 3
+p longest_palindrome('akayk') == 5
+p longest_palindrome('vicic') == 5
+p longest_palindrome('ewa') == 1
 #
 # As the last example shows, the code will return reliable results when
 # the string passed as an argument can become a palindrome at all
