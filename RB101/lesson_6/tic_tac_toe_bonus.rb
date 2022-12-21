@@ -54,6 +54,7 @@ Algorithm
 Code
 =end
 def joinor(array, separator=', ', joining_word='or')
+  return array.join if array.size == 1
   return array.join(" or ") if array.size == 2
   if array.size > 2
     array = array.join(separator).split(" ")
@@ -65,4 +66,16 @@ p joinor([1, 2]) == "1 or 2"
 p joinor([1, 2, 3]) == "1, 2, or 3"
 p joinor([1, 2, 3], '; ') == "1; 2; or 3"
 p joinor([1, 2, 3], ', ', 'and') == "1, 2, and 3"
+
+# LS Solution is this
+def joinor(arr, delimiter=', ', word='or')
+  case arr.size
+  when 0 then ''
+  when 1 then arr.first.to_s
+  when 2 then arr.join(" #{word} ")
+  else
+    arr[-1] = "#{word} #{arr.last}"
+    arr.join(delimiter)
+  end
+end
 
