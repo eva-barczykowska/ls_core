@@ -65,14 +65,26 @@ def empty_squares(brd)
   brd.keys.select { |num| brd[num] == INITIAL_MARKER }
 end
 
+def joinor(array, separator=', ', joining_word='or')
+  return array.join if array.size == 1
+  return array.join(" or ") if array.size == 2
+  if array.size > 2
+    array = array.join(separator).split(" ")
+    array.insert(-2, joining_word)
+    array.join(" ")
+  end
+end
+
 def player_places_piece!(brd)
   square = ' '
   loop do
-    prompt "Choose a square (#{empty_squares(brd).join(', ')}):"
+    # prompt "Choose a square (#{empty_squares(brd).join(', ')}):"
+    prompt "Choose a square (#{joinor(empty_squares(brd))}):" # bonus
     square = gets.chomp.to_i
     break if empty_squares(brd).include?(square)
     puts "Sorry, that's not a valid choice."
-    puts "Choose a square (#{empty_squares(brd).join(', ')}):"
+    # puts "Choose a square (#{empty_squares(brd).join(', ')}):"
+    puts "Choose a square (#{joinor(empty_squares(brd))}):" # bonus
   end
   # binding.pry
   brd[square] = PLAYER_MARKER
@@ -110,6 +122,7 @@ def detect_winner(brd)
   end
   nil
 end
+
 
 loop do
   board = initialize_board # creating a hash with keys and values
