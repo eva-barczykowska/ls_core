@@ -1,4 +1,5 @@
 require 'pry'
+require 'pry-doc'
 require 'pry-byebug'
 
 # write a method that takes an input an array of integers and returns a new array

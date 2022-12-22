@@ -1,5 +1,5 @@
 require 'pry'
-require 'pry-byebug'
+# require 'pry-byebug'
 
 # write a method that takes an array of integers as an argument
 # and returns a new array with the integers transformed.
@@ -31,12 +31,12 @@ puts
 
 def fizzbuzz(arr)
   arr.map do |num|
-    # binding.pry
+    binding.pry
     if num % 5 == 0 && num % 3 == 0
       'FizzBuzz'
     elsif num % 5 == 0
       'Buzz'
-    elsif num % 3 == 0 # here
+    elsif num % 3
       'Fizz'
     else
       num
@@ -44,4 +44,4 @@ def fizzbuzz(arr)
   end
 end
 
-p fizzbuzz([1, 3, 5, 6, 7, 8, 10, 3, 15, 9]) == [1, 'Fizz', 'Buzz', 'Fizz', 7, 8, 'Buzz', 'Fizz', 'FizzBuzz', 'Fizz']
+p fizzbuzz([1, 3, 5, 6, 7, 8, 10, 3, 15, 9]) #== [1, 'Fizz', 'Buzz', 'Fizz', 7, 8, 'Buzz', 'Fizz', 'FizzBuzz', 'Fizz']
