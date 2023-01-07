@@ -50,7 +50,7 @@ puts
 # # Algorithm:
 # # -the length of the box depends on the first line, which is 80 characters
 # # -only print as many words as fits, don't cut the words in half
-# # -print the rest of the phrase on the consequitive line
+# # -print the rest of the phrase on the consecutive line
 #
 # def print_in_box(phrase)
 #   p phrase.size
@@ -84,7 +84,8 @@ puts
 # Problem
 # -so if a line is more than 76 characters it has to be split
 # -74 because + 2 for the border  + 4 for spaces from each side
-# -so basically print 74 characters on 1 line, 74 on the next etc. until string is over
+# -so basically print 74 characters on 1 line, 74 on the next etc.
+# until string is over
 
 # puts "further explanation --- WIP"
 #
@@ -349,7 +350,7 @@ Algorithm - Allison
     return `line`
 =end
 
-def first_line_or_last_line(str)
+def first_or_last_line(str)
   if str.empty?
     print "+"
     print "--"
@@ -361,7 +362,7 @@ def first_line_or_last_line(str)
   end
 end
 
-def second_line_or_penultimate_line(str)
+def second_or_second_last_line(str)
   print "|"
   print " "
   print " " * 76
@@ -389,15 +390,15 @@ str2 = "Our deepest fear is not that we are inadequate. Our deepest fear is that
 
 
 def print_in_box(str)
-  first_line_or_last_line(str)
+  first_or_last_line(str)
   puts
-  second_line_or_penultimate_line(str)
+  second_or_second_last_line(str)
   puts
   third_line(str)
   puts
-  second_line_or_penultimate_line(str)
+  second_or_second_last_line(str)
   puts
-  first_line_or_last_line(str)
+  first_or_last_line(str)
   puts
 end
 
@@ -412,4 +413,8 @@ print_in_box(str2)
 # try to fit the word into the line, if it fits all, enter it
 # if it doesn't fit all, it has to go to the next line and the number of spaces
 # has to be increased so that the borders are at the correct space
+# so I'd need a flexible solution adding a different number of spaces
+# depending on how the current line will look, like a padding solution
+
+
 
