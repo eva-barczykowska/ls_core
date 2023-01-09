@@ -65,3 +65,20 @@ end
 
 p swapcase('CamelCase') == 'cAMELcASE'
 p swapcase('Tonight on XYZ-TV') == 'tONIGHT ON xyz-tv'
+
+puts
+
+# refactored version
+def swapcase(str)
+  res = []
+  arr = str.split("")
+  arr.each do |char|
+    res << char.upcase if LOWERCASE.include?(char)
+    res << char.downcase if UPPERCASE.include?(char)
+    res << char if !UPPERCASE.include?(char) && !LOWERCASE.include?(char)
+  end
+  res.join
+end
+
+p swapcase('CamelCase') == 'cAMELcASE'
+p swapcase('Tonight on XYZ-TV') == 'tONIGHT ON xyz-tv'
