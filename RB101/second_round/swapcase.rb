@@ -82,3 +82,18 @@ end
 
 p swapcase('CamelCase') == 'cAMELcASE'
 p swapcase('Tonight on XYZ-TV') == 'tONIGHT ON xyz-tv'
+
+puts
+# AJ's solution - VERY NICE!
+def swapcase(str)
+  new_str = str.split(' ').map do |word| # splitting the string into words and calling map on the array
+    word_split = word.split('').each do |char| # splitting each word into characters and mutating them
+      char == char.downcase ? char.upcase! : char.downcase!
+    end
+    word_split.join
+  end
+  new_str.join(' ')
+end
+
+p swapcase('CamelCase') #== 'cAMELcASE'
+p swapcase('Tonight on XYZ-TV') #== 'tONIGHT ON xyz-tv'
