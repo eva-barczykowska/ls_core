@@ -1,12 +1,18 @@
 # # Right Triangles
-# # Write a method that takes a positive integer, n, as an argument, and displays a right triangle whose sides each have n stars. The hypotenuse of the triangle (the diagonal side in the images below) should have one end at the lower-left of the triangle, and the other end at the upper-right.
+# # Write a method that takes a positive integer, n, as an argument,
+# and displays a right triangle whose sides each have n stars.
+# The hypotenuse of the triangle (the diagonal side in the images below)
+# should have one end at the lower-left of the triangle,
+# and the other end at the upper-right.
 
 # PEDAC
 # Problem
 # -write a method that takes an int as an argument
 # -that int symbolizes the bottom of a triangle
-# -it is a right triangle, flat flat border is on the right, the diagonal border is on the left
-# -the mthod prints this triangle, starting from just one star and gradudually increasing until the argument int is reached
+# -it is a right triangle, flat flat border is on the right, the diagonal border
+# is on the left
+# -the method prints this triangle, starting from just one star and gradually
+# increasing until the argument int is reached
 
 # Examples
 
