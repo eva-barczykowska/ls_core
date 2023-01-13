@@ -71,10 +71,13 @@ puts
 def uppercase?(string)
   string.chars.all? { |char| char =~ /[^a-z]/ }
 end
-
+# =~ is checking for each char separately, one by one to establish
+# that all of them are uppercase (so not lowercase)
+#
 # The =~ operator matches the regular expression against a string,
-# and it returns either the offset of the match from the string
-# if it is found, otherwise nil
+# (in this case just a single character),
+# and it returns either the index of the match from the string
+# or nil, depending if the match is found or not
 
 p uppercase?('t') == false
 p uppercase?('T') == true
