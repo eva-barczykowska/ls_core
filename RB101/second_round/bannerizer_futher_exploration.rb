@@ -102,23 +102,41 @@ def second_or_second_last_line
   print "|"
 end
 
-def get_padded_lines(str) # this method will cut and pad lines until 76
+def third_line(str)
+  counter = 0
+  until counter > str.size
+    print "|" + " "
+    s = str.slice(counter, 76)
+    print s.ljust(76, " ")
+    print " " + "|"
+    counter += 76
+    print "\n" if counter < str.size
+  end
+end
+
+def get_padded_lines(str) # prepare 76-character padded lines with borders
   counter = 0
   lines = []
   padded_lines = []
   lines = str.scan(/\S.{0,74}\S(?=\s|$)|\S+/)
-  # lines.each {|line| p line.size }
   lines.each do |line|
     while line.chars.size <= 75
-      line = line += " "
+      line += " "
     end
     padded_lines << line.prepend('| ')
   end
-  padded_lines.each { |line| puts line += " |" }
+  padded_lines.map! { |line| line += " |" }
+  puts padded_lines[0, padded_lines.size - 2]
+  print padded_lines[-1]
 end
+
+# shortcomings:
+# if lines are less than 3, not everything will get printed in the box
+# I can fix this but the price is longer & less readible method
 
 
 str1 = "Borders I have never seen one. But I have heard they exist in the minds of some people. ― Thor Heyerdahl"
+p str1[0...74]
 str2 = "Our deepest fear is not that we are inadequate. Our deepest fear is that we are powerful beyond measure. It is our light, not our darkness that most frightens us. We ask ourselves, 'Who am I to be brilliant, gorgeous, talented, fabulous?' Actually, who are you not to be? You are a child of God. Your playing small does not serve the world. There is nothing enlightened about shrinking so that other people won't feel insecure around you. We are all meant to shine, as children do. We were born to make manifest the glory of God that is within us. It's not just in some of us; it's in everyone. And as we let our own light shine, we unconsciously give other people permission to do the same. As we are liberated from our own fear, our presence automatically liberates others."
 # get_padded_lines(str2)
 
