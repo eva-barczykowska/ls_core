@@ -102,6 +102,18 @@ def second_or_second_last_line
   print "|"
 end
 
+def third_line(str)
+  counter = 0
+  until counter > str.size
+    print "|" + " "
+    s = str.slice(counter, 76)
+    print s.ljust(76, " ")
+    print " " + "|"
+    counter += 76
+    print "\n" if counter < str.size
+  end
+end
+
 def get_padded_lines(str) # prepare 76-character padded lines with borders
   counter = 0
   lines = []
