@@ -126,19 +126,27 @@ def get_padded_lines(str) # prepare 76-character padded lines with borders
     padded_lines << line.prepend('| ')
   end
   padded_lines.map! { |line| line += " |" }
-  puts padded_lines[0, padded_lines.size - 2]
-  print padded_lines[-1]
+  if padded_lines.size < 3
+    puts padded_lines[0]
+    print padded_lines[1]
+  elsif padded_lines.size < 5
+    puts padded_lines[0..2]
+    print padded_lines[-1]
+  else
+    puts padded_lines[0..padded_lines.size - 2]
+    print padded_lines[-1]
+  end
 end
 
 # shortcomings:
 # if lines are less than 3, not everything will get printed in the box
-# I can fix this but the price is longer & less readible method
+# I can fix this but the price is longer & less readable method
+# fixed
 
 
 str1 = "Borders I have never seen one. But I have heard they exist in the minds of some people. ― Thor Heyerdahl"
-p str1[0...74]
 str2 = "Our deepest fear is not that we are inadequate. Our deepest fear is that we are powerful beyond measure. It is our light, not our darkness that most frightens us. We ask ourselves, 'Who am I to be brilliant, gorgeous, talented, fabulous?' Actually, who are you not to be? You are a child of God. Your playing small does not serve the world. There is nothing enlightened about shrinking so that other people won't feel insecure around you. We are all meant to shine, as children do. We were born to make manifest the glory of God that is within us. It's not just in some of us; it's in everyone. And as we let our own light shine, we unconsciously give other people permission to do the same. As we are liberated from our own fear, our presence automatically liberates others."
-# get_padded_lines(str2)
+str3 = "Borders I have never seen one. But I have heard they exist in the minds of some people. Borders I have never seen one. But I have heard they exist in the minds of some people. Borders I have never seen one. But I have heard they exist in the minds of some people."
 
 def print_in_box(str)
   first_or_last_line(str)
@@ -154,32 +162,8 @@ def print_in_box(str)
 end
 print_in_box(str1)
 print_in_box(str2)
-#
-# # -what I need to do is to look at every line and cut it at the space
-# # -the space after the last word that is able to be printed fully on the line
-# # -then I need to move the subsequent word (the one that we are not able to print as a whole)
-# #  to the next line
-# # split the string into words
-# # try to fit the word into the line, if it fits all, enter it
-# # if it doesn't fit all, it has to go to the next line and the number of spaces
-# # has to be increased so that the borders are at the correct space
-# # so I'd need a flexible solution adding a different number of spaces
-# # depending on how the current line will look, like a padding solution
-# # -so the third_line method has to be rewrittene at the correct space
-# so I'd need a flexible solution adding a different number of spaces
-# depending on how the current line will look, like a padding solution
-# -so the third_line method has to be rewritten
-#
-# # -what I need to do is to look at every line
-# # -line is 76 characters
-# # -find if the last character is a space
-# # -if it is, find SECOND last space
-# # -cut the line after the space
-# # -check how many characters the line has ***
-# # -pad with spaces until 76
-# # -increase the counter by the current line lengh ***
-# # -write a method
-#
+print_in_box(str3)
+
 #   arr = str2.scan(/\S.{0,74}\S(?=\s|$)|\S+/)
 #   arr.each do |e|
 #     puts '-element-'
@@ -191,6 +175,21 @@ print_in_box(str2)
 #       text :
 #       text.scan(/.{1,#{max_width}}/).join("<wbr>")
 #   end
+#
+#
+puts "***"
+# very interesting:
+arr = %w(zero one two three)
+p arr # => ["zero", "one", "two", "three"]
+puts arr[0, 2]
+puts
+puts arr[0, arr.size - 2]
 
+puts "using coma gives me only element zero and one"
+puts "using range will give me element zero, one and two:"
+# but
+puts arr[0..2]
+puts
+puts arr[0.. arr.size - 2]
 
 
