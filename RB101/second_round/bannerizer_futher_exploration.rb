@@ -190,6 +190,6 @@ puts "using range will give me element zero, one and two:"
 # but
 puts arr[0..2]
 puts
-puts arr[0.. arr.size - 2]
+puts arr[0..arr.size - 2]
 
 
