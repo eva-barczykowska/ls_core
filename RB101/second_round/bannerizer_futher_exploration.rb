@@ -89,7 +89,7 @@ def first_or_last_line(str)
     print "+"
   else
     print "+"
-    print "-" * 78
+    print "-" * 77
     print "+"
   end
 end
@@ -97,7 +97,7 @@ end
 def second_or_second_last_line
   print "|"
   print " "
-  print " " * 76
+  print " " * 75
   print " "
   print "|"
 end
@@ -115,8 +115,6 @@ def third_line(str)
 end
 
 def get_padded_lines(str) # prepare 76-character padded lines with borders
-  counter = 0
-  lines = []
   padded_lines = []
   lines = str.scan(/\S.{0,74}\S(?=\s|$)|\S+/)
   lines.each do |line|
@@ -125,17 +123,9 @@ def get_padded_lines(str) # prepare 76-character padded lines with borders
     end
     padded_lines << line.prepend('| ')
   end
-  padded_lines.map! { |line| line += " |" }
-  if padded_lines.size < 3
-    puts padded_lines[0]
-    print padded_lines[1]
-  elsif padded_lines.size < 5
-    puts padded_lines[0..2]
-    print padded_lines[-1]
-  else
+  padded_lines.map! { |line| line += "|" }
     puts padded_lines[0..padded_lines.size - 2]
     print padded_lines[-1]
-  end
 end
 
 # shortcomings:
@@ -143,11 +133,12 @@ end
 # I can fix this but the price is longer & less readable method
 # fixed
 
-
 str1 = "Borders I have never seen one. But I have heard they exist in the minds of some people. ― Thor Heyerdahl"
 str2 = "Our deepest fear is not that we are inadequate. Our deepest fear is that we are powerful beyond measure. It is our light, not our darkness that most frightens us. We ask ourselves, 'Who am I to be brilliant, gorgeous, talented, fabulous?' Actually, who are you not to be? You are a child of God. Your playing small does not serve the world. There is nothing enlightened about shrinking so that other people won't feel insecure around you. We are all meant to shine, as children do. We were born to make manifest the glory of God that is within us. It's not just in some of us; it's in everyone. And as we let our own light shine, we unconsciously give other people permission to do the same. As we are liberated from our own fear, our presence automatically liberates others."
 str3 = "Borders I have never seen one. But I have heard they exist in the minds of some people. Borders I have never seen one. But I have heard they exist in the minds of some people. Borders I have never seen one. But I have heard they exist in the minds of some people."
 
+# get_padded_lines(str2)
+# get_padded_lines(str3)
 def print_in_box(str)
   first_or_last_line(str)
   puts
@@ -160,24 +151,25 @@ def print_in_box(str)
   first_or_last_line(str)
   puts
 end
+
 print_in_box(str1)
 print_in_box(str2)
 print_in_box(str3)
-
-#   arr = str2.scan(/\S.{0,74}\S(?=\s|$)|\S+/)
-#   arr.each do |e|
-#     puts '-element-'
-#     puts e.size
-#   end
 #
-#   def wrap_long_string(text,max_width = 20)
-#     (text.length < max_width) ?
-#       text :
-#       text.scan(/.{1,#{max_width}}/).join("<wbr>")
-#   end
+# #   arr = str2.scan(/\S.{0,74}\S(?=\s|$)|\S+/)
+# #   arr.each do |e|
+# #     puts '-element-'
+# #     puts e.size
+# #   end
+# #
+# #   def wrap_long_string(text,max_width = 20)
+# #     (text.length < max_width) ?
+# #       text :
+# #       text.scan(/.{1,#{max_width}}/).join("<wbr>")
+# #   end
 #
 #
-puts "***"
+# puts "***"
 # very interesting:
 arr = %w(zero one two three)
 p arr # => ["zero", "one", "two", "three"]
