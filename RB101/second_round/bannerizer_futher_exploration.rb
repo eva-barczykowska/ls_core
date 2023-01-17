@@ -1,56 +1,6 @@
 # For a real challenge, try word wrapping very long messages so they appear
 # on multiple lines, but still within a box.
 # ######################################################################
-# =begin
-# Algorithm - Allison
-# PROBLEM
-# - input is a string of characters
-# - output is an array of strings of 76 characters or less
-# (chopped from the input string)
-
-# ALGORITHM
-#     split input string into `arr` array of words
-#     make a copy of `arr` into `copyArr`
-#     initialize empty array `choppedStrings`
-#     initialize `charCounter` to 0
-#     begin iteration over `copyArr`
-#     initialize `line` to empty array
-#       begin iteration (while charCounter <= 76)
-#         slice off front of `arr` and store in `word`
-#         push `word` onto `line`
-#         add length of `word` onto `charCounter`
-#         if `charCounter` over 76
-#           remove `word` from `line` and unshift back onto `arr`
-#       end iteration
-#
-#       join `line` on spaces and push string onto `choppedStrings`
-#     end iteration over `copyArr`
-#
-#   PROBLEM
-#     - input is an array of chopped strings to a length of 76 chars or less
-#     - output will draw a border around that array's elements.
-#
-#   ALGORITHM
-#     draw top line (80 chars)
-#     draw spacer line (80 chars)
-#
-#     begin iteration over input arr
-#       drawText(currentArrElem)
-#     end iteration
-#
-#     draw spacer line (80 chars)
-#     draw top line (80 chars)
-#
-#
-#   drawText(str)
-#     initialize `line` to `| `
-#     concat `str` to `line`
-#     initialize `lineLengh` to current line length
-#     initialize `padding` to `76 - lineLength`
-#     concat `padding` spaces onto `line`
-#     concat ` |` onto `line`
-#     return `line`
-# =end
 #
 # My Algorithm:
 # -the length of the box depends on the first line, which is 80 characters
