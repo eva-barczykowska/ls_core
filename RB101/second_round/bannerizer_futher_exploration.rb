@@ -124,8 +124,8 @@ def get_padded_lines(str) # prepare 76-character padded lines with borders
     padded_lines << line.prepend('| ')
   end
   padded_lines.map! { |line| line += "|" }
-    puts padded_lines[0..padded_lines.size - 2]
-    print padded_lines[-1]
+  puts padded_lines[0..padded_lines.size - 2]
+  print padded_lines[-1]
 end
 
 # shortcomings:
