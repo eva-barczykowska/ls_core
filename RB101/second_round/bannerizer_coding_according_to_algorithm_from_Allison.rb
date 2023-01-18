@@ -93,25 +93,21 @@ str = "Our deepest fear is not that we are inadequate. Our deepest fear is that 
 # initialize a `temp` variable where you will always take 76 characters from the input string (and then again 76 etc...)
 # single out a group of 76 characters and save it to the temp
 # from this group, where is the last space? - find out
+# -the last space cannot be at index 0 because this will cause not cutting anything at all, e.g.
+# [' ', 'o', 't', 'h', 'e', 'r', 's', '.'] will make us do str[start, 0] so nothing will get cut and subsequently
+# or rather the result is "", an empty string, whose size is 0 !!!
+# so str ++ lines.last.size will add ZERO to the start counter, resulting in AN INFINITE LOOP!!!
+# so we need to add an if condition checking if the value of the space variable (indicating where is the space
+# and how man characters to cut) is not zero
 # cut characters from the string until this space(included)
 # append the characters that you have just cut to `lines` array
 # increase the start variable (the variable that signifies the starting index - where you start cutting the string from)
-# because in the next iteration you don't want to start cutting from the same index, otherwise you will never finish cutting lol
+# the increase is decided by amount of characters you just cut from the argument string and appened to the lines array
+# in other words, it is dependent on the size of the line you just added to the `lines` array
+# you need to increase the start because in the next iteration you don't want to start cutting from the same index,
+# otherwise you will never finish cutting lol
 # do this (i.e. cutting, appending and moving on to the next set of 76 characters) until there are no more characters left
 # return the `lines` array
-
-# well, there is a problem with my loop:
-# last value of `start` in the loop is 767 and str.size is 775, this means that
-# we break out of the loop and the last word is not included
-# I tried to break later, e.g. `break if start > 775 + 76` but this does not break out from the loop
-# why not? Maybe coz Ruby sees only 775 first and then immediately breaks? I'm not sure -- does Amy know? :-)
-# I think this is because if my target, which is 75 characters has more consecutive spaces BUT
-# when we use str[start, how_many_chars] like so str[0, 55] AND there str has only 5 characters,
-# Ruby will NOT take those 5 characters and add 50 spaces. Ruby only takes what is there, 5 characters.
-# And in those 5 characters, there is no space... so...
-# there is NO possibility to cut the string from starting point to the last space (coz I don't have the space variable!)
-# that is why, I'm using an if condition
-# end
 
 def get_lines(str)
   lines = []
