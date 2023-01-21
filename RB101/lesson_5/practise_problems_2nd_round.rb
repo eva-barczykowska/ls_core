@@ -237,7 +237,54 @@ end
 p arr
 # => [{:a=>2}, {:b=>3, :c=>4}, {:d=>5, :e=>6, :f=>7}]
 
+puts
+
 puts "Practice Problem 11"
+# Practice Problem 11
+# Given the following data structure use a combination of methods,
+# including either the select or reject method, to return a new array
+# identical in structure to the original but containing
+# only the integers that are multiples of 3.
+
+# arr = [[2], [3, 5, 7, 12], [9], [11, 13, 15]]
+# Expected [[], [3, 12], [9], [15]]
+#
+arr = [[2], [3, 5, 7, 12], [9], [11, 13, 15]]
+res = arr.map do |subarray|
+  subarray.select do |number|
+    number % 3 == 0
+  end
+end
+p arr
+p res
+
+puts
+puts "Practice Problem 12"
+# Practice Problem 12
+# Given the following data structure, and without using the Array#to_h method,
+# write some code that will return a hash where the key
+# is the first item in each sub array and the value is the second item.
+
+arr = [[:a, 1], ['b', 'two'], ['sea', {c: 3}], [{a: 1, b: 2, c: 3, d: 4}, 'D']]
+p arr
+
+h = {}
+arr.each do |subarray|
+  h[subarray.first] = subarray.last
+end
+
+p h
+
+# ls solution
+hsh = {}
+arr.each do |item|
+  hsh[item[0]] = item[1]
+end
+hsh # => {:a=>1, "b"=>"two", "sea"=>{:c=>3}, {:a=>1, :b=>2, :c=>3, :d=>4}=>"D"}
+puts
+puts "Practice Problem 13"
+# Practice Problem 13
+# expected return value: {:a=>1, "b"=>"two", "sea"=>{:c=>3}, {:a=>1, :b=>2, :c=>3, :d=>4}=>"D"}
 # **** finished here for today, continue tomorrow ---analyze LS solutions as well ****
 # Examples:
 #   before:
