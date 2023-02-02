@@ -40,6 +40,7 @@ p pairs([1000, 1000]) == 1
 p pairs([]) == 0
 p pairs([54]) == 0
 
+
 ************** Data Structures **************
 input: an array
 output: an integer
@@ -67,13 +68,34 @@ p pairs([1000, 1000]) == 1
 p pairs([]) == 0
 p pairs([54]) == 0
 
-#solve it with loop
-# -define result
-# -loop over the array
-# -if
-# p pairs([1, 2, 5, 6, 5, 2]) == 2
-# p pairs([1, 2, 2, 20, 6, 20, 2, 6, 2]) == 4
-# p pairs([0, 0, 0, 0, 0, 0, 0]) == 3
-# p pairs([1000, 1000]) == 1
-# p pairs([]) == 0
-# p pairs([54]) == 0
+puts
+# solve it with loop
+# -create a hash
+# -as you go, create keys and values for the hash
+# -while looping over the array of numbers
+# -if that number is not already a key, add it as a key with value 1
+# -else only increase the value by 1
+# -once you have the hash with keys and values,
+# -get all the values, divide each by 2 - this is how many pairs we have
+# -add these pairs
+
+def pairs(arr)
+  hash = {}
+  arr.each do |elem|
+    if !hash.keys.include?(elem)
+      hash[elem] = 1
+    else
+      hash[elem] += 1
+    end
+  end
+  pairs = hash.transform_values { |v| v / 2 }
+  pairs.values.sum
+end
+
+
+p pairs([1, 2, 5, 6, 5, 2]) == 2 # unique elements [1, 2, 5, 6],count 1s, 2s, 5s, 6s => [1, 2, 2, 1]
+p pairs([1, 2, 2, 20, 6, 20, 2, 6, 2]) == 4 # unique elements [1, 2, 20, 6], count 1s, 2s, 20s, 6s => [1, 4, 2, 2]
+p pairs([0, 0, 0, 0, 0, 0, 0]) == 3
+p pairs([1000, 1000]) == 1
+p pairs([]) == 0
+p pairs([54]) == 0
