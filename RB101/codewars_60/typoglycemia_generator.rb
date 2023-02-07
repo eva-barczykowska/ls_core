@@ -78,30 +78,36 @@ input: string
 output: string
 
 ***************Algorithm*****************
-Overall approach: string  convert to array. if string includes non alphabetical chars do X (ignore the non alpha chars, then sort as we do for string without non alpha chars), if string doesnt include non alphabetical chars do Y (sort just the inner chars- string[0] + sort middle + string[-1]
-1. convert string to array
-details: use chars
-2. if conditional. if branch: if array includes non alphanumeric
-details:
-3. else branch: doesnt include non alpha chars. sort just then inner chars.
-details: string[0] + sort middle + string[-1]
-4. return sorted string
-details:
-5.
-details:
-6.
-details:
+-convert string argument to an array of characters
+-save the special characters to an array variable `specials` - ['.', "'", '-', ',']
+-initialize a hash, this is where we will store special characters and their indexes like so {4=> '-'}
+-first check if the array has any characters that are are not alphabetic
+-if it doesn't, just return first character of the array, middle characters sorted and the last character of the array
+-join to return a string
+-if array includes non alphabetical chars, iterate over this array, looking at every character and its index
+-if the character is a part of `specials`, save the character as value and its index as key into a previously
+ initialized hash
+-delete the special characters, we can't have them because now we are going to sort our string
+-sorted string -> string[0] + sort middle + string[-1]
+-iterate over the clean, sorted string and insert back the special characters
+-index where we need to insert will be the key from the hash, the value will be the character which we need to
+ insert
+-lastly, join the array to return a string/word
+
+-now save all this to a method scramble_word. This is the code that takes care of scrambling 1 word
+-now define a method scramble_words(str). Inside the method, split the string into array of words, and transform each
+ using the scramble_word method.
+-join the array on the space and return the string. This method takes are of strings longer than 1 word.
 =end
 
-def scramble_words(string)
-  # array_of_words = string.split
+def scramble_word(string)
   return string if string.size < 4
   hash = {}
-  punctuation = ['.', "'", '-', ','] # initialize the punctuation to account for
+  specials = ['.', "'", '-', ','] # initialize the punctuation to account for
   array = string.chars
   if array.any? { |char| char =~ /[^a-z]/ } # count special characters only when the word includes any!
     array.each_with_index do |char, index| # and if it does, iterate over each character and its index in the array
-      if punctuation.include?(char) # and find out what the special char is  and what is its index
+      if specials.include?(char) # and find out what the special char is  and what is its index
         hash[index] = char  # and store this information in a hash because you'll need it later
       end
     end
@@ -117,19 +123,20 @@ def scramble_words(string)
 
 end
 
+def scramble_words(str)
+  res = str.split.map do |word|
+    scramble_word(word)
+  end
+  res.join(" ")
+end
 
-# Hash: {4=> '-'}
-# c a r d - c a r r y i n g
-# clean_str = cardcarrying, sort
-# iterate over clean string and insert the special character at the key index
-
-# p scramble_words('professionals')  == 'paefilnoorsss'
-# p scramble_words('i')  == 'i'
-# p scramble_words('') == ''
-# p scramble_words('me') == 'me'
-# p scramble_words('you') == 'you'
+p scramble_words('professionals')  == 'paefilnoorsss'
+p scramble_words('i')  == 'i'
+p scramble_words('') == ''
+p scramble_words('me') == 'me'
+p scramble_words('you') == 'you'
 p scramble_words('card-carrying') == 'caac-dinrrryg'
 p scramble_words("shan't") == "sahn't"
 p scramble_words('-dcba') == '-dbca'
 p scramble_words('dcba.') == 'dbca.'
-p scramble_words("you've gotta dance like there's nobody watching, love like you'll never be hurt, sing like there's nobody listening, and live like it's heaven on earth.") == "you've gotta dacne like teehr's nbdooy wachintg, love like ylo'ul neevr be hrut, sing like teehr's nbdooy leiinnstg, and live like it's haeevn on earth."
+p scramble_words("you've gotta dance like there's nobody watching, love like you'll never be hurt, sing like there's nobody listening, and live like it's heaven on earth.") #== "you've gotta dacne like teehr's nbdooy wachintg, love like ylo'ul neevr be hrut, sing like teehr's nbdooy leiinnstg, and live like it's haeevn on earth."
