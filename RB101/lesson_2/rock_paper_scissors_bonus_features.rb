@@ -22,49 +22,53 @@ defeats = {:rock => ['scissors, lizard'], :paper => ['rock', 'spock'], :scissors
 # what defeats what - store this info in a hash
 # VALID_CHOICES = %w[rock paper scissors]
 VALID_CHOICES = %w[rock paper scissors lizard spock]
-DEFEATS = {:rock => ['scissors, lizard'], :paper => ['rock', 'spock'], :scissors => ['paper', 'lizard'],
+h = {:rock => ['scissors, lizard'], :paper => ['rock', 'spock'], :scissors => ['paper', 'lizard'],
                     :lizard => ['paper', 'spock'], :spock => ['rock']}
 def prompt(message)
   Kernel.puts("=>#{message}")
 end
 
-def win?(first, second)
-  first == "rock" && second == "scissors" ||
-    first == "paper" && second == "rock" ||
-    first == "scissors" && second == "paper"
+# Algorithm
+# extract the key from the hash that equals to the my(player) choice converted to symbol
+# extract the values belonging to this key
+# ask if any of the above values are same like computer choice
+# if any of the values is same, player(I) win
+# else computer wins
+
+def win?(h, my_choice, computer_choice)
+  h.keys.any?(my_choice.to_sym) && h[my_choice.to_sym].any? { |elem| elem == computer_choice }
 end
 
-def display_result(player, computer)
-  if win?(player, computer)
-    prompt("You won!")
-  elsif win?(computer, player)
-    prompt("Computer won!")
-  else
+def display_result(h, player_choice, computer_choice)
+  if player_choice == computer_choice
     prompt("It's a tie!")
+  elsif win?(h, player_choice, computer_choice)
+    prompt("You won!")
+  else
+    prompt("Computer won!")
   end
 end
 
 loop do
-  choice = ""
+  my_choice = ""
   loop do
-    prompt("Choose one: #{VALID_CHOICES.join(', ')}.")
-    choice = Kernel.gets().chomp()
+    prompt("Choose one: #{ VALID_CHOICES.join(', ') }.")
+    my_choice = Kernel.gets().chomp()
 
-    if VALID_CHOICES.include?(choice)
+    if VALID_CHOICES.include?(my_choice)
       break
     else
       prompt("This is not a valid choice!")
     end
   end
-
-  computer_choice = VALID_CHOICES.sample
-
-  Kernel.puts "You chose #{choice}, computer chose #{computer_choice}."
-  display_result(choice, computer_choice)
+    computer_choice = VALID_CHOICES.sample
+    Kernel.puts "You chose #{my_choice}, computer chose #{computer_choice}."
+    display_result(h, my_choice, computer_choice)
 
   prompt("Do you want to play again? (y/n)")
   answer = Kernel.gets().chomp()
   break unless answer.downcase.start_with?("y")
 end
+
 
 prompt("Thank you for playing. Good bye.")
