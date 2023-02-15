@@ -73,5 +73,38 @@ p song_decoder("AWUBWUBWUBBWUBWUBWUBC") == "A B C"
 p song_decoder("WUBAWUBBWUBCWUB") == "A B C"
 p song_decoder("WUBWEWUBAREWUBWUBTHEWUBCHAMPIONSWUBMYWUBFRIENDWUB") == "WE ARE THE CHAMPIONS MY FRIEND"
 
+puts
+
+def song_decoder(wub_string)
+  wub_string.gsub('WUB', " ").squeeze(' ').strip # best approach
+end
+
+p song_decoder("AWUBBWUBC") == "A B C"
+p song_decoder("AWUBWUBWUBBWUBWUBWUBC") == "A B C"
+p song_decoder("WUBAWUBBWUBCWUB") == "A B C"
+p song_decoder("WUBWEWUBAREWUBWUBTHEWUBCHAMPIONSWUBMYWUBFRIENDWUB") == "WE ARE THE CHAMPIONS MY FRIEND"
+
+puts
+
+def song_decoder(wub_string)
+  wub_string.split('WUB').delete_if {|word| word == ''}.join(' ') # splitting on one wub works, but splitting on two in a row adds a empty string
+end
+
+p song_decoder("AWUBBWUBC") == "A B C"
+p song_decoder("AWUBWUBWUBBWUBWUBWUBC") == "A B C"
+p song_decoder("WUBAWUBBWUBCWUB") == "A B C"
+p song_decoder("WUBWEWUBAREWUBWUBTHEWUBCHAMPIONSWUBMYWUBFRIENDWUB") == "WE ARE THE CHAMPIONS MY FRIEND"
+
+puts
+
+def song_decoder(wub_string)
+  wub_string.split('WUB').select {|word| word != ''}.join(' ')
+end
+p song_decoder("AWUBBWUBC") == "A B C"
+p song_decoder("AWUBWUBWUBBWUBWUBWUBC") == "A B C"
+p song_decoder("WUBAWUBBWUBCWUB") == "A B C"
+p song_decoder("WUBWEWUBAREWUBWUBTHEWUBCHAMPIONSWUBMYWUBFRIENDWUB") == "WE ARE THE CHAMPIONS MY FRIEND"
+
+
 
 
