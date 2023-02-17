@@ -57,17 +57,19 @@ initialize `result`. and point it to an empty array
 -then focus on the array in question, the index of which you got from the previous step
 -look at that array and check which of its elements is 1
 
--I could split this into methods
+-I could split this into 3 methods
 1. get_row - helper method/auxiliary method
-2. mine_location
+2. get column
+3. main method
 
 ************** Code **************
 =end
 
+# refactor into 3 methods, 2 helper methods and 1 final method
 def get_row(array)
   row = []
 
-  array.each_with_index do |subarray, index|
+  array.each do |subarray|
     if subarray.any? { |integer| integer != 0 }
       row << array.index(subarray)
     end
@@ -75,14 +77,23 @@ def get_row(array)
   row
 end
 
-def mine_location(array)
+def get_column(array)
   bomb = 1
-  result = get_row(array) # getting the row / array in question index
-  target_array_index = result.join.to_i
-  result << array[target_array_index].find_index(bomb)
+  row = get_row(array) # getting the row/ the array index of the array where we can see 1 inside
+  target_array_index = row.join.to_i
+  array[target_array_index].find_index(bomb) # returns column
 end
 
-p mine_location([[1, 0, 0], [0, 0, 0], [0, 0, 0]]) == [0, 0]
+def mine_location(array)
+  mine_location = []
+
+  mine_location << get_row(array)
+  mine_location << get_column(array)
+
+  mine_location.flatten
+end
+
+p mine_location([[1, 0, 0], [0, 0, 0], [0, 0, 0]]) #== [0, 0]
 p mine_location([[0, 0, 0], [0, 1, 0], [0, 0, 0]]) == [1, 1]
 p mine_location([[0, 0, 0], [0, 0, 0], [0, 1, 0]]) == [2, 1]
 p mine_location([[1, 0], [0, 0]]) == [0, 0]
