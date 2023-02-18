@@ -191,3 +191,58 @@ end
   p list = []
   p reverse!(list) == [] # true
   p list == [] # true
+
+puts
+# mayank's solution
+=begin
+Write a method that takes an Array as an argument, and reverses its elements in place; that is, mutate the Array passed into this method. The return value should be the same Array object.
+
+You may not use Array#reverse or Array#reverse!.
+
+Input: An Array
+Output: An Array
+
+Rules:
+1. Reverse the elements in the Array
+2. The array should be modified destructively
+3. Do not change the element objects themselves, e.g. reverse!(["abc"]) == ["abc"]
+4. Array elements can be either integers or strings, at least according to our test cases
+
+Algorithm:
+1. Define a method called reverse! which takes one parameter
+2. Initialise one local variable for using within element assignment
+3. Create a duplicate for the Array
+4. Use each iterator to loop over each element, and then assign that element to -ith element to reverse the order
+
+Zero index would be -1
+1st index would be -2
+Third index would be -3 and so on..
+=end
+
+def reverse!(array)
+  duplicate_array = array.dup
+  counter = 0
+
+  array.map! do |element|
+    counter -= 1
+    duplicate_array[counter]
+  end
+end
+
+list = [1,2,3,4]
+result = reverse!(list)
+p result == [4, 3, 2, 1] # true
+p list == [4, 3, 2, 1] # true
+p list.object_id == result.object_id # true
+
+list = %w(a b e d c)
+p reverse!(list) == ["c", "d", "e", "b", "a"] # true
+p list == ["c", "d", "e", "b", "a"] # true
+
+list = ['abc']
+p reverse!(list) == ["abc"] # true
+p list == ["abc"] # true
+
+list = []
+p reverse!(list) == [] # true
+p list == [] # true
