@@ -99,3 +99,48 @@ p mine_location([[0, 0, 0], [0, 0, 0], [0, 1, 0]]) == [2, 1]
 p mine_location([[1, 0], [0, 0]]) == [0, 0]
 p mine_location([[1, 0, 0], [0, 0, 0], [0, 0, 0]]) == [0, 0]
 p mine_location([[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 1, 0], [0, 0, 0, 0]]) == [2, 2]
+
+puts
+
+def mineLocation(nested_arr)
+  return_array = []
+  nested_arr.each_with_index do |subarr, idx|
+    if subarr.include?(1)
+      return_array << idx
+    end
+    subarr.each_with_index do |element, idx2|
+      if element == 1
+        return_array << idx2
+      end
+    end
+  end
+  return_array
+end
+
+p mine_location([[1, 0, 0], [0, 0, 0], [0, 0, 0]]) #== [0, 0]
+p mine_location([[0, 0, 0], [0, 1, 0], [0, 0, 0]]) == [1, 1]
+p mine_location([[0, 0, 0], [0, 0, 0], [0, 1, 0]]) == [2, 1]
+p mine_location([[1, 0], [0, 0]]) == [0, 0]
+p mine_location([[1, 0, 0], [0, 0, 0], [0, 0, 0]]) == [0, 0]
+p mine_location([[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 1, 0], [0, 0, 0, 0]]) == [2, 2]
+
+puts
+
+def mine_location(field)
+  row = 0
+  column = 0
+  field.each_with_index do |nested, index|
+    if nested.include?(1)
+      row = field.index(nested) # very nice doing this in 1 go!
+      column = nested.index(1)  # very nice doing this in 1 go!
+    end
+  end
+  [row, column]
+end
+
+p mine_location([[1, 0, 0], [0, 0, 0], [0, 0, 0]]) == [0, 0]
+p mine_location([[0, 0, 0], [0, 1, 0], [0, 0, 0]]) == [1, 1]
+p mine_location([[0, 0, 0], [0, 0, 0], [0, 1, 0]]) == [2, 1]
+p mine_location([[1, 0], [0, 0]]) == [0, 0]
+p mine_location([[1, 0, 0], [0, 0, 0], [0, 0, 0]]) == [0, 0]
+p mine_location([[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 1, 0], [0, 0, 0, 0]]) == [2, 2]
