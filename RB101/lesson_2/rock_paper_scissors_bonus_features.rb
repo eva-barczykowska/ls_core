@@ -4,47 +4,46 @@
 # EATS PAPER DISPROVES SPOCK
 # VAPORIZES ROCK CRASHES SCISSORS
 
-#1. Add Lizzard and Spock to my code
+# Requirements:
+# 1. Add Lizard and Spock to my code
+# 2. Update the program so the user can type "r" for "rock," "p" for "paper," etc.
+# 3. Note that if you do bonus #1, you'll have two words that start with "s." How do you resolve that?
+# 4. Keep score of the player's and computer's wins.
+#    When either the player or computer reaches three wins, the match is over,
+#    and the winning player becomes the grand winner.
+#    Don't add your incrementing logic to display_results.
+#    Keep your methods simple; they should perform one logical task — no more, no less.
 
-# 2. Typing the full word "rock" or "lizard" is tiring.
-# Update the program so the user can type "r" for "rock," "p" for "paper," etc.
-# Note that if you do bonus #1, you'll have two words that start with "s." How do you resolve that?
+VALID_CHOICES = {["r", "rock"] => :rock, ["p", "paper"] => :paper, ["s", "scissors"] => :scissors, ["l", "lizard"] => :lizard, ["sp", "spock"] => :spock}
 
-# 3. Keep score of the player's and computer's wins.
-# When either the player or computer reaches three wins, the match is over,
-# and the winning player becomes the grand winner.
-# Don't add your incrementing logic to display_results.
-# Keep your methods simple; they should perform one logical task — no more, no less.
-#
-# what defeats what - store this info in a hash
-# VALID_CHOICES = %w[rock paper scissors]
-# VALID_CHOICES = { :rock => "r", :paper => "p", :scissors => "s", :lizard => "l", :spock => "sp" }
-VALID_CHOICES = {["r", "rock"]=>:rock, ["p", "paper"]=>:paper, ["s", "scissors"]=>:scissors, ["l", "lizard"]=>:lizard, ["sp", "spock"]=>:spock}
-
-h = { rock: ['scissors, lizard'], paper: ['rock', 'spock'], scissors: ['paper', 'lizard'],
+# if computer selected any values from the array belonging to the key that player had selected, player wins
+h = { rock: ['scissors', 'lizard'], paper: ['rock', 'spock'], scissors: ['paper', 'lizard'],
                     lizard: ['paper', 'spock'], spock: ['rock'] }
 
 def prompt(message)
   Kernel.puts("=>#{message}")
 end
 
-# Algorithm
-# check in the hash what player chose and what computer choose, if they're same, it's a tie
-
+# at this point both variables player_choice and computer_choice are string objects
 def win?(h, player_choice, computer_choice)
-  player_choice == h.keys.any? && computer_choice == h.values.any? # h contains winning combinations for the player
+
+  player_choice == "rock" && h[player_choice.to_sym].any? { |word| word == computer_choice } ||
+    player_choice == "paper" && h[player_choice.to_sym].any? { |word| word == computer_choice } ||
+    player_choice == "scissors" && h[player_choice.to_sym].any? { |word| word == computer_choice } ||
+    player_choice == "lizard" && h[player_choice.to_sym].any? { |word| word == computer_choice } ||
+    player_choice == "spock" && h[player_choice.to_sym].any? { |word| word == computer_choice }
 end
 
 def display_result(h, player_choice, computer_choice)
-  if win?(player_choice, computer_choice)
-    prompt("You won!")
-  elsif win?(h, player_choice, computer_choice)
-    prompt("Computer won!")
-  else
+  if player_choice == computer_choice
     prompt("It's a tie!")
+  elsif win?(h, player_choice, computer_choice)
+    prompt("You won!")
+  else win?(h, computer_choice, player_choice)
+       prompt("Computer won!")
   end
 end
-# VALID_CHOICES = {["r", "rock"]=>:rock, ["p", "paper"]=>:paper, ["s", "scissors"]=>:scissors, ["l", "lizard"]=>:lizard, ["sp", "spock"]=>:spock}
+
 loop do
   player_choice = ""
   loop do
@@ -76,17 +75,14 @@ loop do
 
   end
 
-    computer_choice = VALID_CHOICES.values.flatten.sample
+  computer_choice = VALID_CHOICES.values.sample.to_s #have to change sym to str, otherwise we will be comparing str with symbol in the win? method
 
-    Kernel.puts "You chose #{player_choice}, computer chose #{computer_choice}." #display full forms here
-    display_result(h, player_choice, computer_choice)
-
-  # You chose r, computer chose sp.
+  Kernel.puts "You chose #{player_choice}, computer chose #{computer_choice}." #display full forms here
+  display_result(h, player_choice, computer_choice)
 
   prompt("Do you want to play again? (y/n)")
   answer = Kernel.gets().chomp()
   break unless answer.downcase.start_with?("y")
 end
-
 
 prompt("Thank you for playing. Good bye.")
