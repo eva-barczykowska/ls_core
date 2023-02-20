@@ -81,6 +81,11 @@ p solution("abcdefg") == ["ab", "cd", "ef", "g_"]
 p solution("") == []
 
 puts "thinking about other solutions:"
+# Algorithm
+# -add _ at the end if string.size is odd
+# -split the string into an array
+# -slice the array into 2 elements, join these 2 elements and append them to the result array
+# -return the result
 
 def solution(str)
   str << '_' if str.size.odd?
