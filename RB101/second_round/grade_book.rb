@@ -67,3 +67,46 @@ end
 
 p get_grade(95, 90, 93) == "A"
 p get_grade(50, 50, 95) == "D"
+
+puts
+
+def get_grade(a, b, c)
+  scores = a, b, c
+  average = scores.inject(:+) / 3
+
+  case average
+  when 0..60
+    return 'F'
+  when 61..70
+    return'D'
+  when 71..80
+    return'C'
+  when 81..90
+    return 'B'
+  else
+    return'A'
+ end
+end
+
+p get_grade(95, 90, 93) == "A"
+p get_grade(50, 50, 95) == "D"
+
+puts
+
+GRADEBOOK = { (0..60) => 'F', (61..70) => 'D', (71..80) => 'C', (81..90) => 'B', (91..100) => 'A' }
+p GRADEBOOK.keys
+p GRADEBOOK.values
+
+def get_grade(a, b, c)
+  grade = nil
+  average = (a + b + c) / 3
+  GRADEBOOK.keys.each do |range, letter|
+    if range.include?(average)
+      grade = GRADEBOOK[range]# why can I not return here?
+    end
+  end
+  grade
+end
+
+p get_grade(95, 90, 93) #== "A"
+p get_grade(50, 50, 95) #== "D"
