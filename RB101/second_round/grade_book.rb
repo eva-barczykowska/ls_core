@@ -93,20 +93,54 @@ p get_grade(50, 50, 95) == "D"
 
 puts
 
-GRADEBOOK = { (0..60) => 'F', (61..70) => 'D', (71..80) => 'C', (81..90) => 'B', (91..100) => 'A' }
+GRADEBOOK = { (0..59) => 'F', (60..69) => 'D', (70..79) => 'C', (80..89) => 'B', (90..100) => 'A' }
 p GRADEBOOK.keys
 p GRADEBOOK.values
 
 def get_grade(a, b, c)
   grade = nil
   average = (a + b + c) / 3
-  GRADEBOOK.keys.each do |range, letter|
+  GRADEBOOK.keys.each do |range|
     if range.include?(average)
-      grade = GRADEBOOK[range]# why can I not return here?
+      grade = GRADEBOOK[range]
     end
   end
   grade
 end
 
-p get_grade(95, 90, 93) #== "A"
-p get_grade(50, 50, 95) #== "D"
+p get_grade(95, 90, 93) == "A"
+p get_grade(50, 50, 95) == "D"
+
+puts
+# refactored
+GRADEBOOK = { (0..59) => 'F', (60..69) => 'D', (70..79) => 'C', (80..89) => 'B', (90..100) => 'A' }
+
+def get_grade(a, b, c)
+  average = (a + b + c) / 3
+  GRADEBOOK.keys.each do |range|
+    return GRADEBOOK[range] if range.include?(average)
+  end
+end
+
+p get_grade(95, 90, 93) == "A"
+p get_grade(50, 50, 95) == "D"
+
+puts
+# solution from Mitch
+GRADEBOOK = {
+  (0..59) => 'F',
+  (60..69) => 'D',
+  (70..79) => 'C',
+  (80..89) => 'B',
+  (90..100) => 'A'
+}
+
+def get_grade(a, b, c)
+  average = (a + b + c) / 3
+  GRADEBOOK.each do |key, value|
+    return value if key.include?(average)
+  end
+end
+
+p get_grade(95, 90, 93) == "A"
+p get_grade(50, 50, 95) == "D"
