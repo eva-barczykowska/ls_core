@@ -85,3 +85,77 @@ p uppercase?('Four Score') == false
 p uppercase?('FOUR SCORE') == true
 p uppercase?('4SCORE!') == true
 p uppercase?('') == true
+
+puts
+=begin
+Uppercase Check
+Write a method that takes a string argument, and returns true if all of the alphabetic characters inside the string are
+uppercase, false otherwise. Characters that are not alphabetic should be ignored.
+PEDAC TEMPLATE
+
+************** Problem **************
+-write a method that takes a str argument
+-the method returns true if all of the alphabetic characters in the str argument are uppercase
+-else it returns false
+-non-alphabetic characters should be ignored
+
+
+Questions:
+-will the non-alphabetic characters will be ignored BY DEFAULT?
+************** Examples **************
+uppercase?('t') == false
+uppercase?('T') == true
+uppercase?('Four Score') == false
+uppercase?('FOUR SCORE') == true
+uppercase?('4SCORE!') == true
+uppercase?('') == true
+
+************** Data Structures **************
+-input: a string, could be empty, could contain special characters
+-output: a boolean, true or false
+************** Algorithm **************
+-split the string argument
+-iterate over the array
+-for each element (for all elements), check if its equal to its upcase version
+-if all elements are equal to their upcase version, return true
+-otherwise return false
+
+************** Code **************
+=end
+
+def uppercase?(str)
+  str.split("").all? { |char| char == char.upcase }
+end
+p uppercase?('t') == false
+p uppercase?('T') == true
+p uppercase?('Four Score') == false
+p uppercase?('FOUR SCORE') == true
+p uppercase?('4SCORE!') == true
+p uppercase?('') == true
+
+puts
+
+def uppercase?(str)
+  str.each_char { |char| char == char.upcase } ? true : false
+end
+p uppercase?('t') #== false
+p uppercase?('T') == true
+p uppercase?('Four Score') == false
+p uppercase?('FOUR SCORE') == true
+p uppercase?('4SCORE!') == true
+p uppercase?('') == true
+
+puts
+def uppercase?(str)
+  new_string = str.scan(/[A-Z]/).join # wow, scan returns a result ARRAY
+  new_string.eql?(new_string.upcase)
+end
+p uppercase?('t') #== false
+p uppercase?('T') #== true
+p uppercase?('Four Score') #== false
+p uppercase?('FOUR SCORE') #== true
+p uppercase?('4SCORE!') #== true
+p uppercase?('') #== true
+
+
+
