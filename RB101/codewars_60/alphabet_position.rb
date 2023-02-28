@@ -62,7 +62,7 @@ ALPHABET = ('a'..'z').to_a
 
 def alphabet_position(str)
   arr = str.downcase.split(//).select { |char| char =~ /[a-z]/ }
-  arr.map { |letter| ALPHABET.index(letter)}.map { |num| num + 1 }.join(" ")
+  arr.map { |letter| ALPHABET.index(letter) }.map { |num| num + 1 }.join(" ")
 end
 p alphabet_position("The sunset sets at twelve o' clock.") == "20 8 5 19 21 14 19 5 20 19 5 20 19 1 20 20 23 5 12 22 5 15 3 12 15 3 11"
 p alphabet_position("-.-'") == ""
