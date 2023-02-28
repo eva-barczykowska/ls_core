@@ -74,12 +74,13 @@ p pockets.values.flatten.select { |item| !allowed.include?(item) }
 
 ************** Code **************
 =end
-
+puts "Mine:"
 pockets = {
   bob: [1],
   tom: [2, 5],
   jane: [7]
 }
+
 def find_suspects(pockets, allowed_items)
   suspects = []
   illegal_items = pockets.values.flatten.select { |item| !allowed_items.include?(item) } # find if there are illegal items first
@@ -102,15 +103,55 @@ p find_suspects(pockets, [1, 7, 5, 2]) == nil
 p find_suspects(pockets, []) == [:bob, :tom, :jane]
 p find_suspects(pockets, [7]) == [:bob, :tom]
 
+puts
+puts "Kim's:"
+# Kim's
+pockets = {
+  bob: [1],
+  tom: [2, 5],
+  jane: [7]
+}
 
+def find_suspects(pockets, array)
+  return nil if pockets.all? {|name, subarr| subarr == nil || subarr.empty?} # added to pass CW
+  selected_pairs = pockets.select do |name, value_subarr|
+    value_subarr.any? do |int|
+      !array.include?(int)
+    end
+  end
 
+  return nil if selected_pairs.keys == []
+  selected_pairs.keys
+end
 
-# allowed = [1, 2]
-# suspects = []
-# pockets.each do |key, value|
-#   if !value.select! { |e| !allowed.include?(e) }
-#     p pockets[key]
-#     suspects << key
-#   end
-# end
-# suspects
+p find_suspects(pockets, [1, 2]) == [:tom, :jane]
+p find_suspects(pockets, [1, 7, 5, 2]) == nil
+p find_suspects(pockets, []) == [:bob, :tom, :jane]
+p find_suspects(pockets, [7]) == [:bob, :tom]
+
+puts
+puts "From codewars:"
+
+# solution from codewars
+pockets = {
+  bob: [1],
+  tom: [2, 5],
+  jane: [7]
+}
+
+def find_suspects(pockets, allowed_items)
+  suspects = []
+  pockets.each do |person, items|
+    suspects << person unless (items - allowed_items).empty? # add the person to the suspects array if they have something that is not allowed
+  end
+  suspects.empty? ? nil : suspects
+end
+
+p find_suspects(pockets, [1, 2]) == [:tom, :jane]
+p find_suspects(pockets, [1, 7, 5, 2]) == nil
+p find_suspects(pockets, []) == [:bob, :tom, :jane]
+p find_suspects(pockets, [7]) == [:bob, :tom]
+
+puts
+p [7] - [1, 2] # checking their items - allowed items,  a fantastic way to fish out and compare arrays
+p [2, 5] - [1, 2]
