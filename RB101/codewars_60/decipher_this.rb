@@ -65,46 +65,34 @@ string/coded > new string/deciphered/not coded
 =end
 
 ALPHABET = ('A'..'Z').to_a + ('a'..'z').to_a
-p 'H'.ord # 72
-
-# def get_letters(array_of_codes)
-#   letters_array = []
-#   array_of_codes.each do |code|
-#     ALPHABET.each do |letter|
-#       letters_array << letter if code == letter.ord
-#     end
-#   end
-#   letters_array
-# end
+# p 'H'.ord # 72
 
 def decipher_this(string)
   codes = [] # extract codes fist
   string.split.each { |elem| codes << elem.scan(/[0-9]/) } # this gives me a nested array with all the numbers 1 by 1 from each word in separate arrays
   codes.map! { |subarray| subarray.join }.map! { |str| str.to_i } # I need to transform this array os strings into an array of numbers
 
-  letters_array = []
+  letters_array = [] # transform codes into letters
   codes.each do |code|
     ALPHABET.each do |letter|
       letters_array << letter if code == letter.ord
     end
   end
+
   result = []
+  string.split.each { |word| result << word.chars.select { |ch| ch =~ /[A-Za-z]/ } } # get rid of numbers in the string, this gives me [[], ["e", "s", "i"], ["d", "l"], ["l", "w"], ["d", "v", "e", "i"], ["n"], ["n"], ["k", "a"]]
 
-  string.split.each do |word|
-    result << word.chars.select { |ch| ch =~ /[A-Za-z]/ } # get rid of numbers in the string, this gives me [[], ["e", "s", "i"], ["d", "l"], ["l", "w"], ["d", "v", "e", "i"], ["n"], ["n"], ["k", "a"]]
-  end
-
-  swapped =  result.each do |arr|
+  swapped = result.each do |arr| # swapping first and last letter
     arr[0], arr[-1] = arr[-1], arr[0]
   end
-  # insert letters
-  counter = 0
+
+  counter = 0 # insert previously prepared letters
   final = []
+
   loop do
     swapped.each do |array|
       final << array.prepend(letters_array[counter])
       counter += 1
-      break if counter > letters_array.size
     end
     break if counter > letters_array.size - 1
   end
