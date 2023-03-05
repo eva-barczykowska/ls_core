@@ -108,4 +108,95 @@ p wave("") == []
 p wave("two words") == ["Two words", "tWo words", "twO words", "two Words", "two wOrds", "two woRds", "two worDs", "two wordS"]
 p wave(" gap ") == [" Gap ", " gAp ", " gaP "]
 
+puts
+
+#Kim's PEDAC
+
+# =begin
+# 35. Mexican Wave
+# (https://www.codewars.com/kata/58f5c63f1e26ecda7e000029/train/ruby)
+# 6 kyu
+# In this simple Kata your task is to create a function that turns a string into a Mexican Wave.
+# You will be passed a string and you must return that string in an array where an uppercase letter is a person standing up.
+# Rules
+# 1.  The input string will always be lower case but maybe empty.
+# 2.  If the character in the string is whitespace then pass over it as if it was an empty seat.
+# =begin pedac
+# *************Problem********************
+# Overall goal: to take a string and return copies of the string in an array. each copy will have a diff ltr capitalized
+# initial input: string
+# overall output: array of strings
+# explicit requirements:
+# input string: all lowercase char, can be empty. if space, skip it, do not count it
+# implicit requirements:
+# array will contain the number of strings == to string size
+#     if string has 5 chars, there will be 5 strings
+# first string has first ltr capitalized
+# 2nd string has 2nd ltr capitalized
+# 3rd string has 3rd ltr capitalized
+# 4th string has 4th ltr cap
+# 5th string has 5th ltr cap
+# array[0] has string[0] capitalized
+# empty string returns empty array
+# need to completely skip spaces - a word should not be added to the return array if curr
+#   iteration is a space
+# questions:
+# **********Examples/Test cases************
+# p wave("hello") == ["Hello", "hEllo", "heLlo", "helLo", "hellO"]
+# ** H the E the L the L then O is cap
+# p wave("codewars") == ["Codewars", "cOdewars", "coDewars", "codEwars", "codeWars", "codewArs", "codewaRs", "codewarS"]
+# ** C the O then D etc is capitalized
+# p wave("") == []
+# ** empty string returns empty array
+# p wave("two words") == ["Two words", "tWo words", "twO words", "two Words", "two wOrds", "two woRds", "two worDs", "two wordS"]
+# ** the space is ignored
+# p wave(" gap ") == [" Gap ", " gAp ", " gaP "]
+# ** There is 1 space before and after gap. The space is ignored, no string is returned for that iteration.
+# then G then A then P is upcased, then ending space is ignored So only 3 strings are returned, one for
+# each letter. no string returned if ther eis a space in orig string,
+# *************Data Structure**************
+# string > array of strings
+# ***************Algorithm*****************
+# Overall approach: initialize return array > 0 up to string size  as index> iterate over int > take string and capitalize
+# the indexed char > add to return array > return return array
+# */ initialize result array to empty
+
+# details:
+# */ iterate 0 to string size, with block
+# details: upto
+
+# */ inside block: need to skip the iteration if the current iterated char is empty string
+# details: next if word[int] == ' '
+
+# */ inside block: take string and upcase the element of current iteration number
+# details: assign string[0] to string[0].upcase
+
+# */ add word to result array
+# details:
+# */ then downcase word to reset it/start with all downcase letters
+
+# details:
+# */ return value is result array (array of strings/Mexican wave)
+# details:
+# =end
+#
+
+def wave(str)
+  result = []
+  0.upto(str.size - 1) do |int|
+    next if str[int] == ' '
+      str[int] = str[int].upcase
+      result << str
+      str = str.downcase
+  end
+  result
+end
+
+
+p wave("hello") == ["Hello", "hEllo", "heLlo", "helLo", "hellO"]
+p wave("codewars") == ["Codewars", "cOdewars", "coDewars", "codEwars", "codeWars", "codewArs", "codewaRs", "codewarS"]
+p wave("") == []
+p wave("two words") == ["Two words", "tWo words", "twO words", "two Words", "two wOrds", "two woRds", "two worDs", "two wordS"]
+p wave(" gap ") == [" Gap ", " gAp ", " gaP "]
+
 
