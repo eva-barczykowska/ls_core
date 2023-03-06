@@ -6,25 +6,34 @@
 
 # Requirements:
 # 1. Add Lizard and Spock to my code
-# 2. Update the program so the user can type "r" for "rock," "p" for "paper," etc.
-# 3. Note that if you do bonus #1, you'll have two words that start with "s." How do you resolve that?
+# 2. Update the program so the user can type "r" for "rock," "p" for "paper,"
+#    etc.
+# 3. Note that if you do bonus #1, you'll have two words that start with "s."
+#    How do you resolve that?
 # 4. Keep score of the player's and computer's wins.
 #    When either the player or computer reaches three wins, the match is over,
 #    and the winning player becomes the grand winner.
 #    Don't add your incrementing logic to display_results.
-#    Keep your methods simple; they should perform one logical task — no more, no less.
+#    Keep your methods simple; they should perform one logical task
+#    — no more, no less.
 
-VALID_CHOICES = { ["r", "rock"] => :rock, ["p", "paper"] => :paper, ["s", "scissors"] => :scissors, ["l", "lizard"] => :lizard, ["sp", "spock"] => :spock }
+VALID_CHOICES = { ["r", "rock"] => :rock,
+                  ["p", "paper"] => :paper,
+                  ["s", "scissors"] => :scissors,
+                  ["l", "lizard"] => :lizard,
+                  ["sp", "spock"] => :spock }
 
-# if computer selected any values from the array belonging to the key that player had selected (from this hash), player wins
-h = { rock: ['scissors', 'lizard'], paper: ['rock', 'spock'], scissors: ['paper', 'lizard'],
-                    lizard: ['paper', 'spock'], spock: ['rock', 'scissors'] }
+# if computer selected any values from the array belonging to
+# the key that player had selected (from this hash), player wins
+h = { rock: %w[scissors lizard], paper: %w[rock spock], scissors: %w[paper lizard],
+      lizard: %w[paper spock], spock: %w[rock scissors] }
 
 def prompt(message)
   Kernel.puts("=>#{message}")
 end
 
-# at this point both variables player_choice and computer_choice are string objects
+# at this point both variables player_choice and computer_choice
+# are string objects
 def win?(h, player_choice, computer_choice)
   player_choice == "rock" && h[player_choice.to_sym].any? { |word| word == computer_choice } ||
     player_choice == "paper" && h[player_choice.to_sym].any? { |word| word == computer_choice } ||
@@ -38,8 +47,8 @@ def display_result(h, player_choice, computer_choice)
     prompt("It's a tie in this round!")
   elsif win?(h, player_choice, computer_choice)
     prompt("YOU won this round!")
-  else win?(h, computer_choice, player_choice)
-       prompt("COMPUTER won this round!")
+  elsif win?(h, computer_choice, player_choice)
+    prompt("COMPUTER won this round!")
   end
 end
 
@@ -52,12 +61,12 @@ loop do
     prompt("Choose one, 'r' for rock, 'p' for paper, 's' for scissors, 'l' for lizard or 'sp' for spock")
     player_choice = Kernel.gets().chomp()
 
-    def get_full_word(shortcut) # could change this to hash but this is easier to read
+    def get_full_word(shortcut) # case is easier to read
       case shortcut
       when "r"
         "rock"
       when "p"
-         "paper"
+        "paper"
       when "s"
         "scissors"
       when "l"
@@ -67,18 +76,22 @@ loop do
       end
     end
 
-    player_choice = get_full_word(player_choice) # I want to display full form in the terminal for both players
+    # I want to display full form in the terminal for both players
+    player_choice = get_full_word(player_choice)
 
-    if VALID_CHOICES.keys.any? { |subarray| subarray.include?(player_choice) } # keys is a nested array, we're looking inside all sub-arrays
+    # keys is a nested array, we're looking inside all sub-arrays
+    if VALID_CHOICES.keys.any? { |subarray| subarray.include?(player_choice) }
       break
     else
       prompt("This is not a valid choice!")
     end
   end # basic loop - ends here
 
-  computer_choice = VALID_CHOICES.values.sample.to_s # have to change sym to str, otherwise we will be comparing str with symbol in the win? method
+  # have to change sym to str, otherwise we will be comparing str with symbol in the win? method
+  computer_choice = VALID_CHOICES.values.sample.to_s
 
-  Kernel.puts "You chose #{player_choice}, computer chose #{computer_choice}." #display full forms here
+  # display full forms here
+  Kernel.puts "You chose #{player_choice}, computer chose #{computer_choice}."
   display_result(h, player_choice, computer_choice)
 
   if win?(h, player_choice, computer_choice)
@@ -87,23 +100,20 @@ loop do
     computer_score += 1
   end
   # puts "--after update"
-  #
   # Kernel.puts player_score
   # Kernel.puts computer_score
 
   if player_score == 3 || computer_score == 3
-    prompt("Score of 3 points has been reached, the grand winner is #{player_score > computer_score ? "YOU" : "COMPUTER"}!")
+    prompt("Score of 3 points has been reached, the grand winner is #{player_score > computer_score ? 'YOU' : 'COMPUTER'}!")
     prompt("Do you want to play again? (y/n)")
     answer = Kernel.gets().chomp()
     player_score = 0
     computer_score = 0
   else
-    prompt("Do you want to play again? (y/n)") # so after every move (and not after we've 3 points have been reached) we are asking the player if they want to continue
+    prompt("Do you want to play again? (y/n)") # ask after every move
     answer = Kernel.gets().chomp()
   end
   break unless answer.downcase.start_with?("y")
-
 end
 
 prompt("Thank you for playing. Good bye.")
-
