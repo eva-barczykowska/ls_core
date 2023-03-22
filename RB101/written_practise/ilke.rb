@@ -10,11 +10,15 @@ bootcamps['launchschool'] = 'great'
 #
 # What is the problem and how can it be fixed?
 
-# 2. What does this code print? What does it return and why? What concept is represented here?
+# 2. You run the following code and it produces an error. What is the problem and how to fix it?
+day_of_the_week = Thursday
+puts 'Today is #{day_of_the_week}.'
+
+# 3. What does this code print? What does it return and why? What concept is represented here?
 a = [1, 2, 3]
 a.map { |x| puts x**2 }
 
-# 3. What does this code print? What does it return and why? What concept is represented here?
+# 4. What does this code print? What does it return and why? What concept is represented here?
 def repeater(string)
   result = ''
   string.each_char do |char|
