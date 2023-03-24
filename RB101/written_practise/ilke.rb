@@ -43,6 +43,15 @@
 # 1. What does this code print or return? What concept is represented here?
 a = "hello"
 b = a
+=begin
+On line 1 variable `a` is initialized and assigned to the string object `"hello"`.
+Then on line 2 variable `b` is initialized and assigned to the string object that
+variable `a` is referencing.
+Therefore the code returns the string `"hello"` and does not output anything.
+The concept represented here is that of variables as pointers - variables do
+not contain values themselves but point to objects in memory.
+
+=end
 
 # 2. What does this code print or return? What concepts are represented here?
 def my_method(param)
@@ -56,6 +65,31 @@ my_method(str)
 
 p str
 
+=begin
+On lines 19-23 the method `my_method` is defined with one paramenter named `param`.
+On line 25 variable `str` is initialized and assigned to string object `"hola"`.
+
+On line 26 `my_method` is invoked and the object `str` is referencing is passed in
+as an argument and assigned to method parameter `param`. `str` and `param` now reference
+the same object.
+
+On line 28 the `Kernel#p` method in invoked and passed `str` as an argument.
+This outputs `"hola"` to the screen.
+
+The reason for this output, as opposed to a modified string, is because of what happens
+within the `my_method` method:
+
+On line 20 the `String#+` method is invoked and passed `" planet"` as an argument, `param` is then
+reassigned to the return value of `param + " planet"`.
+`param` and `str` now no longer reference the same object, and the rest of the code in the method does
+not affect the object `str` is referencing.
+
+This demonstrates the concept that assignment (or reassignment) is NON-mutating, and that variables
+are pointers referencing objects in memory.
+
+
+=end
+
 # 3.
 # What do the last 3 lines print and why?
 def merge(array_1, array_2)
@@ -68,6 +102,16 @@ merged[0][0] = "J"
 p merged
 p arr1
 p arr2
+=begin
+On lines 56-58 method `merge` is defined with two parameters named `array_1` and `array_2`.
+  On line 60, using parralell assignment, variables `arr1` and `arr2` are initialized to reference
+array objects `['hello']` and `['hello', 'world']` respectively.
+  On line 61 variable `merged` is initialized and assigned to the return value of invoking `merge`
+and passing it `arr1` and `arr2` as arguments. Variables `arr1` and `arr2` and method parameters `array_1` and `array_2`
+now reference the same objects.
+  On line 62, using array and string element reference, the first character of the string at index `0` is changed to `"J"`.
+  This changed both the first element of the array referenced by `merged` and the first element of the array referenced by `arr1` because
+=end
 
 # --- fourth ---
 # 2. Examine the following code.  Using the lines 3, 7, 11, 16, and 17 to explain what concept is demonstrated.
