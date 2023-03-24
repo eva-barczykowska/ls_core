@@ -66,7 +66,7 @@ my_method(str)
 p str
 
 =begin
-On lines 19-23 the method `my_method` is defined with one paramenter named `param`.
+On lines 19-23 the method `my_method` is defined with one parameter named `param`.
 On line 25 variable `str` is initialized and assigned to string object `"hola"`.
 
 On line 26 `my_method` is invoked and the object `str` is referencing is passed in
@@ -98,19 +98,48 @@ end
 
 arr1, arr2 = ['hello'], ['hello', 'world']
 merged = merge(arr1, arr2)
-merged[0][0] = "J"
-p merged
+
+puts "object_id of the array before changes"
+p merged.object_id
+puts "object id of the first character of the first array element after merge is called, now it's pointing to 'h'"
+p merged[0][0].object_id #60
+
+puts "array element object_id before"
+p merged[0].object_id
+
+merged[0][0] = "J" # merged[0] returns the first element of the 'merged' array, on which then String#[]= is used to mutate the string
+puts "object id of the first character of the first array element after merge is called, now it's pointing to 'J'"
+p merged[0][0].object_id #60 -- the first element of the array gets mutated coz we've called the destructive []= element on it merged[0] and then on the return value of this we are using []=
+
+# puts "object id of the first character of the first element after merge is called, now it's pointing to 'j'" - these object_ids are different, does it mean we reassigned the string to point somewhere else? But the []= method is mutating
+# p merged[0][0].object_id
+puts "array element object_id after"
+p merged[0].object_id
+puts "object_id of the array after changes"
+p merged.object_id #60 and same as before changes, also 60, from which I conclude that this array has been mutated
+
+# We mutated the `merged` array by mutating the first element.
+# The first element of the `merged` array is a String object with the value `"hello"`, returned by merged[0]
+# On this first element, i.e. on the String object with the value `"hello"`
+# we're calling the destructive method []=, which is mutating the string, from `hello` it becomes `Jello.`
+
+p p merged
 p arr1
 p arr2
 =begin
 On lines 56-58 method `merge` is defined with two parameters named `array_1` and `array_2`.
-  On line 60, using parralell assignment, variables `arr1` and `arr2` are initialized to reference
+On line 60, using parallel assignment, variables `arr1` and `arr2` are initialized to reference
 array objects `['hello']` and `['hello', 'world']` respectively.
-  On line 61 variable `merged` is initialized and assigned to the return value of invoking `merge`
+On line 61 variable `merged` is initialized and assigned to the return value of invoking `merge`
 and passing it `arr1` and `arr2` as arguments. Variables `arr1` and `arr2` and method parameters `array_1` and `array_2`
 now reference the same objects.
-  On line 62, using array and string element reference, the first character of the string at index `0` is changed to `"J"`.
-  This changed both the first element of the array referenced by `merged` and the first element of the array referenced by `arr1` because
+On line 62, using array and string element reference, the first character of the string at index `0` is changed to `"J"`.
+This changed both the first element of the array referenced by `merged` and the first element of the array referenced
+by `arr1` because
+
+concepts: scope (methods have their own scope...)
+merged[0][0] = "J" - method chaining, merged[0] returns first element of the array, a String, merged[0][0]
+arr1, arr2 = ['hello'], ['hello', 'world'] - multiple assignment
 =end
 
 # --- fourth ---
