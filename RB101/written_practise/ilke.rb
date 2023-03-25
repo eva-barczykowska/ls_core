@@ -142,24 +142,78 @@ merged[0][0] = "J" - method chaining, merged[0] returns first element of the arr
 arr1, arr2 = ['hello'], ['hello', 'world'] - multiple assignment
 =end
 
-# --- fourth ---
-# 2. Examine the following code.  Using the lines 3, 7, 11, 16, and 17 to explain what concept is demonstrated.
+# --- fourth session---
+# 1. What does the last line of this code output and why? What does it return? What concept is illustrated here?
+# def all_zero
+#   0
+# end
+#
+# puts 'true' if all_zero
+#
+# 2. What does the following code return and why?
+# ['a', 'b', 'c', nil, 'd'].select do |letter|
+#   letter
+# end
+#
+# 3. What do the last 2 lines of this code output and why?
+# def display_message(message = 'hi')
+#   puts message
+# end
+#
+# display_message
+# display_message('goodbye')
+#
+# --- fifth session ---
+# 1. Examine the following code.  Using the lines 3, 7, 11, 16, and 17 to explain what concept is demonstrated.
+# # a = ‘hello world’
+# # puts a # ‘hello world’
+# # a.object_id # => 260 #?
+# #
+# # a.upcase!
+# # puts a # ‘HELLO WORLD’
+# # a.object_id # => 260 #?
+# #
+# # a.upcase
+# # puts a # ‘HELLO WORLD’
+# # a.object_id # => 260 #?
+# #
+# # b = a.upcase #
+# # puts a # ‘HELLO WORLD’
+# # puts b # ‘HELLO WORLD’
+# # a.object_id # => 260
+# # b.object_id # => 280 #?
+#
+# 2. What does this code output and why?
+# def strange_method
+#   if 2 > 3
+#     'strange method'
+#   end
+# end
+#
+# puts strange_method
+#
+# 3. What does the code below return?
+# # Why does it work?
+# a = 'hello'
+# a.concat('!').upcase
 
-# a = ‘hello world’
-# puts a # ‘hello world’
-# a.object_id # => 260 #?
+
+# --- sixth session ---
+# 1. What does this line of code return and why?
+# 1.frozen?
+# Returns true because 1 is an integer and therefore an immutable object
 #
-# a.upcase!
-# puts a # ‘HELLO WORLD’
-# a.object_id # => 260 #?
+# 2. What does the last line of code return and why?
+# array = ["apple", "book", "car", "dog"]
+# array.freeze
+# array[0] << 'sss'
+# p array
+# Outputs ["applessss", "book", "car", "dog"] because the individual elements of the array are not frozen and can therefore be mutated.
 #
-# a.upcase
-# puts a # ‘HELLO WORLD’
-# a.object_id # => 260 #?
-#
-# b = a.upcase #
-# puts a # ‘HELLO WORLD’
-# puts b # ‘HELLO WORLD’
-# a.object_id # => 260
-# b.object_id # => 280 #?
+# 3. What does this code return and why?]
+# array = ["apple", "book", "car", "dog"]
+# array.freeze
+# array << "ear"
+# array[0] = 'ant'
+# Frozen error because frozen array cannot be modified by mutating methods such as `<<` or `Array[]=`
 
