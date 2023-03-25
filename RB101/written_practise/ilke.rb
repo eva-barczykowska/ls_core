@@ -99,23 +99,24 @@ end
 arr1, arr2 = ['hello'], ['hello', 'world']
 merged = merge(arr1, arr2)
 
-puts "object_id of the array before changes"
+puts "object_id of the ARRAY before changes"
 p merged.object_id
+
 puts "object id of the first character of the first array element after merge is called, now it's pointing to 'h'"
 p merged[0][0].object_id #60
 
-puts "array element object_id before"
+puts "array ---ELEMENT--- object_id before"
 p merged[0].object_id
 
-merged[0][0] = "J" # merged[0] returns the first element of the 'merged' array, on which then String#[]= is used to mutate the string
+merged[0][0] = "J" # merged[0] returns the first element of the `merged` array, on which then String#[]= is used to mutate the string
 puts "object id of the first character of the first array element after merge is called, now it's pointing to 'J'"
 p merged[0][0].object_id #60 -- the first element of the array gets mutated coz we've called the destructive []= element on it merged[0] and then on the return value of this we are using []=
 
 # puts "object id of the first character of the first element after merge is called, now it's pointing to 'j'" - these object_ids are different, does it mean we reassigned the string to point somewhere else? But the []= method is mutating
 # p merged[0][0].object_id
-puts "array element object_id after"
+puts "array ---ELEMENT--- object_id after"
 p merged[0].object_id
-puts "object_id of the array after changes"
+puts "object_id of the ARRAY after changes"
 p merged.object_id #60 and same as before changes, also 60, from which I conclude that this array has been mutated
 
 # We mutated the `merged` array by mutating the first element.
@@ -123,9 +124,19 @@ p merged.object_id #60 and same as before changes, also 60, from which I conclud
 # On this first element, i.e. on the String object with the value `"hello"`
 # we're calling the destructive method []=, which is mutating the string, from `hello` it becomes `Jello.`
 
-p p merged
+p merged
 p arr1
 p arr2
+
+# The last 3 lines of the array
+# The first line prints `merged` array, which is `["hello", "world"]`
+# The second line prints `["Jello", "world"]` because previous use of `merged[0]` retrieved the first element of
+# this array and subsequent use of destructive method `[]=` mutated this element. It's value from `hello` became `Jello`.
+# This mutation however only affected the first element of the `arr1`, which forms part of `merged`.
+# The first element of `arr2` does not form part of `merged` array, because it was left out out it by the `|` method,
+# invoked on line 2 of this code snippet.
+# `|` method does not include duplicate values in its return value. Literal `"hello"` from the `arr2` was a duplicate.
+
 =begin
 On lines 56-58 method `merge` is defined with two parameters named `array_1` and `array_2`.
 On line 60, using parallel assignment, variables `arr1` and `arr2` are initialized to reference
