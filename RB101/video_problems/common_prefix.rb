@@ -50,8 +50,58 @@ def common_prefix(array)
   res.join
 end
 
+p common_prefix(['flower', 'flow', 'flight']) == 'fl'
+p common_prefix(['dog', 'racecar', 'car']) == ''
+p common_prefix(['interspecies', 'interstellar', 'interstate']) == 'inters'
+p common_prefix(['throne', 'dungeon']) == ''
+p common_prefix(['throne', 'throne']) == 'throne'
 
-common_prefix(['flower', 'flow', 'flight']) == 'fl'
+puts
+# Kim's solution according to my algorithm
+
+def common_prefix(array)
+  counter = 0
+  result_array = []
+  while counter < array[0].size
+    if array.all? {|word| word[counter] == array[0][counter]}
+      result_array << array[0][counter]
+    end
+    counter += 1
+  end
+  result_array.join
+end
+
+p common_prefix(['flower', 'flow', 'flight']) == 'fl'
+p common_prefix(['dog', 'racecar', 'car']) == ''
+p common_prefix(['interspecies', 'interstellar', 'interstate']) == 'inters'
+p common_prefix(['throne', 'dungeon']) == ''
+p common_prefix(['throne', 'throne']) == 'throne'
+
+puts
+# solving with Kim's algorithm
+# Overall approach:  given an array of strings >  initialize `start_word` to the first word in the given array.
+# This will be the word that is the comparison standard
+# iterate over the array of words using map
+# nested iteration/iterate over each char of the word plus their index,
+# and each time select the char that equals the char at the same index position in `start_word`.
+# The result of these 2 iterations should be saved to `selected_chars`.
+# `selected chars` will return an array of sub-arrays, e.g.
+# [["f", "l", "o", "w", "e", "r"], ["f", "l", "o", "w"], ["f", "l"]]
+# iterate over the sub-arrays/selected chars for each word and return the shortest one because
+# the shortest sub-array will be the one that is common for all words
+# return value of the method is the shortest one converted to a string
+
+def common_prefix(array)
+  start_word = array.first
+  selected_chars = array.map do |word| # map returns an array of the same size but what will be the elements of this returned array? Depends what is the return value of the blcok
+    word.chars.select.each_with_index do |char, index| # nice way to work with characters and select only those which appear in every word at the same index like in the first word
+      char == start_word[index] # the character in the word that we are currently looking at is same as the character at the same index in the first word
+      end
+  end
+  selected_chars.min_by { |subarr| subarr.length }.join
+  end
+
+p common_prefix(['flower', 'flow', 'flight']) == 'fl'
 p common_prefix(['dog', 'racecar', 'car']) == ''
 p common_prefix(['interspecies', 'interstellar', 'interstate']) == 'inters'
 p common_prefix(['throne', 'dungeon']) == ''
