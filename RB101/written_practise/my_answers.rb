@@ -59,7 +59,7 @@
 # We can also say that this code represents the use of logical operators(???).
 
 # -- second session ---
-# # 1. What is the output and return value of the following code snippet? What concept does it demonstrate?
+#  1. What is the output and return value of the following code snippet? What concept does it demonstrate?
 #
 num = 47.times do |num|
   num = 56
@@ -74,8 +74,8 @@ puts num
 #
 # This snippet represents the concept of method return value and variable assignment.
 #
-# # 2. What does the following code output and what concept does it demonstrate?
-#
+#  2. What does the following code output and what concept does it demonstrate?
+
 arr = [1, 2, 3, 4]
 counter = 0
 sum = 0
@@ -104,7 +104,7 @@ arr = [a, b]
 arr[1] = 5
 arr
 
-# `arr` is [[1, 3], 5] and this is because on line 4 we reassigned the first element of arr, which,
+# `arr` is [[1, 3], 5] and this is because on line 4 we reassigned the element at index 1 of arr, which,
 # after line 3 is [[1, 3], [2]], to point to integer 5 instead of integer 2, which it was pointing to before this reassignment.
 # Syntax []= means index reassignment, and it is a destructive action, meaning it mutates the caller.
 # We can easily check that the caller was mutated by calling .object_id on arr on line 3 and 5, the resulting numbers will be same.
@@ -122,7 +122,15 @@ a += "test"
 puts a
 
 # On line 1 we initialize a variable `a` to reference an empty string.
-# Next, on lines 3, 5, and 5 we are reassigning the variable to point to itself and the string `test`.
+# Next, on lines 3, 4, and 5 we are reassigning the variable to the return value of concatenating the value that
+# `a` is currently referencing and the string literal `test`.
+#
+# alternative:
+# The String#+ is invoked on `a` and passed the String literal "test" as an argument.
+# `a` is then reassigned to the return value of this method call.
+#
 # Because we've done this 3 times, when we call Kernel#puts method on the last line and pass a to it as an argument
 # what will be returned is `nil` as puts always returns nil but what will be output is the string `testtesttest`
+
+
 
