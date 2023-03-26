@@ -202,11 +202,20 @@ arr1, arr2 = ['hello'], ['hello', 'world'] - multiple assignment
 # end
 #
 # puts strange_method
+
+# 3. What is the problem here? How to fix it? What is the name of the concept represented?
+# names = ["maria", "jose", "ilke"]
+# course = "launchschool"
+# other = "some other bootcamp"
 #
-# 3. What does the code below return?
-# # Why does it work?
-# a = 'hello'
-# a.concat('!').upcase
+# names.each do |name, course|
+#   if name == "ilke"
+#     puts "#{name} is enrolled in #{course}"
+#   else
+#     puts "#{name} is enrolled in #{other}"
+#   end
+# end
+
 
 
 # --- sixth session ---
@@ -227,4 +236,22 @@ arr1, arr2 = ['hello'], ['hello', 'world'] - multiple assignment
 # array << "ear"
 # array[0] = 'ant'
 # Frozen error because frozen array cannot be modified by mutating methods such as `<<` or `Array[]=`
+
+# --- sixth session ---
+# 1. What concept is represented here?
+# p "jenny" || 1
+#
+# 2. What does this code output? How to fix this? What concept is represented here?
+# a = 5
+# course = "RB101"
+# a.times do |course|
+#   puts "#{course} is a great foundation!"
+# end
+# fixing: change the name of the outer scope variable or use
+
+# 3. What does the code below return?
+# # Why does it work?
+# a = 'hello'
+# a.concat('!').upcase
+
 
