@@ -132,5 +132,69 @@ puts a
 # Because we've done this 3 times, when we call Kernel#puts method on the last line and pass a to it as an argument
 # what will be returned is `nil` as puts always returns nil but what will be output is the string `testtesttest`
 
+# From our discussion of string element reference, I modified this snippet to explore the concept further.
+# What does the following code output? Why?
+# What would happen if `capitalize` was changed to `capitalize!`? Why?
 
+puts "first"
+def name_jumble(string)
+  string[0] = string[1].capitalize
+end
+
+name = 'Evan'
+puts "name object_id before - SAME before and after(mutation"
+p name.object_id
+puts "name[1].object_id before"
+p name[1].object_id
+name_jumble(name)
+puts "name object_id after - SAME before and after(mutation)"
+p name.object_id
+puts "name[1].object_id after, it's different coz string[1].capitalize returned a new string"
+p name[1].object_id
+puts "result:"
+puts name
+
+# Last line of this code outputs the string`"Vvan"` and returns `nil` because puts always returns nil.
+# The value that `name` was originally pointing to on line 5, has been subjected to the destructive String[]= method on line 6.
+# What happens there is that first we are retrieving the second character of the string using the `String[]` method,
+# which returns a new string and then on this new string we use a non-destructive String#capitalize method.
+# which returns "V". So a new string, `"V"` is assigned to the first character of the string argument using the aforementioned
+# mutating String[]= method.
+
+# We use non-destructive version of `capitalize` on the new string that the String[] method returned,
+# so the second character of the original string argument is not mutated. Even if we used the destructive version
+# of that method, capitalize!, the second character of the original string argument would still not be mutated because
+# this method is called on the new string that the String[] method returned.
+#
+# The concept demonstrated here is mutation. We can see this by calling name.object_id before invoking 1name_jumble1
+# method on the string object that `name` is referencing. Object ids will be same, which means that this is the same object,
+# albeit mutated.
+
+# We can also say that another concept demonstrated here is reassignment. We retrieve the second element of the
+# argument string by the `String#[]` method and then point it to the return value of the `capitalize` method.
+# So before invoking the `jumble_name` method the character at index 1 was pointing to another object in memory.
+# We can see this by calling the object_id method on name[1] before invoking `jumble_method` on the object that `name`
+# is referencing and after. Both object_ids will differ, which means that `string[1]` returned a new object`.
+
+
+puts "the second example"
+def name_jumble(string)
+  string[0] = string[1].capitalize!
+end
+
+name = 'Evan'
+puts "name object_id before - SAME before and after(mutation)"
+p name.object_id
+puts "name[1].object_id before"
+p name[1].object_id
+name_jumble(name)
+puts "name object_id after - SAME before and after(mutation)"
+p name.object_id
+puts "name[1].object_id after, WHY IS IT DIFFERENT? HAS IT NOT BEEN MUTATED BY capitalize!  ???"
+"*** It is because String[] returns a new string!!! ***"
+p name[1].object_id
+puts "result:"
+puts name
+
+# see description above
 
