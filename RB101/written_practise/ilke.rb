@@ -155,25 +155,52 @@ arr1, arr2 = ['hello'], ['hello', 'world'] - multiple assignment
 
 # --- fourth session---
 # 1. What does the last line of this code output and why? What does it return? What concept is illustrated here?
-# def all_zero
-#   0
-# end
+def all_zero
+  0
+end
+
+puts 'true' if all_zero
+
+# The last line of this code outputs the string `"true"` because the `if statement` evaluates as `true`.
+# The `if statement` is passed the `all_zero` method, whose value
+# evaluates to true, and so the string `"true"` is printed.
+# The concept that is represented here is the concept of truthiness. All objects in Ruby, except false and nil,
+# evaluate as true, are considered truthy.
 #
-# puts 'true' if all_zero
-#
+# The last line also returns `nil` because puts always returns nil.
+
 # 2. What does the following code return and why?
-# ['a', 'b', 'c', nil, 'd'].select do |letter|
-#   letter
-# end
-#
+['a', 'b', 'c', nil, 'd'].select do |letter|
+  letter
+end
+
+# This code returns an array of 4 elements, all of them `nil`. This is because the Array#select method is used on
+# an array of 5 elements and this method returns a new array. Elements placed in the return value of `select`
+# are those, for which the block passed to `select` returned a truthy value. Since all objects, except `false` and `nil`
+# evaluate as true, all elements except `nil` will be placed in the new array. `nil` will not be placed in the returned
+# array because the block returns false when the `nil` element is passed to it and evaluated.
+
+# The concept demonstrated here is iteration, selection and truthiness.
+# The `Array#select` method iterates over the argument array, passed every value to the block parameter and inside the
+# block evaluates the value. If the value evaluates as true, the element is selected and added to the array which will
+# be returned when all the elements have been iterated over.
+
 # 3. What do the last 2 lines of this code output and why?
-# def display_message(message = 'hi')
-#   puts message
-# end
+def display_message(message = 'hi')
+  puts message
+end
+
+display_message
+display_message('goodbye')
+
+# `display_message` outputs the string `"hi"` because when no arguments are passed to the method when the method is
+# invoked, but the method has a default parameter(s) defined, then this default parameter(s) will be used.
 #
-# display_message
-# display_message('goodbye')
+# The last line of this snippet outputs the string `"goodbye"` because an argument has been passed and there is no
+# need for the method to use its default argument.
 #
+# Both invocations return `nil` because puts always returns nil.
+
 # --- fifth session ---
 # 1. Examine the following code.  Using the lines 3, 7, 11, 16, and 17 to explain what concept is demonstrated.
 # # a = ‘hello world’
@@ -204,19 +231,18 @@ arr1, arr2 = ['hello'], ['hello', 'world'] - multiple assignment
 # puts strange_method
 
 # 3. What is the problem here? How to fix it? What is the name of the concept represented?
-# names = ["maria", "jose", "ilke"]
-# course = "launchschool"
-# other = "some other bootcamp"
-#
-# names.each do |name, course|
-#   if name == "ilke"
-#     puts "#{name} is enrolled in #{course}"
-#   else
-#     puts "#{name} is enrolled in #{other}"
-#   end
-# end
+names = ["maria", "jose", "ilke"]
+best_course = "launchschool"
+other = "some other bootcamp"
 
-
+names.each do |name, course|
+  if name == "ilke"
+    puts "#{name} is enrolled in #{course}"
+  else
+    puts "#{name} is enrolled in #{other}"
+  end
+end
+# fix it by changing the outer scope variable `course` to `best_course for example` and the interpolated variable as well
 
 # --- sixth session ---
 # 1. What does this line of code return and why?
@@ -253,5 +279,47 @@ arr1, arr2 = ['hello'], ['hello', 'world'] - multiple assignment
 # # Why does it work?
 # a = 'hello'
 # a.concat('!').upcase
+#
+# # --- seventh session ---
+# 1. You wanted to print ["bob: some other bootcamp", "eva: launch school"].
+# Why didn't you succeed and how to fix it? What concept is represented here?
+names = ["bob", "eva"]
+launch_school = ": Launch School"
+bootcamp = ": some other bootcamp"
 
+names.each do |name|
+  if name == "eva"
+    name + launch_school
+  else
+    name + bootcamp
+  end
+end
+
+p names
+
+# solution:
+names = ["bob", "eva"]
+launch_school = ": Launch School"
+bootcamp = ": some other bootcamp"
+
+names.each do |name|
+  if name == "eva"
+    name << launch_school
+  else
+    name << bootcamp
+  end
+end
+
+p names
+# 2. We were expecting last line of this code to output a string "SHAWN made a very good choice!".
+# Why doesn't it? How to fix it?
+def congratulate_student(name)
+  name = name.upcase
+  name << " made a very good choice!"
+end
+
+student = "Shawn"
+congratulate_student(student)
+
+puts student
 
