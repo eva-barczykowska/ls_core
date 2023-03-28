@@ -323,3 +323,14 @@ congratulate_student(student)
 
 puts student
 
+# 3. What will this code output? What concepts are demonstrated here?
+
+a = 6
+b = 14.times do |a|
+  a = 4
+  puts a
+end
+
+puts a
+puts b
+

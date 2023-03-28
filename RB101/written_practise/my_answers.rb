@@ -197,4 +197,226 @@ puts "result:"
 puts name
 
 # see description above
+# 1. What does the last line of this code output and why? What does it return? What concept is illustrated here?
+def all_zero
+  0
+end
 
+puts 'true' if all_zero
+
+# 2. What does the following code return and why? What concept is represented here?
+['a', 'b', 'c', nil, 'd'].select do |letter|
+  letter
+end
+
+# 3. What do the last 2 lines of this code output and why? What is the concept represented here?
+def display_message(message = 'hi')
+  puts message
+end
+
+display_message
+display_message('goodbye')
+
+# #1. What does the following code output? Why? What concept does it demonstrate?
+#
+s = 'Hello World'
+puts s[0]
+puts s[2]
+puts s[-1]
+puts s[2, 3]
+puts s[2, 3][2]
+
+# First line/LINE 2 outputs the string object "H", because parts of strings (single characters) can be extracted
+# using the String#[] method. This method, if passed a single index, returns a new string with
+# a character at that index, the integer used here signifies index of the characters and we start
+# counting characters/INDICES from `0`, so the first character will be returned.
+#
+# THIRD line outputs the String object `"l"`, because, since we start counting INDICES from 0, `s[2]`
+# will extract the 3rd character from this string.
+#
+# FOURTH line outputs the String object `"d"` because while extracting string characters, we can use also
+# negative indexes starting from `s[-1]`, which stands for the last character of the string.
+#
+# FIFTH line outputs the String object `"llo"` because `String#[]` method is also actually alias for the `String#slice`
+# method which takes 2 integer arguments, first for the index from which we want to extract characters and second
+# for the number of characters we want to extract.
+#
+# Last line calls the `String#[]` method on the return value of the previous line, which is `"llo"` and again,
+# counting characters from 0, this way we can extract the 3rd character, which is the string `"o"`.
+
+# THE LAST LINE IS THE SAME AS THE PREVIOUS LINE BUT WITH AN ADDITION OF CALLING THE STRING#[] METHOD ON `s[2, 3]`, WHICH RETURNS `"o"`, BECAUSE THIS IS THE THIRD CHARACTER/THE CHARACTER AT THE 2ND INDEX FROM THE PREVIOUSLY EXTRACTING STRING, `"llo"`.
+
+# THE CHARACTER AT INDEX `2`. - USE THIS
+# The concept represented here is String element reference.
+
+
+"abc"[0].object_id == "abc"[0].object_id #=> false !!!
+a[0].object_id == a[0].object_id #=> true !!!
+# String element reference always returns a different object_id.
+#   Array reference always returns the same object_id if the same number index is repeatedly
+# referenced.
+
+  # When we call the String#[] method on str, it always returns a new String
+  # When we call it on array, it returns the element at this index.
+  #2. What does the following code output? Why? What concept does it demonstrate?
+
+  arr = %w(a b c d e f g)
+puts arr[0]
+puts arr[1]
+puts arr [-1]
+puts arr[2, 3]
+puts arr[2, 3][2]
+
+# On line 2, the `#puts` method is invoked and passed the return value of calling `#[0]` on `arr`.
+
+# ***the puts method is invoked and passed the return value of calling the `String#[]` method on an array.
+
+# The concept demonstrated here is array reference.
+# We can access elements of the array using integer-based index, starting from `0` for the first element of the array
+# or `-1` when counting from the last element of the array backwards.
+#
+# SECOND line will output first element of the array, the String object `"a"`.
+#
+# THIRD line will output second element of the array, the String object `"b"`.
+#
+# FOURTH line will output last element of the array, the String object `"g"`.
+#
+# Penultimate line will RETURNE NEW ARRAY, `["e", "f", "g"]` and output strings `"e", "f", "g"` on separate lines. This is because Array has the Array#[]
+# method which, apart from taking single integers for extracting element at the given index, also can take 2 integers as
+# an argument, first will stand for the first element of the array to be retrieved and the second will signify the
+# number of elements that are to be retrieved after this first element. This means that 3 elements of the array will be
+# retrieved, starting from element at the index 2.
+#
+# Last LINE IS THE SAME AS THE PREVIOUS LINE BUT WITH AN ADDITION OF ANOTHER METHOD CALL, ARRAY#[] method on the return value `["e", "f", "g"]`. THIS ADDITIONAL METHOD CALL returns a new STRING, `"g"`. This is in turned passed to the puts method as an argument. So `"g"` will be output.
+# by the last line of this code.
+
+# #3. What does the following code output? Why? What concept does it demonstrate?
+
+array = ['a', 'b', 'c', 'd', 'e']
+
+array.each do |letter|
+  letter.upcase!
+end
+
+p array
+
+# This code will output `["A", "B", "C", "D", "E"] `.
+#
+# The concept demonstrated here is mutation. We are using destructive method, String#upcase! while iterating through the
+# calling Array object. The code within the block, while passing each element of the calling array to the block
+# calls String#upcase! on each element and because it is a mutating method, it will permanently change the elements of this array.
+#
+# ilke's answers
+# # 1. What does the last line of this code output and why? What does it return? What concept is illustrated here?
+# # def all_zero
+# #   0
+# # end
+#
+# # puts 'true' if all_zero
+#
+# =begin
+# The last line of this code outputs the string object `true`, and returns `nil`.
+#
+# The reason for this is as follows:
+# On lines 1-3 a method, named `all_zero`, is defined with no parameters. Within
+# the method, on line 2, we evaulate the expression `0`. This makes the return value
+# of the method the integer value `0`.
+#
+# On line 5, the `Kernel#puts` method is invoked and passed the expression
+# `'true' if all_zero'. This is a one-line `if` statement, that outputs `'true'`
+# if the condition `all_zero` evaluates to `true`. Since the `all_zero` returns
+# the integer `0`, and everything in Ruby is "truthy" except for `nil` and `false`,
+# it evaluates to `true`.
+#
+# This code demonstrates the concept of truthiness as well as that of the return
+# value of a method being the last evaluated expression. Furthermore, it also
+# distinguishes between the boolean value `true`, and an expression being "truthy".
+# =end
+#
+# =begin
+# # The last line of this code outputs the string `"true"` because the `if statement` evaluates as `true`.
+# # The `if statement` is passed the `all_zero` method, whose value
+# # evaluates to true, and so the string `"true"` is printed.
+# # The concept that is represented here is the concept of truthiness. All objects in Ruby, except false and nil,
+# # evaluate as true, are considered truthy.
+# #
+# # The last line also returns `nil` because puts always returns nil.
+# =end
+#
+#
+# # 2. What does the following code return and why? What concept is represented here?
+# ['a', 'b', 'c', nil, 'd'].select do |letter|
+#   letter
+# end
+#
+# =begin
+# This code returns the array object `['a', 'b', 'c', 'd']`.
+#
+# The reason for this is that the `Array#select` method is invoked on the array
+# ['a', 'b', 'c', nil, 'd'] and passed a `do..end` block as an argument. On each iteration
+# `#select` passes an element from the array to the block an assigns it to block parameter `letter`.
+# Within the block, `letter`, as an expression, is evaluated. Since `#select` considers the
+# return value of the block, specifically its truthiness, and returns a new array with the elements
+# that evaluate to `true`, /with the elements for which the return value of the block evaluates as true/is truthy-- the return value of `#select` is the array `['a', 'b', 'c', 'd']`.
+# Notice that it is not identical to the orginal array, but that the element `nil` has been excluded.
+# This is becuase `nil` evaluates to `false` or is "falsey".
+#
+# The concept demonstrated here is that of selection and that the `#select` method
+# considers the truthiness of the blocks return value.
+# ITERATION
+# =end
+#
+# # 3. What do the last 2 lines of this code output and why? What is the concept represented here?
+# def display_message(message = 'hi')
+#   puts message
+# end
+#
+# display_message
+# display_message('goodbye')
+#
+# =begin
+# On line 1-3 method `display_message` is defined with one default parameter `message = 'hi'`.
+#
+# Within the method, the `Kernel#puts` method is invoked and passed `message` as an argument.
+# BODY
+#
+# On line 5, `display_message` is invoked and passed no arguments. This outputs `hi` to the screen.
+# On line 6, `display_message` is invoked again and passed string object `'goodbye'` as an argument.
+# This outputs `goodbye` to the screen.
+#
+# The concept demonstrated here is that of default method parameters: when no arguments
+# are passed in upon method invocation,the value that the default method parameter
+# is assigned to is passed in as an argument.
+# =end
+
+#snippet from Maranda
+a = 6
+b = 14.times do |a|
+  a = 4
+	puts a
+  end
+puts a
+puts b
+
+# The concepts illustrated here are variable reassignment, variable shadowing, variable scope and return value of the method.
+# On line 1 a local variable `a` is initialized to reference an Integer object 6.
+#
+# On line 2, another local variable, `b` is initialized and made reference the return value of calling the #times
+# method on the integer `14`. The #times method takes a block, denoted by the words `do..end` and the block parameter,
+# `|a|`. This method will pass all integers from 1 to 14 to the block and within the body of the block `a`
+# seems to be reassigned 14 times to point to an integer `6`, at least (I think) this is the intention.
+#
+# What happens, however,
+# is that the name of the block variable is also `a` and when Ruby parser goes through the code, it looks
+# for the variable `a` in order to reassign it, and when it finds it in the form of the block variable and stops looking further,
+# outside the block, in the other scope where the main scoped `a` resides.
+# Normally the variable `a` could be reassigned from within the block but because of the concept
+# described above, called `variable shadowing`, it can't.
+# If we wanted to reassign `a` to point to another object, we should have used another block variable name.
+#
+# What happens next is that since the inner/block scoped variable `a` is pointing to `6`, `6` is passed to the
+# Kernel#puts method as an argument and this method invocation prints number `4` 14 times and returns nil.
+#
+# The return value of the Integer#times method is its caller and because`b` was made to reference the
+# return value of calling the #times method on  `14` `b` points to `14`. When `puts` is invoked and `b`
+# is passed in as an argument, `14` is printed and `nil` is returned.
