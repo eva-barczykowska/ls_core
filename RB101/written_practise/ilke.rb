@@ -203,32 +203,98 @@ display_message('goodbye')
 
 # --- fifth session ---
 # 1. Examine the following code.  Using the lines 3, 7, 11, 16, and 17 to explain what concept is demonstrated.
-# # a = ‘hello world’
-# # puts a # ‘hello world’
-# # a.object_id # => 260 #?
-# #
-# # a.upcase!
-# # puts a # ‘HELLO WORLD’
-# # a.object_id # => 260 #?
-# #
-# # a.upcase
-# # puts a # ‘HELLO WORLD’
-# # a.object_id # => 260 #?
-# #
-# # b = a.upcase #
-# # puts a # ‘HELLO WORLD’
-# # puts b # ‘HELLO WORLD’
-# # a.object_id # => 260
-# # b.object_id # => 280 #?
+a = "hello world"
+puts a
+a.object_id #?
+p a.object_id
+
+a.upcase!
+puts a
+a.object_id #?
+p a.object_id
+
+a.upcase
+puts a
+a.object_id #?
+p a.object_id
+
+b = a.upcase
+puts a
+puts b
+a.object_id #
+b.object_id #
+
+# Line 3 returns 260, this is when the local variable `a` is initialized and made reference String object `"hello world"
+# Line 7 otputs the same number as object_id and this is because the destructive String#upcase! method was invoked on the
+# object that `a` is referencing. This method mutated the object that `a` is referencing so when we pass it to the
+# `Kernel#puts` method, it outputs `"HELLO WORLD"`.
 #
+# On line 11 the non-destructive method #`upcase`is invoked on the object that `a` is currently referencing,
+# which is `"HELLO WORLD"`. This method returns a new object but its returned value is not saved anywhere so the object
+# remains unchanged. We can see this by the object_id that is returned, it's same as previous object_id, which means that
+# we are still dealing with the same object.
+#
+# Line 16 will return the same object_id as before because reassigning `a` to the return value of calling the `upcase!`
+# method on the object that `a` is referencing does not change the original object that `a` is pointing to. Reassignment
+# is non mutating, and we can see this by invoking the `object_id` method on line 11. The object id of `a` does not differ
+# to when we previously checked it. This represents the concept of reassignment.
+#
+# Finally, the last line outputs a different object_id that all the previous lines, because we captured the return value
+# of calling the #upcase method on the object that a is currently referencing, `"HELLO WORLD"`.
+# Invoking the non-destructive #upcase method returns a new object, and hence its object_id will be different, even though
+# its value is the same. This again represents the concept of reassignment.
+
+# ilke
+# The concept demonstrated here is that of "variables as pointers" and mutating
+# methods.
+#
+# On line 1, variable `a` is initialized and assigned to string object "hello world".
+# On line 3 the `String#object_id` method is called on `a`. This will return an integer.
+# Let's use `60` for this example.
+#
+# On line 5, the mutating `String#upcase!` method is called on `a`, returning the
+# value `'HELLO WORLD'`.
+#
+# On line 7, the `#object_id` method is again called on `a`
+# and this will return the same integer as before (`60`), because the method call
+# on line 5 returned the calling object.
+#
+# On line 9, the non-mutating `String#upcase` method is called on `a`. This returns
+# a new string, but it is not stored anywhere.
+#
+# On line 11, `#object_id` method is
+# again called on `a` and this will return the same integer as before (`60`).
+#
+# On line 14, variable `b` is initialized and assigned to the return value of
+# calling `#upcase` on `a`. On line 16 `#object_id` method is called on `a`, and
+# this returns `60`, and then on line 17 it is called on `b` and returns
+# a different object id to that of `a`, for example `80`.
+
 # 2. What does this code output and why?
-# def strange_method
-#   if 2 > 3
-#     'strange method'
-#   end
-# end
-#
-# puts strange_method
+def strange_method
+  if 2 > 3
+    'strange method'
+  end
+end
+
+puts strange_method
+
+=begin
+On lines 1-4 the method `strange_method` is defined with no parameters.
+Within the method body, on lines 2-4 we have an `if` statement that is evaluating if the condition `2 > 3`
+evaluates to `true`. Since `2 > 3` evaluates to `false`, the `if` statement does not execute and returns `nil`.
+
+Since the condition is NOT met the return value of the `if statement` is `nil`.
+
+If condition is met: whatever the return value of the last evaluated expression within the `if` statement is,
+this is the return value.
+
+On line 6, the `Kernel#puts` method is invoked and passed the return value of
+calling the `strange_method` method.
+
+Because the return value of `strange_method` is `nil` (returned implicitly from the method as `nil` the return value
+of the the last evaluated expression in the method), nothing is output to the screen.
+=end
 
 # 3. What is the problem here? How to fix it? What is the name of the concept represented?
 names = ["maria", "jose", "ilke"]
@@ -242,25 +308,47 @@ names.each do |name, course|
     puts "#{name} is enrolled in #{other}"
   end
 end
-# fix it by changing the outer scope variable `course` to `best_course for example` and the interpolated variable as well
+
+# ilke
+# The problem here is that on line 7 the variable referenced in the string interpolation is the block parameter `course`.
+
+# On each iteration we are trying to reference the object to which `course is` pointing to.
+# However, since the method Array#each was called on an array and passed a `do..end block` with TWO block parameters,
+# the second block parameter - namely course - remains unassigned to a value.
+# It would seem that Ruby parses the code before running it, notices a block parameter and allocates a space for it.
+# Since it is not assigned to a value during the iteration, Ruby assigns it to the value nil.
+# That is why when Kernel#p is called on the last line and passed course as an argument, the object nil is outputted
+# to the screen. Also, when course is interpolated on line 7, it doesn't appear in the string.
+
+# If we wanted the name of the course to be printed, we could change the name of the interpolated variable to `best_course`,
+# since the variable `best_course`, in the outer scope, is available to the inner scope of the block.
+
+# Alternatively we could change the `names` array to a hash containing key and value pairs.
+# That way the second block parameter would have a value to be assigned to on each iteration.
+# The concepts represented here are string interpolation, variable scope and the correct use of block parameters.
+#
+# ADDITIONAL INFO
+# Remember the definition for each:
+# each yields control to the given block once for each element in the caller/receiver array,
+# one element at a time, and assigns each element to the block parameter. The second parameter remains assigned to nil.
 
 # --- sixth session ---
 # 1. What does this line of code return and why?
-# 1.frozen?
+1.frozen?
 # Returns true because 1 is an integer and therefore an immutable object
 #
 # 2. What does the last line of code return and why?
-# array = ["apple", "book", "car", "dog"]
-# array.freeze
-# array[0] << 'sss'
-# p array
+array = ["apple", "book", "car", "dog"]
+array.freeze
+array[0] << 'sss'
+p array
 # Outputs ["applessss", "book", "car", "dog"] because the individual elements of the array are not frozen and can therefore be mutated.
 #
 # 3. What does this code return and why?]
-# array = ["apple", "book", "car", "dog"]
-# array.freeze
-# array << "ear"
-# array[0] = 'ant'
+array = ["apple", "book", "car", "dog"]
+array.freeze
+array << "ear"
+array[0] = 'ant'
 # Frozen error because frozen array cannot be modified by mutating methods such as `<<` or `Array[]=`
 
 # --- sixth session ---
@@ -333,4 +421,15 @@ end
 
 puts a
 puts b
+
+# 4. We assign the return value of calling upcase! to `letter`. Why doesn't it change our caller array elements
+# permanently?
+
+array = ['a', 'b', 'c', 'd', 'e']
+
+array.each do |letter|
+  letter = letter.upcase
+end
+
+p array
 
