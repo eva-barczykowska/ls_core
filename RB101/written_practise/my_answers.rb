@@ -217,8 +217,8 @@ end
 display_message
 display_message('goodbye')
 
-# #1. What does the following code output? Why? What concept does it demonstrate?
-#
+#1. What does the following code output? Why? What concept does it demonstrate?
+
 s = 'Hello World'
 puts s[0]
 puts s[2]
@@ -226,16 +226,16 @@ puts s[-1]
 puts s[2, 3]
 puts s[2, 3][2]
 
-# First line/LINE 2 outputs the string object "H", because parts of strings (single characters) can be extracted
-# using the String#[] method. This method, if passed a single index, returns a new string with
-# a character at that index, the integer used here signifies index of the characters and we start
-# counting characters/INDICES from `0`, so the first character will be returned.
+# LINE 2 outputs the string object `"H"`, because parts of strings (single characters) can be extracted from
+# a string object using the String#[] method. This method, if passed a single index, returns a new string with
+# a character at that index, the integer used here signifies index of the character and we start
+# counting INDICES from `0`, so the first character/ the character at index `0` will be returned.
 #
 # THIRD line outputs the String object `"l"`, because, since we start counting INDICES from 0, `s[2]`
-# will extract the 3rd character from this string.
+# will extract the character at index `2`/will extract 3rd character from this string.
 #
 # FOURTH line outputs the String object `"d"` because while extracting string characters, we can use also
-# negative indexes starting from `s[-1]`, which stands for the last character of the string.
+# negative indices starting from `s[-1]`, which stands for the last character of the string.
 #
 # FIFTH line outputs the String object `"llo"` because `String#[]` method is also actually alias for the `String#slice`
 # method which takes 2 integer arguments, first for the index from which we want to extract characters and second
@@ -244,44 +244,49 @@ puts s[2, 3][2]
 # Last line calls the `String#[]` method on the return value of the previous line, which is `"llo"` and again,
 # counting characters from 0, this way we can extract the 3rd character, which is the string `"o"`.
 
-# THE LAST LINE IS THE SAME AS THE PREVIOUS LINE BUT WITH AN ADDITION OF CALLING THE STRING#[] METHOD ON `s[2, 3]`, WHICH RETURNS `"o"`, BECAUSE THIS IS THE THIRD CHARACTER/THE CHARACTER AT THE 2ND INDEX FROM THE PREVIOUSLY EXTRACTING STRING, `"llo"`.
-
 # THE CHARACTER AT INDEX `2`. - USE THIS
 # The concept represented here is String element reference.
 
-
+# Very important difference between String element reference and Array element reference:
+#
 "abc"[0].object_id == "abc"[0].object_id #=> false !!!
 a[0].object_id == a[0].object_id #=> true !!!
+
 # String element reference always returns a different object_id.
-#   Array reference always returns the same object_id if the same number index is repeatedly
+# Array element reference always returns the same object_id if the same number index is repeatedly
 # referenced.
 
-  # When we call the String#[] method on str, it always returns a new String
-  # When we call it on array, it returns the element at this index.
-  #2. What does the following code output? Why? What concept does it demonstrate?
+# When we call the String#[] method on str, it always returns a new String
+# When we call it on the array, it returns the element at this index.
 
-  arr = %w(a b c d e f g)
+#2. What does the following code output? Why? What concept does it demonstrate?
+
+arr = %w(a b c d e f g)
 puts arr[0]
 puts arr[1]
 puts arr [-1]
 puts arr[2, 3]
 puts arr[2, 3][2]
 
-# On line 2, the `#puts` method is invoked and passed the return value of calling `#[0]` on `arr`.
+# This code demonstrates Array element reference. We use the `Array#[]` method, which returns the element at index or
+# returns a subarray, when 2 numbers are used inside the `[]` brackets, first number stands for the index we want
+# to start extracting from, 2nd number stands for the numbers of characters we want to retrieve.
 
-# ***the puts method is invoked and passed the return value of calling the `String#[]` method on an array.
+# On line 2, the `#puts` method is invoked and passed the return value of calling the `String#[]` method on an array `arr`.
 
-# The concept demonstrated here is array reference.
-# We can access elements of the array using integer-based index, starting from `0` for the first element of the array
-# or `-1` when counting from the last element of the array backwards.
-#
-# SECOND line will output first element of the array, the String object `"a"`.
-#
-# THIRD line will output second element of the array, the String object `"b"`.
-#
+# The concept demonstrated here is array element reference.
+
+# We can access any element of the array using integer-based index, starting from `0` for the first element of the array
+# or `-1` when counting backwards from the last element of the array.
+
+# SECOND line will output array element at index `0`/ first element of the array, the String object `"a"`.
+
+# THIRD line will output array element at index `1`, second element of the array, the String object `"b"`.
+
 # FOURTH line will output last element of the array, the String object `"g"`.
-#
-# Penultimate line will RETURNE NEW ARRAY, `["e", "f", "g"]` and output strings `"e", "f", "g"` on separate lines. This is because Array has the Array#[]
+
+# Penultimate line will RETURN A NEW ARRAY, `["e", "f", "g"]` and output strings `"e", "f", "g"` on separate lines.
+# This is because Array has the Array#[]
 # method which, apart from taking single integers for extracting element at the given index, also can take 2 integers as
 # an argument, first will stand for the first element of the array to be retrieved and the second will signify the
 # number of elements that are to be retrieved after this first element. This means that 3 elements of the array will be
@@ -290,7 +295,7 @@ puts arr[2, 3][2]
 # Last LINE IS THE SAME AS THE PREVIOUS LINE BUT WITH AN ADDITION OF ANOTHER METHOD CALL, ARRAY#[] method on the return value `["e", "f", "g"]`. THIS ADDITIONAL METHOD CALL returns a new STRING, `"g"`. This is in turned passed to the puts method as an argument. So `"g"` will be output.
 # by the last line of this code.
 
-# #3. What does the following code output? Why? What concept does it demonstrate?
+#3. What does the following code output? Why? What concept does it demonstrate?
 
 array = ['a', 'b', 'c', 'd', 'e']
 
@@ -302,11 +307,15 @@ p array
 
 # This code will output `["A", "B", "C", "D", "E"] `.
 #
-# The concept demonstrated here is mutation. We are using destructive method, String#upcase! while iterating through the
-# calling Array object. The code within the block, while passing each element of the calling array to the block
-# calls String#upcase! on each element and because it is a mutating method, it will permanently change the elements of this array.
+# The concept demonstrated here is mutation. We invoke a destructive method, String#upcase!, on each element
+# while iterating through the calling Array object.
+# The #each method, passes each element of the array to the block. where
+# String#upcase! method is invoked on each element and because it is a mutating method,
+# it will permanently change each element of this array.
 #
-# ilke's answers
+# If we used #upcase, which is non-mutating, the caller array would remain unchanged.
+
+# Ilke's answers
 # # 1. What does the last line of this code output and why? What does it return? What concept is illustrated here?
 # # def all_zero
 # #   0
@@ -319,32 +328,31 @@ p array
 #
 # The reason for this is as follows:
 # On lines 1-3 a method, named `all_zero`, is defined with no parameters. Within
-# the method, on line 2, we evaulate the expression `0`. This makes the return value
-# of the method the integer value `0`.
+# the body of the method, on line 2, integer object `0` is implicitly returned from this method.
 #
 # On line 5, the `Kernel#puts` method is invoked and passed the expression
-# `'true' if all_zero'. This is a one-line `if` statement, that outputs `'true'`
-# if the condition `all_zero` evaluates to `true`. Since the `all_zero` returns
-# the integer `0`, and everything in Ruby is "truthy" except for `nil` and `false`,
-# it evaluates to `true`.
+# `'true' if all_zero'. This is a one-line `if` statement, that outputs string object `'true'`
+# if the return value of the `all_zero` method evaluates as `true`.
+#
+# Since the `all_zero` returns the integer `0`, and every expression in Ruby evaluates as true/ is "truthy"
+# except for `nil` and `false`,
+# the if statement evaluates to `true` and the string `"true"` is printed.
 #
 # This code demonstrates the concept of truthiness as well as that of the return
-# value of a method being the last evaluated expression. Furthermore, it also
-# distinguishes between the boolean value `true`, and an expression being "truthy".
+# value of a method being the last evaluated expression.".
 # =end
-#
+
 # =begin
-# # The last line of this code outputs the string `"true"` because the `if statement` evaluates as `true`.
-# # The `if statement` is passed the `all_zero` method, whose value
-# # evaluates to true, and so the string `"true"` is printed.
-# # The concept that is represented here is the concept of truthiness. All objects in Ruby, except false and nil,
-# # evaluate as true, are considered truthy.
-# #
-# # The last line also returns `nil` because puts always returns nil.
+# The last line of this code outputs the string `"true"` because the `if statement` evaluates as `true`.
+# The `if statement` is passed the `all_zero` method, whose value
+# evaluates as true, and so the string `"true"` is printed.
+# The concept that is represented here is the concept of truthiness. Every expression in Ruby, except false and nil,
+# evaluate as true/are considered truthy in flow control.
+#
+# Furthermore the last line returns `nil` because puts always returns nil.
 # =end
-#
-#
-# # 2. What does the following code return and why? What concept is represented here?
+
+# 2. What does the following code return and why? What concept is represented here?
 # ['a', 'b', 'c', nil, 'd'].select do |letter|
 #   letter
 # end
@@ -357,16 +365,18 @@ p array
 # `#select` passes an element from the array to the block an assigns it to block parameter `letter`.
 # Within the block, `letter`, as an expression, is evaluated. Since `#select` considers the
 # return value of the block, specifically its truthiness, and returns a new array with the elements
-# that evaluate to `true`, /with the elements for which the return value of the block evaluates as true/is truthy-- the return value of `#select` is the array `['a', 'b', 'c', 'd']`.
-# Notice that it is not identical to the orginal array, but that the element `nil` has been excluded.
-# This is becuase `nil` evaluates to `false` or is "falsey".
+# that evaluate to `true`, /with the elements for which the return value of the block evaluates as true/is truthy
+# -- the return value of `#select` is the array `['a', 'b', 'c', 'd']`.
+# Notice that it is not identical to the original array, but that the element `nil` has been excluded.
+# This is because `nil` evaluates to `false` or is "falsey".
 #
 # The concept demonstrated here is that of selection and that the `#select` method
-# considers the truthiness of the blocks return value.
-# ITERATION
+# considers the truthiness of the block's return value.
+# We can also way that another concept represented here is that of ITERATION. Select iterates over the elements
+# of the calling array.
 # =end
 #
-# # 3. What do the last 2 lines of this code output and why? What is the concept represented here?
+# 3. What do the last 2 lines of this code output and why? What is the concept represented here?
 # def display_message(message = 'hi')
 #   puts message
 # end
@@ -377,15 +387,14 @@ p array
 # =begin
 # On line 1-3 method `display_message` is defined with one default parameter `message = 'hi'`.
 #
-# Within the method, the `Kernel#puts` method is invoked and passed `message` as an argument.
-# BODY
+# Within the method body, the `Kernel#puts` method is invoked and passed `message` as an argument.
 #
-# On line 5, `display_message` is invoked and passed no arguments. This outputs `hi` to the screen.
-# On line 6, `display_message` is invoked again and passed string object `'goodbye'` as an argument.
-# This outputs `goodbye` to the screen.
+# On line 5, `display_message` is invoked and passed no arguments. This outputs `"hi"` to the screen.
+# On line 6, `display_message` is invoked again and passed string object `"goodbye"` as an argument.
+# This outputs `"goodbye"` to the screen.
 #
 # The concept demonstrated here is that of default method parameters: when no arguments
-# are passed in upon method invocation,the value that the default method parameter
+# are passed in upon method invocation, the value that the default method parameter
 # is assigned to is passed in as an argument.
 # =end
 
@@ -420,3 +429,110 @@ puts b
 # The return value of the Integer#times method is its caller and because`b` was made to reference the
 # return value of calling the #times method on  `14` `b` points to `14`. When `puts` is invoked and `b`
 # is passed in as an argument, `14` is printed and `nil` is returned.
+a = 6
+b = 14.times do |a|
+  a = 4
+  puts a
+end
+puts a
+puts b
+# maranda's explanation
+# The above return value of the method(which method? #times? #puts? which #puts?) is to print 4 to the console 14 times.
+#
+# The output of line 6 is 6 and the output of line 7 is 14.
+# The return value of both is nil.
+#
+# The output of line 7 is due to the local variable `b` being initialized and assigned to the return value
+# of the times method called on the integer 101(---???---) with a block passed as an argument.
+#
+# The times method when called with a block returns self.
+# It is this return value of 14 that is assigned to b.   Due to our block variable being the same name as our
+# outer scoped local variable this concept shows variable shadowing,
+# when the block parameter name is the same name as our outer local variable,
+# the inner scoped local variable will use the block parameter and we will be blocked
+# from using the outer scoped local variable.  This also keeps us from making any changes to the outer scope local variable.
+#
+# On line 6, we call the puts method and pass in the local variable a as an argument.
+# On line 7, we call the puts method and pass in the local variable b as an argument.
+#
+# The puts method prints out with a newline at the end of your message (---which message?---)
+# and returns nothing, and so returns nil. (---is nothing same as nil?---)
+#
+# On line 1, we initialize and assign the local variable a to the integer object 6. ---here there is a lot of repetition---
+# On line 2, we initialize and assign the local variable b to the return value of the times method call.
+# The times method is called on the integer object 14 with a block passed as an argument.
+# The block takes one block variable, also named a.
+# Noted that from inside the block, the local variable a references the block variable.
+# Due to variable shadowing of 2 variables with the same name, a , but with different scopes,
+# the outer variable a is shadowed from inside the block and cannot be accessed.
+# On line 3, from inside the block, the local variable a is reassigned to the value 4 as times iterates
+# through the block 14 times. This action, again, does not have any effect on the outer scope a.
+# On line 4, we puts a as times iterates through the block 14 times.  On Line 5, we end our block with our end keyword. (edited)
+puts
+
+#ilke to ewa:
+#1. What does the following code output? What does it return? Why?
+string = 'Hello
+'
+puts string[5]
+puts string[-6]
+
+# On line 1 a local variable `string` is initialised to point to the String object `"Hello"`.
+# On line 2 the `String[]` method is invoked on the object that `string` is pointing to and the return value is passed
+# to `Kernel#puts` method.
+# `String[]` uses index to retrieve a particular character from the array but if no character is present at a given
+# index, it returns `nil`. Indices are counted from 0 and the last character that can be retrieved from this string
+# is at index 4. Index 5 will return `nil`, which will be in then passed to `puts` and so NOTHING IS PRINTED and `nil` will be returned from the `puts` method.
+#
+# The same goes for the last line of code, this is because even though we can use negative indices to retrieve string
+# characters, while using negative indices we start counting from the end of the string and again, when we try to
+# retrieve the character at index `-6`, we see that it does not exist, and so in this case the `String[]` method returns
+# `nil` which is in turn passed to `puts`. Nothing gets printed, `nil` is returned.
+#
+# The concept represented here is String element reference AND OUT OF BOUND
+# INDICES.
+
+#2. What is the value of variable `a`? And variable `b`? Why?
+a = "hi there"
+b = a
+a << ", Bob"
+p a
+
+# The value of `a` on the last line is "hi there, Bob" and this is because we mutated the value/the object that both `a` and `b`
+# are pointing to. The concept represented here is `mutation` and we could have called the destructive `<<` method
+# also on `b` because as a matter of fact both `a` and `b` are pointing to the same object, namely the string
+# `"hi there"`
+
+#3. what does the following code output? What does it return? Why?
+def bad_math
+  if 2 < 3
+    'bad math'
+  end
+end
+
+puts bad_math
+
+# On the last line we are invoking Kernel#puts method and passing in the return value of the `strange_method` as an argument.
+
+# `bad_math` is defined on lines 1-5 and within its body an `if condition` is used. The `if condition` evaluates if
+# integer `2` is smaller than integer `3` and this expression evaluates as true in the flow control,
+# so the following line is evaluated and, since it is the last statement evaluated in this method, this is ultimately the
+# return value from the method.
+#
+# Then 'bad math' is passed to `puts` on the last line and so the string 'bad math' is output and `nil` is returned
+# because `puts` always returns `nil`.
+
+# The concept represented here is the return value of the if statement in a method and the return value of the method
+# itself.
+
+
+#4. What does this code output? Why? MISSING
+n = 0
+puts 'true' if n = 3
+puts n
+
+# The last line outputs integer 3 because of the assignment that happened in the `if condition`.
+# Line 2 of this code outputs string object `true` because the condition `n = 3` passed to if
+# evaluates as true. As a matter of fact this condition will always evaluate as `true` and so the flow control loses its
+# purpose. What was probably meant by the coder was to write the condition `if n == 3`. Then the flow control could have
+# 2 possible ways of evaluating: as `true` or as `false`.

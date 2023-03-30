@@ -95,6 +95,8 @@ p str
 # On line 7, the local variable str is initialized and assigned to the string object "hello".
 # On line 8, we invoke the custom method amethod with one argument, str.
 # On line 9, we pass str to the p method, and the output is "hello".
+# --they want us to say this in this way--
+# --on line 9, we invoke the `p` method and pass in the object that the `str` is referencing as an argument.--
 # On lines 1-5 we define our custom method, amethod with a single parameter, param.
 # On line 2, we reassign param to the result of param concatenated to " universe" resulting in "hello universe".
 # On line 3, we have ’param + ” universe” which results in no changes.
@@ -114,6 +116,7 @@ amethod(str)
 
 p str
 
+# my description
 # On lines 1-5 a custom method `amethod` is defined with 1 parameter, `param`.
 # Within the body of the method, on the 1st line, `param` is reassigned to point to the return value of
 # concatenating `param` and " universe".
