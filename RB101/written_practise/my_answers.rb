@@ -1,3 +1,13 @@
+# Checklist for grading:
+
+# Checklist:
+# 1. Are ALL questions answered?
+# 2. Is every answer given with precision? Is it correct? Is it accurate? Is it understandable?
+# 3. Are backticks used for variable or method names to make it easier to read?
+# 4. Are paragraphs used?
+# 5. Is spelling/grammar/syntax correct? Is it clear?
+# 6. Is my answer coherent? Is the flow nice? Do I repeat myself?
+
 # 1.
 # def scream(words)
 #   words = words + "!!!!"
@@ -536,3 +546,91 @@ puts n
 # evaluates as true. As a matter of fact this condition will always evaluate as `true` and so the flow control loses its
 # purpose. What was probably meant by the coder was to write the condition `if n == 3`. Then the flow control could have
 # 2 possible ways of evaluating: as `true` or as `false`.
+#
+# ilke to ewa:
+# 1. What does the following code return? What does it output? Why? What concept does it demonstrate?
+
+a = %w(a b c)
+a[1] = '-'
+p a
+
+# This code outputs and returns an Array object `["a", "-", "c"]`. This is because on line 2 an Array element setter method `[]=`
+# has been used. This method mutates the caller - the array which was initialized on line 1 to `["a", "b", "c"]`.
+#
+# The concept represented here is `mutation`. After this code runs, the array object on which the mutative `[]=` method
+# was used is still the same object as the object initialized on line 1.
+# This can be confirmed by calling the object_id method on `a` before and after calling the `[]=` method. Both numbers will be same.
+
+# Within the array, object at index 1 is reassigned from string `"b"` to string
+# `"-"`.
+
+# `array[]=` array element setter
+# `array[]` array element getter
+#
+# puts
+#
+# 2. What does the following code output? Why?
+
+array = ['blue', 'green']
+a, b = array
+puts a #blue
+puts b #green
+
+a = 'purple'
+puts array #blue, green
+
+puts
+
+# Multiple assignment of consecutive elements of the `array` array, `'blue'`, `'green'`, to variables `a` and `b` respectively, does not affect
+# the object which `array` references. Neither does the reassignment of `a` to point to another String object, `"purple"`.
+# These actions have nothing to do with our array object referenced by `array` on line 1,
+# it simply remains unmodified by these actions and last line outputs ['blue', 'green'].
+
+# 3. What does the following code output? Why? What concept does it demonstrate?
+
+i = 0
+while i < 1 do
+  a = "abcdefg"
+  i += 1
+end
+#the above will execute once
+loop do
+  b = "abcdefg" # interesting because this should have given us an error but it didn't and this is because `b`
+  break         # has been initialized in the previous snippet so this is reassignment!!!
+end
+# This will also execute once
+
+puts a
+puts b
+
+# So to get the error that I'm supposed to get I need to not use `b` but name this variable differently
+# (use meaningful variable names)
+
+i = 0
+while i < 1 do
+  a = "abcdefg"
+  i += 1
+end
+#the above will execute once
+loop do
+  x = "abcdefg"
+end
+# This will also execute once
+
+puts a
+puts x # will throw an error
+
+# # Both lines 47 and 48 will print the String object `"abcdefg"` and return nil.
+# #
+# # The concept represented here is local variable scope, specifically that the scope of a variable in Ruby is
+# # decided by the location where this variable was created. Sometimes a variable is created in the block scope or
+# # method definition scope and then the main scope has no access to this variable. Here it is not the case.
+# #
+# # In the first part of the code, lines 1-5, `while loop` does not create a separate scope and so the variable initialized
+# # inside this loop, `a`, is accessible throughout the program.
+# #
+# # As far as the second part of the code is concerned, lines 7-10 constitute the `loop` method, which again doesn't
+# # create its own inner scope(???)and so the variable initialized within the loop method, `b` is also accessible throughout
+# # the program.
+# #
+# # We can successfully print both variables.
