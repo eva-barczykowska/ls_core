@@ -82,4 +82,5 @@ puts b
 # method, which results in `unknown local variable or method error`.
 # This is because outer or main scope where `puts` with the argument `b` is invoked doesn't have access to the
 # inner scope within the `loop` method.
-# The concept represented here is variable scope, specifically the fact that a block's inner scope has access to variables initialized in outer scope  but not vice versa.
+# The concept represented here is variable scope, specifically the fact that
+# a block's inner scope has access to variables initialized in outer scope but not vice versa.
