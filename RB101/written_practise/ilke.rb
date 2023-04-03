@@ -351,6 +351,20 @@ array << "ear"
 array[0] = 'ant'
 # Frozen error because frozen array cannot be modified by mutating methods such as `<<` or `Array[]=`
 
+# 4. Why reassigning number to 7 did not affect a's value?
+def some_method(number)
+  number = 7 # this is implicitly returned by the method
+end
+
+a = 5
+some_method(a)
+puts a
+
+# Coz `number` is scoped at the method definition level. At the moment of invoking the `some_method` method,
+# both `number` and `a` are pointing to the same object. They're aliases.
+# However, the method scoped variable `number` is reassigned
+# to point to another integer, `7`. From this moment on, we are dealing with a different object, the object that number
+# has been reassigned to.
 # --- sixth session ---
 # 1. What concept is represented here?
 # p "jenny" || 1
@@ -422,7 +436,28 @@ end
 puts a
 puts b
 
-# 4. We assign the return value of calling upcase! to `letter`. Why doesn't it change our caller array elements
+# --- eighth session ---
+# 1. Select all the ways in which we could change this code in order for the last line to output "hi there".
+def extend_greeting(greeting)
+  greeting + " there"
+end
+
+greeting = "hi"
+extend_greeting(greeting)
+
+puts greeting
+
+# Select all the ways in which we could change this code in order for the last line to output "hi there".
+#
+# A. Change greeting + " there" to greeting += " there". NO because then we're pointing greeting to point somewhere else
+#
+# B. Change extend_greeting(greeting) to greeting = extend_greeting(greeting).
+#
+# C. Remove puts greeting and change extend_greeting(greeting) to puts extend_greeting(greeting)
+#
+# D. Change greeting + " there" to greeting << " there".
+#
+# 2. We assign the return value of calling upcase! to `letter`. Why doesn't it change our caller array elements
 # permanently?
 
 array = ['a', 'b', 'c', 'd', 'e']
