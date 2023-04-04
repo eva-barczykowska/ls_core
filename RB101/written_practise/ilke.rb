@@ -347,13 +347,13 @@ p array
 # 3. What does this code return and why?]
 array = ["apple", "book", "car", "dog"]
 array.freeze
-array << "ear"
-array[0] = 'ant'
+# array << "ear"
+# array[0] = 'ant'
 # Frozen error because frozen array cannot be modified by mutating methods such as `<<` or `Array[]=`
 
 # 4. Why reassigning number to 7 did not affect a's value?
 def some_method(number)
-  number = 7 # this is implicitly returned by the method
+  number = 7
 end
 
 a = 5
@@ -370,11 +370,11 @@ puts a
 # p "jenny" || 1
 #
 # 2. What does this code output? How to fix this? What concept is represented here?
-# a = 5
-# course = "RB101"
-# a.times do |course|
-#   puts "#{course} is a great foundation!"
-# end
+a = 5
+course = "RB101"
+a.times do |course|
+  puts "#{course} is a great foundation!"
+end
 # fixing: change the name of the outer scope variable or use
 
 # 3. What does the code below return?
@@ -382,7 +382,7 @@ puts a
 # a = 'hello'
 # a.concat('!').upcase
 #
-# # --- seventh session ---
+# --- seventh session ---
 # 1. You wanted to print ["bob: some other bootcamp", "eva: launch school"].
 # Why didn't you succeed and how to fix it? What concept is represented here?
 names = ["bob", "eva"]
@@ -413,17 +413,33 @@ names.each do |name|
 end
 
 p names
-# 2. We were expecting last line of this code to output a string "SHAWN made a very good choice!".
-# Why doesn't it? How to fix it?
-def congratulate_student(name)
-  name = name.upcase
-  name << " made a very good choice!"
-end
 
-student = "Shawn"
-congratulate_student(student)
+# 2. What is the output and return? of this code and why? What concept is represented here?
+("42" < "402") ? "Yes, 42 is smaller" : "No, 42 is not smaller!"
 
-puts student
+# The concept represented is comparison, specifically how strings are compared in Ruby.
+#
+# Strings are compared character by character. First Ruby parser compares
+# the first character from the first string with the first character from the second string.
+# If the first character from the first string is less than the first character form the second string,
+# the first string is considered smaller than the second. And  "is less" means the character's value
+# in the ASCII table is less than that of the other character(the ASCII value is checked by Ruby behind the scenes
+# and we can check it ourselves by calling the #ord method on each character).
+# In this example firstly `4` will be compared with 4, their value in the ASCII table is equal so Ruby parser will
+# proceed to the second character in every string, `2` and `0`respectively. The value of `2` in the ASCII table
+# is greater than the value of `0` and so this comparison returns the boolean value `false` for this character and
+# for the whole string.
+#
+# A Ruby idiom an an alternative for the 1if..else` conditional statement, ternary operator has been used here.
+# The program first evaluates what is to the left of the `?`.
+# If this is a boolean true or this expression evaluates as true, then the code immediately to the right of the `?`
+# gets executed. If this is a boolean false or this expression evaluates as false,
+# then the code to the right of `:` gets executed.
+#
+# In this case the result returned by the `<` operator is the boolean `false` and so the string `""No, 42 is not smaller!""`
+# gets printed.
+#
+# We could also say that a wider concept represented here is Flow Control.
 
 # 3. What will this code output? What concepts are demonstrated here?
 
@@ -436,8 +452,9 @@ end
 puts a
 puts b
 
+
 # --- eighth session ---
-# 1. Select all the ways in which we could change this code in order for the last line to output "hi there".
+# 1. Indicate all the ways in which we could change this code in order for the last line to output "hi there".
 def extend_greeting(greeting)
   greeting + " there"
 end
@@ -449,7 +466,7 @@ puts greeting
 
 # Select all the ways in which we could change this code in order for the last line to output "hi there".
 #
-# A. Change greeting + " there" to greeting += " there". NO because then we're pointing greeting to point somewhere else
+# A. Change greeting + " there" to greeting += " there".
 #
 # B. Change extend_greeting(greeting) to greeting = extend_greeting(greeting).
 #
@@ -467,4 +484,52 @@ array.each do |letter|
 end
 
 p array
+
+# 3. This code throws no implicit conversion of String into Array (TypeError). How can we fix it so that program
+# doesn't terminate and last line is printed?
+
+def not_so_tricky_method(an_array_param)
+  an_array_param += "lettuce"
+
+  return an_array_param
+end
+
+my_array = ["tomato"]
+my_array = not_so_tricky_method(my_array)
+puts "My array looks like this now: #{my_array}"
+
+# 4. What does `puts` print and return?
+
+# --- exam ---
+# 1. Is `time` getting evaluated here? Why?
+opportunity = true
+money = true
+if opportunity && money || time
+  puts "We will do it"
+end
+
+# 2. We were expecting last line of this code to output a string "SHAWN made a very good choice!".
+# Why doesn't it? How to fix it?
+#
+def congratulate_student(name)
+  name = name.upcase
+  name << " made a very good choice!"
+end
+
+student = "Shawn"
+congratulate_student(student)
+
+puts student
+
+# 2. This code produces an error, why?
+-2 > "22"
+
+# 3.Can this operation be successful? Why?
+15 + "15"
+
+# 4. Can you describe what happens here?
+!(15 == 15)
+# First RUby evaluates what's in the parenthesis and then the `!` operator changes it to the opposite.
+# In this case the `==` operator returns `true` for the used operands and then the `!` negates `true` so it
+# becomes `false`.
 
