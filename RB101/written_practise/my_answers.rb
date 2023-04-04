@@ -620,17 +620,17 @@ end
 puts a
 puts x # will throw an error
 
-# # Both lines 47 and 48 will print the String object `"abcdefg"` and return nil.
-# #
-# # The concept represented here is local variable scope, specifically that the scope of a variable in Ruby is
-# # decided by the location where this variable was created. Sometimes a variable is created in the block scope or
-# # method definition scope and then the main scope has no access to this variable. Here it is not the case.
-# #
-# # In the first part of the code, lines 1-5, `while loop` does not create a separate scope and so the variable initialized
-# # inside this loop, `a`, is accessible throughout the program.
-# #
-# # As far as the second part of the code is concerned, lines 7-10 constitute the `loop` method, which again doesn't
-# # create its own inner scope(???)and so the variable initialized within the loop method, `b` is also accessible throughout
-# # the program.
-# #
-# # We can successfully print both variables.
+# Line 13 outputs String object `"abcdefg"` because `while` loop does not create a separate scope and so
+# the variable `a` initialized within the `while` loop, (on line 4) to reference a string `"abcdefg"`
+# is available throughout this program and can be passed to the `Kernel#puts` method on line 13.
+# So, `puts` prints `"abcdefg"` and returns `nil`.
+#
+# Line 14, specifically passing `x` as an argument to `puts` is causing an error
+# `undefined local variable or method `x'`, and the program terminates. This is because variable `x` was initialized
+# within the `loop` method. Methods, including `loop` create their own scope and variables initialized inside
+# the method (in the method scope) are not accessible in the outer (main)
+# scope. This is confirmed by the information contained in the error, Ruby
+# considers that a local variable `x` has not been defined because it cannot see it in the main scope.
+# `x` remains hidden in the inner (method) scope and it is only there where it can be accessed.
+#
+# The concept demonstrated here is Variable Scope.
