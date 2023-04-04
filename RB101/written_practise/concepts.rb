@@ -1,4 +1,5 @@
 # ---compare if all the concepts that the exam has are covered here --- ADD EXAMPLES OF EACH HERE --- !!!
+
 # VARIABLE SHADOWING
 # As a result of the block parameter having the same name as the variable initialized on in the outer scope, that outer
 # scope variable will be inaccessible within the block, and attempts to access it will instead access the block parameter.
