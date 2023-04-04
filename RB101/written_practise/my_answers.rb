@@ -632,5 +632,64 @@ puts x # will throw an error
 # scope. This is confirmed by the information contained in the error, Ruby
 # considers that a local variable `x` has not been defined because it cannot see it in the main scope.
 # `x` remains hidden in the inner (method) scope and it is only there where it can be accessed.
-#
+
 # The concept demonstrated here is Variable Scope.
+
+# puts "Today's session"
+
+#1. What happens with the following code? Explain (hint: intro to programming/more stuff/method definition order).
+# `Diner` method is being called before it has been defined. Ruby parser doesn't know about the existence
+# of this method, what is confirmed by the type and content of the error:
+# `undefined method `dinner' for main:Object (NoMethodError)`.
+# To fix this code we would have to move `dinner method invocation` to be below `dinner method definition`.
+dinner("huge")
+#
+def dinner(amount)
+  puts "You had a #{amount} amount of food."
+end
+dinner("huge")
+
+def dessert(stomach)
+  if stomach == "full"
+    puts "No dessert for you tonight."
+  else
+    puts "You're having dessert!!"
+  end
+end
+
+#2. What is output by the following code? Why?
+  arr = ['one', :two, 3, nil]
+  puts arr[4] #no output
+  puts arr[3] #no output
+
+  puts arr.fetch(3) #no output
+  # puts arr.fetch(4) #error: index 4 outside of array bounds: -4...4 (IndexError)
+#
+# Retrieving an element from an array can be done using the Array element reference, otherwise known as the `Array#[]` method.
+# This method allows us to retrieve `nil` for an existing element whose value is `nil`,  for example element at index `3` of the `arr`.
+# The `[]` method returns `nil also for elements that do not exist in the array, for example the element at the index `4`,
+# which we're trying to retrieve by the code `arr[4]`.
+# `Array#[]` returns `nil` for the elements that do not exist in the array, so `arr[4]` returns nil, so would `arr[155]`.
+#
+# `Array#fetch` behaves differently. It retrieves and returns elements that exist at a certain index in the array
+# but if an element at a certain index doesn't exist, then calling the `fetch` method will cause the
+# `index 4 outside of array bounds: -4...4 (IndexError)` error and the program will terminate.
+#
+# # It it therefore preferable to use `fetch` vs `[]` in cases we want to be absolutely sure of the existence of an element at a certain index.
+#
+# #3. What will the following program output? Why?
+
+hash1 = {shoes: "nike", "hat" => "adidas", :hoodie => true}
+hash2 = {"hat" => "adidas", :shoes => "nike", hoodie: true}
+
+if hash1 == hash2
+  puts "These hashes are the same!"
+else
+  puts "These hashes are not the same!"
+end
+
+# This program outputs string object `"These hashes are the same!"` and this is because the condition passed
+# to `if` on line 4 evaluates as true. Both `hash1` and `hash2` contain the same keys, which are symbols and the same
+# values, which are string objects but written in a different way. Throughout the Ruby lifetime, syntax of hashes
+# has been subject to change and the old syntax is `h = {:shoes => "nike"}`, while the new syntax is `h = {shoes: "nike"}`.
+# Both are equivalent to each other and both are accepted as correct in the latest versions of Ruby.
