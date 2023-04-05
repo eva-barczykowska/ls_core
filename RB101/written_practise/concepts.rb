@@ -32,6 +32,7 @@ p fruits
 
 # PASS BY REFERENCE
 # Operations in methods affect objects passed as arguments to those methods.
+# If an object passed to a method doesn't get mutated, then the method acts like pass-by-value with that argument.
 item = "pant"
 p item
 
@@ -61,6 +62,8 @@ p big_city_b
 
 # PASS BY VALUE
 # Operations in the method do not affect the original object.
+# If an object gets mutated by a method than we know that the method shows pass-by-reference behaviour with that
+# argument.
 age = 10
 p age
 
