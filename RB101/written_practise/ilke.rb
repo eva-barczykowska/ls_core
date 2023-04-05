@@ -509,8 +509,8 @@ if opportunity && money || time
 end
 
 # 2. We were expecting last line of this code to output a string "SHAWN made a very good choice!".
-# Why doesn't it? How to fix it?
-#
+# Why doesn't it? How to fix the code so it does output the expected result?
+
 def congratulate_student(name)
   name = name.upcase
   name << " made a very good choice!"
@@ -527,9 +527,56 @@ puts student
 # 3.Can this operation be successful? Why?
 15 + "15"
 
-# 4. Can you describe what happens here?
+# 4. Can you describe how Ruby evaluates this?
 !(15 == 15)
+
+# 5. What is the first stack frame of this code? (the frame Ruby starts with?)
+def first
+  puts "first method"
+end
+
+def second
+  first
+  puts "second method"
+end
+
+second
+
+# 6. What's the return value of each line? What is this concept called?
+# a.
+nil && 55
+
+# b.
+"hey" || 55
+
+# 7. What is the value of adult here?
+adult = "smokes" || 18
+
+# 8. What does this line of code return?
+a = 5
+!!a
+
+# 9. Write a code example for how Ruby acts like pass by value.
+
+# 10. Write a code example for how Ruby acts like pass by reference.
+#
+# 1.
+["brad", "angelina"].to_h {|s| [s.size, s]}
+# ---ANSWERS---
+# 4.
 # First RUby evaluates what's in the parenthesis and then the `!` operator changes it to the opposite.
 # In this case the `==` operator returns `true` for the used operands and then the `!` negates `true` so it
 # becomes `false`.
 
+# 6. When using the `&&` and `||` logical operators, a concept called `shortcutting` can take place.
+# For the first expression to evaluate as true, both operands have to evaluate as true. If the first one evaluates
+# as false, which is the case here, Ruby parser does not evaluate the second operand because, since both have to evalaute
+# as true, there is no chance that this expression can evaluate as true if the first operand evaluates as false.
+# && return the last evaluated value, so code `a` returns `nil`.
+# In the example `b` `||` operator is used, also called `logical OR`. This operator requires one of its operands to
+# evaluate as true for the whole expression to evaluate as true. If the first operand evaluates as true, which is
+# the case here, the whole expression evaluates as true and Ruby doesn't need to check what the second operand
+# evaluates to. And since what `||` returns is the last evaluated expression, `"hey"` is returned here.
+#
+# 8. `!!a` is equivalent to `!(!a)`. `!a` turns the truthy value to a boolean value `true` and the second `!` flips the
+# value to its opposite, a boolean value `false`.

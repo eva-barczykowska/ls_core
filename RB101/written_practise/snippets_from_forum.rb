@@ -143,3 +143,83 @@ test(a)
 # and the resultant string will be returned on that iteration and mapped to the new array.
 # So map will return ["I like the letter: a", "I like the letter: b", "I like the letter: c"]
 # as will the method test since that is the last line of code to be evaluated within the method.
+
+def include?(arr, search_item)
+  !arr.each { |item| return true if item == search_item }
+end
+
+include?([1, 2, 3, 4, 5], 6)
+
+# On line 151 we're calling the `include?` method, passing it 2 arguments, an Array literal `[1, 2, 3, 4, 5]`
+# and an Integer `6`.
+# The `include?` method is defined on lines 147-149.
+# This method takes 2 arguments, `arr` and `search_item`.
+# In the body of the method we are calling `Array#each` method and passing it a block with the block parameter
+# `item`. The each method will pass every element of the argument array to the block parameter and inside the block
+# the element will be compared with the item that has been passed to the method as the second argument,
+# namely integer 6.
+# The method will return true immediately after the block finds an element from the argument array that is equal to the
+# 2nd argument that was passed to the method when it was invoked. `if conditional` makes sure of that.
+# Well, in this case the if conditional does not evaluate to `true` for any of the elements of the array
+# and so the block will return false.
+# `array#each` returns its caller so `[1, 2, 3, 4, 5]` is returned. `!` is used to return the boolean equivalent
+# of [1, 2, 3, 4, 5], which is `false`.
+# This code will return false.
+
+def merge(array_1, array_2)
+  array_1 | array_2
+end
+
+arr1, arr2 = ['hello'], ['hello', 'world']
+merged = merge(arr1, arr2)
+merged[0][0] = 'J' # we reassigned the first element of arr1 to point to 'J'
+p merged #['Jello', 'world']
+p arr1 #['Jello']
+p arr2 #['hello', 'world']
+
+# On line 173 we can see multiple assignment, `['hello']` is assigned to arr1 and  `['hello', 'world']` is assigned to
+# arr2.
+# On the following line the return value of the `merge` method with 2 arguments, the previously initialized
+# arr1 and arr2, is assigned to 'merged'.
+# The `merge` method is defined on lines 169-171, with 2 parameters, array_1 and `array_2`.
+# When we invoke the `merge` method, its parameters become aliases with `arr1` and `arr2`. This means `that array_1`
+# and `array1` is the same object, the same goes for `array_2` and `array2`.
+# Within the body of the method, the `|` method is called, this is the method that creates a union of the 2
+# array objects, removing duplicates and preserving element order. This line returns an array ['hello', 'world'] and,
+# since this is the last evaluated line in the method, this is the method's return value.
+# On line 175 the first character of the first array element is retrieved by using bracket notation Array[].
+# Then the and mutative method []= takes over and the first character of the first element of the merged
+# array is now pointing to `J` instead of `h`.
+# When we print `merged` on line 176, we see ['Jello', 'world'].
+# It is important to notice that this change affected also the original array because `merged[0]` and `arr1[0]`
+# are in fact pointing to the same object.
+# `hello` from `arr2` was not affected because it is not a part of merged, it was removed by `merge` method
+# since it was a duplicate value and `|` removed duplicates.
+# So when we print `arr1` and `arr2` on lines 177 and 178, we see that the first array changed and is pointing now to
+# ['Jello'], while the second array is still pointing to where it was pointing before being passed as an argument to
+# `merge`, namely ['hello', 'world'].
+
+def short_long_short(string1, string2)
+  if string1.length > string2.length
+    string2 + string1 + string2
+  else
+    string1 + string2 + string1
+  end
+end
+
+short_long_short('abc', 'defgh')
+
+# On line 210 the `short_long_short` method is invoked and 2 string objects, 'abc' and 'defgh' are passed
+# as arguments to the method.
+# The method is defined on lines 202-208 with 2 parameters, string1 and string2.
+# In the body of this method there is an `if conditional` with a certain condition passed to it.
+# The condition uses the `>` method to compare the return value of the `length` method called on `str1` and the
+# return value of calling the `length` method on `str2`. if this comparison evaluates to true, i.e. the size of
+# `str1` is greater than the size of `str2`, then the return value of the method will be the string consisting of
+# adding str2, str1 and str2.
+# If the condition will evaluate to `false` on the other hand, the return value of the method will be also a string
+# but it will be the return value of calling the `+` method as well, but on `str1`, `str2` and `str1`, so the order
+# of concatenated strings will be different.
+# In this case, when we invoke the method and strings `"abc"` and `"defgh"` become aliases with `str1` and `str2`,
+# the `else` branch of the `if conditional` will be executed and the method will return the result of concatenating
+# str1, str2 and str1, namely `"abcdefghabc"`. Nothing will be printed.
