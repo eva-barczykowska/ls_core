@@ -10,6 +10,10 @@ greeting
 # of the `greeting` variable and, since this variable hasn't been explicitly initialized anywhere in the code before,
 # and it is is not initialized to the String object "hello world" on line 2(because that line never runs),
 # Ruby parser gives it the value of `nil`.
+#
+# =begin
+# Yes! This is really good. Everything is there.
+# =end
 
 #2. What does the following code output? What is the return value of the if statement? Why?
 
@@ -28,7 +32,13 @@ puts name
 #
 # The last line of the code prints "Alex" to the screen and it returns `nil` because the `puts` method
 # always returns `nil`.
+#
+# The return value of the if statement is the last evaluated expression. In this case it's ``"Alex"` because the
+# condition passed to `if` evaluated as true.
 
+=begin
+Beautifully explained. I understood everything. One thing: I asked what the return value of the if statement was. I was looking for an answer something like this: The return value of an if statement is the value of the code that was run if the if condition evaluated as true. In this case that would be the string "Alex".
+=end
 
 #3. What does the following code output? What is the concept demonstrated?
 
@@ -45,7 +55,13 @@ p color_valid(what_color)
 # it doesn't evaluate further because the expression will be true anyway. And the string literal `"blue"`
 # evaluates as true because everything in Ruby evaluates evaluates as true in flow control, except `false` and `nil.`
 
-
+# Another concept could be the implicit return value of methods, i.e. method return the last evaluated expression if the
+# keyword `return` was not used.
+#
+# =begin
+# Nice! Short and sweet. Another concept could be the implicit return value of methods.
+# =end
+#
 #4. What does this code print? What does it return and why? What concept is represented here?
 
 def repeater(string)
@@ -64,6 +80,25 @@ puts repeater("Awesome!")
 # method on the string literal before and after it has been passed to this method. The numbers returned by calling this
 # method are different, which means that the string passed to the `repeater` method and returned by it are actually
 # different objects, albeit with the same value.
+
+=begin
+The way you've answered this has me thinking a lot! At first I thought that you did not quite get this one,
+but I think there are merits to your answer. You are right that the concept here could be pass-by-value
+because the original string is not mutated. However, your reasoning for it is flawed,
+and I must admit I am having trouble articulating why that is (but I'll try my best and hopefully it makes sense).
+
+The string "Awesome!" has not been assigned to a variable, so its space in memory is not fixed...each time it is
+"brought to life" in the program it is a new string. That is why, when you do the object_id test on lines 9 and 11 you
+get different object ids. I don't think that this is an example of object passing in the way that we know it,
+because we are not passing in a variable (that points to an object) to the method,
+so there's no aliasing between an outer scoped variable and a method parameter.
+
+Within the method, the object referenced by string is not acted upon in any destructive way
+- it is just used to iterate through each character.
+So is the question about pass-by-value even relevant here (I'm asking myself this question, too)?
+
+The concept I was looking for was that of the last evaluated expression being the return value of a method.
+=end
 
 #5. What does the following code output? Why is `person` not mutated?
 
@@ -87,6 +122,10 @@ puts eat
 # - now is pointing to `"Ben, what are you eating?"` and from this moment on, it is not possible to mutate the original
 # object passed to the `question` method, referenced by the variable 'person'.
 
+=begin
+Excellent answer! I have nothing to add.
+=end
+
 # #6. What does the last line of this code output and why? What does it return? What concept is illustrated here?
 #
 def all_zero
@@ -106,6 +145,10 @@ puts 'true' if all_zero
 # because invocation of the `puts` method always returns `nil`.
 #
 # The concept represented here is that of `truthiness`.
+
+=begin
+Again, great answer. You're very good at answering questions about truthiness.
+=end
 
 #7. What does the following code output? What's the concept demonstrated?
 
@@ -131,6 +174,10 @@ puts a
 # Giving the block parameter the same name as the outer scope variable is considered something to be avoided
 # because it can lead to unexpected results.
 
+=begin
+Perfect! I especially like this line: "Ruby parser while executing the code in the block is looking for the variable with the name a and when it finds it in the form of the block variable, it looks no further."
+=end
+
 # #8. What does the following code output? Why?
 
 greetings = { a: 'hi' }
@@ -148,6 +195,9 @@ puts greetings
 # mutated, the mutation will reflect in all variables that point to this object, so also in `informal_greeting`,
 # which becomes `{:a=>"hi there"}`.
 
+=begin
+Very good! This is really nice: "the mutation will reflect in all variables that point to this object"
+=end
 
 # #9. What does the following code output? Why? What concept is demonstrated?
 
@@ -168,6 +218,10 @@ puts a
 # The concept represented here is `pass by reference` namely that operations in methods affect objects
 # passed as arguments to those methods.
 # # If an object passed to a method gets mutated, then the method acts like pass-by-reference with that argument.
+
+=begin
+Great, Ewa! Beautifully written. I have nothing to add.
+=end
 
 #10. What does the following code output? Why?
 
@@ -197,8 +251,24 @@ puts c # error
 # the main (also called outer) scope.
 #
 # `c` is out of scope when passed to `puts` on line 16. This is because it has been initialized within the
-# previous inner scope, the inner scope defined by the keywords `do..end` on lines 6-12. Scopes do not overlap(I don't
-# remember 100% how to say this) and so `c` is not in scope on line 16 and Ruby cannot see it. As a consequence of this
+# previous inner scope, the inner scope defined by the keywords `do..end` on lines 6-12. NESTED SCOPES do not CONFLICT
+# and so `c` is not in scope on line 16 and Ruby cannot see it. As a consequence of this
 # `undefined local variable or method `c' for main:Object (NameError)` is thrown and the program terminates. No
 # code beyond line 16 is executed.
+#
+# =begin
+# Ewa, you missed some of the output on this one. The output should be:
+# hamburger
+# french fries
+# milkshake
+# hamburger
+# french fries
+# [Untitled 32.rb:18](coderunner://Untitled%2032.rb#(174,1)!):in `block in <main>': undefined local variable or method
+# `c' for main:Object (NameError)
+# from Untitled 32.rb:5:in `times'
+# from Untitled 32.rb:5:in `<main>'
+#
+# Have a look again at the various scopes. They are called "nested" scopes in the LS text.
+# You are right that scopes do not "overlap" (In LS text they use the word "conflict").
+# =end
 
