@@ -31,8 +31,11 @@ p fruits
 #p vegetable #undefined local variable or method `vegetable' for main:Object (NameError)
 
 # PASS BY REFERENCE
-# Operations in methods affect objects passed as arguments to those methods.
-# If an object passed to a method doesn't get mutated, then the method acts like pass-by-value with that argument.
+# Ruby acts like pass-by-reference with mutable objects like strings.
+# When this object is passed to a method, the method can (but doesn't have to) mutate it.
+# If an object passed to a method gets mutated, then the method acts like pass-by-reference with respect
+# to that argument.
+
 item = "pant"
 p item
 
@@ -61,9 +64,10 @@ p big_city_a
 p big_city_b
 
 # PASS BY VALUE
+# Ruby acts like pass-by-value with immutable objects like numbers.
 # Operations in the method do not affect the original object.
-# If an object gets mutated by a method than we know that the method shows pass-by-reference behaviour with that
-# argument.
+# It is not possible for a method to mutate an immutable object. We can only reassign it.
+# If an object passed to a method doesn't get mutated, then the method acts like pass-by-value with that argument.
 age = 10
 p age
 
