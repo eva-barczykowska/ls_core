@@ -488,15 +488,15 @@ p array
 # 3. This code throws no implicit conversion of String into Array (TypeError). How can we fix it so that program
 # doesn't terminate and last line is printed?
 
-def not_so_tricky_method(an_array_param)
-  an_array_param += "lettuce"
-
-  return an_array_param
-end
-
-my_array = ["tomato"]
-my_array = not_so_tricky_method(my_array)
-puts "My array looks like this now: #{my_array}"
+# def not_so_tricky_method(an_array_param)
+#   an_array_param += "lettuce"
+#
+#   return an_array_param
+# end
+#
+# my_array = ["tomato"]
+# my_array = not_so_tricky_method(my_array)
+# puts "My array looks like this now: #{my_array}"
 
 # 4. What does `puts` print and return?
 
@@ -522,13 +522,13 @@ congratulate_student(student)
 puts student
 
 # 2. This code produces an error, why?
--2 > "22"
+# -2 > "22"
 
 # 3.Can this operation be successful? Why?
-15 + "15"
+# 15 + "15"
 
 # 4. Can you describe how Ruby evaluates this?
-!(15 == 15)
+# !(15 == 15)
 
 # 5. What is the first stack frame of this code? (the frame Ruby starts with?)
 def first
@@ -570,7 +570,7 @@ a = 5
 
 # 6. When using the `&&` and `||` logical operators, a concept called `shortcutting` can take place.
 # For the first expression to evaluate as true, both operands have to evaluate as true. If the first one evaluates
-# as false, which is the case here, Ruby parser does not evaluate the second operand because, since both have to evalaute
+# as false, which is the case here, Ruby parser does not evaluate the second operand because, since both have to evaluate
 # as true, there is no chance that this expression can evaluate as true if the first operand evaluates as false.
 # && return the last evaluated value, so code `a` returns `nil`.
 # In the example `b` `||` operator is used, also called `logical OR`. This operator requires one of its operands to
@@ -580,3 +580,16 @@ a = 5
 #
 # 8. `!!a` is equivalent to `!(!a)`. `!a` turns the truthy value to a boolean value `true` and the second `!` flips the
 # value to its opposite, a boolean value `false`.
+#
+fruit = ['papaya', 'banana', 'pear', 'apple']
+
+fruit.each do |fruit|
+  fruit = fruit.upcase
+end
+
+p fruit
+# 100%
+#
+# --- ninth session ---
+# 1. Explain how Ruby acts like pass-by-value and provide a code snippet.
+# 2. Explain how Ruby acts like pass-by-reference and explain a code snippet.
