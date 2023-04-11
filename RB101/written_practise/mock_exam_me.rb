@@ -75,7 +75,7 @@ end
 puts repeater("Awesome!")
 # p "Awesome!".object_id
 #
-# This code does prints the String `"AAwweessoommee!!"` and the concept represented here is `pass by value`.
+# This code prints the String `"AAwweessoommee!!"` and the concept represented here is `pass by value`.
 # The `repeater` method doesn't mutate the original string and this can be established by calling the `object_id`
 # method on the string literal before and after it has been passed to this method. The numbers returned by calling this
 # method are different, which means that the string passed to the `repeater` method and returned by it are actually
@@ -99,6 +99,10 @@ So is the question about pass-by-value even relevant here (I'm asking myself thi
 
 The concept I was looking for was that of the last evaluated expression being the return value of a method.
 =end
+
+# my comments after the exam: this is not pass-by-value example. Ruby acts as pass-by-value with immutable objects,
+# like strings or symbols.
+# This is an example of implicit return from the method.
 
 #5. What does the following code output? Why is `person` not mutated?
 
