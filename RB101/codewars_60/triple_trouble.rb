@@ -50,31 +50,48 @@ of size 2 in num2
 
 
 OR
-iterate over the num1 array and see if the element at the current index is same as the previous element
-if it is, count how many of them
--this has a weakness coz I'd need to keep account, maybe there will be a cluster of 3 and then a cluster of
+-account for nil or 0 input
+-account for 0 input
+-change the num to an array of single digits
+-find out if any numbers are repeated in array1 and also which ones
+-after retrieving the numbers that are repeated return 0 if they are repeated less than 3 times
 
-3 methods
-find 3
-find 2
-main method
+-find out if any numbers are repeated in array2 and also which ones
+-if none of the target numbers extracted from array1 are present in array2, return 0
+-if the numbers are present but their count is different than 2, return 0
+-else return 1
+
 =end
 def triple_double(num1, num2)
+  return 0 if num1.nil? || num2.nil?
+  return 0 if num1.zero? || num2.zero?
+
   array1 = num1.to_s.split("").map { |s| s.to_i }
-  target1 = array1.chunk_while { |i, j| j == i + 0 }.select { |array| array.size == 3 }.flatten #what if I have more arrays with size 3
-  return 0 if target1.size != 3
+  array1_chunks = array1.chunk_while { |i, j| j == i + 0 }.select { |array| array.size == 3 }.flatten
+  # p "all chunks from 1st array"
+  # p array1_chunks
+
+  return 0 if array1_chunks.size < 3 # these will be all chunks of 3 or more same consecutive numbers
+  target_numbers = array1_chunks.uniq
+  # p "target numbers"
+  # p target_numbers # now see if ANY of those target numbers are present in the num2 array 1 after another
 
   array2 = num2.to_s.split("").map { |s| s.to_i }
-  target2 = array2.chunk_while { |i, j| j == i + 0 }.select { |array| array.size == 2 }.flatten #what if I have more arrays with size 2
-  return 0 if target2.size != 2
+  array2 = array2.chunk_while { |i, j| j == i + 0 }.select { |array| array.size == 2 }.flatten
 
-  # are the digits in both arrays same?
-  # assumption is that I have only 1 target array made from from num1 and num2
-  target1[0] != target2[0] ? 0 : 1
+  # p "all chunks from 2nd array"
+  # p array2
 
+  return 0 if array2.none? { |num| target_numbers.include?(num) }
+  return 0 unless target_numbers.any? { |number| array2.count(number) == 2 }
+  return 1
 end
 
+p triple_double(111222345, 122345) == 1
+p triple_double(133345, 123345) == 1
 p triple_double(12345, 12345) == 0
 p triple_double(666789, 12345667) == 1
 p triple_double(10560002, 100) == 1
 p triple_double(1112, 122) == 0
+p triple_double(451999277, 41177722899) == 1
+p triple_double(1222345, 12345) == 0
