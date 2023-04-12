@@ -30,52 +30,51 @@ p triple_double(1112, 122) == 0 --> because triple in the first one BUT no in th
 input: 2 integers
 output: 0 or 1
 ************** Algorithm **************
--first split the first number to know what digits I work with
---12345.to_s.split("").map { |s| s.to_i }--
--how to check that they are not all different?
----12345.to_s.split("").tally-- this will calculate if numbers are unique
--numbers will be keys and values will be how many of those digits (but not consecutive, I have to take care of this
- separately!)
--if I don't have 3 same digits in the first argument, I'm returning 0
+-initialize `consecutive_digits_in_num1` and `consecutive_digits_in_num2` and point both to reference 0
+-change num1 and num2 to string and iterate over both, creating substrings of each
+10560002
+1, 10, 105, 1056, 10560, 105600. 1056000, 10560002
+0, 05, 056, 0560, 05600, 056000, 0560002
+5, 56, 560, 5600, 56000, 560002
+6, 60, 600, 6000, 60002
+0, 00, 000, 0002
+0, 00, 002
+0, 02
+-get all strings that are of size 3, how to analyze them? I want to know that I have the same cluster of 3 digits
+in the num1 and cluster of SAME 2 digits in num2
+-first get rid of all clusters whose size is smaller or greater than 3
+-then get rid of clusters whose digits are not same
+-if I don't have any clusters greater than 3, I can return 0 already
+if I have clusters greater than 3 in num1, I have to check if I have cluster  consisting of same digits and
+of size 2 in num2
 
--count each of those digits, do I have a 3 of any of them immediately next to each other in the first argument number?
--if no, return 0
 
--loop over the digits
--define result
--if a digit is same as the previous one, add it to the result array
--after looping, I can check the size of the result array
--if the size is >= 3, then I should also loop through the 2nd number argument
--if I don't find 3 same consecutive digits in both arguments to the method,
-then I need to return 0
+OR
+iterate over the num1 array and see if the element at the current index is same as the previous element
+if it is, count how many of them
+-this has a weakness coz I'd need to keep account, maybe there will be a cluster of 3 and then a cluster of
 
-If I find, then I return 1
-
--if yes, do I have also a straight double in the second number argument?
-
-************** Code **************
+3 methods
+find 3
+find 2
+main method
 =end
 def triple_double(num1, num2)
-  num1_array = num1.to_s.split("").map { |s| s.to_i }
-  count_nums_in_num1 = num1_array.tally # tally is not a good idea, because we are counting ALL numbers instead of checking for consecutive numbers
-  p count_nums_in_num1
-  return 0 if count_nums_in_num1.values.none? { |v| v > 2 }
+  array1 = num1.to_s.split("").map { |s| s.to_i }
+  target1 = array1.chunk_while { |i, j| j == i + 0 }.select { |array| array.size == 3 }.flatten #what if I have more arrays with size 3
+  return 0 if target1.size != 3
 
-  if count_nums_in_num1.has_value?(3)
-    number_to_look_for = count_nums_in_num1.select { |_, v| v == 3}
-    number_to_look_for = number_to_look_for.keys.join.to_i # gives me the number to look for in the second num
-    p number_to_look_for
-  end
+  array2 = num2.to_s.split("").map { |s| s.to_i }
+  target2 = array2.chunk_while { |i, j| j == i + 0 }.select { |array| array.size == 2 }.flatten #what if I have more arrays with size 2
+  return 0 if target2.size != 2
 
-  num2_array = num2.to_s.split("").map { |s| s.to_i }
+  # are the digits in both arrays same?
+  # assumption is that I have only 1 target array made from from num1 and num2
+  target1[0] != target2[0] ? 0 : 1
 
-  if num2_array.count(number_to_look_for) != 2
-    return 0
-  else
-    return 1
-  end
 end
-# p triple_double(12345, 12345) == 0
-# p triple_double(666789, 12345667) == 1
-p triple_double(10560002, 100) #== 1
-# p triple_double(1112, 122) == 0
+
+p triple_double(12345, 12345) == 0
+p triple_double(666789, 12345667) == 1
+p triple_double(10560002, 100) == 1
+p triple_double(1112, 122) == 0
