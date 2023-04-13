@@ -18,10 +18,10 @@
 
 # ************** Problem **************
 # -write a method that takes an array of integers
-# -the method finds a minumum number to be inserted in the array so that
+# -the method finds a minimum number to be inserted in the array so that
 # the sum of all elements is equal to the closest prime number
 
-# A PRIME number is a number divisible only by 1 and iself
+# A PRIME number is a number divisible only by 1 and itself
 # Questions:
 
 # ************** Examples **************
@@ -56,9 +56,10 @@ def minimum_number(array)
 
   # counter = 1
   loop do
-    current_sum += 1 #I was adding the counter here, so adding 1, then 2, then 3
+    # current_sum += counter #I was adding the counter here, so adding 1, then 2, then 3 while I wanted to add only 1 each time!
+    current_sum += 1
     break if current_sum.prime?
-    # counter += 1
+    # counter += 1 # so on the 1st loop counter is 1, on the second 2, on the third 3, then 4 so I would NOT just add 1 each time!
   end
   current_sum - array.sum
 end

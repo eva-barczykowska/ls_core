@@ -114,7 +114,7 @@ def decipher_this(string)
   string.split.each do |word| # '65', 119esi'
     temp_string = ''
 
-    nums = word.chars.select {|char| char !~ /[a-zA-Z]/}.join # '65', '119' 
+    nums = word.chars.select {|char| char !~ /[a-zA-Z]/}.join # '65', '119'
     letters = word.chars.select {|char| char =~ /[a-zA-Z]/}.join # '', 'esi', 'dl', 'lw'
 
     alpha_array.each { |char|  temp_string << char if char.ord == nums.to_i} # add char that matches nums
