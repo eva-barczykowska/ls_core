@@ -70,6 +70,66 @@ end
 
 p solve([ "abode", "ABc", "xyzD" ]) == [4,3,1]
 p solve([ "abide", "ABc", "xyz" ]) == [4,3,0]
-p solve([ "IAMDEFANDJKL", "thedefgh", "xyzDEFghijabc" ])== [6,5,7]
+p solve([ "IAMDEFANDJKL", "thedefgh", "xyzDEFghijabc" ]) == [6,5,7]
 p solve([ "encode", "abc", "xyzD", "ABmD" ]) == [1, 3, 1, 3]
+
+#session with Rebecca
+#
+=begin
+Alphabet symmetry
+Consider the word "abode". We can see that the letter a is in position 1 and b is in position 2. In the alphabet, a and b are also in positions 1 and 2. Notice also that d and e in abode occupy the positions they would occupy in the alphabet, which are positions 4 and 5.
+
+Given an array of words, return an array of the number of letters that occupy their positions in the alphabet for each word. For example,
+
+solve(["abode","ABc","xyzD"]) = [4, 3, 1]
+See test cases for more examples.
+
+Input will consist of alphabet characters, both uppercase and lowercase. No spaces.
+
+P:
+write a method that takes an array of strings and returns an array of integers. Each integer should be a count of letters in the string whose position mirrors their position in the alphabet
+
+input: array of strings
+return: array of integers
+
+rules:
+-input strings can have upper or lower case letters (no spaces)
+-find count of letters that share alphabet position and place count into an Array
+
+E:
+p solve(["abide","ABc","xyz"]) == [4,3,0]
+
+D:
+-array of lowercase letters from a to z
+-iterative structure to find and return count for each string
+
+A:
+-initialize alphabet to range a..z and convert to array
+-iterate over input array (#map) - word
+  -convert word to array of characters (#chars) (#select)
+  -iterate over characters with index positions (#with_index) and save return value to selected_letters
+    -check if index of current character is equal to index of that character in alphabet array
+    -return count of selected letters
+
+=end
+
+def solve(array)
+  alphabet = ('a'..'z').to_a
+  array.map do |word|
+    selected_letters = word.downcase.chars.select.with_index do |letter, index|
+      index == alphabet.index(letter)
+    end
+    selected_letters.count
+  end
+
+end
+
+p solve(["abode","ABc","xyzD"]) == [4,3,1]
+
+p solve(["abide","ABc","xyz"]) == [4,3,0]
+p solve(["IAMDEFANDJKL","thedefgh","xyzDEFghijabc"])== [6,5,7]
+p solve(["encode","abc","xyzD","ABmD"]) == [1, 3, 1, 3]
+
+
+
 
