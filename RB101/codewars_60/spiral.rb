@@ -5,7 +5,8 @@
 # true if an array is a spiral, else return false.
 
 =begin
-Given an array of integers, check to see if the integers ascend, then descend. There can't be any other pattern. The peak must be a single integer. Return a boolean for whether the array qualifies.
+Given an array of integers, check to see if the integers ascend, then descend.
+There can't be any other pattern. The peak must be a single integer. Return a boolean for whether the array qualifies.
 
 Algorithm
 Initialize a flag for if the spiral has peaked
@@ -108,10 +109,10 @@ output: a boolean value: true / false
 =end
 # ************** Code **************
 
-def ascending?(left_side)
+def ascending?(left_side) # array is [1,2,4,3,2,1] but we will split it into two arrays further on
   counter = 0
-  while counter < left_side.size - 1
-    unless left_side[counter] < left_side[counter + 1]
+  while counter < left_side.size - 1 # so basically until you've looked at every element in this array
+    unless left_side[counter] < left_side[counter + 1] # is this current number smaller than the next one?
       return false
     end
     counter += 1
@@ -138,8 +139,8 @@ def spiral(array)
 
   index_of_max_value = array.index(max_value)
 
-  left_side = array.shift(array.index(max_value))
-  right_side = array
+  left_side = array.shift(array.index(max_value)) # splitting the array argument into 2 arrays in this and next line
+  right_side = array # array was mutated so only the right side of the previous array is left at this point
 
   ascending?(left_side) && descending?(right_side) ? true : false
 
@@ -152,3 +153,42 @@ p spiral([0,3,5,5,4,3,2,1]) == false
 p spiral([1,2,4,6,4,2,4]) == false
 p spiral([1,5,4,6,4,2,1]) == false
 
+puts
+puts "Patrick's solution"
+
+def spiral(array)
+  max = array.max
+  return false if array.count(max) > 1
+
+  previous = -1
+  current = nil
+
+  array.each_with_index do |num, i|
+    current = num
+    if num == max
+      previous = max
+      next
+    end
+
+
+    if i < array.index(max) && current > previous
+      previous = current
+      next
+    elsif i > array.index(max) && current < previous
+      previous = current
+      next
+    else
+      return false
+    end
+
+  end
+
+  return true
+end
+
+p spiral([1,2,4,3,2,1]) == true
+p spiral([1,2,4,6,4,2,1]) == true
+p spiral([0,3,5,4,3,2,1]) == true
+p spiral([0,3,5,5,4,3,2,1]) == false
+p spiral([1,2,4,6,4,2,4]) == false
+p spiral([1,5,4,6,4,2,1]) == false
