@@ -113,3 +113,77 @@ numbers.each do |num|
   sentence = number_enthusiast + " loves the number #{num}!"
   puts sentence
 end
+
+puts
+
+numbers = [1, 2, 3]
+number_enthusiast = 'Lisa Simpson'
+
+numbers.each do |num|
+  index = 0
+  loop do
+    sentence = number_enthusiast + " loves the number #{num}!" # "Lisa Simpson loves the number 1"
+    puts sentence
+
+    index += 1
+    break if index > 0
+  end
+
+
+end
+# puts sentence # out of scope!
+
+puts
+
+numbers = [1, 2, 3]
+number_enthusiast = 'Lisa Simpson'
+
+numbers.each do |num|
+  index = 0
+  loop do
+    sentence = number_enthusiast + " loves the number #{num}!" # "Lisa Simpson loves the number 1"
+    puts sentence
+
+    index += 1
+    break if index > 0
+  end
+
+  # puts sentence # sentence is out of scope here
+end
+
+puts
+
+first_name = 'Alice'
+person1 = { name: first_name } # person1 = { name: 'Alice' }
+person2 = person1              # person2 = { name: 'Alice' }
+
+p person2[:name].upcase
+p person1[:name]
+
+puts
+first_name = 'Alice'
+person1 = { name: first_name }
+person2 = person1
+
+p person2[:name].upcase!
+p person1[:name]
+
+puts
+
+
+def say_hi
+  puts 'Hello!'
+end
+
+greeting = say_hi # return nil, output "Hello!"
+word = ''
+
+if greeting # evaluates as false (because it's pointing to `nil`)
+  word = 'Something'
+elsif greeting == false
+  word = 'Something else'
+else
+  word = greeting
+end
+
+p "Wow" if word
