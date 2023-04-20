@@ -155,6 +155,54 @@ p spiral([1,5,4,6,4,2,1]) == false
 
 puts
 puts "Patrick's solution"
+=begin
+GOAL: Return a boolean that represents whether the given array is a "spiral" or "mountain"
+
+INPUT: array of integers
+OUTPUT: boolean
+
+RULES
+  Explicit
+    single max value ; everything before rises ; everything after decreases
+
+  Implicit
+    all integers are 0 or greater
+    no negative
+
+algorithm
+  What kind of problem is this?
+    -Scan problem: scanning along and checking conditions, returning false if conditions are ever false
+
+  What helper methods could I use?
+    getting the max value
+    counting the max value
+
+    # Getting a count of the max value
+    # Return false if count is greater than 1
+
+    previous = -1
+    current = nil
+    iterate through every element of the array
+      current = num
+      if num is the max
+        previous = max
+        next
+      end
+
+      if index of my current element is less than the index of max AND current is greater than previous
+          previous = current
+          next
+      if current element index >  max  index AND current is less than previous
+          previous = current
+          next
+      else
+        return False
+      end
+
+end iteration
+
+ return true
+=end
 
 def spiral(array)
   max = array.max
