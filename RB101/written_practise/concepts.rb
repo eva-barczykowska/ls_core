@@ -1,7 +1,7 @@
 # ---compare if all the concepts that the exam has are covered here --- ADD EXAMPLES OF EACH HERE --- !!!
 
 # VARIABLE SHADOWING
-# As a result of the block parameter having the same name as the variable initialized on in the outer scope, that outer
+# As a result of the block parameter having the same name as the variable initialized in the outer scope, that outer
 # scope variable will be inaccessible within the block, and attempts to access it will instead access the block parameter.
 #
 # A situation can occur in which a variable with the same name is initialized within the block - in the inner/block scope
@@ -64,10 +64,11 @@ p big_city_a
 p big_city_b
 
 # PASS BY VALUE
+# If an object passed to a method doesn't get mutated, then the method acts like pass-by-value with that argument.
 # Ruby acts like pass-by-value with immutable objects like numbers.
 # Operations in the method do not affect the original object.
 # It is not possible for a method to mutate an immutable object. We can only reassign it.
-# If an object passed to a method doesn't get mutated, then the method acts like pass-by-value with that argument.
+
 age = 10
 p age
 
@@ -94,5 +95,33 @@ if adult && has_money
 else
   puts "Not allowed to buy cigarettes"
 end
+
 # OPERATOR PRECEDENCE
-#
+p 2 > 1 || == 1
+
+# What is call stack in Ruby?
+
+# --CALL STACK-- is the order in which Ruby executes METHODS
+
+# Whenever you call a method, Ruby places a --STACK FRAME-- on the call stack.
+# This means that Ruby allocates memory for this method.
+# It holds the method's arguments, space for internal variables, and the return address of the caller.
+
+# It gives you an insight in which order methods are executed. For example, if one method has a call to another method
+# within its body, that another method has to return, for the first method to be able to return.
+# So the first method is put on the call stack and then the one that is inside it is put on the call stack because
+# that has to return first.
+
+def divide(number, divisor)
+  number / divisor
+end
+
+puts divide(10, 2)
+
+
+# divide
+# puts
+# main
+
+# The stack at the moment of calling the / method would be
+# concepts.rb in

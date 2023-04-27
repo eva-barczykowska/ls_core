@@ -937,3 +937,61 @@ p arr
 #
 # On line 12 when method is invoked, the object that v is referencing is passed in
 # as an argument and assigned to method parameter string, making string and v aliases, they now point to the same object in memory.
+#
+# What does the #times method do?
+# Calls the given block self times with each integer in (0..self-1)
+#
+#
+# puts
+#
+# day = "Friday"
+# get_up_early = day != "Sunday" ? false : true
+# p get_up_early
+#
+p ["Brad", "Angelina", "Crad"].to_h { |str| [str.size, str] }
+
+def multiply(num1, num2)
+  result = num1 * num2
+end
+
+def say(words)
+  puts words
+end
+
+say("helo")
+
+array = ["ewa", "ilke", "helga"]
+
+for name in array do
+  p "lovely " + name
+end
+
+# pass-by-value
+puts "pass-by-value"
+
+str1 = "I got"
+str2 = " a very throughtful gift"
+
+def join_two_strings(arg1, arg2)
+  arg1 + arg2
+end
+
+p join_two_strings(str1, str2)
+p str1
+p str2
+
+puts
+
+# pass-by-refence
+puts "pass-by-refence"
+
+str1 = "I got"
+str2 = " a very throughtful gift"
+
+def join_two_strings(arg1, arg2)
+  arg1 << arg2
+end
+
+p join_two_strings(str1, str2)
+p str1
+p str2

@@ -3,11 +3,11 @@
 # Each loop can get info from the user.
 # Why is there an error here and how to fix it?
 
-# until answer == "STOP"
-#   puts "Give me a number, I'll give you double"
-#   answer = gets.chomp
-#   puts answer.to_i * 2
-# end
+until answer == "STOP"
+  puts "Give me a number, I'll give you double"
+  answer = gets.chomp
+  puts answer.to_i * 2
+end
 
 puts
 
