@@ -85,4 +85,92 @@ p domain_name("http://google.co.jp") == "google"
 p domain_name("www.xakep.ru") == "xakep"
 p domain_name("https://youtube.com") == "youtube"
 
+puts
+
+#rebecca's solution
+def domain_name(string)
+  if string.include?('/')
+    split_string = string.split('/') #=> ["http:", "", "google.com"]
+    substrings_with_period = split_string.select { |ss| ss.include?('.') } #["google.com"]
+    # p substrings_with_period
+    period_split = substrings_with_period[0].split('.') #["google", "com"]
+    # p period_split
+    substrings = period_split.delete_if { |el| el == 'www' }
+    substrings.first
+  else
+    indices = []
+    string.each_char.with_index { |char, index| indices << index if char == '.'} #getting indices of all dot characters
+    string[indices[0].succ...indices[1]]
+  end
+end
+
+p domain_name("http://google.com") == "google"
+p domain_name("http://google.co.jp") == "google"
+p domain_name("www.xakep.ru") == "xakep"
+p domain_name("https://youtube.com") == "youtube"
+p domain_name("http://github.com/carbonfive/raygun") == "github"
+p domain_name("http://www.zombie-bites.com") == "zombie-bites"
+p domain_name("https://www.cnet.com") == "cnet"
+
+puts
+
+def url_with_forward_slash(string)
+  split_string = string.split('/')
+  substrings_with_period = split_string.select { |ss| ss.include?('.') }
+  period_split = substrings_with_period[0].split('.')
+  substrings = period_split.delete_if { |el| el == 'www' }
+  substrings.first
+end
+
+def url_with_no_forward_slash(string)
+  indices = []
+  string.each_char.with_index { |char, index| indices << index if char == '.'}
+  string[indices[0].succ...indices[1]]
+end
+
+def domain_name(string)
+  if string.include?('/')
+    url_with_forward_slash(string)
+  else
+    url_with_no_forward_slash(string)
+  end
+end
+
+p domain_name("http://google.com") == "google"
+p domain_name("http://google.co.jp") == "google"
+p domain_name("www.xakep.ru") == "xakep"
+p domain_name("https://youtube.com") == "youtube"
+p domain_name("http://github.com/carbonfive/raygun") == "github"
+p domain_name("http://www.zombie-bites.com") == "zombie-bites"
+p domain_name("https://www.cnet.com") == "cnet"
+
+ef url_with_forward_slash(string)
+split_string = string.split('/')
+substrings_with_period = split_string.select { |ss| ss.include?('.') }
+period_split = substrings_with_period[0].split('.')
+substrings = period_split.delete_if { |el| el == 'www' }
+substrings.first
+end
+
+def url_with_no_forward_slash(string)
+  indices = []
+  string.each_char.with_index { |char, index| indices << index if char == '.'}
+  if indices.size > 1
+    string[indices[0].succ...indices[1]]
+  else
+    string.split('.').first
+  end
+end
+
+def domain_name(string)
+  string.include?('/') ? url_with_forward_slash(string) : url_with_no_forward_slash(string)
+end
+
+p domain_name("http://google.com") == "google"
+p domain_name("http://google.co.jp") == "google"
+p domain_name("www.xakep.ru") == "xakep"
+p domain_name("https://youtube.com") == "youtube"
+p domain_name("http://github.com/carbonfive/raygun") == "github"
+p domain_name("http://www.zombie-bites.com") == "zombie-bites"
+p domain_name("https://www.cnet.com") == "cnet"
 
