@@ -95,17 +95,17 @@ LEFT_LETTERS = { w: 4, p: 3, b: 2, s: 1}
 RIGHT_LETTERS = { m: 4, q: 3, d: 2, z: 1}
 
 def alphabet_war(str)
-    left_result = []
-    right_result = []
-    array = str.split("")
-    array.each do |letter|
-      if LEFT_LETTERS.include?(letter.to_sym)
-        left_result << LEFT_LETTERS[letter.to_sym]
-      else
-        RIGHT_LETTERS.include?(letter.to_sym)
-        right_result << RIGHT_LETTERS[letter.to_sym]
-      end
+  left_result = []
+  right_result = []
+  array = str.split("")
+  array.each do |letter|
+    if LEFT_LETTERS.include?(letter.to_sym)
+      left_result << LEFT_LETTERS[letter.to_sym]
+    else
+      RIGHT_LETTERS.include?(letter.to_sym)
+      right_result << RIGHT_LETTERS[letter.to_sym]
     end
+  end
 
   left_result = left_result.sum
   right_result = right_result.sum
@@ -118,6 +118,30 @@ def alphabet_war(str)
     return "Let's fight again!"
   end
 
+end
+
+p alphabet_war("z") == "Right side wins!"
+p alphabet_war("zdqmwpbs") == "Let's fight again!"
+p alphabet_war("wq") == "Left side wins!"
+p alphabet_war("zzzzs") == "Right side wins!"
+p alphabet_war("wwwwww") == "Left side wins!"
+
+puts
+
+# debugging, why it didn't work
+LEFT = { w: 4, p: 3, b: 2, s: 1}
+RIGHT = { m: 4, q: 3, d: 2, z: 1}
+
+def alphabet_war(str)
+  left_res = 0
+  right_res = 0
+
+  str.split("").each { |let|
+ LEFT.include?(let.to_sym) ? left_res += LEFT[let.to_sym] : right_res += RIGHT[let.to_sym] }
+
+  return "Let's fight again!" if left_res == right_res
+
+  left_res > right_res ? "Left side wins!" : "Right side wins!"
 end
 
 p alphabet_war("z") == "Right side wins!"
