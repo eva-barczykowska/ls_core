@@ -1,24 +1,24 @@
-# def string_to_integer(str)
-#
-#   str.chars.map!.with_index do |_, index| #ask about the return value of this, why the arg is not mutated
-#     index + 1
-#   end
-#
-#   str
-#   # index = 0
-#   # ones_tens_hundreds_etc = 1
-#   # int = 0
-#   #
-#   # loop do
-#   #   int = str[index] * 10
-#   #   break
-#   # end
-#   # int
-# end
-#
-# p string_to_integer('4321') #== 4321 #works for the first one but not the second one coz logic was wrong
-# # string_to_integer('570') == 570
-#
+def string_to_integer(str)
+
+  str.chars.map!.with_index do |_, index| #ask about the return value of this, why the arg is not mutated
+    index + 1
+  end
+
+  # str # well, str is not mutated coz #chars returns a new object, an array and THAT ARRAY is mutated
+  # index = 0
+  # ones_tens_hundreds_etc = 1
+  # int = 0
+  #
+  # loop do
+  #   int = str[index] * 10
+  #   break
+  # end
+  # int
+end
+
+p string_to_integer('4321') #== 4321 #works for the first one but not the second one coz logic was wrong
+# string_to_integer('570') == 570
+
 puts
 
 DIGITS = {"0" => 0, "1" => 1, "2" => 2, "3" => 3, "4" => 4, "5" => 5, "6"=> 6, "7" => 7, "8" => 8, "9" => 9, "10" => 10 }
