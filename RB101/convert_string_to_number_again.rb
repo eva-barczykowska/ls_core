@@ -63,3 +63,18 @@ end
 
 p string_to_integer('4321') == 4321
 p string_to_integer('570') == 570
+
+puts
+
+# other solutions that I liked
+def string_to_signed_integer(str)
+  num = string_to_integer(str.delete('^0-9'))
+  num[0] = "-" ? -num : num
+end
+
+p string_to_integer('4321') == 4321
+p string_to_integer('570') == 570
+
+
+
+
