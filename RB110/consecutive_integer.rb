@@ -6,11 +6,11 @@ of a particular row, return the sum of integers in that row.
 PEDAC TEMPLATE
 
 ************** Problem **************
-2
-2, 4
-2, 4, 6
-2, 4, 6, 8
-2, 4, 6, 8, 10, etc.
+row 1 = > 2
+row 2 => 4, 6
+row 3 => 8, 10, 12
+row 4 => 14, 16, 18, 20
+row 5 => 22, 24, 26, 28, 30
 
 so in row 1, I have 1 even integer, 2
 so in row 2, I have 2 even integers, 2, 4
@@ -20,7 +20,13 @@ so in row 3, I have 3 even integers, 2, 4, 6
 -the row is a subsequence of numbers
 
 ************** Examples **************
+row 1 => 2 => 2
+row 2 => 4, 6 => 10
+row 4 => 14, 16, 18, 20 = 68
 
+p get_sum(1) == 2
+p get_sum(2) == 6
+p get_sum(4) == 68
 
 ************** Data Structures **************
 Input: single integer, a reference to a subset of integers
@@ -52,4 +58,7 @@ def get_sum(row_number)
   array_of_numbers.sum
 end
 
-p get_sum(5)
+
+p get_sum(1) == 2
+p get_sum(2) == 6
+p get_sum(4) == 68
