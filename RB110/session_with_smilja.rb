@@ -1,9 +1,6 @@
 
 # Given a string s, find the length of the longest substring without repeating characters.
 
-
-
-
 # p length_of_longest_substring('aaaabbcba') == 3 # p length_of_longest_substring('aaaaaa') == 1
 # p length_of_longest_substring('pwwkea') == 4
 # p length_of_longest_substring('') == ''
@@ -16,7 +13,7 @@ PEDAC TEMPLATE
 ************** Problem **************
 -write a method
 -the method takes a string as an argument
--the method returns the lenght of longest substring without repeating characters
+-the method returns the length of longest substring without repeating characters
 
 Questions:
 Any questions to this?
@@ -48,9 +45,11 @@ Output: an integer
   -look at the current character and compare it with the next character
 
   -if the next character is different from this current one, add this current character to temp string
-  -else, so if the next character is same as this one, add the accummulated them to the result array and
+  -but if it is already there, do not add it
+  -add this temp string to the result array if this is the last temp string in the whole string argument (so the next index would be nil)
+  -else, so if the next character is same as this one, add the characters accumulated in temp to the result array and
   -increase the counter
-  -when the counter is 1 less from the str size, break out of the loop
+  -when the counter is greater or equal to the result array size, break out of the loop
 
 
 -sort the substrings by their size (find out which one is the longest)
