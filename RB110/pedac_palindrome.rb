@@ -117,7 +117,7 @@ PSEUDOCODE
 
 def substrings(str)
   result = []
-  starting_index = 0;
+  starting_index = 0
 
   while (starting_index <= str.length - 2)
     num_chars = 2
@@ -137,7 +137,7 @@ end
 
 def palindrome_substrings(str)
   result = []
-  substrings_arr = substrings(str)
+  substrings_arr = substrings(str) # I don't have to worry about this in my last method, generating substrings is taken care of in this method, which calls the substrings method, neat!
   substrings_arr.each do |substring|
     result << substring if is_palindrome?(substring)
   end
@@ -256,3 +256,47 @@ p new_sentence.object_id
 
 p change_me("No palindromes here") == "No palindromes here"
 p change_me("") == ""
+
+puts
+# in my solution, I'm iterating over the palindromes, but I CAN also iterate through the words
+# it's not the most efficient solution, but it's still possible
+
+
+def change_me(str)
+  palindromes = palindrome_substrings(str)
+  str.split.each do |word|
+    if palindromes.include?(word)
+      str.sub!(word, word.upcase)
+    end
+  end # end.join(" ") -- if I did this, I get the return value of str.split.each, which is it's caller, so the string I started with, before changes!
+  str
+end
+
+str = "We will meet at noon"
+p str.object_id
+p change_me(str) #== "We will meet at NOON"
+p str.object_id
+p change_me("No palindromes here") == "No palindromes here"
+p change_me("") == ""
+p change_me("I LOVE my mom and dad equally") #== "I LOVE my MOM and DAD equally"
+
+puts
+
+# refactored he he
+def change_me(str)
+  palindromes = palindrome_substrings(str) #this takes care of generating substrings and then extracting palindromes
+  str.split.each do |word|
+    palindromes.include?(word) ? str.sub!(word, word.upcase) : word
+    end
+  str
+end
+
+str = "We will meet at noon"
+p str.object_id
+p change_me(str) #== "We will meet at NOON"
+p str.object_id
+
+p change_me("We will meet at noon") == "We will meet at NOON"
+p change_me("No palindromes here") == "No palindromes here"
+p change_me("") == ""
+p change_me("I LOVE my mom and dad equally") == "I LOVE my MOM and DAD equally"
