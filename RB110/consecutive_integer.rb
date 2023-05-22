@@ -87,24 +87,34 @@ Differentiate between EXPLICIT AND IMPLICIT requirements?
 =end
 
 def get_row(row_number)
-  integers = []
+  final_array = []
   integer_to_add = 2
+  target_array_size_for_this_iteration = 1 # don't you just love the name of this variable
+  temp_array = []
 
   loop do
-  integers << [integer_to_add]
-  integer_to_add += 2
-  break if integers.size > row_number
+    while temp_array.size < target_array_size_for_this_iteration
+      temp_array << integer_to_add
+      integer_to_add += 2
+    end
+    final_array << temp_array
+    temp_array = []
+    target_array_size_for_this_iteration += 1
+  break if final_array.size >= row_number
   end
+    final_array.last
+  end
+p get_row(1) == [2]
+p get_row(2) == [4, 6]
+p get_row(3) == [8, 10, 12]
 
-  integers
+
+def sum_even_number_row(number)
+  row = get_row(number)
+  row.sum
 end
-p get_row(2)
-# def sum_even_number_row
-#
-# end
-#
-# p get_sum(1) == 2
-# p get_sum(2) == 6
-# p get_sum(4) == 68
-#
-#
+
+p sum_even_number_row(1) == 2
+p sum_even_number_row(2) == 10
+p sum_even_number_row(4) == 68
+
