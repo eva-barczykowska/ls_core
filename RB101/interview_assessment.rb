@@ -312,3 +312,49 @@ p letter_changes('xyz') == ('abc')
  p letter_changes("Road trip9") == "Urdg wuls9"
  p letter_changes("EMAILZ@gmail.com") == "HPDLOC@jpdlo.frp"
  p letter_changes('xyz') == ('abc')
+
+ puts
+#eljan
+ def letter_changes(str)
+   arr = Array("a".."z")
+   new_str = []
+   for i in str.chars #below he's looking for i == i.downcase to evaluate as true and if it does,
+     down = i == i.downcase #down = i, this assigns every char in the string to the variable `down` but what is the purpose of the further ==?
+     i = i.downcase # this assigns every char in the string to its lowercase version
+
+     if arr.include?(i) # if the char we're looking at is an alphabet letter?
+       index = arr.index(i) # get the current index so that we can increase it by 3
+       char = arr[index + 3 - 26] #get the target letter
+       new_str.push(down ? char : char.upcase) # ternary statement as an argument - we're deciding what to push
+     else
+       new_str.push(i)
+     end
+
+   end
+   new_str.join
+ end
+ p letter_changes("this long cake@&") == "wklv orqj fdnh@&"
+ p letter_changes("Road trip9") #== "Urdg wuls9"
+ p letter_changes("EMAILZ@gmail.com") == "HPDLOC@jpdlo.frp"
+ p letter_changes('xyz') == ('abc')
+
+ puts
+#from Travis Linville
+ def letter_changes(str)
+   new_str = ''
+   str.each_char do |letter|
+     if ('a'..'w').cover?(letter.downcase) #the range is not full alphabet, clever!
+       new_str << (letter.ord + 3).chr #ord gives me a number, I'm increasing it by 3 and once I have that number, I'm asking what LETTER it is
+     elsif ('x'..'z').cover?(letter.downcase)
+       new_str << (letter.ord - 23).chr # - 23 works for all 3 letters!
+     else
+       new_str << letter
+     end
+   end
+   new_str
+ end
+
+ p letter_changes("this long cake@&") == "wklv orqj fdnh@&"
+ p letter_changes("Road trip9") == "Urdg wuls9"
+ p letter_changes("EMAILZ@gmail.com") == "HPDLOC@jpdlo.frp"
+ p letter_changes('xyz') == ('abc')
