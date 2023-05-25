@@ -62,9 +62,8 @@ p alphabetized("!@$%^&*()_+=-`,") #== ""
 # # => no alphabetical characters, hence an empty string is returned
 p alphabetized("CodeWars can't Load Today") #== "aaaaCcdddeLnooorstTWy"
 # =>removed apostrophe and sorted alphabetically
-#
- puts
- puts
+
+puts
 
 # Have the method letter_changes(str) take the str parameter being passed and
 # modify it using the following algorithm.
