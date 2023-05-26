@@ -265,6 +265,12 @@ def letter_changes(str)
   end
   new_str.join
 end
+# used down = i == i.downcase to check whether a letter is already lowercase or not before converting it to
+# a lowercase letter to check if it's included in the Array('a'..'z'). Later, if downcase was true in the original,
+# it will not be changed and will be passed to new_str.
+# Otherwise, it will be changed to an uppercase letter and pushed to new_str.
+# We could also create Array('A'..'Z') in addition to Array('a'..'z') and check each letter in one of these
+# arrays instead of storing the initial case of the letter in down
 p letter_changes("this long cake@&") == "wklv orqj fdnh@&"
 p letter_changes("Road trip9") #== "Urdg wuls9"
 p letter_changes("EMAILZ@gmail.com") == "HPDLOC@jpdlo.frp"
@@ -285,6 +291,23 @@ def letter_changes(str)
   end
   new_str
 end
+
+p letter_changes("this long cake@&") == "wklv orqj fdnh@&"
+p letter_changes("Road trip9") == "Urdg wuls9"
+p letter_changes("EMAILZ@gmail.com") == "HPDLOC@jpdlo.frp"
+p letter_changes('xyz') == ('abc')
+
+puts
+
+# from Daniel Chae
+def letter_changes(s)
+  s.gsub(/[a-z]/i) { |c| ((x = c =~ /[A-Z]/ ? 65 : 97) + (c.ord - x + 3) % 26).chr }
+end
+# amazing!
+# from docs "hello".gsub(/./) {|s| s.ord.to_s + ' '} #=> "104 101 108 108 111 "
+# In the block form, the current match string is passed in as a parameter, and variables such as $1, $2, $`, $&, and $'
+# will be set appropriately. (See regexp.rdoc for details.)
+# The value returned by the block will be substituted for the match on each call.
 
 p letter_changes("this long cake@&") == "wklv orqj fdnh@&"
 p letter_changes("Road trip9") == "Urdg wuls9"
