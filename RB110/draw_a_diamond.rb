@@ -25,16 +25,53 @@
 #   A
 
 # Algorithm
-# diamond(letter_at_max_point)
-# find its index
-# that index is the amount of spaces to start with,
-# eg.letter = E, spaces_before = alphabet.index("E"), spaces_in_between = 0
-# while the index of the current letter is less than the index of the target letter (letter at max point)
-# index_of_current_letter = alphabet[0]
+# -initialize ALPHABET, this will be useful :-)
+# -create a method `get_diamond_base(letter_at_max_point)`
+# -the above method will take care of the very top point and the very bottom point of the diamond
+# -we can calculate the spaces before the top point of the diamond ("A") if we have `letter_at_max_point`, so the widest
+#  part of the triangle
+# `letter_at_max_point` is passed an an argument to the get_diamond base so we can find out which index it is in the
+#  alphabet, eg.letter = E, spaces_before = alphabet.index("E"), this will be 4 because
+# 4 spaces, letter A 4 spaces (but we worry only about spaces BEFORE and, from the 2nd row on, spaces IN BETWEEN letters)
+# spaces_in_between = 0 in the first row of the diamond because there is only 1 letter
+# -the above is our helper method to create top and bottom of the diamond
+
+# -now we can write the main method
+# -within this main method, at the beginning and end we will call the helper method to draw top and bottom of the diamond
+# -then we will draw the rest of the diamond, we will use 2 loops to do that
+# -the first loop will draw the first half, the ascending part
+# -the second loop will build the second half, the descending part
+# -we will calculate spaces before by using the index of the letter at max point - 1 (- 1 coz "A" is already drawn)
+# we initialize index to 1 (coz "A" was at index 0 in the alphabet, so we've already used index 0 and the next one is 1)
+# this is the first row where we will have to letters, B B, so we need to initialize `spaces_in_between` to `1`.
+
+# while the index is less than the index of the target letter (letter at max point)
+# -print the correct number of spaces before the letter
+# -print the target letter (in the 2nd row it's B), this is the left border of the diamond
+# -print the correct number of spaces in between, with B it's just 1 space
+# print the correct letter (in the 2nd row it's B again), this is the right border of the diamond
+# -decrease spaces before by 1 (because the diamond expands from the top point)
+# -increase spaces between by 2 (because spaces increase as we draw the diamond)
+# -increase index by 1 (because next row will have consecutive alphabet letter)
+# -finish the loop
+
+# -now start the decreasing loop (diamond reached its max width and now will decrease)
+# -but we have to initialize some variables for the loop to access
+# spaces before = 1, that is our target, and we will print letters until we reach this target
+# -(we will decrease the distance between the borders of the diamond until space of 1 char is reached)
+# -until space in between characters is 1 character
+# -use letter_at_max_point to calculate the amount of spaces in between, (coz now we need to decrease them )-how?
+# -retrieve index of the letter at max point, this is 4 in case of "E".
+# - double to calculate all the spaces needed
+# -and subtract 3, we need to subtract 2 spaces, coz this row is 2 spaces less than the previous one
+# -and we also need to subtract 1 space for the letter "A" , so 2+1 = 3
+# we are 1 row below the widest point of the diamond
 # with each iteration:
-# increase index_of_current_letter by 1 so maybe reassign it while looping
-# increase the spaces_in_between by 2
-# decrease the spaces_before by one
+# decrease index_of_current_letter by 1 so maybe reassign it while looping
+# decrease the spaces_in_between by 2
+# increase the spaces_before by one
+
+#use the helper method again to draw the bottom of the diamond
 
 ALPHABET = ("A".."Z").to_a
 
