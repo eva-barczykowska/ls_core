@@ -120,3 +120,21 @@ get_diamond(letter)
 
 letter = "Z"
 get_diamond(letter)
+
+puts
+# could this be done also with rjust?
+# -find out number of spaces for the first line
+# -the first line will be that number of spaces plus the letter
+# -2nd line will be 1 less space, letter for the left outline, 1 letter in between and 1 letter after for the right outline
+# -then I will have to increase the space between by 2 and decrease the space from the left by one
+
+# -print the first letter A
+# -print the second row with the letters B B
+# -continue in a loop until max width of the diamond was reached
+# -while going, decrease number of spaces from the left by 1 and increase number of spaces inside the diamond
+# once the widest point has been reached, now draw the other half, where the diamond decreases
+#
+# could come back to this, but study how rjust and ljust work first
+
+
+
