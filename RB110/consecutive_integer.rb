@@ -25,7 +25,7 @@ row 2 => 4, 6 => 10
 row 4 => 14, 16, 18, 20 = 68
 
 p get_sum(1) == 2
-p get_sum(2) == 6
+p get_sum(2) == 10
 p get_sum(4) == 68
 
 ************** Data Structures **************
@@ -38,7 +38,15 @@ visualized:
 [8, 10, 12]
 [14, 16, 18, 20]
 ]
+
+Calculating the starting integer:
+Rule: first integer of row == to last integer of the proceeding row + 2
+Algorithm
+-get the preceding row
+-get the last integer of that row
+-add 2 to the integer
 ************** Algorithm **************
+# mine
 -build the specified row so that you can sum its elements
 -I have the information which row it is
 -the row number is equal to the number of integers that the row contains, i.e. row 1 contains 1 integer,
@@ -48,11 +56,12 @@ visualized:
 -produce an array of those integers, starting from 0
 -sum all those integers
 
--create an empty `rows ` array to contain all of the rows
--create a 'row' array and add it to the overall `rows` array
--repeat the above step until all the necessary rows have been created
--sum the final rows
--return the sum
+#LS algorithm
+1.Create an empty `rows ` array to contain all of the rows
+2. Create a 'row' array and add it to the overall `rows` array
+3. Repeat the above step until all the necessary rows have been created
+4. Sum the final rows
+5. Return the sum
 
 Problem: create a row
 Rules: row is an array
@@ -61,8 +70,8 @@ Rules: row is an array
 -integers in each row form a part of an overall larger sequence
 -rows are of different lengths
 Input: the information needed to provide the output
--the start integer for the row
--the length of the row
+-the start integer for the row # missed this the first time I was solving it
+-the length of the row -- missed the fact that there are 2 pieces of input when I was solving it on my own first
 Output: the row
 Examples
 Start 2, length 1 => [2]
@@ -79,6 +88,10 @@ All the rows have been created when the length of `rows` array is equal to the i
 4. repeat step 2 and 3 until the array reached the correct length
 5. return the array
 
+-start the loop
+-add the start integer to the row(step 2 above)
+-increment the start integer by 2 (step 3 above)
+-break out of the loop if length of row  equals row_length
 ************** Code **************
 
 ************** Refactor **************
@@ -86,35 +99,63 @@ All the rows have been created when the length of `rows` array is equal to the i
 Differentiate between EXPLICIT AND IMPLICIT requirements?
 =end
 
-def get_row(row_number)
-  final_array = []
-  integer_to_add = 2
-  target_array_size_for_this_iteration = 1 # don't you just love the name of this variable
-  temp_array = []
+# def get_row(row_number)
+#   final_array = []
+#   integer_to_add = 2
+#   target_array_size_for_this_iteration = 1 # don't you just love the name of this variable
+#   temp_array = []
+#
+#   loop do
+#     while temp_array.size < target_array_size_for_this_iteration
+#       temp_array << integer_to_add
+#       integer_to_add += 2
+#     end
+#     final_array << temp_array
+#     temp_array = []
+#     target_array_size_for_this_iteration += 1
+#   break if final_array.size >= row_number
+#   end
+#     final_array.last
+#   end
+# p get_row(1) == [2]
+# p get_row(2) == [4, 6]
+# p get_row(3) == [8, 10, 12]
 
+#LS algorithm
+# 1.Create an empty `rows ` array to contain all of the rows
+# 2. Create a 'row' array and add it to the overall `rows` array
+# -All rows have been created when the length of the `row` array is equal to the input integer (number)
+# 3. Repeat the above step until all the necessary rows have been created
+# 4. Sum the final rows
+# 5. Return the sum
+
+puts
+# puts LS
+def get_row(start_integer, row_length)
+  row = []
+  current_integer = start_integer
   loop do
-    while temp_array.size < target_array_size_for_this_iteration
-      temp_array << integer_to_add
-      integer_to_add += 2
+    row << current_integer
+    current_integer += 2
+    break if row.length == row_length
+  end
+  row
+end
+# p get_row(2, 1) #== [2]
+# p get_row(4, 2) #== [4, 6]
+# p get_row(8, 3) #== [8, 10, 12]
+def sum_even_number_row(row_number)
+  rows = []
+  start_integer = 2
+    (1..row_number).each do |current_row_number|
+    rows << get_row(start_integer, current_row_number)
+    start_integer = rows.last.last + 2
     end
-    final_array << temp_array
-    temp_array = []
-    target_array_size_for_this_iteration += 1
-  break if final_array.size >= row_number
-  end
-    final_array.last
-  end
-p get_row(1) == [2]
-p get_row(2) == [4, 6]
-p get_row(3) == [8, 10, 12]
-
-
-def sum_even_number_row(number)
-  row = get_row(number)
-  row.sum
+  rows.last.sum
 end
 
 p sum_even_number_row(1) == 2
 p sum_even_number_row(2) == 10
 p sum_even_number_row(4) == 68
+
 
