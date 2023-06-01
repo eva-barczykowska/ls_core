@@ -59,3 +59,14 @@ def double_numbers!(numbers)
 end
 
 p double_numbers(my_numbers) # => [2, 8, 6, 14, 4, 12]
+
+# with for loop
+
+my_numbers = [1, 4, 3, 7, 2, 6]
+doubled_numbers = []
+
+for number in my_numbers do
+  doubled_numbers << number * 2
+end
+
+p doubled_numbers

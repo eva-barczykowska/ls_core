@@ -46,4 +46,17 @@ transformed_elements # => ["apples", "bananas", "pears"]
 # Lines 10 and 11 increment counter and break out of the loop when the end of the fruits array is reached
 # Finally, line 14 returns the new array, transformed_elements, containing the new strings
 
+puts
+
+# with for loop
+
+fruits = ['apple', 'banana', 'pear']
+fruits_corrected = []
+
+for fruit in fruits do
+  fruits_corrected << fruit + "s"
+end
+
+p fruits_corrected
+
 

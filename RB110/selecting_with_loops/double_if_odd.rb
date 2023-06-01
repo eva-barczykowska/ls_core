@@ -84,3 +84,31 @@ end
 
 my_numbers = [1, 4, 3, 7, 2, 6]
 p double_odd_indices(my_numbers) # => [1, 8, 3, 14, 2, 12]
+
+puts "with for loop"
+puts
+# rewrite with for loop
+my_numbers = [1, 4, 3, 7, 2, 6]
+result = []
+for number in my_numbers do
+  if number.odd?
+    result << number * 2
+  else
+    result << number
+  end
+end
+
+p result
+
+# for the indices, if index is odd, double the number at that index
+my_numbers = [1, 4, 3, 7, 2, 6]
+result = []
+for number in my_numbers do
+  if my_numbers.index(number).odd?
+    result << number * 2
+  else
+    result << number
+  end
+end
+
+p result

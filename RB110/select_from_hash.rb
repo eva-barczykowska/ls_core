@@ -220,3 +220,15 @@ question = 'How many times does a particular character appear in this sentence?'
 p select_letter(question, 'a') # => "aaaaaaaa"
 p select_letter(question, 't') # => "ttttt"
 p select_letter(question, 'z') # => ""
+
+# with for
+question = 'How many times does a particular character appear in this sentence?'
+
+res = ""
+for char in question.chars do
+  if char == "a"
+    res += char
+  end
+end
+
+p res
