@@ -25,7 +25,8 @@
 # ************** Algorithm **************
 # initialize `alphabet` Hash: keys will be letters and values will be corresponding letter points
 # divide string argument into separate words and put them into a hash
-# using the alphabet reference calculate the value of each character that belongs to a certain word and finally sum them
+# using the alphabet reference calculate the value of each character that belongs to a certain word and
+# finally sum those values to get the score of the word
 # place results in the words_and_scores hash
 # iterate over the words_and_scores hash and whichever value is the greatest, return key for that value
 # ************** Code **************
@@ -47,6 +48,28 @@ def alphabet_score(str)
     return word if score == max_score
   end
 
+end
+
+p alphabet_score("man i need a taxi up to ubud") == "taxi"
+p alphabet_score("what time are we climbing up the volcano") == "volcano"
+p alphabet_score("take me to semynak") == "semynak"
+p alphabet_score("aa b") == "aa"
+
+puts
+
+#suggestion from Rachele - use the Hash#keys method
+ALPHABET = ("a".."z").zip(1..26).to_h
+
+def alphabet_score(str)
+  words_and_scores = {}
+
+  str.split.each do |word|
+    words_and_scores[word] = word.chars.map { |char| ALPHABET[char] }.sum
+  end
+
+  max_score = words_and_scores.values.max
+
+  words_and_scores.keys.select { |key| words_and_scores[key] == max_score }.first
 end
 
 p alphabet_score("man i need a taxi up to ubud") == "taxi"
