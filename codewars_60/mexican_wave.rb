@@ -3,10 +3,12 @@
 (https://www.codewars.com/kata/58f5c63f1e26ecda7e000029/train/ruby)
 6 kyu
 
-In this simple Kata your task is to create a function that turns a string into a Mexican Wave. You will be passed a string and you must return that string in an array where an uppercase letter is a person standing up.
-  Rules
-1.  The input string will always be lower case but maybe empty.
-  2.  If the character in the string is whitespace then pass over it as if it was an empty seat.
+In this Kata your task is to create a function that turns a string into a Mexican Wave.
+You will be passed a string and you must return that string in an array where an uppercase letter is a person standing up.
+
+ Rules:
+1. The input string will always be lower case but maybe empty.
+2. If the character in the string is whitespace then pass over it as if it was an empty seat.
   PEDAC TEMPLATE
 
 ************** Problem **************
@@ -74,14 +76,15 @@ output: a long string of strings, where in every word the next letter is capital
 def wave(str)
   res = []
   return [] if str.empty?
-  target_str_size = str.chars.select { |char| char != " " }.size
+
+  target_str_size = str.chars.select { |char| char != ' ' }.size
   res << str until res.size == target_str_size
-  ["two words", "two words", "two words", "two words", "two words", "two words", "two words", "two words"]
+  ['two words', 'two words', 'two words', 'two words', 'two words', 'two words', 'two words', 'two words']
   final = []
   phrase = 0
   char = 0
   loop do
-    if res[phrase][char] != " "
+    if res[phrase][char] != ' '
       # p "Phrase counter is #{phrase} and char is #{char}"
       # p "Phrase is -#{phrase}- and character is -#{res[phrase][char]}-"
       # s[0] = s[0].upcase!
@@ -92,7 +95,7 @@ def wave(str)
 
       phrase += 1
       char += 1
-    elsif res[phrase][char] == " "
+    elsif res[phrase][char] == ' '
       char += 1
     end
     break if phrase >= res.size
@@ -102,11 +105,11 @@ def wave(str)
   final
 end
 
-p wave("hello") == ["Hello", "hEllo", "heLlo", "helLo", "hellO"]
-p wave("codewars") == ["Codewars", "cOdewars", "coDewars", "codEwars", "codeWars", "codewArs", "codewaRs", "codewarS"]
-p wave("") == []
-p wave("two words") == ["Two words", "tWo words", "twO words", "two Words", "two wOrds", "two woRds", "two worDs", "two wordS"]
-p wave(" gap ") == [" Gap ", " gAp ", " gaP "]
+p wave('hello') == ['Hello', 'hEllo', 'heLlo', 'helLo', 'hellO']
+p wave('codewars') == ['Codewars', 'cOdewars', 'coDewars', 'codEwars', 'codeWars', 'codewArs', 'codewaRs', 'codewarS']
+p wave('') == []
+p wave('two words') == ['Two words', 'tWo words', 'twO words', 'two Words', 'two wOrds', 'two woRds', 'two worDs', 'two wordS']
+p wave(' gap ') == [' Gap ', ' gAp ', ' gaP ']
 
 puts
 
@@ -141,7 +144,7 @@ puts
 # need to completely skip spaces - a word should not be added to the return array if curr
 #   iteration is a space
 # questions:
-# **********Examples/Test cases************
+# ********** Examples/Test cases ************
 # p wave("hello") == ["Hello", "hEllo", "heLlo", "helLo", "hellO"]
 # ** H the E the L the L then O is cap
 # p wave("codewars") == ["Codewars", "cOdewars", "coDewars", "codEwars", "codeWars", "codewArs", "codewaRs", "codewarS"]
@@ -185,6 +188,7 @@ def wave(str)
   result = []
   0.upto(str.size - 1) do |int|
     next if str[int] == ' '
+
       str[int] = str[int].upcase
       result << str
       str = str.downcase
@@ -193,11 +197,11 @@ def wave(str)
 end
 
 
-p wave("hello") == ["Hello", "hEllo", "heLlo", "helLo", "hellO"]
-p wave("codewars") == ["Codewars", "cOdewars", "coDewars", "codEwars", "codeWars", "codewArs", "codewaRs", "codewarS"]
-p wave("") == []
-p wave("two words") == ["Two words", "tWo words", "twO words", "two Words", "two wOrds", "two woRds", "two worDs", "two wordS"]
-p wave(" gap ") == [" Gap ", " gAp ", " gaP "]
+p wave('hello') == ['Hello', 'hEllo', 'heLlo', 'helLo', 'hellO']
+p wave('codewars') == ['Codewars', 'cOdewars', 'coDewars', 'codEwars', 'codeWars', 'codewArs', 'codewaRs', 'codewarS']
+p wave('') == []
+p wave('two words') == ['Two words', 'tWo words', 'twO words', 'two Words', 'two wOrds', 'two woRds', 'two worDs', 'two wordS']
+p wave(' gap ') == [' Gap ', ' gAp ', ' gaP ']
 
 puts
 
@@ -206,12 +210,167 @@ def wave(str)
   [] if str.empty?
   results = []
   original_string = str
-  sub = str.split("")
+  sub = str.split('')
   (0 ... sub.size).each do |i|
-    next if sub[i] == " "
+    next if sub[i] == ' '
+
     sub[i].upcase!
     results << sub.join
-    sub = original_string.split("")
+    sub = original_string.split('')
+  end
+  results
+end
+
+p wave('hello') == ['Hello', 'hEllo', 'heLlo', 'helLo', 'hellO']
+p wave('codewars') == ['Codewars', 'cOdewars', 'coDewars', 'codEwars', 'codeWars', 'codewArs', 'codewaRs', 'codewarS']
+p wave('') == []
+p wave('two words') == ['Two words', 'tWo words', 'twO words', 'two Words', 'two wOrds', 'two woRds', 'two worDs', 'two wordS']
+p wave(' gap ') == [' Gap ', ' gAp ', ' gaP ']
+
+puts
+puts "Adil's solution my code according to his algorithm"
+=begin
+restate the problem:
+  given a string return an array of words with each element having the string with consecutive letters capitalized
+
+Explicit rules
+  always lower case or empty
+  ignore whitespace
+
+implicit rules
+
+  if an empty string is passed in then return an empty array
+  keep the whitespace in the string
+io
+  string -> array of strings
+
+mental model
+  " gap " => [" Gap ", " gAp ", " gaP "] initialize empty array =>
+  [" ", "g", "a", "p", " "] => [" ", "G", "a", "p", " "] => join => " Gap " => append to a results arr=>
+  results_arr => [" Gap "] after first iteration
+
+ds:
+  input: string
+  working: array
+  output: array
+
+algo:
+  return an empty array if the input string is empty
+  initialize a results array
+  split the string into characters with whitespaces preserved and save it to a variable
+  iterate through a range of numbers 0 ... subarray size
+    if its a whitespace then go to next iteration
+    capitalize the character at that Index
+    join the subarray
+    append to results
+  return results array
+=end
+def wave(arr_of_strings)
+  return [] if arr_of_strings.empty?
+
+  results = []
+  chars_array = arr_of_strings.split('')
+  (0...chars_array.size).each do |index|
+    next if chars_array[index] = ' '
+
+    (index...chars_array.size).each do |index2|
+      chars_array[index2].upcase
+      results << chars_array.join
+    end
+  end
+  results
+end
+# p wave("hello") == ["Hello", "hEllo", "heLlo", "helLo", "hellO"]
+# p wave("codewars") == ["Codewars", "cOdewars", "coDewars", "codEwars", "codeWars", "codewArs", "codewaRs", "codewarS"]
+# p wave("") == []
+# p wave("two words") == ["Two words", "tWo words", "twO words", "two Words", "two wOrds", "two woRds", "two worDs", "two wordS"]
+p wave(' gap ') #== [" Gap ", " gAp ", " gaP "]
+
+puts "Adil's solution - incorrect"
+def wave(str)
+  return [] if str.empty?
+
+  results = []
+
+  sub = str.split('')
+  (0...sub.size).each do |i|
+    next if sub[i] == ' '
+
+    (i ... sub.size).each do |ii|
+      sub[ii].upcase
+      results << sub.join
+    end
+
+  end
+  results
+end
+
+p wave('hello') #== ["Hello", "hEllo", "heLlo", "helLo", "hellO"]
+# p wave("codewars") == ["Codewars", "cOdewars", "coDewars", "codEwars", "codeWars", "codewArs", "codewaRs", "codewarS"]
+# p wave("") == []
+# p wave("two words") == ["Two words", "tWo words", "twO words", "two Words", "two wOrds", "two woRds", "two worDs", "two wordS"]
+# p wave(" gap ") #== [" Gap ", " gAp ", " gaP "]
+
+
+puts
+puts 'My try, from scratch'
+# In this Kata your task is to create a function that turns a string into a Mexican Wave.
+#  You will be passed a string and you must return that string in an array where an uppercase letter is a person standing up.
+#
+#  Rules:
+# 1. The input string will always be lower case but maybe empty.
+# 2. If the character in the string is whitespace then pass over it as if it was an empty seat.
+# PEDAC TEMPLATE
+#
+# ************** Problem **************
+# write a method
+# -the method takes a string as an argument (1 lowercase string, could be consisting of multiple words like test case 4)
+# -the method returns an array of strings such as that the array string is repeated but when it's repeated, the next
+# consecutive letter is upcased, as if this was Mexican wave at a football stadium and the person was standing up
+# -however, when upcasing, spaces within the string have to be ignored, like in the last example
+# ************** Examples **************
+# p wave("hello") #== ["Hello", "hEllo", "heLlo", "helLo", "hellO"]
+# => coz every consecutive letter has been upcased in every consecutive word
+# => specifically, in word at index 0, it is letter at index 0, in word at index 1 it is letter at index 1, etc.
+
+# p wave("codewars") == ["Codewars", "cOdewars", "coDewars", "codEwars", "codeWars", "codewArs", "codewaRs", "codewarS"]
+# => same as above but it is basically a longer word
+
+# p wave("") == []
+# => here we are accounting for an empty string
+
+# p wave("two words") == ["Two words", "tWo words", "twO words", "two Words", "two wOrds", "two woRds", "two worDs", "two wordS"]
+# => here we actually have 2 words and we need to ignore the space so that we can upcase correctly
+# => if there is an empty seat, it is ignored while doing a mexican wave at a football stadium
+
+# p wave(" gap ") #== [" Gap ", " gAp ", " gaP "]
+# => one word but there is a space before and after so we need to ignore it
+#
+# ************** Data Structures **************
+# Input: a string, always lowercase
+#   Middle: how I’m going to get from where I am to where I want to be
+# Output: an array of strings, in which every consecutive letter is upcased, spaces are ignored while upcasing
+# ************** Algorithm **************
+# -account for an empty string and later see if maybe the code accounts for it by default (refactor)
+# -create an empty `results` array
+# -start iteration (using rage for example) and get access to the index
+# -skip a given index in the string if the character at that index is a space
+# -upcase character at that index (which you got from iteration using rage (0...str.size))
+# -add string with the upcased index to the `results` array
+# -now downcase the string so that we have a string like an original string argument to work with
+# ************** Code **************
+#
+# ************** Refactor **************
+
+def wave(str)
+  results = []
+
+  (0...str.size).each do |int| # this is an important way how to grab indexes in a string or array, int is my index which now I have access to
+    next if str[int] == ' ' # ignore spaces while iterating and upcasing
+
+    str[int] = str[int].upcase # this is how with every iteration I will upcase the consecutive letter in the same word because I have access to index
+    results << str
+    str = str.downcase # very important to have a downcase string to work with again
   end
   results
 end
@@ -220,4 +379,4 @@ p wave("hello") == ["Hello", "hEllo", "heLlo", "helLo", "hellO"]
 p wave("codewars") == ["Codewars", "cOdewars", "coDewars", "codEwars", "codeWars", "codewArs", "codewaRs", "codewarS"]
 p wave("") == []
 p wave("two words") == ["Two words", "tWo words", "twO words", "two Words", "two wOrds", "two woRds", "two worDs", "two wordS"]
-p wave(" gap ") == [" Gap ", " gAp ", " gaP "]
+p wave(' gap ') == [" Gap ", " gAp ", " gaP "]
