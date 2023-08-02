@@ -41,7 +41,7 @@ create substrings and count them
 =end
 def solution(arg1, arg2)
   substrings = []
-    (0...arg1.size).each do |index| #this retrieves ALL substrings
+    (0...arg1.size).each do |index| # this retrieves ALL substrings
       (index...arg1.size).each do |index2|
      substrings << arg1[index..index2]
     end
@@ -50,7 +50,7 @@ def solution(arg1, arg2)
   # for 3rd example: ["a", "ab", "abb", "abbc", "b", "bb", "bbc", "b", "bc", "c"]
   # .. on line 45:   ["a", "ab", "abb", "abbc", "abbc", "b", "bb", "bbc", "bbc", "b", "bc", "bc", "c", "c"]
   substrings.map { |substring| substring == arg2 }.count(true)
-  #or substrings.select { |s| s == arg2 }.size
+  # or substrings.select { |s| s == arg2 }.size
 end
 
 p solution('abcdeb','b') == 2
@@ -81,3 +81,79 @@ p solution('abbc', 'bb') == 1
 # a b b c
 # ar1.size (4) - arg2.size (2) -> 2
 p solution('aaabbbcccc', 'bbb') == 1
+
+
+puts "codewars"
+# Complete the solution so that it returns the number of times the search_text is found within the full_text.
+# PEDAC
+# ************** Problem **************
+# -write a method that takes 2 arguments
+# -text and substring to be searched in that text
+# -return how many instances of the search text was found
+# ************** Examples **************
+solution('abcdeb','b') #== 2
+solution('abcdeb', 'a') == 1
+solution('abbc', 'bb') == 1
+# ************** Data Structures **************
+# Input: text, search text
+#
+# Output: integer
+# ************** Algorithm **************
+# -initialize `result`
+# create substrings from the text BUT the substrings have to be the same size as of the search text
+#
+# --how to create all substrings
+# --create a range from 0...text.size, iterate over each index, that's your start_index
+# --now create a range from start_index...text.size, iterate over each of those indexes, gradually slicing substrings
+#
+# -but to the substrings array ONLY THOSE substrings, whose size is equal to the `search_text` size
+#
+# compare substrings to the search text and calculate how many of the substrings are equal to the search text
+#
+# return that number
+# ************** Code **************
+#
+# ************** Refactor **************
+def solution(text, search_text)  # this doesn't pass all the tests on Codewars
+  substrings = []
+
+  (0...text.size).each do |start_index|
+    (start_index...text.size).each do |end_index|
+      substring = text.slice(start_index, end_index) # THIS IS THE DIFFERENCE
+      substrings << substring if substring.size == search_text.size
+    end
+  end
+
+  substrings.select { |s| s == search_text }.size
+end
+p solution('abcdeb','b') #== 2
+# a, b, c, d, e, b
+p solution('abcdeb', 'a') #== 1
+p solution('abbc', 'bb') #== 1
+
+# Ilke's solution - passes all tests on Codewars
+def solution(full_text, search_text)
+  subs_array = []
+
+  (0..full_text.size - 1).each do |index1|
+    (index1..full_text.size - 1).each do |index2|
+      substring = full_text[index1..index2] # THIS IS THE DIFFERENCE
+      subs_array << substring if substring.size == search_text.size
+    end
+  end
+
+  subs_array.count { |subs| subs == search_text }
+end
+p solution('abcdeb','b') #== 2
+# a, b, c, d, e, b
+p solution('abcdeb', 'a') #== 1
+p solution('abbc', 'bb') #== 1
+
+puts
+# love the simplicity of this solution
+def solution(text, search_text)
+  text.scan(search_text).size
+end
+p solution('abcdeb','b') == 2
+p solution('abcdeb', 'a') == 1
+p solution('abbc', 'bb') == 1

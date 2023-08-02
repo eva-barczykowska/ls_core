@@ -99,3 +99,72 @@ p pairs([0, 0, 0, 0, 0, 0, 0]) == 3
 p pairs([1000, 1000]) == 1
 p pairs([]) == 0
 p pairs([54]) == 0
+
+puts
+puts "codewars"
+=begin
+PEDAC TEMPLATE
+
+************** Problem **************
+-write a method that takes an array of integers as an argument
+-the method retuns how many pairs of those integers the array argument has
+-if the array is empty of has size 1, return 0 (coz there are no pairs)
+************** Examples **************
+pairs([1, 2, 5, 6, 5, 2]), 2
+=> 2 and 5 are present twice
+
+pairs([1, 2, 2, 20, 6, 20, 2, 6, 2]), 4
+=> 2 is present 4 times so 2 pairs, then a pair of 20 and 6
+
+pairs([0, 0, 0, 0, 0, 0, 0]), 3
+=> 3 pairs of 0
+
+pairs([1000, 1000]), 1
+=> just 1 pair of 1000
+
+pairs([]), 0
+pairs([54]), 0
+
+************** Data Structures **************
+Input: array of integers
+
+Output: integer
+************** Algorithm **************
+-initialize result
+
+-iterate over the number and count them as you go, e.g.
+-how many 1s, 2s, etc.
+-store the result in the hash
+
+-now use the values of that hash
+-if the value is greater than 1,
+-divide each value by 2 and add the result to the `result` variable
+
+return the final result
+=end
+def pairs(arr)
+  result = 0
+
+  number_of_occurrences = arr.tally.values
+
+  number_of_occurrences.each do |number|
+    result += number / 2 if number > 1
+  end
+
+  result
+  end
+p pairs([1, 2, 5, 6, 5, 2]) == 2 # unique elements [1, 2, 5, 6],count 1s, 2s, 5s, 6s => [1, 2, 2, 1]
+p pairs([1, 2, 2, 20, 6, 20, 2, 6, 2]) == 4 # unique elements [1, 2, 20, 6], count 1s, 2s, 20s, 6s => [1, 4, 2, 2]
+p pairs([0, 0, 0, 0, 0, 0, 0]) == 3
+p pairs([1000, 1000]) == 1
+p pairs([]) == 0
+p pairs([54]) == 0
+
+
+
+
+
+
+
+
+
