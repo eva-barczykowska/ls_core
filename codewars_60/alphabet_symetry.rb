@@ -245,17 +245,92 @@ def solve(array)
       .each_char
       .with_index
       .count { |char, index| ALPHA[char] == index + 1 }
-    end
+  end
 end
 p solve(["abode","ABc","xyzD"]) == [4,3,1]
 p solve(["abide","ABc","xyz"]) == [4,3,0]
 p solve(['IAMDEFANDJKL','thedefgh','xyzDEFghijabc']) == [6,5,7]
 p solve(["encode","abc","xyzD","ABmD"]) == [1, 3, 1, 3]
 
+#solving according to Ilke's algo
+# =begin
+# --------------------------Algorithm-------------------------
+# - initialize an ALPHABET constant assigned to an array of letters from a-z
+# - initialize `result_array`
+# - initialize `count`
+#
+# - iterate through the input array and downcase each word
+#
+# -now assign count to the result of:
+# 	- iterate through each character of the word and its index
+#  - and count how many times this is true:
+# 		- if the index of the current char is the same as it is in the alphabet
+# 	- add this count to the output array
+#
+# 	- return the output array
+# ----------------------------Code----------------------------
+# =end
+ALPHABET = ('a'..'z').to_a
 
+def solve(arr)
+  output_array = []
+  count = 0
 
+  arr.each do |word|
+    word = word.downcase
+    count = word.each_char.with_index.count do |char, index| #grab the index and compare it with the alphabet index
+      index == ALPHABET.index(char)
+    end
+    output_array << count
+  end
+output_array
+end
+p solve(["abode","ABc","xyzD"]) == [4,3,1]
+p solve(["abide","ABc","xyz"]) == [4,3,0]
+p solve(['IAMDEFANDJKL','thedefgh','xyzDEFghijabc']) == [6, 5 ,7]
+p solve(["encode","abc","xyzD","ABmD"]) == [1, 3, 1, 3]
 
+puts
+=begin
+"You are absolutely correct! My apologies for the confusion in the previous response. You are right in pointing out that each_char returns an enumerator when no block is passed to it.
+When you call each_char without a block, it returns an enumerator object, which allows you to chain other methods like with_index. This behavior is not specific to each_char; it applies to other Ruby methods as well, such as each_line and each_byte.
+So, when you do "hello".each_char.with_index { |char, index| puts "#{char}, #{index}" }, it works because each_char returns an enumerator, and then you chain the with_index method to it.
+On the other hand, chars returns an array and not an enumerator. Since with_index is a method available for enumerators but not for arrays, you cannot directly chain with_index to the result of "hello".chars.
+To use with_index with the chars method, you need to convert the string into an enumerator first, which you can do using the to_enum method:
+"hello".chars.to_enum.with_index { |char, index| puts "#{char}, #{index}" }"
 
+Acha. It is confusing because the names of method are very similar. For example, we’re talking here about each_char, which is chained with with_index.
+Each char is called on a string and returns an enumerator, on which it is possible, in turn, to call with_index.
+
+But there is another method that exists in the Enumerable, which is a part of Array class, and that method is called each_with_index,
+I think I wanted to use this one.
+But since it’s an Array method, I need an array to use it. Or I can use chars and then I have an array… let me look into that…
+I realized I actually used each_with_index on the characters array in my helper method. Frankly speaking I was baffled why ‘it worked this time’.
+It worked because I used another method!
+=end
+
+ALPHABET = *('a'..'z')
+
+def solve(array)
+  return_array = []
+  result = 0
+
+  array.each do |word|
+    word.downcase.chars.each_with_index do |char, index|
+    result += 1 if index == ALPHABET.index(char)
+    end
+
+    return_array << result
+    result = 0
+  end
+
+  return_array
+end
+
+p solve(["abode","ABc","xyzD"]) == [4, 3, 1]
+p solve(["abide","ABc","xyz"]) == [4, 3, 0]
+p solve(['IAMDEFANDJKL','thedefgh','xyzDEFghijabc']) == [6, 5, 7]
+p solve(["encode","abc","xyzD","ABmD"]) == [1, 3, 1, 3]
 
 
 
