@@ -292,10 +292,16 @@ p solve(["encode","abc","xyzD","ABmD"]) == [1, 3, 1, 3]
 
 puts
 =begin
-"You are absolutely correct! My apologies for the confusion in the previous response. You are right in pointing out that each_char returns an enumerator when no block is passed to it.
-When you call each_char without a block, it returns an enumerator object, which allows you to chain other methods like with_index. This behavior is not specific to each_char; it applies to other Ruby methods as well, such as each_line and each_byte.
-So, when you do "hello".each_char.with_index { |char, index| puts "#{char}, #{index}" }, it works because each_char returns an enumerator, and then you chain the with_index method to it.
-On the other hand, chars returns an array and not an enumerator. Since with_index is a method available for enumerators but not for arrays, you cannot directly chain with_index to the result of "hello".chars.
+"You are absolutely correct! My apologies for the confusion in the previous response.
+You are right in pointing out that each_char returns an enumerator when no block is passed to it.
+
+When you call each_char without a block, it returns an enumerator object, which allows you to chain other methods like with_index.
+This behavior is not specific to each_char; it applies to other Ruby methods as well, such as each_line and each_byte.
+
+So, when you do "hello".each_char.with_index { |char, index| puts "#{char}, #{index}" }, it works because each_char returns an enumerator,
+and then you chain the with_index method to it.
+On the other hand, chars returns an array and not an enumerator.
+Since with_index is a method available for enumerators but not for arrays, you cannot directly chain with_index to the result of "hello".chars.
 To use with_index with the chars method, you need to convert the string into an enumerator first, which you can do using the to_enum method:
 "hello".chars.to_enum.with_index { |char, index| puts "#{char}, #{index}" }"
 
@@ -317,7 +323,7 @@ def solve(array)
 
   array.each do |word|
     word.downcase.chars.each_with_index do |char, index|
-    result += 1 if index == ALPHABET.index(char)
+      result += 1 if index == ALPHABET.index(char)
     end
 
     return_array << result
