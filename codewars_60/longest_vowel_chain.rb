@@ -113,3 +113,111 @@ p solve("chrononhotonthuooaos") == 5
 # end
 
 # all_combinations =  joined + vowels
+#
+puts
+puts "codewars"
+# ************** Problem **************
+# -write a method that takes a string as an argument
+# -in that string find all substrings
+# -in those substrings - what is the longest vowel substring?
+# -return its length
+# ************** Examples **************
+# p solve("codewarriors") == 2
+# p solve("suoidea") == 3
+# p solve("iuuvgheaae") == 4
+# p solve("ultrarevolutionariees") == 3
+# p solve("strengthlessnesses") == 1
+# p solve("cuboideonavicuare") == 2
+# p solve("chrononhotonthuooaos") == 5
+# ************** Data Structures **************
+# Input: string
+
+# Output: integer
+# ************** Algorithm **************
+# -create `substrings` variable
+# -create a vowel variable containing all vowels
+# -create all substrings from the string argument:
+# -outer iteration: iterate from 0 to string.size - 1
+# -inner iteration: iterate from start to str.size
+# -extract all possible strings
+# -append a string to`substrings`
+
+# -now iterate over the substrings and transform them into the number of CONSECUTIVE vowels they have
+# -return the maximum number
+# ************** Code **************
+# ************** Refactor **************
+VOWELS = 'aeoiu'
+def solve(str)
+  substrings = []
+
+  (0...str.size).each do |index1|
+    (index1...str.size).each do |index2|
+      substring = str[index1..index2]
+      substrings << substring if substring.chars.all? { |char| VOWELS.include?(char) }
+    end
+  end
+
+  return 0 if substrings.empty?
+
+  substrings.max_by(&:size).size
+end
+p solve("codewarriors") == 2
+p solve("suoidea") == 3
+p solve("iuuvgheaae") == 4
+p solve("ultrarevolutionariees") == 3
+p solve("strengthlessnesses") == 1
+p solve("cuboideonavicuare") == 2
+p solve("chrononhotonthuooaos") == 5
+p solve("prst")
+
+puts "rewriting the code to be more efficient"
+puts
+# Why did my code time out?
+# Our servers are configured to only allow a certain amount of time for your code to execute.
+# In rare cases the server may be taking on too much work and simply wasn't able to run your code efficiently enough.
+# Most of the time though this issue is caused by inefficient algorithms.
+# If you see this error multiple times you should try to optimize your code further.
+#
+# initialize VOWELS constant
+# -initialize `substrings` array
+# -initialize `current_substring` string
+#
+# -iterate over each character of the argument string
+# -initialize a variable for `current_character` to str[index] and `next_character` to str[index + 1]
+# -if the current character is a vowel, add it to the current_substring variable
+#
+# -if next_character is not a vowel, is a consonant or it is nil (because current_character is last in the string),
+# add the `current_substring` to `substrings` array
+#
+# -clear `current_substring` to '' so that you can start from scratch creating next current_substring
+# -when finished iterating, means I have all consecutive vowel substrings
+#
+# -check which one is the biggest in size
+# -return its size
+VOWELS = 'aeoiu'
+def solve(str)
+  substrings = []
+  current_substring = ''
+
+  str.each_char.with_index do |char, index|
+    current_char = str[index]
+    next_char = str[index + 1]
+
+    current_substring << current_char if VOWELS.include?(current_char)
+
+    if next_char.nil? || !VOWELS.include?(next_char)
+      substrings << current_substring
+      current_substring = ''
+    end
+  end
+
+  substrings.max_by(&:size).size
+end
+p solve("codewarriors") == 2
+p solve("suoidea") == 3
+p solve("iuuvgheaae") == 4
+p solve("ultrarevolutionariees") == 3
+p solve("strengthlessnesses") == 1
+p solve("cuboideonavicuare") == 2
+p solve("chrononhotonthuooaos") == 5
+p solve("prst") == 0
