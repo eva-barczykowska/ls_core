@@ -111,11 +111,13 @@ def scramble_word(string)
         hash[index] = char  # and store this information in a hash because you'll need it later
       end
     end
+
     clean_string = string.delete('^a-z') # delete all the non-alphabetic characters after I've counted them
     clean_string = clean_string[0] + clean_string[1..-2].chars.sort.join + clean_string[-1] # sort all the letters between the first one and the last one
     hash.each do |k, v| # insert back the special characters at the correct index
       clean_string.insert(k, v)
     end
+
     clean_string
   else
     string[0] + array[1..-2].sort.join + string[-1] # if no special chars are present, just return the chars (except 1st and last) sorted
@@ -141,19 +143,180 @@ p scramble_words('-dcba') == '-dbca'
 p scramble_words('dcba.') == 'dbca.'
 p scramble_words("you've gotta dance like there's nobody watching, love like you'll never be hurt, sing like there's nobody listening, and live like it's heaven on earth.") #== "you've gotta dacne like teehr's nbdooy wachintg, love like ylo'ul neevr be hrut, sing like teehr's nbdooy leiinnstg, and live like it's haeevn on earth."
 
-array = ["c", nil, nil, nil, "-", nil, nil, nil, nil, nil, nil, nil, "g"]
-indices = [1, 2, 3, 5, 6, 7, 8, 9, 10, 11]
-letters_to_insert = ["a", "a", "c", "d", "i", "n", "r", "r", "r", "y"]  #get rid of dash
+puts
+puts
+puts "Ilke's solution"
+=begin
+- initialize a constant SPECIAL_CHARS assigned to an array containing the special chars
 
-counter = 0
-counter_a = 0
-index_to_insert = indices[counter]
-insert_what = letters_to_insert[counter]
+- return the string if the string size is less than or equal to 3. This takes care of these test cases:
+#p scramble_words('i') == 'i'
+#p  scramble_words('') == ''
+#p scramble_words('me') == 'me'
+#p scramble_words('you') == 'you'
 
-loop do
-  if array[counter].nil?
-    array[counter] = letters_to_insert[counter_1]
+- create a words_array from the input string
+- if the words_array is size 1 and the string (or word at index 0 or words_array) contains no special chars
+	- then using indexed assignment, reassign the characters from index 1 to -2 to the same portion of the string
+    with the characters of the string converted to a an array of chars, sorted, and rejoined to form a string
+	- return the string
+
+- else if the words_array is size 1 but the string contains any special characters
+	- iterate through the words_array
+		- initialize an array to store the index of the special char and the special char
+		- find the index of the special char, add to special array
+		- add the special char to array
+		- delete the special char from the word
+		- sort the inner portion of the word (in the same way as above)
+		- insert the special char that was stored in the special array at the index position also stored in the special array
+
+- else if the words_array size is more than 1 (this means the input string is a sentence)
+		- iterate through the words_array
+			- if the word has any special chars
+				- initialize an array to store the index of the special char and the special char
+				- find the index of the special char, add to special array
+				- add the special char to array
+				- delete the special char from the word
+				- sort the inner portion of the word (in the same way as above)
+				- insert the special char that was stored in the special array at the index position also stored in the special array
+			- else if the word has no special chars
+				- then using indexed assignment, reassign the characters from index 1 to -2 to the same portion of the word with the characters of the word converted to a an array of chars, sorted, and rejoined to form a string
+- return the words_array converted back to a string
+
+=end
+
+SPECIAL_CHARS = ["-", "'", ",", "."]
+
+def scramble_words(string)
+  return string if string.size <= 3
+  words_array = string.split(" ")
+
+  if words_array.size == 1 && string.each_char.none? {|char| SPECIAL_CHARS.include?(char)}
+    string[1..-2] = string[1..-2].chars.sort.join
+    return string
+  elsif words_array.size == 1 && string.each_char.any? {|char| SPECIAL_CHARS.include?(char)}
+    words_array.each do |word|
+      special = []
+      special << word.each_char.find_index {|char| SPECIAL_CHARS.include?(char)}
+      special << word[special[0]]
+      word.delete!(special[1])
+      word[1..-2] = word[1..-2].chars.sort.join
+      word.insert(special[0], special[1])
+    end
+  else
+    words_array.each do |word|
+      if word.each_char.any? {|char| SPECIAL_CHARS.include?(char)}
+        special = []
+        special << word.each_char.find_index {|char| SPECIAL_CHARS.include?(char)}
+        special << word[special[0]]
+        word.delete!(special[1])
+        word[1..-2] = word[1..-2].chars.sort.join
+        word.insert(special[0], special[1])
+      else
+        word[1..-2] = word[1..-2].chars.sort.join
+      end
+    end
   end
+  words_array.join(' ')
 end
 
-p array
+p scramble_words('professionals') == 'paefilnoorsss'
+p scramble_words('i')  == 'i'
+p scramble_words('') == ''
+p scramble_words('me') == 'me'
+p scramble_words('you') == 'you'
+p scramble_words('card-carrying') == 'caac-dinrrryg'
+p scramble_words("shan't") == "sahn't"
+p scramble_words('-dcba') == '-dbca'
+p scramble_words('dcba.') == 'dbca.'
+p scramble_words("you've gotta dance like there's nobody watching, love like you'll never be hurt, sing like there's nobody listening, and live like it's heaven on earth.") == "you've gotta dacne like teehr's nbdooy wachintg, love like ylo'ul neevr be hrut, sing like teehr's nbdooy leiinnstg, and live like it's haeevn on earth."
+
+puts
+puts
+
+=begin
+  P: Given a string return a new string with:
+    1. the first and last characters the same as the original
+    2. characters between the first and last characters must be sorted alphabetically
+    3. punctuation must remain in the same positions
+
+  Examples and Rules:
+    separated by single spaces, not special chars
+    special chars do not take the position of alphas
+      -dcba -> -dbca
+    only special chars => [- ' , .]
+    ignore capitalization
+
+  Data structures
+    Arrays
+    hash
+
+  Algo
+    for each word
+      store the index of special characters in a hash
+        Iterate over the characters with index,
+        if the character is not a-z,
+          save the character and the index in a hash
+      remove the special characters
+
+      if there is only one special char and one alpha char
+      return the word
+
+      get the first letter
+      get the last letter
+      take the middle letters, sort them
+      new_str is first + sorted + last
+      insert special char
+
+=end
+
+def scramble_words(words)
+  words.split(" ").map do |word|
+    if word.size < 3
+      word
+    else
+      hash = {}
+      0.upto(word.size - 1) do |idx|  # retrieving index can be as easy as this:-)
+        char = word[idx]
+        hash[char] = idx if char =~ /[^A-Za-z]/
+      end
+
+      word = word.gsub(/[^A-Za-z]/, "")
+      sorted_middle = word[1..-2].chars.sort.join
+      new_word = word[0] + sorted_middle + word[-1]
+
+      hash.each_pair do |k, v|
+        new_word.insert(v, k)
+      end
+
+      new_word
+    end
+  end.join(" ") # this is for the last example, because so far we've only dealt with single word at a time
+end
+p scramble_words('professionals') == 'paefilnoorsss'
+p scramble_words('i') == 'i'
+p scramble_words('') == ''
+p scramble_words('me') == 'me'
+p scramble_words('you') == 'you'
+p scramble_words('card-carrying') == 'caac-dinrrryg'
+p scramble_words("shan't") == "sahn't"
+p scramble_words('-dcba') == '-dbca'
+p scramble_words('dcba.') == 'dbca.'
+p scramble_words("you've gotta dance like there's nobody watching, love like you'll never be hurt, sing like there's nobody listening, and live like it's heaven on earth.") == "you've gotta dacne like teehr's nbdooy wachintg, love like ylo'ul neevr be hrut, sing like teehr's nbdooy leiinnstg, and live like it's haeevn on earth."
+
+# my algorithm for this solution
+# split the words on space and for each word
+#   if its size is less or equal to 3, return the word
+#   else initialize a `hash`
+#   iterate from 0 up to word size
+#   initialize `char` variable and point it to the index in the word char = word[idx]
+#   save the character as a key and index as a value to the hash if a character is a special character ???------ shouldn't it be the other way round?
+#
+# delete special characters
+# extract the middle characters [1..-2], sort them and save to a variable
+# add extracted beginning of the word, its sorted middle and extracted end, save to new_word variable
+#
+# now iterate over the hash and insert into the new word at the right index the special character
+# return the new word
+#
+# join everything
