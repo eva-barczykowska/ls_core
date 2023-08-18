@@ -338,6 +338,127 @@ p solve(["abide","ABc","xyz"]) == [4, 3, 0]
 p solve(['IAMDEFANDJKL','thedefgh','xyzDEFghijabc']) == [6, 5, 7]
 p solve(["encode","abc","xyzD","ABmD"]) == [1, 3, 1, 3]
 
+# Sedricks solution
+=begin
+
+
+
+≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂◟ 𝓟roblem ◞≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂
+Alphabet symmetry
+Consider the word "abode". We can see that the letter a is in position 1 and b is in position 2. In the alphabet, a and b are also in positions 1 and 2. Notice also that d and e in abode occupy the positions they would occupy in the alphabet, which are positions 4 and 5.
+
+Given an array of words, return an array of the number of letters that occupy their positions in the alphabet for each word. For example,
+
+
+Given a word, determine how many chars occupy their alphabetic positions
+
+● implicit requirement
+  ⚬ first char determines the order of the alphabet positions
+  ⚬ case does not matter
+
+≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂◟ Examples ◞≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂
+
+"abode","ABc","xyzD" = [4, 3, 1]
+
+Input will consist of alphabet characters, both uppercase and lowercase. No spaces.
+
+≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂◟ DS ◞≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂
+
+a,b,c,d,e,f,g
+abc
+
+["encode","abc","xyzD","ABmD"] => [1, 3, 1, 3]
+
+{a => 1}
+
+o, =>3 {o => 11}
+≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂◟ Algorithm ◞≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂
+
+● generate sequence of alphabetic chars from a to z
+  ⚬ use hash letter as key and position alpha as value
+
+● convert input substrings to downcase
+● access each input substring
+● determine the starting position against the alphabetic range
+  ⚬ use index position beggining from 1 and compare index position of curr char
+    with the hash value of the specified key
+  ⚬ if char matches position
+    ⚬ add one to count
+    ⚬
+    ⚬ after all chars in substring are matched
+       place total count into separate result collection
+       reset count
+       repeat untill substring are processed
+
+● return the count
+≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂◟ code ◞≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂
+
+=end
+
+def solve(arr)
+  count = 0
+  result = []
+
+  letter_map = ("a".."z").each_with_object({}).with_index(1) { |(letter, hsh), i| hsh[letter] = i }
+
+  downcase_arr = arr.map { |letter| letter.downcase }
+
+  downcase_arr.each do |substring|
+    substring.each_char.with_index(1) { |letter, i| count += 1 if letter_map[letter] == i }
+    result << count
+    count = 0
+  end
+
+  result
+end
+
+p solve(["abode", "ABc", "xyzD"]) == [4, 3, 1]
+p solve(["abide", "ABc", "xyz"]) == [4, 3, 0]
+p solve(["IAMDEFANDJKL","thedefgh","xyzDEFghijabc"])== [6,5,7]
+p solve(["encode","abc","xyzD","ABmD"]) == [1, 3, 1, 3]
+
+puts
+def alphabet_map(arr)
+  ("a".."z").each_with_object({}).with_index(1) { |(letter, hsh), index| hsh[letter] = index }
+end
+
+def solve(arr)
+  count = 0
+
+  arr.map(&:downcase).map do |substring|
+    count = 0
+    substring.each_char.with_index(1) { |letter, i| count += 1 if alphabet_map(arr)[letter] == i }
+    count
+  end
+end
+
+p solve(["abode", "ABc", "xyzD"]) == [4, 3, 1]
+p solve(["abide", "ABc", "xyz"]) == [4, 3, 0]
+p solve(["IAMDEFANDJKL","thedefgh","xyzDEFghijabc"]) == [6, 5, 7]
+p solve(["encode","abc","xyzD","ABmD"]) == [1, 3, 1, 3]
+
+puts
+
+# my refactor of Sedrick's code
+#
+arr = ["abode", "ABc", "xyzD"]
+ALPHABET_REFERENCE = ("a".."z").each_with_object({}).with_index { |(letter, hsh), index| hsh[letter] = index }
+
+def solve(arr)
+  arr.map(&:downcase).map do |word|
+    count = 0
+    word.each_char.with_index { |letter, index| count += 1 if ALPHABET_REFERENCE[letter] == index }
+    count
+  end
+end
+
+p solve(["abode", "ABc", "xyzD"]) == [4, 3, 1]
+p solve(["abide", "ABc", "xyz"]) == [4, 3, 0]
+p solve(["IAMDEFANDJKL","thedefgh","xyzDEFghijabc"]) == [6, 5, 7]
+p solve(["encode","abc","xyzD","ABmD"]) == [1, 3, 1, 3]
+
+# another idea
+p (["a", "b", "c", "d", "e"] & ["a", "b", "o", "d", "e"]).size
 
 
 
