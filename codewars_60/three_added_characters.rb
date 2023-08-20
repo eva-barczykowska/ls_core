@@ -73,7 +73,7 @@ def added_char(s1, s2)  # doesn't pass all tests on codewars
 
 
   h2.each do |h2_key, h2_value|
-    h1.each do |h1_key, h1_value|
+    h1.each do |_, h1_value|
       if h2_value == h1_value + 3
         return result << h2_key
       elsif !h1.keys.include?(h2_key)
@@ -260,3 +260,129 @@ end
 p added_char("hello","checlclo") =='c'
 p added_char("aabbcc","aacccbbcc") =='c'
 p added_char("abcde","2db2a2ec") == '2'
+
+puts
+
+# trying to solve with Sedrick's idea
+
+# trying to solve with Sedrick's idea to remove characters
+# I'm removing characters that are different and saving
+# Given two strings, the first being a random string and the second being the same as the first,
+# but with three added characters somewhere in the string (three same characters),
+# ≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂◟ Algorithm ◞≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂≂
+# -initialize `res` array to store the result
+
+# Convert input strings into an array of chars, `arr1` and `arr2`
+# sort both
+
+# initialize `counter`
+# loop over `arr2`
+# remove from the `arr2` the char that is there in the first array
+# store it in `res` array
+
+# return `res`
+# =end
+
+def added_char(str1, str2)
+  res = []
+
+  arr1 = str1.chars.sort
+  arr2 = str2.chars.sort
+
+  counter = 0
+  while counter < arr2.size
+    if  arr2[counter] != arr1[counter]
+      res << arr2[counter]
+      counter += 1
+    else
+      counter += 1
+    end
+  end
+  res[0]
+
+end
+
+
+p added_char("hello", "checlclo") =='c' #["c", "c", "c", "e", "h", "l", "l", "o"]
+p added_char("aabbcc", "aacccbbcc") =='c' # ["c", "c", "c"]
+p added_char("abcde", "2db2a2ec") == '2' #["2", "2", "2", "a", "b", "c", "d", "e"]
+
+
+puts
+
+def added_char(str1, str2)
+  res = []
+
+  arr1 = str1.chars.sort
+  arr2 = str2.chars.sort
+
+  counter = 0
+  while counter < arr2.size
+    if  arr1[counter] != arr2[counter]
+      res << arr2.shift[counter]
+    else
+      counter += 1
+    end
+  end
+
+  return res[0] if res.none? { |element| element.nil? }
+  return arr2.last
+
+end
+
+p added_char("hello", "checlclo") =='c'
+p added_char("aabbcc", "aacccbbcc") =='c'
+p added_char("abcde", "2db2a2ec") == '2'
+
+
+puts
+puts "final solution"
+
+#what is I removed characters that are SAME, not different?
+# split and sort into an Array
+# -use counter to iterate over the chars in the array
+# if a char at a certain index in `arr1` is same as char at the same index in `arr2`, remove that
+# char from `arr2`
+# -that way we will iterate over `arr2` getting rid of chars that exist in `arr1`
+# -our resulting array will have chars that are extra and also chars that exist in 2nd array but not in first
+# -count the chars and if there is a char whose count is >= 3, select it
+#-this will give me an array of extra chars
+# return first one (it doesn't really matter which one coz they're all same)
+
+def added_char(str1, str2)
+  arr1 = str1.chars.sort
+  arr2 = str2.chars.sort
+
+  counter = 0
+  while counter < arr2.size
+    if  arr1[counter] == arr2[counter] # removed only same elements at the beginning of the array
+      arr2.shift
+    else
+      counter += 1
+    end
+  end
+
+  arr2.select { |elem| arr2.count(elem) >= 3 }.uniq.join
+end
+
+p added_char("hello", "checlclo") =='c'
+p added_char("aabbcc", "aacccbbcc") =='c'
+p added_char("abcde", "2db2a2ec") == '2'
+
+puts
+puts "further refactor this"
+def added_char(str1, str2)
+  arr1 = str1.chars.sort
+  arr2 = str2.chars.sort
+
+  counter = 0
+  while counter < arr2.size
+    arr1[counter] == arr2[counter] ? arr2.shift : counter += 1
+  end
+
+  arr2.select { |elem| arr2.count(elem) >= 3 }[0]
+end
+
+p added_char("hello", "checlclo") =='c'
+p added_char("aabbcc", "aacccbbcc") =='c'
+p added_char("abcde", "2db2a2ec") == '2'
