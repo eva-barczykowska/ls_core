@@ -149,6 +149,107 @@ p anagram_difference('aab', 'a') == 2 #common characters are a so I need to remo
 p anagram_difference('a', 'aab') == 2
 p anagram_difference('codewars', 'hackerrank') == 10
 
+puts
+# my session with Sedrick - correcting my algorithm
+# PEDAC TEMPLATE
+#
+# ************** Problem **************
+# -my method takes 2 words
+# -it returns a number
+# -that number means how many letters have to be removed from both of them so that they are anagrams
+# /so that they sound the same
+# ************** Examples **************
+#    p anagram_difference('', '') == 0
+#    =>0 coz empty strings
+#     p anagram_difference('a', '') == 1
+#     => 1 coz a has to be removed
+#     p anagram_difference('', 'a') == 1
+#     =>1 coz a has to be removed
+#     p anagram_difference('ab', 'a') == 1
+#     1 coz b has to be removed
+#     p anagram_difference('ab', 'ba') == 0
+#     ab and ba are anagrams so 0
+#     p anagram_difference('ab', 'cd') == 4
+#     =>they are totally different so we sum 2 + 2
+#     p anagram_difference('aab','a') == 2
+#     => 2 because a and b has to be removed
+#     p anagram_difference('a', 'aab') == 2
+#     2 because a and b has to be removed
+#     p anagram_difference('codewars', 'hackerrank') == 10
+#     => c od e w ar s (4 letters removed) | common letters are A C E R
+#     => ha c k er r a nk (6 letters removed)
+#
+# ************** Data Structures **************
+# Input: 2 strings, any or both could be empty
+# Output: an integer
+# ************** Algorithm **************
+
+#    => c od e w ar s (4 letters removed) which leaves OD AR
+#    => : ha c k er r a nk (6 letters removed) which leaves HA ER NK
+
+# -convert strings into arrays
+# -sort them
+
+# find common characters in `arr1` and `arr2`
+
+# initialize `counter`
+# -loop over `arr1` from 0 to its size
+# -if a char in `arr1` is different that a char at counter in `common`, delete the char at this index in arr 1 and add 1 to `result` and do not increase counter because indices will shift!
+# -else just increase counter
+
+# -now process the same way `arr2`
+
+# -loop over `arr2`
+# initialize `counter` to 0
+# -if a char in `arr2` is different than the char at the same counter in `common`,
+# delete the char in `arr2` and add 1 to `result` and do not increase counter because indices will shift!
+
+# else just increase counter
+
+# -  return result
+# ************** Code **************
+
+def anagram_difference(str1, str2)
+  arr1 = str1.chars.sort
+  arr2 = str2.chars.sort
+
+  common = arr1 & arr2
+  res = 0
+
+  counter = 0
+  while counter < arr1.size
+    if common[counter] != arr1[counter]
+      arr1.shift[counter]
+      res += 1
+    else
+      counter += 1
+    end
+  end
+
+  counter = 0
+  while counter < arr2.size
+    if common[counter] != arr2[counter]
+      arr2.shift[counter]
+      res += 1
+    else
+      counter += 1
+    end
+  end
+
+  res
+end
+p anagram_difference('', '') == 0
+p anagram_difference('', '') == 0
+p anagram_difference('a', '') == 1
+p anagram_difference('', 'a') == 1
+p anagram_difference('ab', 'a') == 1
+p anagram_difference('ab', 'ba') == 0
+p anagram_difference('ab', 'cd') == 4
+p anagram_difference('aab','a') == 2
+p anagram_difference('a', 'aab') == 2
+anagram_difference('codewars', 'hackerrank') == 10
+
+
 
 
 
