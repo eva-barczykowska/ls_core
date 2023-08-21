@@ -36,8 +36,8 @@
 # -downcase all characters
 # -count all the characters and store the result in a hash
 # -extract from the hash the key for the FIRST smallest value
-#  --from values, find the minumum
-#  --iterate over the hash and find the first key for which the value is the minumum
+#  --from values, find the minimum
+#  --iterate over the hash and find the first key for which the value is the minimum
 
 def least_common_char(str)
   h = str.downcase.split("").tally
