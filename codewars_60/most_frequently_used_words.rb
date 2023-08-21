@@ -111,3 +111,125 @@ in the lance-rack, an old buckler, a lean hack, and a greyhound for
 coursing. An olla of rather more beef than mutton, a salad on most
 nights, scraps on Saturdays, lentils on Fridays, and a pigeon or so extra
 on Sundays, made away with three-quarters of his income.""") == ["a", "of", "on"]
+puts
+=begin
+************** Problem **************
+-write a method that takes a str as an argument
+-str can have punctuation or line breaks
+-the method returns the 3 top most occurring words, in descending order if number of occurences
+-words will consist of letters and apostrophes
+-any other characters are not part of word and should be treated as whitespace
+
+-matches should be case insensitive
+-words in result should be lowercased
+
+-if the text contains fewer than 3 unique words, return top 2 or 1
+-return an empty array if text has no words
+************** Examples **************
+top_3_words("e e e e DDD ddd DdD: ddd ddd aa aA Aa, bb cc cC e e e") == ["e", "ddd", "aa"]
+=> e occurs 7 times, ddd occurs 5 times, aa occurs 3 times
+
+top_3_words("  //wont won't won't") = ["won't", "wont"]
+=> fewer than 3 words, won't occurs twice and wont occurs once
+
+top_3_words("a a a  b  c c  d d d d  e e e e e") == ["e", "d", "a"]
+=> e ocurs 5 times, d occurs 4 times and a occurs 3 times
+
+top_3_words("  , e   .. ") == ["e"]
+=> just one word so return that word
+
+top_3_words("  ...  ") == []
+=> no words, retun an empty array
+top_3_words("  '  ") == []
+
+=> ' considered as a word but only 1 -- why empty array? possibly because no letters?
+
+top_3_words("  '''  ") == []
+=> possibly because no letters? => return empty array
+
+top_3_words("""In a village of La Mancha, the name of which I have no desire to call to
+mind, there lived not long since one of those gentlemen that keep a lance
+in the lance-rack, an old buckler, a lean hack, and a greyhound for
+coursing. An olla of rather more beef than mutton, a salad on most
+nights, scraps on Saturdays, lentils on Fridays, and a pigeon or so extra
+on Sundays, made away with three-quarters of his income.""") == ["a", "of", "on"]
+************** Data Structures **************
+Input: string
+
+Output: array of strings
+
+************** Algorithm **************
+-divide the string on a space - that's a valid divider
+-strip the string of special characters but leave apostrophe
+-count occurences and store them in a hash
+
+-if hash.size is less than 3, return all keys
+else
+-iterate over the hash and return the KEYS for the 3 topmost VALUES
+
+************** Notes **************
+-tally for counting strings and their occurences
+
+************** Code **************
+
+************** Refactor **************
+=end
+
+def top_3_words(text)
+  text = text.downcase.split(" ").delete_if { |char| char =~ /[^A-Za-z]/ }
+  p text
+  counts = text.tally
+  p counts
+
+  if counts.size < 3 and counts.keys.none? {|char| char =~ /[A-Za-z]/}
+    return []
+  elsif
+  counts.size < 3 and counts.keys.any?
+  end
+end
+p top_3_words("a a a  b  c c  d d d d  e e e e e") #== ["e", "d", "a"]
+p top_3_words("e e e e DDD ddd DdD: ddd ddd aa aA Aa, bb cc cC e e e") == ["e", "ddd", "aa"]
+p top_3_words("  //wont won't won't ") #== ["won't", "wont"]
+p top_3_words("  , e   .. ") #== ["e"]
+# so if it's only special characters, whatever they are, return []
+p top_3_words("  ...  ") #== []
+p top_3_words("  '  ") #== []
+p top_3_words("  '''  ") #== []
+p top_3_words("\"\"In a village of La Mancha, the name of which I have no desire to call to
+mind, there lived not long since one of those gentlemen that keep a lance
+in the lance-rack, an old buckler, a lean hack, and a greyhound for
+coursing. An olla of rather more beef than mutton, a salad on most
+nights, scraps on Saturdays, lentils on Fridays, and a pigeon or so extra
+on Sundays, made away with three-quarters of his income.\"\"") == ["a", "of", "on"]
+
+puts "sedrick"
+def to_weird_case(str)
+  arr = str.split(" ")
+
+  counter = 2
+
+  loop do
+    # break if counter >= arr.size
+    word = arr[counter]
+    word.each_char.with_index do |char, index|
+      if index.odd?
+        char.upcase!
+      else
+        char
+      end
+    end
+    counter += 3
+
+    break if counter >= arr.size
+  end
+  arr
+end
+
+str = "Lorem Ipsum is simply dummy text of the printing"
+p to_weird_case(str) == 'Lorem Ipsum iS simply dummy tExT of the pRiNtInG'
+
+
+
+
+
+
