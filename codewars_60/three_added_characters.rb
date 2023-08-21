@@ -386,3 +386,12 @@ end
 p added_char("hello", "checlclo") =='c'
 p added_char("aabbcc", "aacccbbcc") =='c'
 p added_char("abcde", "2db2a2ec") == '2'
+
+puts
+def added_char(str1, str2)
+  str1.chars.each { |char| str2.sub!(char, '') if str2.include?(char) }
+  str2[0]
+end
+p added_char("hello", "checlclo") =='c'
+p added_char("aabbcc", "aacccbbcc") =='c'
+p added_char("abcde", "2db2a2ec") == '2'
