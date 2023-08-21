@@ -20,7 +20,7 @@ p distinct([1, 2, 2, 3, 3, 4, 4, 5, 6, 7, 7, 7]) == [1, 2, 3, 4, 5, 6, 7]
 puts
 #refactor
 def distinct(seq)
-  seq & seq.uniq
+  seq.uniq
 end
 
 p distinct([1]) == [1]
