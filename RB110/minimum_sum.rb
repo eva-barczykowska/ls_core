@@ -31,7 +31,6 @@
 # Output: nil / min sum of 5 capital integers
 # ************** Algorithm **************
 # - return nil if the size of the argument array is less than 5
-
 # -create all possible sums of 5 consecutive integers, starting from the number at index 0
 # so [1, 2, 3, 4, 5, 6] will give us
 # [1, 2, 3, 4, 5] and [2, 3, 4, 5, 6]
@@ -73,3 +72,22 @@ p minimum_sum([55, 2, 6, 5, 1, 2, 9, 3, 5, 100]) == 16
 # => 2 + 6 + 5 + 1 + 2 = 16
 p minimum_sum([-1, -5, -3, 0, -1, 2, -4]) == -10
 # => -1, -5, -3, 0, -1 = -10
+
+puts
+puts "solution with each_cons"
+a = [1,2,3,4, 5, 6]
+a.each_cons(5) do |group|
+  p group
+end
+
+def minimum_sum(arr)
+  results = []
+  arr.each_cons(5) { |group| results << group }
+  results.each_with_object({}) { |subarr, hash| hash[subarr] = subarr.sum }.values.min
+end
+
+p minimum_sum([1, 2, 3, 4]) == nil
+p minimum_sum([1, 2, 3, 4, 5, 6]) == 15
+p minimum_sum([55, 2, 6, 5, 1, 2, 9, 3, 5, 100]) == 16
+p minimum_sum([-1, -5, -3, 0, -1, 2, -4]) == -10
+
