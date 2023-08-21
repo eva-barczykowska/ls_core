@@ -248,9 +248,3 @@ p anagram_difference('ab', 'cd') == 4
 p anagram_difference('aab','a') == 2
 p anagram_difference('a', 'aab') == 2
 anagram_difference('codewars', 'hackerrank') == 10
-
-
-
-
-
-
