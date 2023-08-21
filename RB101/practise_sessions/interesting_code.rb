@@ -43,7 +43,7 @@ puts
 
 my_array = [
   [1, 2, 3, 4],
-  [5, 6, 7, 8],
+  [5, 6, 7, 8]
 ]
 
 my_array.map { |row| row.map { |col| col + 1 } }
@@ -57,7 +57,7 @@ puts
 
 h = { a: 1, b: 2, c: 3 }
 
-h.transform_values {|v| v * v + 1 }
+h.transform_values { |v| v * v + 1 }
 # => { a: 2, b: 5, c: 10 }
 
 h.transform_values(&:to_s)
@@ -65,19 +65,76 @@ h.transform_values(&:to_s)
 
 puts
 
-[1, 2, 3].map { |n| n.even? }
+[1, 2, 3].map(&:even?)
 
 # could be written as
 
 p [1, 2, 3].map(&:even?)
-p [1,2,3].select(&:even?)
+p [1, 2, 3].select(&:even?)
 
 puts
 
 # we can break from each as well!
-[1,2,3].each do |i|
+[1, 2, 3].each do |i|
   break if i == 3
   puts i
 end
+
 # 1
 # 2
+#
+# # using freeze with an array
+# fruits = ["apple", "pear", "mango"]
+# fruits.freeze
+# fruits << "grapes"
+#
+# this will throw can't modify frozen Array (RuntimeError)
+# this does not mean that we cannot reassign
+
+fruits = ["apple", "pear", "mango"]
+p fruits.object_id
+fruits.freeze
+fruits = ["wine", "figs", "cheese"]
+p fruits
+
+how_about_now = ["apple", "pear", "mango"]
+p how_about_now.object_id
+# how_about_now << "addition"
+p how_about_now
+
+# It is important to note that variables referencing frozen objects can be updated.
+# This is because only the objects are frozen, not the variables that point to those objects.
+
+# The example above shows how a frozen object can be replaced
+# by a new object that is accessible by the same variable
+#
+puts "strings compared with =="
+# they're DIFFERENT STRINGS which happen to have the same value
+my_name = "ewa"
+her_name = "ewa"
+puts my_name == her_name
+
+my_score = 1
+his_score = 1.0
+p my_score == his_score
+p my_score.eql?(his_score) # == method will normalize 1.0 to 1 but eql? method will not
+
+puts "example with arrays:"
+my_array = [4, 5, 6]
+her_array = [4, 5, 6]
+p my_array == her_array
+p my_array.eql?(her_array)
+
+puts
+my_array = [4, 5, 6.0]
+her_array = [4, 5, 6]
+p my_array == her_array
+p my_array.eql?(her_array)
+
+puts
+puts "equal? is comparing if objects are in fact the same objects:"
+my_array = [4, 5, 6]
+her_array == my_array.dup
+p my_array == her_array
+p my_array.eql?(her_array)
+p my_array.equal?(her_array)
