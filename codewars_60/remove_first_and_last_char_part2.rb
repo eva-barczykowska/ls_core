@@ -1,7 +1,7 @@
 # P
 # I have a string of chars separated by comma
-# write a method that returns a new_str containing the same sequcne except the first and last chars AND
-# chars are sparated by spaces
+# write a method that returns a new_str containing the same sequence except the first and last chars AND
+# chars are separated by spaces
 
 # -if str.empty or after removing first and last item it would be empty, return an empty value, nil
 
