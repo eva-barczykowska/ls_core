@@ -234,28 +234,23 @@ Output:array of 2 elements, which are t-the substring and k-the amount of times 
 ************** Code **************
 ************** Refactor **************
 =end
-def f(s)
+def f(str)
   substrings = []
-  dividend = s.size
 
-  factors = (1..dividend).select { |divisor| dividend % divisor == 0 }
-
-  # p "Factors are #{factors}"
-  (0...s.size).each do |idx1|
-      (idx1...s.size).each do |idx2|
-        substring = s[idx1..idx2]
-        substrings << substring if factors.include?(substring.size)
+  (0...str.size).each do |idx1|
+      (idx1...str.size).each do |idx2|
+        substring = str[idx1..idx2]
+        substrings << substring if (str.size % substring.size).zero?
       end
     end
   substrings = substrings.uniq
 
-  chosen_substrings = substrings.select { |substring| substring * (s.size/substring.size) == s } # => ["ab", "ababab"]
+  chosen_substrings = substrings.select { |substring| substring * (str.size/substring.size) == str } # => ["ab", "ababab"]
 
   t = chosen_substrings.min_by(&:size)
-  k = s.size / t.size
+  k = str.size / t.size
 
-  return [t, k]
-
+  [t, k]
 end
 p f("ababab") == ["ab", 3]
 p f("abcde") == ["abcde", 1]
@@ -298,6 +293,73 @@ p f("abcde") == ["abcde", 1]
 #---------------------Final Considerations-------------------
 #Can I refactor anything?
 # A factor of a number is a number that divides the given number evenly or exactly, leaving no remainder.
+
+puts "inner loop is NOT NECESSARY!!!"
+def f(str)
+  (1..str.size).each do |substr_size| # how many characters to cut 1..str.size
+    substr = str[0, substr_size] # slicing from the beginning of the str so from 0 =>str[0, 1] => a, ab, aba, abab, ababa, ababab
+    repetitions = str.size / substr_size #=> e.g. "ababab".size / "a".size => 6/1 AND "ababab".size / "a".size => 6/2
+
+    return [substr, repetitions] if substr * repetitions == str # it will return AS SOON AS it will find the smallest substring, really clever!
+  end
+end
+p f("ababab") #== ["ab", 3] #=> 1, 2, 3, 6
+p f("abcde") == ["abcde", 1]
+
+# a, ab, aba, abab, ababa, ababab # substrings created by just 1 loop - and this is enough for this problem
+#
+# Ilke
+=begin
+---------------------------Problem-------------------------
+input: a string
+output: an array with two elements: a substring, and integer
+rules:
+  - the integer represents the number of times the smallest substring should be multiplied by itself in order to equal input string
+---------------------------Examples-------------------------
+p f("ababab") == ["ab", 3]
+p f("abcde") == ["abcde", 1]
+p f(["a"]) == ["a", 1]
+p f(['']) == ['', 1]
+-----------------------Data Structures----------------------
+intermediate steps:
+  - get substrings
+- a storage array
+----------------------------Notes---------------------------
+- min
+- input.size % substring.size == 0 (factor)
+--------------------------Algorithm-------------------------
+- initialize a substrings array
+- initialize a chosen substrings array
+- get substrings whose length is a factor of the length of the input string
+- iterate through the substrings array
+- push substrings to the chosen array if this is true:
+  substring * (string.size/substring.size) == string
+- select the smallest substring and (string.size/substring.size) and return in an array
+----------------------------Code----------------------------
+=end
+def f(string)
+  substrings = []
+
+  (0...string.size).each do |index1|
+    (index1...string.size).each do |index2|
+      subs = string[index1..index2]
+      substrings << subs if string.size % subs.size == 0
+    end
+  end
+
+  chosen_subs = substrings.select { |subs| subs * (string.size/subs.size) == string }
+
+  t = chosen_subs.min_by(&:size)
+  k = string.size / t.size
+
+  [t, k]
+end
+p f("ababab") == ["ab", 3] #=> 1, 2, 3, 6
+#---------------------Final Considerations-------------------
+#Can I refactor anything?
+# A factor of a number is a number that divides the given number evenly or exactly, leaving no remainder.
+
+
 
 
 
