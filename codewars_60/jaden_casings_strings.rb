@@ -8,9 +8,17 @@
 # Jaden-Cased:     "How Can Mirrors Be Real If Our Eyes Aren't Real"
 #
 # P:
-# write a method which converts a str argument to a string with every word capitali
-def toJadenCase(str)
-  str.split.map { |word| word.capitalize }
+# write a method which converts a str argument to a string with every word capitalized
+def to_jaden_case(str)
+  arr = str.split
+
+  arr.each do |word|
+    if str.scan(word)
+      str.sub!(word, word.capitalize)
+    end
+  end
+
+  str
 end
 
 str = "How can mirrors be real if our eyes aren't real"
