@@ -1,7 +1,7 @@
 # Define a function that removes duplicates from an array of non negative numbers and returns the array
 # without duplicates as a result.
 #
-#   The order of the sequence has to stay the same.
+# The order of the sequence has to stay the same.
 #
 #     Examples:
 # Input -> Output
