@@ -63,3 +63,17 @@ p drop_cap("apple") == "Apple"
 p drop_cap("apple of banana")  == "Apple of Banana"
 p drop_cap("one   space") == "One   Space"
 p drop_cap("   space WALK   ") == "   Space Walk   "
+
+
+puts
+
+def drop_cap(string)
+
+  string.split { |word| string.gsub!(word, word.capitalize) if word.size > 2 }
+
+end
+
+p drop_cap("apple") == "Apple"
+p drop_cap("apple of banana")  == "Apple of Banana"
+p drop_cap("one   space") == "One   Space"
+p drop_cap("   space WALK   ") == "   Space Walk   "
