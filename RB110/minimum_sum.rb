@@ -50,7 +50,7 @@
 # ************** Refactor **************
 
 # Differentiate between EXPLICIT AND IMPLICIT requirements?
-
+=begin
 def minimum_sum(arr)
   results = []
   counter = 0
@@ -65,17 +65,13 @@ def minimum_sum(arr)
 end
 
 p minimum_sum([1, 2, 3, 4]) == nil
-# => coz it has 4 elements
 p minimum_sum([1, 2, 3, 4, 5, 6]) == 15
-# => coz 1 + 2 + 3 + 4 + 5 = 15
 p minimum_sum([55, 2, 6, 5, 1, 2, 9, 3, 5, 100]) == 16
-# => 2 + 6 + 5 + 1 + 2 = 16
 p minimum_sum([-1, -5, -3, 0, -1, 2, -4]) == -10
-# => -1, -5, -3, 0, -1 = -10
 
 puts
 puts "solution with each_cons"
-a = [1,2,3,4, 5, 6]
+a = [1, 2, 3, 4, 5, 6]
 a.each_cons(5) do |group|
   p group
 end
@@ -91,3 +87,83 @@ p minimum_sum([1, 2, 3, 4, 5, 6]) == 15
 p minimum_sum([55, 2, 6, 5, 1, 2, 9, 3, 5, 100]) == 16
 p minimum_sum([-1, -5, -3, 0, -1, 2, -4]) == -10
 
+puts
+puts "sedrick's suggestion"
+
+def mininum_sum(arr)
+  arr = [8,1,2,2,3, 3, 4, 8, 6, 12, 3]
+  take = 3
+  result = []
+
+  until arr.size < take
+    result << arr.take(take) # not this variable name
+    arr.shift
+  end
+
+  result
+end
+
+puts
+
+p minimum_sum([1, 2, 3, 4]) == nil
+p minimum_sum([1, 2, 3, 4, 5, 6]) == 15
+p minimum_sum([55, 2, 6, 5, 1, 2, 9, 3, 5, 100]) == 16
+p minimum_sum([-1, -5, -3, 0, -1, 2, -4]) == -10
+=end
+puts "refactor"
+
+def minimum_sum(arr)
+  nums_to_extract = 5
+  result = []
+
+  until arr.size < nums_to_extract
+    result << arr.take(nums_to_extract)
+    arr.shift
+  end
+
+  result.map { |subarray| subarray.sum }.min
+end
+
+p minimum_sum([1, 2, 3, 4]) == nil
+p minimum_sum([1, 2, 3, 4, 5, 6]) == 15
+p minimum_sum([55, 2, 6, 5, 1, 2, 9, 3, 5, 100]) == 16
+p minimum_sum([-1, -5, -3, 0, -1, 2, -4]) == -10
+
+puts
+puts "sedrick's solution"
+def minimum_sum(arr)
+  return nil if arr.length < 5
+
+  groups = []
+  nums_to_retrieve = 5
+
+  (0...arr.size).each do |idx| #grabbing index to extract numbers from array
+    break if arr[idx...nums_to_retrieve].length < 5 #putting this first so that it doesn't go through all indices but breaks
+    groups << arr[idx...nums_to_retrieve] #extracting from arr and storing in groups array
+    nums_to_retrieve += 1
+  end
+
+  p groups
+  groups.min_by { |pair| pair.sum }.sum
+end
+# Returns the elements for which the block returns the minimum values
+# groups are [[55, 2, 6, 5, 1], [2, 6, 5, 1, 2], [6, 5, 1, 2, 9], [5, 1, 2, 9, 3], [1, 2, 9, 3, 5], [2, 9, 3, 5, 100]]
+# groups.min_by { |pair| pair.sum } returns the subarray, which produces the smallest sum [2, 6, 5, 1, 2]
+# adding .sum returns the sum of that array
+#
+#
+# --0--1--2--3--4--5--6--7--8--9 #all indices
+# --0--1--2--3--4--5 #indices to start from and take 5 numbers, after this index arr.length < 5 so we'll break and arr will have indices 1-5
+#
+# [55, 2, 6, 5, 1, 2, 9, 3, 5, 100] #argument array
+# [55, 2, 6, 5, 1]
+#     [2, 6, 5, 1, 2]
+#        [6, 5, 1, 2, 9]
+#           [5, 1, 2, 9, 3]
+#               [1, 2, 9, 3, 5]
+#                  [2, 9, 3, 5, 100]
+
+# p minimum_sum([1, 2, 3, 4]) == nil
+# p minimum_sum([1, 2, 3, 4, 5, 6]) == 15
+p minimum_sum([55, 2, 6, 5, 1, 2, 9, 3, 5, 100]) #== 16
+# p minimum_sum([-1, -5, -3, 0, -1, 2, -4]) == -10
