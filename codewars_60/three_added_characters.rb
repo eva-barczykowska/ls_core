@@ -395,3 +395,123 @@ end
 p added_char("hello", "checlclo") =='c'
 p added_char("aabbcc", "aacccbbcc") =='c'
 p added_char("abcde", "2db2a2ec") == '2'
+
+puts
+
+=begin
+P===========================
+Problem: Given two strings, the second the same as the first excpet with 3 extra characters added (all the same character), return the added character from the second string
+
+Rules:
+Explicit:
+-The method takes two args, both strings
+-The first string is a random string and the second is the same as the first plus 3 characters added (the same character)
+-Method should return a string, ther additional character from the second input string
+Implicit:
+-The added characters can be anywhere in the string
+-The secind string is shuffled, meaning the order of characters is different from the first
+-The added character may already exist in the first string
+-String 2 will always be longer than string 1 and there will always be three added characters
+
+E=========================================
+p added_char("hello", "checlclo") =='c'
+p added_char("aabbcc", "aacccbbcc") =='c'
+p added_char("abcde", "2db2a2ec") == '2'
+
+D==========================================
+Starting: 2 strings
+Working: potentially just strings, or arrays of characters
+Ending: 1 string (a single character)
+
+"hello", "checlclo" => 'c'
+
+string1 = "hello"
+string2 = "checlclo"
+
+string1 = ['e', 'h', 'l', 'l', 'o']
+string2 = ['c', 'c', 'c', 'e', 'h', 'l', 'l', 'o']
+
+string1[0] => 'e'
+string2[0] => 'c'
+
+"aabbcc", "aacccbbcc" => 'c'
+
+string1 = "aabbcc"
+string2 = "aacccbbcc"
+
+sorted_arr = ['a', 'a', 'b', 'b', 'c', 'c']
+sorted_arr2  = ['a', 'a', 'b', 'b', 'c', 'c', 'c', 'c', 'c']
+ if all the characters are equal when being compared in the arrays until the end then it is the last three characters that should be returned
+
+  "abcde", "2db2a2ec" => '2'
+
+  ['a', 'b', 'c', 'd', 'e']
+  ['2', '2', '2', 'a', 'b', 'c', 'd', 'e']
+
+  A========================================
+
+  Given two strings,
+
+  --Create a list of characters for each string--
+    -Initialize local variable string1_chars
+      -Assign to an array of characters from the first string
+    -Initialize local variable string2_chars
+      -Assign to an array of characters from the second string
+
+  --Sort the list of characters in ascending order--
+
+  --Search for the first character to not match in the two lists--
+  -Initialize local variable extra_char
+  -Initialize local variable index = 0
+  -Loop until a mismatched char is found,
+    -Check if the elements at index in both arrays are equal
+      -If they are, continue iterating
+      -If theyre not then that character is the added/mismatched char
+        -Reassign extra_char to the current character
+      -Exit the loop when it returns false
+  -Return the mismatched character-
+    -Return extra_char
+C=================================================
+=end
+def added_char(string1, string2)
+  string1_chars = string1.chars
+  string2_chars = string2.chars
+  string1_chars.sort!
+  string2_chars.sort!
+  extra_char = nil
+  index = 0
+
+  loop do
+    if string1_chars[index] == string2_chars[index]
+      index += 1
+    else
+      extra_char = string2_chars[index]
+      break
+    end
+  end
+  extra_char
+end
+
+p added_char("hello", "checlclo") =='c'
+p added_char("aabbcc", "aacccbbcc") =='c'
+p added_char("abcde", "2db2a2ec") == '2'
+
+# also I could sort the strings and compare them,
+# the first char that is different in that comparison is the one to be returned
+
+puts
+puts "just return the first char that is different"
+def added_char(str1, str2)
+  arr1 = str1.chars.sort
+  arr2 = str2.chars.sort
+
+  arr2.each.with_index do |char, index|
+    if arr2[index] != arr1[index]
+      return char
+    end
+  end
+
+end
+p added_char("hello", "checlclo") =='c'
+p added_char("aabbcc", "aacccbbcc") =='c'
+p added_char("abcde", "2db2a2ec") == '2'
