@@ -100,3 +100,27 @@ p solution("abcdef") == ["ab", "cd", "ef"]
 p solution("abcdefg") == ["ab", "cd", "ef", "g_"]
 p solution("") == []
 
+puts
+
+def solution(str)
+  res = []
+
+  my_arrays = str.chars.each_slice(2).to_a
+  my_arrays.each do |subarray|
+    if subarray.size == 2
+      res << subarray.join
+    else
+      res << subarray.join.concat("_")
+    end
+  end
+
+  res
+end
+
+p solution('abc') == ['ab', 'c_']
+p solution('abcdef') == ['ab', 'cd', 'ef']
+p solution("abcdef") == ["ab", "cd", "ef"]
+p solution("abcdefg") == ["ab", "cd", "ef", "g_"]
+p solution("") == []
+
+
