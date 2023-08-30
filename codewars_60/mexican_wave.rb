@@ -454,7 +454,51 @@ def wave(str)
 end
 
 p wave("hello") == ["Hello", "hEllo", "heLlo", "helLo", "hellO"]
-                    ["Hello", "hEllo", "heLlo", "heLlo", "hellO"]
+p wave("codewars") == ["Codewars", "cOdewars", "coDewars", "codEwars", "codeWars", "codewArs", "codewaRs", "codewarS"]
+p wave("") == []
+p wave("two words") == ["Two words", "tWo words", "twO words", "two Words", "two wOrds", "two woRds", "two worDs", "two wordS"]
+p wave(" gap ") == [" Gap ", " gAp ", " gaP "]
+
+puts
+def wave(str)
+  result = []
+
+  (0...str.size).each do |i| #getting the index of char in a str
+    next if str[i].match?(/\s|\d/) # skipping the space
+
+    str[i] = str[i].upcase! #upcasing the char at this index IN THE STRING
+    result << str.dup # appending to the result a copy of the string with that upcased character -- why copy and not the string?
+    str[i] = str[i].downcase! #downcasing that character IN THE STRING
+  end
+  result
+end
+
+p wave("wave")
+p wave("  groovy man  ")
+
+puts
+puts "what happens if we use the same string, and not a copy?"
+puts "it doesn't upcase!!!"
+def wave(str)
+  result = []
+
+  (0...str.size).each do |i| #getting the index of char in a str
+    next if str[i].match?(/\s|\d/) # skipping the space
+    # p "char at the current index is #{str[i]}"
+    str[i] = str[i].upcase! #upcasing the char at this index IN THE STRING...we have what we need...
+    # p "upcased char is #{str[i]}"
+    # p "string is #{str}"
+    result << str # appending to the result the string with upcased char - so far so good...
+    # p "result has now the str with upcased char: #{result}"
+    str[i] = str[i].downcase! # but now we've downcased that same char again lol...
+    # p "downcased char is #{str[i]}"
+  end
+  result
+end
+
+# p wave("wave")
+# p wave("  groovy man  ")
+p wave("hello") == ["Hello", "hEllo", "heLlo", "helLo", "hellO"]
 p wave("codewars") == ["Codewars", "cOdewars", "coDewars", "codEwars", "codeWars", "codewArs", "codewaRs", "codewarS"]
 p wave("") == []
 p wave("two words") == ["Two words", "tWo words", "twO words", "two Words", "two wOrds", "two woRds", "two worDs", "two wordS"]
