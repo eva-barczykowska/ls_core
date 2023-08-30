@@ -123,4 +123,30 @@ p solution("abcdef") == ["ab", "cd", "ef"]
 p solution("abcdefg") == ["ab", "cd", "ef", "g_"]
 p solution("") == []
 
+puts
+def solution(str)
+  processed = [] #a helper variable to store the indices
+  result = []
+  count = 1
 
+  (0...str.size).each do |start_idx| # get hold of index, you will need it to extract characters
+    if processed.include?(start_idx)
+      p "processed is now #{processed}"
+      count += 1 # this is advancing the index
+      next
+    end
+
+    result << str[start_idx..count] # extracting characters
+    processed << count
+    count += 1
+  end
+  result
+end
+
+p solution("cedric")
+p solution("sedrick")
+p solution('abc') == ['ab', 'c_']
+p solution('abcdef') == ['ab', 'cd', 'ef']
+p solution("abcdef") == ["ab", "cd", "ef"]
+p solution("abcdefg") == ["ab", "cd", "ef", "g_"]
+p solution("") == []
