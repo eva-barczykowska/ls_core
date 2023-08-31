@@ -103,7 +103,7 @@ def alphabetized(string)
   # p temp #["C", "o", "d", "e", "W", "a", "r", "s", "c", "a", "n", "t", "L", "o", "a", "d", "T", "o", "d", "a", "y"]
   result = "" # initialize a string result
   for ele1 in ('a'..'z').to_a do #iterating over the alphabet!!!
-    for ele2 in temp do #iterating over the temp
+    for ele2 in temp do #iterating over the temp, with the inner and outer loop I have access to both!
       result += ele2 if ele2.downcase == ele1 # add element(upper or lowercase) if it's downcased version exists in the alphabet
     end
   end
