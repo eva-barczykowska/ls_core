@@ -42,8 +42,7 @@
 puts "my try"
 def alphabetized(str)
   keys = ('a'..'z').to_a
-  hsh = {}
-  keys.each_with_object({}) { |letter| hsh[letter] = [] }
+  hsh = keys.each_with_object({}) { |letter| hsh[letter] = [] }
 
   arr = str.chars
   arr.each do |char|
