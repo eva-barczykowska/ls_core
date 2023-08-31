@@ -96,3 +96,25 @@ p alphabetized("A b B a")== "AabB"
 p alphabetized(" a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z") == "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ"
 p alphabetized("!@$%^&*()_+=-`,") == ""
 p alphabetized("CodeWars can't Load Today") #== "aaaaCcdddeLnooorstTWy"
+
+puts
+def alphabetized(string)
+  temp = string.chars.keep_if{|ele| ('a'..'z').to_a.include?(ele) or ('A'..'Z').to_a.include?(ele)}
+  # p temp #["C", "o", "d", "e", "W", "a", "r", "s", "c", "a", "n", "t", "L", "o", "a", "d", "T", "o", "d", "a", "y"]
+  result = "" # initialize a string result
+  for ele1 in ('a'..'z').to_a do #iterating over the alphabet!!!
+    for ele2 in temp do #iterating over the temp
+      result += ele2 if ele2.downcase == ele1 # add element(upper or lowercase) if it's downcased version exists in the alphabet
+    end
+  end
+  result
+end
+# p alphabetized("") == ""
+# p alphabetized(" ") == ""
+# p alphabetized(" a") == "a"
+# p alphabetized("a ")== "a"
+# p alphabetized(" a ") == "a"
+# p alphabetized("A b B a")== "AabB"
+# p alphabetized(" a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z") == "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ"
+# p alphabetized("!@$%^&*()_+=-`,") == ""
+p alphabetized("CodeWars can't Load Today") #== "aaaaCcdddeLnooorstTWy"
