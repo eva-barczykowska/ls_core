@@ -42,7 +42,8 @@
 puts "my try"
 def alphabetized(str)
   keys = ('a'..'z').to_a
-  hsh = keys.each_with_object({}) { |letter| hsh[letter] = [] }
+
+  hsh = keys.each_with_object({}) { |letter, hsh| hsh[letter] = [] }
 
   arr = str.chars
   arr.each do |char|
@@ -70,13 +71,13 @@ puts
 # convert str to array
 # iterate over the string and populate the hash's keys and values:
 # go over each char in the array, upcase it and add it as a key
-def alphabetized(s)
-  result = Hash.new { [] }
-  s.chars.each { |c| result[c] += [c] if /[a-z]/i =~ c } #very nice! -keys will be upcased chars, values will be arrays that contain all consecutive chars
-  result.sort.map { |_, v| v.join }
-  result.sort.map { |k, v| v.join } .join
-end
-# "CodeWars can't Load Today"
+# def alphabetized(s)
+#   result = Hash.new { [] }
+#   s.chars.each { |c| result[c] += [c] if /[a-z]/i =~ c } #very nice! -keys will be upcased chars, values will be arrays that contain all consecutive chars
+#   result.sort.map { |_, v| v.join }
+#   result.sort.map { |k, v| v.join } .join
+# end
+# # "CodeWars can't Load Today"
 # result hash after 2nd line, we are adding all characters into the arrays corresponding to the letters but also organizing alphabetically
 # {"C"=>["C", "c"], "O"=>["o", "o", "o"], "D"=>["d", "d", "d"], "E"=>["e"], "W"=>["W"], "A"=>["a", "a", "a", "a"], "R"=>["r"], "S"=>["s"], "N"=>["n"], "T"=>["t", "T"], "L"=>["L"], "Y"=>["y"]}
 #result sorted:
@@ -86,28 +87,6 @@ end
 # and finally we are joining this array:
 # "aaaaCcdddeLnooorstTWy"
 
-p alphabetized("") == ""
-p alphabetized(" ") == ""
-p alphabetized(" a") == "a"
-p alphabetized("a ")== "a"
-p alphabetized(" a ") == "a"
-p alphabetized("A b B a")== "AabB"
-p alphabetized(" a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z") == "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ"
-p alphabetized("!@$%^&*()_+=-`,") == ""
-p alphabetized("CodeWars can't Load Today") #== "aaaaCcdddeLnooorstTWy"
-
-puts
-def alphabetized(string)
-  temp = string.chars.keep_if{|ele| ('a'..'z').to_a.include?(ele) or ('A'..'Z').to_a.include?(ele)}
-  # p temp #["C", "o", "d", "e", "W", "a", "r", "s", "c", "a", "n", "t", "L", "o", "a", "d", "T", "o", "d", "a", "y"]
-  result = "" # initialize a string result
-  for ele1 in ('a'..'z').to_a do #iterating over the alphabet!!!
-    for ele2 in temp do #iterating over the temp, with the inner and outer loop I have access to both!
-      result += ele2 if ele2.downcase == ele1 # add element(upper or lowercase) if it's downcased version exists in the alphabet
-    end
-  end
-  result
-end
 # p alphabetized("") == ""
 # p alphabetized(" ") == ""
 # p alphabetized(" a") == "a"
@@ -116,4 +95,26 @@ end
 # p alphabetized("A b B a")== "AabB"
 # p alphabetized(" a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z") == "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ"
 # p alphabetized("!@$%^&*()_+=-`,") == ""
-p alphabetized("CodeWars can't Load Today") #== "aaaaCcdddeLnooorstTWy"
+# p alphabetized("CodeWars can't Load Today") == "aaaaCcdddeLnooorstTWy"
+
+puts
+# def alphabetized(string)
+#   temp = string.chars.keep_if{|ele| ('a'..'z').to_a.include?(ele) or ('A'..'Z').to_a.include?(ele)}
+#   # p temp #["C", "o", "d", "e", "W", "a", "r", "s", "c", "a", "n", "t", "L", "o", "a", "d", "T", "o", "d", "a", "y"]
+#   result = "" # initialize a string result
+#   for ele1 in ('a'..'z').to_a do #iterating over the alphabet!!!
+#     for ele2 in temp do #iterating over the temp, with the inner and outer loop I have access to both!
+#       result += ele2 if ele2.downcase == ele1 # add element(upper or lowercase) if it's downcased version exists in the alphabet
+#     end
+#   end
+#   result
+# end
+# p alphabetized("") == ""
+# p alphabetized(" ") == ""
+# p alphabetized(" a") == "a"
+# p alphabetized("a ")== "a"
+# p alphabetized(" a ") == "a"
+# p alphabetized("A b B a")== "AabB"
+# p alphabetized(" a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z") == "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ"
+# p alphabetized("!@$%^&*()_+=-`,") == ""
+# p alphabetized("CodeWars can't Load Today") == "aaaaCcdddeLnooorstTWy"
