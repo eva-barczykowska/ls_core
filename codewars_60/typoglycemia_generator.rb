@@ -320,3 +320,36 @@ p scramble_words("you've gotta dance like there's nobody watching, love like you
 # return the new word
 #
 # join everything
+#
+puts "Sedrik's solution"
+# Sedrick's solution
+def alphabetize_words(str)
+  symbol_positions = str.chars.each_with_object({}) do |char, hsh|
+    hsh[char] = str.index(char) if char.match?(/[-',.]/)
+  end
+
+  filtered_arr = str.chars.reject { |char| char if char.match?(/[-',.]/) } # word without special characters
+  p filtered_arr
+  sorted_and_merged = [filtered_arr.first] + filtered_arr[1..-2].sort + [filtered_arr.last] #first and last char stays the same
+
+  symbol_positions.each { |char, index| sorted_and_merged.insert(index, char) } # insert back special characters at the right indices
+  sorted_and_merged.join
+end
+
+def scramble_words(str)
+  return str if str.length < 3
+  str.split.map { |word| alphabetize_words(word) }.join(" ")
+end
+
+# p scramble_words('professionals') == 'paefilnoorsss'
+# p scramble_words('i') == 'i'
+# p scramble_words('') == ''
+# p scramble_words('me') == 'me'
+# p scramble_words('you') == 'you'
+p scramble_words('card-carrying') #== 'caac-dinrrryg'
+# p scramble_words("shan't") == "sahn't"
+# puts
+# p scramble_words('-dcba') == '-dbca'
+# p scramble_words('dcba.') == 'dbca.'
+# puts
+# p scramble_words("you've gotta dance like there's nobody watching, love like you'll never be hurt, sing like there's nobody listening, and live like it's heaven on earth.") == "you've gotta dacne like teehr's nbdooy wachintg, love like ylo'ul neevr be hrut, sing like teehr's nbdooy leiinnstg, and live like it's haeevn on earth."
