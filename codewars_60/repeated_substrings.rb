@@ -359,6 +359,71 @@ p f("ababab") == ["ab", 3] #=> 1, 2, 3, 6
 #Can I refactor anything?
 # A factor of a number is a number that divides the given number evenly or exactly, leaving no remainder.
 
+puts
+# Sedricks's solution
+def f(str)
+  arr = str.chars
+  substrings = []
+  matches = []
+  remove = 0
+
+  until (arr.size) == remove #until our counter is equal to the arr size
+    substrings << arr.slice(0..remove).join #create substrings starting with the first letter up to the array size
+
+    remove += 1 #increase counter
+  end
+
+  # p substrings #=> ["a", "ab", "aba", "abab", "ababa", "ababab"]
+
+  substrings.each do |substring| #iterate over the substring
+    if str.scan(substring).join == str # VERY NICE!
+      matches << substring << str.scan(substring).count
+      break
+    end
+  end
+  matches
+end
+
+p f("ababab") == ["ab", 3]
+p f("abcde") == ["abcde", 1]
+
+puts
+puts "Kana's solution"
+=begin
+Problem
+- Input: a string
+- Output: an array containing a string and an int
+
+- Rules:
+  - Return value is the minimum substring from given string (s) and integer is number of times substring is repeated to form 's'
+- Returned integer can be 1
+- Substring repeated k times == given string
+
+Examples
+"ababab" == ['ab', 3]
+substrings =
+  'a', 'ab', 'aba', 'abab', 'ababa', 'ababab'
+
+Algorithm
+- Iterate over range of integers from 0 up to but not including the size of the given string
+- On each iteration, select chars from 's' string starting from 0 to current int (represents index) and store in variable 'substr'
+- Check how many times substring appears in 's' -> store value in variable 'k'
+- Check if substring * k is equal to 's'
+- If true, exit iteration and return value of 'substr' and 'k' as an array
+=end
+
+def f(string)
+  (0...string.size).each do |idx| # getting hold of index
+    substr = string[0..idx] # getting hold of substrings
+    k = string.scan(substr).size # scanning string for each substring, this returns an array and we want its SIZE, so a number
+
+    return [substr, k] if (substr * k) == string # if substring * that number == string, return both k and substring
+  end
+end
+
+p f("ababab") == ["ab", 3]
+p f("abcde") == ["abcde", 1]
+
 
 
 
