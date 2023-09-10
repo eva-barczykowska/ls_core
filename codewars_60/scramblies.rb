@@ -105,3 +105,46 @@ end
 # p scramble('scriptjava','javascript') == true
 # p scramble('scriptingjava','javascript') == true
 p scramble('scriptingjava','jaavascript') == false # we added this one
+
+
+puts
+puts "Sedrick's solution"
+
+⋄≂≂▫≂≂▫≂≂▫≂▫≂▫≂≂▫≂≂▫≂⋄—◟ Algorithm ◞—⋄≂▫≂≂▫≂≂▫≂≂▫≂▫≂≂▫≂≂▫≂≂≂⋄
+
+▣ Access each char in str2
+▣ Check if they are all included in str 1
+▣ Return true if they are
+
+=end
+
+def scramble(str1, str2)
+  str2.chars.all? { |char| str1.include?(char) }
+end
+
+p scramble('rkqodlw', 'world') == true
+p scramble('cedewaraaossoqqyt', 'codewars') == true
+p scramble('katas', 'steak') == false
+p scramble('rkqodlw','world') == true
+p scramble('cedewaraaossoqqyt','codewars') == true
+p scramble('katas','steak') == false
+p scramble('scriptjava','javascript') == true
+p scramble('scriptingjava','javascript') == true
+
+puts
+
+puts "Kana's solution"
+def scramble(str1, str2)
+  str2.chars.all? {|char| str1.count(char) >= str2.count(char)}  # more flexible, takes care of the last test case where it matters HOW MANY As are there
+end
+
+p scramble('rkqodlw', 'world') == true
+p scramble('cedewaraaossoqqyt', 'codewars') == true
+p scramble('katas', 'steak') == false
+p scramble('rkqodlw','world') == true
+p scramble('cedewaraaossoqqyt','codewars') == true
+p scramble('katas','steak') == false
+p scramble('scriptingjava','javascript') == true
+p scramble('scriptjva','javascript') == false
+
+
