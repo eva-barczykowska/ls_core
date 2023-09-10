@@ -516,5 +516,35 @@ p added_char("hello", "checlclo") =='c'
 p added_char("aabbcc", "aacccbbcc") =='c'
 p added_char("abcde", "2db2a2ec") == '2'
 
+puts
+=begin
+Problem
+- Input: two strings (str1, str2)
+- Output: a string (single char)
+
+- Rules:
+  - Returned char will be the one that appears 3 or more times in str2
+- There will always be 3 of the same chars in string2
+
+Example
+str1 = "aabbcc", str2 = "aacccbbcc"
+a => 2, c => 5, b => 2
+
+Algorithm
+- Split str2 string into an array of chars to iterate over
+- Select the current char if its number of occurences in str2 is greater than or equal to 3
+- Exit out of iteration and return that selected char as a string
+=end
+
+def added_char(str1, str2)
+  str2.chars.select do |char|
+    return char if str2.count(char) >= 3
+  end
+end
+
+p added_char("hello","checlclo") =='c'
+p added_char("aabbcc","aacccbbcc") =='c'
+p added_char("abcde","2db2a2ec") =='2'
+
 
 
