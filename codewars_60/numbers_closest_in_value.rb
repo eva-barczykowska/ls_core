@@ -78,3 +78,103 @@ end
 p closest_numbers([5, 25, 15, 11, 20]) == [15, 11]
 p closest_numbers([19, 25, 32, 4, 27, 16]) == [25, 27]
 p closest_numbers([12, 7, 17]) == [12, 7]
+
+puts
+
+
+# Write a method that takes an array of integers and returns the
+# two numbers that are closest together in value.
+
+# Examples:
+
+# p closest_numbers([5, 25, 15, 11, 20]) == [15, 11]
+# p closest_numbers([19, 25, 32, 4, 27, 16]) == [25, 27]
+# p closest_numbers([12, 7, 17]) == [12, 7]
+
+# # The tests above should print "true".
+# #each, select, map
+
+# # ************** Problem **************
+# -write a method that takes an array of integers
+# -the method returns 2 integers that are closest in value
+# -so the difference between 2 numbers is the smallest
+# calculate that difference and return the numbers that create that difference
+
+# # ************** Examples **************
+# p closest_numbers([5, 25, 15, 11, 20]) == [15, 11]
+# =>5-25, 5-15, 5-11, 5-20
+# =>25-15, 25-11, 25-20
+# =>15-11, 15-20
+# =>11-20
+# p closest_numbers([19, 25, 32, 4, 27, 16]) == [25, 27]
+# p closest_numbers([12, 7, 17]) == [12, 7]
+
+# ************** Data Structures **************
+# Input: array of integers
+
+# Output: array of 2 itegers
+# ************** Algorithm **************
+# -create subarrays [5, 25, 15, 11, 20]
+# =>5-25, 5-15, 5-11, 5-20
+# =>25-15, 25-11, 25-20
+# =>15-11, 15-20
+# =>11-20
+
+# initialize `groups` empty array
+# -initialize `start` counter for the starting index to 0 (coz we're starting with the 1st number)
+# -initialize `finish` counter for the starting index to 1 (coz we're starting with the 2nd number)
+# -`start` will retrieve numbers until penultimate number so arr.size - 2
+# -`finish` will retrieve numbers until the last number so arr.size
+# -outer loop is for the starting index, which will be increased only after inner loop has finished looping
+# -inner loop is for the finishing index, it will be increased at each iteration
+# using start and finish, extract correct elements (as per example analysis) and save both in an array, which in turn
+# you store in the groups array
+#
+# -find out what is the difference between element a and b in each array -- how? I can even loop :)
+# -return the array that produces smallest difference
+# ************** Code **************
+# ************** Refactor **************
+
+# -0---1---2---3---4 arr size is 5
+# [5, 25, 15, 11, 20]
+
+def closest_numbers(arr)
+  groups = []
+  start = 0
+  finish = 1
+
+  while start < arr.size - 1 #while 0 < 4 so the last index is 3!!!!
+    while finish < arr.size
+      groups << [arr[start], arr[finish]]
+      finish += 1
+    end
+    start += 1
+    finish = start + 1
+  end
+
+  groups.min_by { |s| (s.first - s.last).abs }
+end
+
+p closest_numbers([5, 25, 15, 11, 20]) == [15, 11]
+p closest_numbers([19, 25, 32, 4, 27, 16]) == [25, 27]
+p closest_numbers([12, 7, 17]) == [12, 7]
+
+
+def closest_numbers(array)
+  sub_arrays = []
+
+  (0..array.size - 2).each do |index_1|
+    (index_1 + 1..array.size - 1).each do |index_2|
+      # p "index_1 is #{index_1} and index_2 is #{index_2}"
+      sub_arrays << [array[index_1], array[index_2]]
+    end
+  end
+
+  sub_arrays.min_by { |sub| sub.inject(:-).abs }
+end
+
+p closest_numbers([5, 25, 15, 11, 20]) == [15, 11]
+p closest_numbers([5, 25, 15, 11, 20]) == [15, 11]
+p closest_numbers([19, 25, 32, 4, 27, 16]) == [25, 27]
+p closest_numbers([12, 7, 17]) == [12, 7]
+
