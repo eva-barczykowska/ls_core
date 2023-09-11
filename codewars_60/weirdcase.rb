@@ -279,4 +279,3 @@ p to_weird_case('aaA bB c') == 'aaA bB c'
 p to_weird_case(
     'Miss Mary Poppins word is supercalifragilisticexpialidocious') ==
     'Miss Mary POpPiNs word is sUpErCaLiFrAgIlIsTiCeXpIaLiDoCiOuS'
-
