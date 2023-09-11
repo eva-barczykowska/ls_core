@@ -82,3 +82,23 @@ p clean_string('abc####d##c#') == ""
 p clean_string("#######") == ""
 p clean_string("a#bc#d") == "bd"
 p clean_string("abc#d##c") == "ac"
+
+# Sedrick's solution
+def clean_string(str)
+  counter = 0
+  return str.replace("") if str.count("#") == str.size
+
+  while str.include?("#")
+    if str[counter] == "#"
+      str.slice!(counter-1..counter)
+      counter = 0 # start from the beginning again, smart!
+    end
+    counter += 1
+  end
+  str
+end
+
+p clean_string("abc####d##c#") #== ""
+p clean_string("a#bc#d") #== "bd"
+p clean_string("abc#d##c")# == "ac"
+p clean_string("#######")# == ""
