@@ -105,6 +105,36 @@ p song_decoder("AWUBWUBWUBBWUBWUBWUBC") == "A B C"
 p song_decoder("WUBAWUBBWUBCWUB") == "A B C"
 p song_decoder("WUBWEWUBAREWUBWUBTHEWUBCHAMPIONSWUBMYWUBFRIENDWUB") == "WE ARE THE CHAMPIONS MY FRIEND"
 
+puts
+
+# P:
+# -write a method that takes a str as an arg
+# -the string has inserted 'WUB' str
+# -the method returns the str without all the WUBs
+
+# E:
+
+# DS:
+# input: str
+# output: str
+
+# A:
+# -replace all occurences of WUB with a space
+# -strip the spaces at the beginning and end, if any
+# =end
+
+def song_decoder(str)
+  str.gsub('WUB', '').split('').join(' ')
+end
+
+p song_decoder("AWUBBWUBC") == "A B C"
+# "A-WUB-B-WUB-C"
+p song_decoder("AWUBWUBWUBBWUBWUBWUBC") == "A B C"
+# "A WUB WUB WUB B WUB WUB WUB C"
+p song_decoder("WUBAWUBBWUBCWUB") == "A B C"
+# "WUB A WUB B WUB C WUB"
+
+
 
 
 
