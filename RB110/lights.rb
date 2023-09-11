@@ -184,3 +184,19 @@ end
 p toggle_lights(5) == [1, 4]
 p toggle_lights(10) == [1, 4, 9]
 
+puts
+
+# solution from Sedrick
+def lights(n)
+  hsh = (1..n).each_with_object({}) { |i, hsh| hsh[i] = false }
+
+  n.times do |repetition| # 0, 1, 2, 3, 4...
+    (repetition + 1).step(hsh.size, (repetition + 1)) do |switch| #step(end_value, step_value), (repetition + 1) so stepping from 1, 2, 3, 4, 5...by 1
+      hsh[switch] == true ? hsh[switch] = false : hsh[switch] = true
+    end
+  end
+  hsh.select { |lights, state| lights if state }.keys
+end
+
+p lights(5) == [1, 4]
+p toggle_lights(10) == [1, 4, 9]
