@@ -201,35 +201,3 @@ in the lance-rack, an old buckler, a lean hack, and a greyhound for
 coursing. An olla of rather more beef than mutton, a salad on most
 nights, scraps on Saturdays, lentils on Fridays, and a pigeon or so extra
 on Sundays, made away with three-quarters of his income.\"\"") == ["a", "of", "on"]
-
-puts "sedrick"
-def to_weird_case(str)
-  arr = str.split(" ")
-
-  counter = 2
-
-  loop do
-    # break if counter >= arr.size
-    word = arr[counter]
-    word.each_char.with_index do |char, index|
-      if index.odd?
-        char.upcase!
-      else
-        char
-      end
-    end
-    counter += 3
-
-    break if counter >= arr.size
-  end
-  arr
-end
-
-str = "Lorem Ipsum is simply dummy text of the printing"
-p to_weird_case(str) == 'Lorem Ipsum iS simply dummy tExT of the pRiNtInG'
-
-
-
-
-
-
