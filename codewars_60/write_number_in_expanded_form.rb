@@ -87,3 +87,57 @@ p expanded_form(12)  == '10 + 2'
 p expanded_form(42) == '40 + 2'
 p expanded_form(70304)  == '70000 + 300 + 4'
 
+# solved myself again
+=begin
+
+17. Write Number in Expanded Form
+(https://www.codewars.com/kata/5842df8ccbd22792a4000245)
+
+⋄≂≂▫≂≂▫≂≂▫≂▫≂▫≂≂▫≂≂▫≂⋄—◟ 𝓟roblem ◞—⋄≂▫≂≂▫≂≂▫≂≂▫≂▫≂≂▫≂≂▫≂≂≂⋄
+
+Write Number in Expanded Form
+
+You will be given a number and you will need to return it as a string in Expanded Form. For example:
+
+NOTE: All numbers will be whole numbers greater than 0.
+
+⋄≂≂▫≂≂▫≂≂▫≂▫≂▫≂≂▫≂≂▫≂⋄—◟ Examples ◞—⋄≂▫≂≂▫≂≂▫≂≂▫≂▫≂≂▫≂≂▫≂≂≂⋄
+
+12 => '10 + 2'
+42 => '40 + 2'
+70304 => '70000 + 300 + 4'
+
+⋄≂≂▫≂≂▫≂≂▫≂▫≂▫≂≂▫≂≂▫≂⋄—◟ Algorithm ◞—⋄≂▫≂≂▫≂≂▫≂≂▫≂▫≂≂▫≂≂▫≂≂≂⋄
+- initialize an empty res array
+
+- extract each digit from the number
+
+- iterate over each digit
+- as you go iterate, transform it to its component value
+
+- go over each digit and multiply it by a value
+- the starting value will be 1
+- as you go through each digit, increase the value you multiply by
+- do it by multiplying current value by 10 (because the nubmers increase by 10 fold)
+
+  - add the result at the beginning of the res array
+
+- join the array on a + separator with 1 space on each side
+=end
+def expand(number)
+  res = []
+  numbers = number.digits
+  value = 1
+
+  numbers.each do |number|
+    temp = number * value
+    res = res.unshift(temp)
+    value = value * 10
+  end
+
+  res.delete_if { |e| e == 0 }.join(' + ')
+end
+p expand(12) == '10 + 2'
+p expand(42) == '40 + 2'
+p expand(70304) == '70000 + 300 + 4'
+
