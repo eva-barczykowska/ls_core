@@ -43,3 +43,46 @@ end
 p hacker_speak("javascript is cool") == "j4v45cr1pt 15 c00l"
 p hacker_speak("programming is fun") == "pr0gr4mm1ng 15 fun"
 p hacker_speak("become a coder") == "b3c0m3 4 c0d3r"
+
+puts
+
+def hacker_speak(str)
+  letters = %(asoie).chars
+  numbers = %(45013).chars.map {|c| c.to_i }
+
+  h = letters.zip(numbers).to_h
+
+  new_str = ""
+
+  str.each_char do |char|
+    if h.include?(char)
+      new_str << eval("\"#{h[char]}\"") # eval("\" #{h[char]} \"")
+    else
+      new_str << char
+    end
+  end
+
+  new_str
+end
+p hacker_speak("javascript is cool") == "j4v45cr1pt 15 c00l"
+p hacker_speak("programming is fun") == "pr0gr4mm1ng 15 fun"
+p hacker_speak("become a coder") == "b3c0m3 4 c0d3r"
+
+puts
+
+def hacker_speak(str)
+  new_str = ""
+
+  letters = %w[a s o i e]
+  numbers = %W[4 5 0 1 3].map(&:to_i)
+  h = letters.zip(numbers).to_h
+
+  str.each_char do |char|
+    h.keys.include?(char) ? new_str << h[char].to_s : new_str << char
+  end
+
+  new_str
+end
+p hacker_speak("javascript is cool") == "j4v45cr1pt 15 c00l"
+p hacker_speak("programming is fun") == "pr0gr4mm1ng 15 fun"
+p hacker_speak("become a coder") == "b3c0m3 4 c0d3r"
