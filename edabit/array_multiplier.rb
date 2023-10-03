@@ -82,3 +82,20 @@ end
 p multiply([4, 5]) == [[4, 4], [5, 5]]
 p multiply(["*", "%", "$"]) == [["*", "*", "*"], ["%", "%", "%"], ["$", "$", "$"]]
 p multiply(["A", "B", "C", "D", "E"]) == [["A", "A", "A", "A", "A"], ["B", "B", "B", "B", "B"], ["C", "C", "C", "C", "C"], ["D", "D", "D", "D", "D"], ["E", "E", "E", "E", "E"]]
+
+puts
+# another solution from Graham Jarvis
+def multiply(array)
+  new_array = []
+
+  array.each do |element|
+    sub_array = []
+    array.size.times { sub_array.push(element) }
+    new_array.push(sub_array)
+  end
+
+  new_array
+end
+p multiply([4, 5]) == [[4, 4], [5, 5]]
+p multiply(["*", "%", "$"]) == [["*", "*", "*"], ["%", "%", "%"], ["$", "$", "$"]]
+p multiply(["A", "B", "C", "D", "E"]) == [["A", "A", "A", "A", "A"], ["B", "B", "B", "B", "B"], ["C", "C", "C", "C", "C"], ["D", "D", "D", "D", "D"], ["E", "E", "E", "E", "E"]]
