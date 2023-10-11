@@ -150,8 +150,6 @@ middle: hash
 output: true/false
 
 A:
-- return true if the 2nd array is empty
-
 -process 2nd array - join it to string, split on a char and transform into integers - that way I have an array of integers that I need
 - count those integers and store the results in a hash `must_have in the form key: what integer, value: how many I need
 
@@ -170,11 +168,10 @@ A:
 puts
 
 def can_build(available_nums, must_have_nums)
-  return true if must_have_nums.empty?
 
   must_have_nums = must_have_nums.join.split("").map(&:to_i).tally
   available_nums = (0..9).zip(available_nums).to_h.select! { |key, _| must_have_nums.include?(key) }
-  
+
   must_have_nums.each do |key, value|
     return false if available_nums[key] < value
   end
@@ -182,6 +179,70 @@ def can_build(available_nums, must_have_nums)
   true
 end
 p can_build([0, 1, 2, 2, 3, 0, 0, 0, 1, 1], [123, 444, 92]) == true
+p can_build([10, 2, 3, 8, 5, 8, 5, 5, 3, 1], [11, 2, 22, 49, 444, 998, 87, 44]) == false
+p can_build([0, 0, 0, 0, 0, 0, 0, 0, 0, 0], []) == true
+p can_build([0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [3]) == false
+
+puts
+
+=begin
+from Ilke:
+
+Algo:
+  - initialize a counts array with 9 elements, all 0s
+- iterate through the 2nd input array
+- convert each integer to an array of digits
+- iterate through each array of digits
+- using current digit to reference index position in counts array, increment value by 1
+- iterate through 1st input array with index
+- for all values check:
+                   - if value at current index is greater than or equal to corresponding value in counts array
+                   - if true for all, return true
+=end
+
+def can_build(available, must_have)
+  counts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+  must_have.map! do |integer|
+    integer.digits #[[3, 2, 1], [4, 4, 4], [2, 9]]
+  end
+
+  must_have.each do |array_of_digits|
+    array_of_digits.each do |integer| # iterating over the array f digits
+      counts[integer] += 1 # but updating the value of counts [0, 1, 2, 1, 3, 0, 0, 0, 0, 1]
+    end
+    end
+
+  if available.each_with_index.all? { |int, index| int >= counts[index] }
+    return true
+  else
+    return false
+  end
+
+end
+
+p can_build([0, 1, 2, 2, 3, 0, 0, 0, 1, 1], [123, 444, 92]) == true
+p can_build([10, 2, 3, 8, 5, 8, 5, 5, 3, 1], [11, 2, 22, 49, 444, 998, 87, 44]) == false
+p can_build([0, 0, 0, 0, 0, 0, 0, 0, 0, 0], []) == true
+p can_build([0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [3]) == false
+
+puts
+def can_build(arr1, arr2)
+  counts_arr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+  arr2.each do |number|
+    number.digits.each do |digit|
+      counts_arr[digit] += 1
+    end
+  end
+
+  if arr1.each_with_index.all? { |digit, index| digit >= counts_arr[index] }
+    return true
+  else
+    return false
+  end
+end
+p can_build([0, 1, 2, 2, 3, 0, 0, 0, 1, 1], [123, 444, 92]) #== true
 p can_build([10, 2, 3, 8, 5, 8, 5, 5, 3, 1], [11, 2, 22, 49, 444, 998, 87, 44]) == false
 p can_build([0, 0, 0, 0, 0, 0, 0, 0, 0, 0], []) == true
 p can_build([0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [3]) == false
