@@ -60,9 +60,29 @@ Iterate exclusively over a range from 0 to word 1 length with index
   return outer index if substring includes word 2
 =end
 
-# def str_str(haystack, needle)
-#
-# end
-#
-# p str_str("sadbutsad", "but") == 3
-# p str_str("leetcode", "leeto") == -1
+def str_str(haystack, needle)
+  haystack.each_char.with_index do |_, index|
+    (index..haystack.length).each do |end_index|
+      substring = haystack[index..end_index]
+      return index if substring == needle
+    end
+  end
+  -1
+end
+p str_str("sadbutsad", "but") == 3
+p str_str("leetcode", "leeto") == -1
+
+puts
+def str_str(haystack, needle)
+  (0..haystack.size).each do |starting_index|
+    (starting_index...haystack.size).each do |ending_index|
+      substring = haystack[starting_index..ending_index]
+      return starting_index if substring == needle
+    end
+  end
+  return -1
+end
+p str_str("sadbutsad", "but") == 3
+p str_str("leetcode", "leeto") == -1
+
+
