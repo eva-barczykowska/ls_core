@@ -1,4 +1,4 @@
-# Code Snippets to analyze
+# Code Snippets to analyze/describe
 
 ###### For all the snippets describe what is happening with specific focus on return values, expected output and the concept demonstrated.
 # Be particular about using clear and accurate language.
@@ -41,17 +41,17 @@
 
 
 #3.
-def remove_evens!(arr)
-  cloned_arr = arr.dup
-  cloned_arr.each do |num|
-    if num % 2 == 0
-      arr.delete(num)
-    end
-  end
-  arr
-end
-
-remove_evens!([1, 2, 3, 4, 5, 6])
+# def remove_evens!(arr)
+#   cloned_arr = arr.dup
+#   cloned_arr.each do |num|
+#     if num % 2 == 0
+#       arr.delete(num)
+#     end
+#   end
+#   arr
+# end
+#
+# remove_evens!([1, 2, 3, 4, 5, 6])
 =begin
 This is a method definition denoted by the words `def..end`. The method has 1 parameter, an array called `arr`.
 
@@ -83,31 +83,61 @@ The concept demonstrated here is shallow copy. Btw, making a deep copy is very d
 # end
 #
 # p array
+=begin
+On the first line main scope variable `array` is initialized to an array `['a', 'b', 'c', 'd', 'e']`.
 
-# #5.
+On the second line, the `Array#each` method is invoked on `array`. This method takes a block, here denoted by the words
+`do..end`, and a block parameter `letter`, to which each element of the calling array will be passed in turn at the time
+of execution. Within the block body the destructive `upcase!` method is called on each element that is passed in turn
+to `letter`.
+
+What will be returned by this code is the array `['A', 'B', 'C', 'D', 'E']`, this is because each element of the
+calling array was permamently changed by invoking on it the destructive `upcase!` method.
+
+The last line is a call to `p` method. This method is alias for the `inspect` method and what it does is to print
+the object and then return it. So, `['A', 'B', 'C', 'D', 'E']` will be first printed and then returned.
+
+The concepts represented here are iteration and mutation.
+
+=end
+
+
+#5.
 # names = ["george", "bobbi", "joel", "susan"]
 # names = names.each do |name|
 #           name.capitalize
 #         end
 #
 # p names
-# ```
-#
-# ```ruby
-# #6.
-names = ["george", "bobbi", "joel", "susan"]
-names.each do |name|
-  puts name.capitalize
-end
+=begin
+On the first line main scoped variable `names` is initialized to an array of 4 elements, ["george", "bobbi", "joel", "susan"].
+
+On the next line `names` array is reassigned to point to the return value of calling the `each` method on it.
+`each` takes a block, denoted here by `do..end` and a block parameter `|name|`. Within the body of the block, the
+non-destructive version of the `capitalize` method is called on each element of the `names` array when it is passed
+to the block. This method returns each element of the array with the first character upcased. However, this
+does not matter because `each` doesn't use the return value of the block but returns its caller instead.
+
+When we use the `p` method on the last line and pass it `names` as an argument, we will get the array
+["george", "bobbi", "joel", "susan"], which is actually the same calling array as seen on line 2.
+
+The concept represented here is that of iteration, return value from the block and return value of each.
+=end
+
+#6.
+# names = ["george", "bobbi", "joel", "susan"]
+# names.each do |name|
+#   puts name.capitalize
+# end
 =begin
 On the first line `names` variable is initialized to an array `["george", "bobbi", "joel", "susan"]`.
 
-On the next line the `Array#each` method is invoked on `names`, a block with the block parameter
-`|name|` is passed to it and to this block parameter that each subsequent element of the calling array will be passed to
+On the next line the `Array#each` method is invoked on the array referenced by `names`. A block with the block parameter
+`|name|` is passed to `each` and it is to this block parameter that each subsequent element of the calling array will be passed to
 during execution. Within the block (delimited by the words `do..end`) we invoke the `puts` method and pass to it
 the return value of calling the `capitalize` method on each element of the array.
 
-`puts` is a method that outputs the string representation of the passed object so in this case we will see that all
+`puts` is a method that outputs the string representation of the object passed to it so in this case we will see that all
 elements of the `names` array are output capitalized and on separate lines like so:
 George
 Bobbi
@@ -115,72 +145,173 @@ Joel
 Susan
 
 what is returned, however, is the calling array, `["george", "bobbi", "joel", "susan"]` and this is because `each` does
-not take into consideration the return value of the block passed to it but rather returns its caller.
+not take into consideration the return value of the block passed to it but rather returns the calling object.
 =end
-#
-# p names
-# ```
-#
-# ```ruby
-# #7.
+
+#7.
 # [[1, 2], [3, 4]].each do |arr|
 #   puts arr.first
 # end
-# ```
-#
-# ```ruby
-# #8.
+=begin
+`Array#each` method is called on the array `[[1, 2], [3, 4]]`, a block denoted by the keywords `do..end` is
+passed to `each`, with the block parameter `arr`. Within the block `Kernel#puts` method is invoked and the return value
+of invoking the `first` method on `arr` is passed to it as an argument. `arr.first` will return in turn `1` and `3` and
+these are the values that will be passed to `puts` and output to the console.
+
+As for the return value. this code returns the calling array, `[[1, 2], [3, 4]]` because the `each` method does not take
+into consideration the return value of the block but returns the array it was invoked on instead.
+
+The concept represented here is iteration and return value of the block.
+=end
+
+#8.
 # [[1, 2], [3, 4]].map do |arr|
 #   puts arr.first
 # end
-# ```
-#
-# ```ruby
-# #9.
-# [1, 2, 3].each_with_index do |num, index| 
+=begin
+`Array#map` method is invoked on the elements referenced by the `array`,  `[[1, 2], [3, 4]]`. `map` takes a block, denoted
+by the keywords `do..end`, and a block parameter `arr`, to which each element of the array will be passed, first `[1, 2]`
+and then `[3, 4]`. Within the body of the block, `Kernel#puts` method is invoked and the return value of invoking `first`
+method on the `arr` is passed to it. So first `first` will return `1` and then, from the second array passed to `arr`,
+it will return `3`. So `1` and `3` will be output to the console as a result of being used as arguments to `puts`.
+
+`map` uses the return value of the block to transform the calling array and return a new array, with elements
+provided by the return value of the block. However, the block in both cases returns `nil` because the `puts` method always
+returns `nil` and the `puts` method is the last executed method in the block.
+
+As a result this code will output to the console 1 and 3 on separate lines and return [[nil], [nil]].
+
+The concept represented here is iteration because `map` is an iterating method. Another concept is the
+return value of the block,`map` uses it to transform the array it was invoked on and to return new array,
+based on the return value of the block.
+=end
+
+#9.
+# [1, 2, 3].each_with_index do |num, index|
 #   puts "The index of #{num} is #{index}."
 # end
-# ```
 #
-# ```ruby
-# #10.
-# { a: "ant", b: "bear", c: "cat" }.each_with_index do |element, index|
-#   puts "The index of #{element} is #{index}."
-# end
-# ```
-#
-# ```ruby
-# #11.
-# arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-#
-# arr.select { |n| n.odd? }
-# ```
-#
-# ```ruby
-# #12.
-# snowy_owl = {
-#   "type"=>"Bird",
-#   "diet"=>"Carnivore",
-#   "life_span"=>"10 years"
-# }
-#
-# snowy_owl.select do |key, value|
-#   key == "type"
-# end
-# ```
-#
-# ```ruby
-# #13.
-# arr_a = %w(ant bat cat)
-# arr_b = arr_a.dup
-#
-# arr_b.map! { |word| word.upcase }
-#
-# p arr_a
-# p arr_b
-# ```
-#
-# ```ruby
+=begin
+`Array#each_with_index` method is called on array `[1, 2, 3]`. This method takes a block, denoted by the keywords `do..end`,
+and 2 block parameters, in this case `num` and `index`.
+
+Inside the body of the block the `Kernel#puts` method is invoked and a string is passed to it.
+The string contains 2 interpolated values, `num` and `index`. The interpolation syntax is #{} and it will evaluate
+`num` and `index` and insert the correct values in to the string, each time this string is output to the console.
+
+Line 2 will output on separate lines
+The index of 1 is 0.
+The index of 2 is 1.
+The index of 3 is 2.
+
+and the code will return the calling array, namely `[1, 2, 3]`. This is because `each_with_index` is not concerned
+with the return value of the block but returns the calling array instead, when called with a block. When called without it,
+it returns an Enumerator object.
+
+The concept represented here is interpolation, iteration and the return value of the block.
+=end
+
+#10.
+{ a: "ant", b: "bear", c: "cat" }.each_with_index do |element, index|
+  puts "The index of #{element} is #{index}."
+end
+=begin
+`each_with_index` method is called on a hash `{ a: "ant", b: "bear", c: "cat" }`. This method takes a block, denoted here
+by keywords `do..end` and 2 block parameters, here `element` and `index`.
+
+It is an iterating method so at the time of processing the hash, each hash will be passed to `element` and each index
+will be passed to `index`. Within the body of the block `Kernel#puts` method is invoked and a string `"The index of #{element} is #{index}."`
+is passed to it as an argument. Within this string we see interpolation syntax `#{}`, which will convert `element` and
+`syntax` to the correct values from the calling hash, each time those values will be passed to the block.
+
+So line 2 will be executed 3 times and it will output to the console:
+The index of [:a, "ant"] is 0.
+The index of [:b, "bear"] is 1.
+The index of [:c, "cat"] is 2.
+
+So each `element` is output as an array and each index is output as an integer.
+As for the return value of this code, it will return `{ a: "ant", b: "bear", c: "cat" }` because `each_with_index`, when
+called with the block, returns the calling object. If called without a block, it returns an Enumerator object.
+=end
+
+#11.
+arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+arr.select { |n| n.odd? }
+=begin
+On line 1 `arr` variable is initialized to reference the array `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`.
+
+On line 2 `select` method is called on the `arr` and a block `{}` is passed to it, with the block parameter 'n'.
+Within the block`odd?` method is called on the element from the calling array, `arr`, passed to 'n'.
+ `odd?` evaluates whether the integer is odd or not. If it is odd, the `odd?` method returns true and that value is
+in turn used by `select` in order to select elements from the calling array and place them in a new array,
+which will be ultimately returned.
+
+`odd?` method returns true for 1, 3, 5, 7 and 9 and it is these integers that will be picked by `select`, placed in a
+new array and that array will be returned. The last line of code returns `[1, 3, 5, 7, 9]`.
+
+The concept represented here is iteration because `select` is an iterating method. Also return value of the block since
+`select` is using it.
+=end
+
+#12.
+snowy_owl = {
+  "type"=>"Bird",
+  "diet"=>"Carnivore",
+  "life_span"=>"10 years"
+}
+
+snowy_owl.select do |key, value|
+  key == "type"
+end
+=begin
+On line 1 a hash `snowy_owl` is created. It contains 3 keys, which are string objects and 3 values, which are also string
+objects.
+
+On line 7 the `select` method is called on the hash referenced by `snowy_owl` and 2 parameters are passed to the block
+that `select` takes as an argument, the parameters are `key` and `value`. To these parameters hash's keys and values will
+be bound in turn at the time of execution.
+
+Within the block an expression `key == "type"` is evaluated. The `==` method is used here. This expression will evaluate as true only for the first
+key-value pair from the hash. `select` selects elements of the calling hash according to the return value of the
+block and when the return value of the block is truthy for a given element/pair, then `select` takes that element/pair
+and places it in a new array, which will be ultimately returned by `select`.
+
+So in this case, `select` method invocation returns `{"type"=>"Bird"}`.
+
+This code represents the concept of selection because the `select` method is used, also iteration, because `select` is an
+iterating method. Also, the return value of the block because `select` is using it.
+=end
+
+#13.
+arr_a = %w(ant bat cat)
+arr_b = arr_a.dup
+
+arr_b.map! { |word| word.upcase }
+
+p arr_a
+p arr_b
+=begin
+On line 1 a shortcut syntax `%w(ant bat cat)` is used to create an array of 3 elements, `["ant", "bat", "cat"]` and make
+it reference `arr_a`.
+
+On line 2, `arr_b` is created and made reference the return value of invoking the `dup` method on `arr_a`. This method
+creates a shallow copy of an object, this means that only the object is copied, elements inside this object are shared.
+
+On line 2 destructive `map!` method is called on `arr_b`, so on the object and not its elements. Within the block
+that this method takes as an argument a non-destructive method `upcase` is used on every object from this `arr_b`.
+
+On one but last line we invoke the p method and pass it `arr_a` as an argument. This prints and returns `["ant", "bat", "cat"]`.
+
+On the last line again the `p` method is invoked and this time `arr_b` is passed to it as an argument. This prints and
+returns `["ANT", "BAT", "CAT"]`. This is because we used the mutating method `map!`, which means that the method will
+use the return value of the block to transorm its elements. Elements are shared, as said above, but we are mutating not
+the elements, but the object itself. That is why the changes will reflect in the mutated object, `arr_b` but not
+`arr_a`.
+
+This code represents the concept called shallow copy, namely that it is possible to create a shallow copy in Ruby, using
+the `dup` or `clone` method. Shallow copy means that only the objec is copied but its elements are shared, not copied.
+This is in opposition to deep copy, which is very difficult to do in Ruby.
+=end
 # #14.
 # arr_a = %w(ant bat cat)
 # arr_b = arr_a.dup
@@ -771,12 +902,12 @@ The last line of this code will return `["card", "coin", "crab", "kill", "king",
 =end
 
 #63
-selected_foods = [['apple', 'kiwi'], ['artichoke', 'broccoli']].select do |arr|
-  arr.select do |food|
-    food.start_with?('a')
-  end
-end
-p selected_foods
+# selected_foods = [['apple', 'kiwi'], ['artichoke', 'broccoli']].select do |arr|
+#   arr.select do |food|
+#     food.start_with?('a')
+#   end
+# end
+# p selected_foods
 
 =begin
 mine:
@@ -834,8 +965,60 @@ This new array is then used by the outer select, on line 1.
 Since both of these arrays are truthy values, outer select selects each arr according to the return value of the block
 and so it will select all the arrays from the caller. This return value of invoking select is then saved to
 selected_foods and when we use the p method on the last line and pass selected_foods as an argument,
-[['apple', 'kiwi'], ['artichoke', 'broccoli']] is output.
+[['apple', 'kiwi'], ['artichoke', 'broccoli']] is output. the `p` method always prints to the console the object
+passed to it an argument and then returns that object.
 
 The concept represented here is selection, specifically the fact that select uses the return value of the block
 in order to select elements from the caller and place them in a new array.
+=end
+
+#64
+# [1, 2, 3].any? do |num|
+#   puts num
+#   num.odd?
+# end
+=begin
+Array#any? method is called on array [1, 2, 3]. A block denoted by keywords do..end is passed to any?
+with the block parameter num.
+Each consecutive element from the calling array will be passed to the block and the code within the block will
+be executed on it. Within the block first the Kernel#puts method is invoked and num is passed as an argument to it.
+This will output 1 to the console.
+
+After that, on the last line of the block, the odd? method is invoked on num. This method returns true if we have
+at least one odd number in the calling array.  Once the last statement in the block evaluates as true for the
+first element of the array, 1, any? will return true without evaluating subsequent elements of the array.
+So this code outputs 1 and returns true.
+
+The concept represented here is iteration as well as return value of the block and how it is used by a method.
+any? uses the return value of the block to return early and return true.
+=end
+
+# 65 redoing with remarks from Allister about putting more code references because there's a lot going on here
+[{ a: 'ant', b: 'elephant' }, { c: 'cat' }].select do |hash|
+  hash.all? do |key, value|
+    value[0] == key.to_s
+  end
+end
+=begin
+`Array#select` method is called on an array of 2 hashes, [{ a: 'ant', b: 'elephant' }, { c: 'cat' }]. A block denoted by
+the keywords `do..end` is passed to it, with the block parameter `hash`. Within this outer block, `all?` method is called
+on each hash, so first on { a: 'ant', b: 'elephant' } and then on { c: 'cat' }. `all?` takes a block, denoted with the keywords
+do..end and block parameters `key` and `value` to which at the time of execution each key and each value from the hash
+will be passed. Within the inner block, the block that belongs to `all?` a statement value[0] == key.to_s is executed for
+each key-value pair in the hash. This statement will evaluated as true if the first character in the value is equal to
+the return value of `to_s` method called on the corresponding key. `all?` will take the return value of the block and,
+if it evaluates as true for all key-value pairs in the processed hash, then `all?` will return true for the processed hash,
+otherwise it will return false.
+So here in this code `all?` will return false  for { a: 'ant', b: 'elephant' } and true for { c: 'cat' } because only in
+{ c: 'cat' } the statement value[0] == key.to_s will evaluated as true. This true return value in in turn used by outer
+`select`, on line one. `select` considers the return value of its block, if the return value for a given element, in this
+case `hash` evaluates as truthy, that element is selected and placed in a new array.
+So the return value of this code is [{ c: 'cat' }].
+
+The concept represented here is that of iteration, both select and all? are iterators. Another concept is the return
+value of the block and how it is used by a method. `all?` considers the return value of the block for each element it
+processes and for all the processed elements the return value has to be truthy in order for the method to return `true`
+As for select, it considers the return value of the block as well, if it is truthy for a given element, `select` will
+take that element and place it in a new array, which will be ultimately returned.
+
 =end
