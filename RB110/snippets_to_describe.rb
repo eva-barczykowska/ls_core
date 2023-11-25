@@ -312,75 +312,219 @@ This code represents the concept called shallow copy, namely that it is possible
 the `dup` or `clone` method. Shallow copy means that only the objec is copied but its elements are shared, not copied.
 This is in opposition to deep copy, which is very difficult to do in Ruby.
 =end
-# #14.
-# arr_a = %w(ant bat cat)
-# arr_b = arr_a.dup
-#
-# arr_b[1].upcase!
-# p arr_a
-# p arr_b
-# ```
-#
-# ```ruby
-# #15.
-# arr_a = %w(ant bat cat)
-# arr_b = arr_a.dup
-#
-# arr_b.map! { |word| word.upcase! }
-#
-# p arr_a
-# p arr_b
-# ```
-#
-# ```ruby
-# #16.
-# ['dog', 'cat', 'pig'].sort_by do |word|
-#   word[1]
-# end
-# ```
-#
-# ```ruby
-# #17.
-# [[2, 4], [2, 1, 4], [0, 1, 2], [3, 2, 0], [0, 1], [3, 2, 5]].sort
-# ```
-#
-# ```ruby
-# #18.
-# { a: "ant", b: "bear", c: "cat" }.each_with_object([]) do |pair, array|
-#   array << pair.last
-# end
-# ```
-#
-# ```ruby
-# #19.
-# { a: "ant", b: "bear", c: "cat" }.each_with_object({}) do |(key, value), hash|
-#   hash[value] = key
-# end
-# ```
-#
-# ```ruby
-# #20.
-# [{a: 1}, {b: 2, c: 3}, {d: 4, e: 5, f: 6}].map do |hsh|
-#   incremented_hash = {}
-#   hsh.each do |key, value|
-#     incremented_hash[key] = value + 1
-#   end
-#   incremented_hash
-# end
-# ```
-#
-# ```ruby
-# #21.
-# [{a: 1}, {b: 2, c: 3}, {d: 4, e: 5, f: 6}].each_with_object([]) do |hsh, arr|
-#   incremented_hash = {}
-#   hsh.each do |key, value|
-#     incremented_hash[key] = value + 1
-#   end
-#   arr << incremented_hash
-# end
-# ```
-#
-# ```ruby
+
+#14.
+arr_a = %w(ant bat cat)
+arr_b = arr_a.dup
+
+arr_b[1].upcase!
+p arr_a
+p arr_b
+=begin
+On line 1 a shortcut `%w(ant bat cat)` is used to create an array ["ant", "bat", "cat"] and assign it to `arr_a`.
+On line 2 `arr_b` is initialized to the return value of calling the `dup` method on `arr_a`.
+
+The `dup` method is creating a shallow copy of the caller, this means that only the object is copied (in this case the
+Array object) but the elements inside this array are shared, not copied. What consequence this has is that when we
+mutate any of the objects in any of the arrays, `arr_a` or `arr_b`, changes will reflect in both arrays.
+
+The mutation happens on line 4 when a destructive method `upcase!` is called on the element at index 1 of the `arr_b`.
+The return value of this code will be `"BAT" `.
+
+When we decide to print both arrays `arr_a` and `arr_b` on lines 5 and 6, we see that the descructive action performed
+on the first element of `arr_b` is also reflecting in the first element of `arr_a`. The penultimate and last line of code
+both print ["ant", "BAT", "cat"].
+
+The concept represented here is that of a shallow copy (as explained above). There is also `deep copy` but that is very
+difficult to do in Ruby but possible, it is called Marshalling.
+=end
+
+#15.
+arr_a = %w(ant bat cat)
+arr_b = arr_a.dup
+
+arr_b.map! { |word| word.upcase! }
+
+p arr_a
+p arr_b
+=begin
+On the first line a shortcut `%w(ant bat cat)` is used to initialize an array ["ant", "bat", "cat"] and assign it to
+`arr_a`.
+
+On line 2 `arr_b` is initialized to the return value of invoking the `dup` method on `arr_a`. The `dup` method created
+a shallow copy of the object, which means only the object is copied but the elements that it contains are not copied but
+shared. This has consequences, i.e. if we perform destructive changes on any of the elements inside any of the arrays,
+these chagnes will be visible in both arrays, `arr_a` and `arr_b`.
+
+On line 4 we invoke the destructive version of the `map!` method on `arr_b`. This method takes a block denoted by the
+syntax `{}` and a block element `|word|`. At the time of execution, each element of the calling array will be passed to
+the block parameter. Inside the block, the destructive method `upcase!` is invoked on each element of the array. This
+method will return all elements of the calling array upcased.
+
+On the last 2 lines we invoke the `p` method which outputs to the console and returns the object passed to it as an
+argument, here its `arr_a` and `arr_b.`
+
+These lines both output `["ANT", "BAT", "CAT"]`, this is because the `upcase!` method used inside the block performed
+permanent changes on the elements in both arrays, this is because these elements are shared so they reference the
+same values. We needn't have used the mutating `map!`, the elements would have been still mutated anyway but the use of
+mutating `upcase!` on each of the elements.
+
+The concept demonstrated here is that of shallow copy vs. deep copy. Ruby offers us `dup` and `clone` methods to make a
+copy of an element but those are shallow copies as explained above. It is difficult (but possible) to make a deep copy,
+this is called marshalling.
+=end
+
+#16.
+['dog', 'cat', 'pig'].sort_by do |word|
+  word[1]
+end
+=begin
+On the first line the `sort_by` method is called on an array `['dog', 'cat', 'pig']`. The method takes a block denoted
+by the keywords `do..end` and also a block parameter `|word|`, to which each element of the array will be bound in turn
+at the time of execution. Within the block we have an expression `word[1]`, which is our criteria of sorting. The method
+is supposed to sort all elements of the caller based on the character at index 1 in each word. This will be `"o"`, `"a"` and
+`"i"` consecutively.
+
+As a result, the sorted array will be `["cat", "pig", "dog"] `.
+
+The concept demonstrated here is sorting and return value of the block, specifically how sort uses the return value
+of its block as the basis on which to sort the calling array.
+=end
+
+#17.
+[[2, 4], [2, 1, 4], [0, 1, 2], [3, 2, 0], [0, 1], [3, 2, 5]].sort
+=begin
+The `sort` method is invoked on the nested array `[[2, 4], [2, 1, 4], [0, 1, 2], [3, 2, 0], [0, 1], [3, 2, 5]]`.
+
+`sort` will first look at the element at index 0 of each array and sort according to the integer that is at that position.
+Then the method will look at the consecutive numbers in each nested array. Arrays that have same numbers un to a point but
+one of them is longer like for example `[0, 1]` and `[0, 1, 2]` - among these two, the longer array is considered greater
+and will be placed after the shorter array.
+
+The return value of this code will be `[0, 1], [0, 1, 2], [2, 1, 4], [2, 4], [3, 2, 0], [3, 2, 5]]`. This code doesn't print
+anything.
+
+The concept represented here is sorting namely how sort analyzes the caller in order to return a result.
+=end
+
+#18.
+{ a: "ant", b: "bear", c: "cat" }.each_with_object([]) do |pair, array|
+  array << pair.last
+end
+=begin
+`each_with_object` method is called on a hash `{ a: "ant", b: "bear", c: "cat" }`, with an argument of `[]`. This method
+takes a block denoted by the keywords `do..end` and 2 block parameters, `|pair, array|`. Each key-value pair will be at
+the time of execution bound in turn to the `pair` parameter and the `array` parameter is the so called `memo object`, what
+this method will ultimately return (it's also the method's argument -  `[]`).
+
+Within the block the `<<` method, also called `shovel` operator is used. This method appends to the memo object, which
+at the beginning is just an empty array, the last element of the key-value pair that has been passed to he `pair` block
+argument.
+
+The `pair` is passed as an array, that's why we can use the array `last` method. The code in the block will append to
+`[]` first "ant", then "bear" and finally "cat". So this code will return an array of 3 elements, ["ant", "bear", "cat"].
+
+This code represents iteration and creation of an a new object out of the calling object.
+=end
+
+#19.
+{ a: "ant", b: "bear", c: "cat" }.each_with_object({}) do |(key, value), hash|
+  hash[value] = key
+end
+=begin
+`each_with_object` method is invoked on a hash `{ a: "ant", b: "bear", c: "cat" }` and a `{}` object is passed to it as
+an argument. This method takes a block denoted by the keywords `do..end` and block parameters `key, value`, to which each
+key and value from the calling hash will be passed in turn at the time execution. There is also a third block parameter, `hash`, this is the so
+called memo object, it's the object passed to the method as an argument and the object that will be gradually build while
+iterating through the caller.
+
+Within the block body we have the statement `hash[value] = key`, which is using hash element reference to assign the
+current key to the current value in our memo object, the hash. What this code will do is to invert the current key-value
+order and return the object indicated as an argument, so we see ` {"ant"=>:a, "bear"=>:b, "cat"=>:c}` as the return value.
+
+The concept demonstrated here is iteration as well as block's return value, which is used by `each_with_object` to build
+the new hash. Also `hash element reference` is demonstrated on line 2, where we use `[]=` method to assign the value to a key.
+=end
+
+#20.
+[{a: 1}, {b: 2, c: 3}, {d: 4, e: 5, f: 6}].map do |hsh|
+  incremented_hash = {}
+  hsh.each do |key, value|
+    incremented_hash[key] = value + 1
+  end
+  incremented_hash
+end
+=begin
+`map` method is used on the array of 3 hashes, `[{a: 1}, {b: 2, c: 3}, {d: 4, e: 5, f: 6}]`. This method takes a block,
+denoted here by the keywords `do..end` and it also takes a block parameter `hsh`, to which each consecutive hash from
+the calling array will be in turn bound at the time of execution.
+
+Inside the block body `incremented_hash` is initialized to an empty hash, `{}`.
+
+Subsequently, the `each` method is invoked on the `hsh`, with the block and block parameters `key` and `value`. Within
+the body that `each` takes as an argument, the `incremented_hash` is being populated with the value that is currently
+bound to the block parameter `key` and the return value of invoking the `+` method on the value that is currently bound
+to the block parameter `value` with 1 as a parameter.
+
+When we return this `incremented_hash` on the last but one line, this is actually the return value of the outer block,
+the block that belongs to `map` and this is the return value that `map` will use in order to transform the calling array
+and return a new array.
+
+This code returns `[{:a=>2}, {:b=>3, :c=>4}, {:d=>5, :e=>6, :f=>7}]` and it demonstrates the concept of transformation
+and also blocks because `map` method uses the return value of the block in as the basis for transformation of the caller.
+We can say that this code also demonstrates iteration because we iterate through the hash passed from the calling array
+to `hsh` block parameter. And also hash element assignment because we use the `[]=` syntax to assign values to keys in
+the `incremented_hash`.
+
+=end
+#21.
+[{a: 1}, {b: 2, c: 3}, {d: 4, e: 5, f: 6}].each_with_object([]) do |hsh, arr|
+  incremented_hash = {}
+  hsh.each do |key, value|
+    incremented_hash[key] = value + 1
+  end
+  arr << incremented_hash
+end
+=begin
+`each_with_object` method is called on the array `[{a: 1}, {b: 2, c: 3}, {d: 4, e: 5, f: 6}]` with the `[]` passed to it
+as an argument. The method takes a block denoted by the keywords `do..end` and it also takes 2 block parameters,
+`hsh`, to which at the time of execution each hash will be bound and `arr`, the so called memo object, this is the object
+that was passed to the method as an argument and the object that the method will ultimately return.
+
+Within the body of the bock `incremented_hash` is initialized to an empty hash, `{}`.
+On the next line, the `each` method is called on `hsh`, a block is passed to it with block parameters `key` and `value`,
+to which each key and value from the current hash will be bound to at the time of execution. Within the block that `each`
+takes the `[]=` method is invoked, hash element assignment in order to populate `incremented_hash` with the key that is
+currently passed to the `key` parameter and the return value of invoking the `+` method on value that is currently passed
+to `value` and passing `1` as an argument.
+
+On the one but last line the `<<` method is invoked, called also the shovel operator. This method appends `incremented_hash`
+to the array.
+
+The result that `each_with_object` returns is the array `[{:a=>2}, {:b=>3, :c=>4}, {:d=>5, :e=>6, :f=>7}]`, this is our
+memo object and the array that was initially passed in as an argument to the method and that we build along the way.
+
+The concepts demonstrated here are: iteration, return value from the method, and hash element assignment/setter.
+
+*from chatGPT:
+prompt:
+I will give you a piece of code followed by its description. Please judge this description in terms of accuracy of the language.
+
+The each_with_object method is applied to the array [{a: 1}, {b: 2, c: 3}, {d: 4, e: 5, f: 6}], and an empty array []
+is passed as an argument, serving as the memo object.
+The method takes a block defined by do..end, with two block parameters: hsh, representing each hash during iteration,
+and arr, which is the memo object.
+
+Within the block, an empty hash `incremented_hash` is initialized. The each method is then invoked on hsh,
+with a block taking key and value as parameters. In this block, each key-value pair is used to populate incremented_hash
+by adding 1 to each value.
+
+The << method (shovel operator) is employed to append incremented_hash to the array `arr`.
+The final result returned by each_with_object is the modified array [{:a=>2}, {:b=>3, :c=>4}, {:d=>5, :e=>6, :f=>7}],
+representing the memo object that was initially passed and iteratively built.
+
+Key concepts demonstrated include iteration, method return values, and hash element assignment.
+=end
 # #22.
 # a = [1, 2, 3]
 #
