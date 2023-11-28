@@ -291,7 +291,7 @@ arr_b.map! { |word| word.upcase }
 p arr_a
 p arr_b
 =begin
-On line 1 a shortcut syntax `%w(ant bat cat)` is used to create an array of 3 elements, `["ant", "bat", "cat"]` and make
+On line 1 a syntactic sugar syntax `%w(ant bat cat)` is used to create an array of 3 elements, `["ant", "bat", "cat"]` and make
 it reference `arr_a`.
 
 On line 2, `arr_b` is created and made reference the return value of invoking the `dup` method on `arr_a`. This method
@@ -321,7 +321,7 @@ arr_b[1].upcase!
 p arr_a
 p arr_b
 =begin
-On line 1 a shortcut `%w(ant bat cat)` is used to create an array ["ant", "bat", "cat"] and assign it to `arr_a`.
+On line 1 a syntactic sugar `%w(ant bat cat)` is used to create an array ["ant", "bat", "cat"] and assign it to `arr_a`.
 On line 2 `arr_b` is initialized to the return value of calling the `dup` method on `arr_a`.
 
 The `dup` method is creating a shallow copy of the caller, this means that only the object is copied (in this case the
@@ -348,7 +348,7 @@ arr_b.map! { |word| word.upcase! }
 p arr_a
 p arr_b
 =begin
-On the first line a shortcut `%w(ant bat cat)` is used to initialize an array ["ant", "bat", "cat"] and assign it to
+On the first line a syntactic sugar `%w(ant bat cat)` is used to initialize an array ["ant", "bat", "cat"] and assign it to
 `arr_a`.
 
 On line 2 `arr_b` is initialized to the return value of invoking the `dup` method on `arr_a`. The `dup` method created
@@ -888,7 +888,7 @@ end
 
 p new_array
 =begin
-A shortcut `%w(jump trip laugh run talk)` is used to initialize an array of strings `["jump", "trip", "laugh", "run", "talk"] `
+A syntactic sugar syntax `%w(jump trip laugh run talk)` is used to initialize an array of strings `["jump", "trip", "laugh", "run", "talk"] `
 Main scoped variable `words` is pointing to that array.
 
 On line 3 `new_array` is initialized to the return value of `map` invoked on `words`. `map` takes a `do..end` block with
@@ -1061,11 +1061,8 @@ Within the block `<` method is invoked on the return value of invoking the `leng
 bound to `str`. This expression, when evaluated returns `true` for the first 2 elements of the calling array and `false`
 for the last element.
 
-`count` method is concerned with the return value of the block becuase it is what its return value depends on.
-The return value of the block is its last line and the block evaluates as true for the first 2 elements of the array
-that `count` is invoked on so these elements are counted.
-
-This code returns `2`.
+`count` returns an integer representing the number of elements for which the block returns a truthy value.
+so code returns `2`.
 
 The concept demonstrated here is the importance of the block as an argument to the method. `count` with no argument
 and a block given, calls the block on each element and returns the count of elements for which the block returns
@@ -1077,123 +1074,276 @@ a truthy value.
   hash[value[0]] = value
 end
 
-# #43.
-# ['ant', 'bear', 'caterpillar'].pop.size
-#
-# ```
-#
-# ```ruby
-# #44.
-# [1, 2, 3].any? do |num|
-#   puts num
-#   num.odd?
-# end
-#
-# ```
-#
-# ```ruby
-# #45.
-# arr = [1, 2, 3, 4, 5]
-# arr.take(2)
-#
-# ```
-# ```ruby
-# #46.
-# { a: 'ant', b: 'bear' }.map do |key, value|
-#   if value.size > 3
-#     value
-#   end
-# end
-#
-# ```
-#
-# ```ruby
-# #47.
-# [1, 2, 3].map do |num|
-#   if num > 1
-#     puts num
-#   else
-#     num
-#   end
-# end
-#
-# ```
-#
-# ```ruby
-# #48.
-# [123, 432, 543, 642, 543, 256].sort_by do |num|
-#   num.digits.first
-# end
-#
-# ```
-#
-# ```ruby
-# #49.
-# contacts = {
-#   Jenny: '230-867-5309',
-#   Skylar: '432-555-5555',
-#   joe: '230-432-1234',
-#   Jimmy: '123-123-1234'
-# }
-#
-# contacts.sort_by do |_, number|
-#   number.split('-')[0]
-# end
-#
-# ```
-#
-# ```ruby
-# #50.
-# contacts = {
-#   Jenny: '230-867-5309',
-#   Skylar: '432-555-5555',
-#   joe: '230-432-1234',
-#   Jimmy: '123-123-1234'
-# }
-#
-# contacts.sort_by do |name, _|
-#   name.capitalize
-# end
-#
-# ```
-#
-# ```ruby
-# #51.
-# hash = { chris: '510-204-5555', sam: '510-909-5526',
-# adrienne: '650-433-2112' }
-#
-# hash.sort_by do |name, number|
-#   p name.length * number.split('-')[2][0].to_i
-# end
-#
-# ```
-#
-# ```ruby
-# #52.
-# words = %w(cantaloupe apple durian bananas)
-#
-# # default uses <=> to compare collection elements
-# words.min
-# words.min(2)
-#
-# # with a block
-# words.min { |a, b| a.size <=> b.size }
-# words.min(2) { |a, b| a.size <=> b.size }
-#
-# ```
-#
-# ```ruby
-# #53.
-# words = %w(cantaloupe apple durian)
-#
-# # sort by amount of vowels
-# words.min_by { |word| word.count("aeiou") }
-#
-# words.min_by(2) { |word| word.count("aeiou") }
-#
-# ```
-#
-# ```ruby
+#43.
+['ant', 'bear', 'caterpillar'].pop.size
+=begin
+`pop`method is invoked on array literal  `['ant', 'bear', 'caterpillar']`. This method removes the last
+element and returns it. So we will get `"caterpillar"` out as a return value of invoking `pop`. On that return value
+`size` method is called, and it returns the integer signifying the size of that returned string, which is `11`.
+
+The fact that `size` method is called on the return value of `pop` method demonstrates a concept called `method chaining`.
+Also, another concept is `mutation` because `pop` is a mutating method, it permanently changes the calling array.
+Mutating methods usually have a `!` at the end but not all of them, like for example `pop`.
+=end
+
+#44.
+[1, 2, 3].any? do |num|
+  puts num
+  num.odd?
+end
+=begin
+`any?` is called on array literal `[1, 2, 3]`. A `do..end` block is passed to `any?`, with a block parameter `num`,
+to which each element of the calling array is bound in turn at the time of execution.
+
+Within the block `puts` method is invoked and the array element referenced by `bound` is passed to it as an argument.
+so first `1` will be passed and it will be output to the console.
+
+Next the line that gets executed is `num.odd?`, so the `odd?` method is invoked on the integer bound to `num`,
+`1`. When this evaluates as true, also the block return value evaluates as true because this is the last line
+in the block and so `any?` finishes execution, returning `true.` This is because `any?` considers the return value
+of the block and if it evaluates as true if the block evaluates as true for  at least
+one element.
+
+The concept demonstrated here is iteration and the importance of the block's return value since `any?` uses it to know
+when to return. It doesn't iterate over all elements but only until the block's return value evaluates as true, which
+here is already the element at index 0.
+=end
+
+#45.
+arr = [1, 2, 3, 4, 5]
+arr.take(2)
+=begin
+On line 1 a local variable `arr` is initialized to point to an array, `[1, 2, 3, 4, 5]`.
+On the next line `take` method is invoked on `arr`, and passed integer `2` as an argument.
+
+This method will returns a new array containing the number of elements stipulated in the argument, `[1, 2]`. The method
+is non-destructive so it does not mutate the caller.
+
+The concept demonstrated here is extraction of several consecutive elements of an array without mutating the caller.
+=end
+
+#46.
+{ a: 'ant', b: 'bear' }.map do |key, value|
+  if value.size > 3
+    value
+  end
+end
+=begin
+`map` method is called on a hash literal { a: 'ant', b: 'bear' }. A `do..end` block is passed to map with 2 block
+parameters, `key` and `value`, to which each key and value from the calling hash is in turn passed at the time of
+execution.
+
+Within the block we have an `if` statement. After the `if` modifier, there is an expression `value.size > 3` will be
+be evaluates for every value bound to `value`. If this expression returns true, then the if branch is executed further,
+returning the value bound to `value`. As `map` iterates over keys and values of the hash, the above mentioned block
+returns `false` for ``'ant' and true for `'bear'`. These are the return values of the block, which are in turn used
+by map to tranform the calling object and return a new array, with the applied changes.
+
+So `map` returns `[nil, "bear"]`.
+
+This code demonstrates how important the block's return value is to the iterating method `map`, specifically that its
+return value depends on it. `map` method considers the return value of the block as it is the basis for transformation
+that it performs. `map` always returns a new array of the same size as the object that it was invoked on.
+=end
+
+#47.
+[1, 2, 3].map do |num|
+  if num > 1
+    puts num
+  else
+    num
+  end
+end
+=begin
+`map` method is invoked on the array literal `[1, 2, 3]`. A `do..end` block is passed to it, with the block parameter
+`num`, to which each element of the calling array is passed at the time of execution.
+
+Within the block body we have  `if..else` statement, which will evaluate if the integer passed to `num` is greater than
+`1` and if it is, this integer will be output to the console but the `puts` method and `nil` is the return value
+of the block as it is the last statement executed in the block.
+
+In case that the integer bound to `num` is not greater than `1`, so in case that condition evaluates as `false`,
+then the `else` branch is executed and the integer bound to `num` is returned. This is also the return value of the
+block as it's the last expression executed.
+
+So, for the integer `1` bound to `num`, if `if..else` condition will evaluate as `false`, and so the  integer bound
+to `nym` is used by `map`, in case of `2` and `3`, the condition evaluates as `true` and both of these numbers are
+output to the console but the return value of the block (which `map` uses) is `nil`.
+
+Therefore this code returns `[1, nil, nil] `.
+
+The concept demonstrated is the importance of the return's block value for the iterating method `map.`
+`map` considers the return value of the block as it uses it as the basis for
+transformation of the calling array.`map` always returns a new array of the same size as the array that it was invoked on.
+=end
+
+#48.
+[123, 432, 543, 642, 543, 256].sort_by do |num|
+  num.digits.first
+end
+=begin
+`sort_by` is used on an array literal `[123, 432, 543, 642, 543, 256]`. A `do..end` block is passed to it with the block
+parameter `num`, to which each consecutive element from the array is bound at the time of execution.
+
+Within the block `first` method is invoked on the return value of invoking `digits` method on the integer bound to
+`num`. This is the basis/the criterion on which the integers in the caller need to be sorted. `digits` will split
+the digits in the integer bound to `num` but this method returns an array of integers in reverse order, so for
+`123`, it will be `[3, 2, 1]` and so on. This of course has consequences when it comes to sorting as the numbers
+will be sorted accourding to the first number in the array returned by `digits`, so in case of the first number,
+the integer considered for sorting will be `3`, in case of the 2nd number, `2`, in case of the third number `3`, etc.
+
+So this code will return `[432, 642, 123, 543, 543, 256] `.
+
+
+This code demonstrates the concept of sorting and the importance of the return value of the block for the `sort_by`
+method as the method uses the return value of the block for each element as the basis on which the numbers are sorted.
+
+This code also demonstates the concept of `method chaining` which is when a method is invoked on the return value of calling
+another method on an object.
+=end
+
+#49.
+contacts = {
+  Jenny: '230-867-5309',
+  Skylar: '432-555-5555',
+  joe: '230-432-1234',
+  Jimmy: '123-123-1234'
+}
+
+contacts.sort_by do |_, number|
+  number.split('-')[0]
+end
+=begin
+On line 1 local variable `contacts` is initialized to a hash object with 4 keys and values. Keys are symbol objects,
+values are string objects.
+
+`sort_by` method is invoked on `contacts` on the next line. A `do..end` method is passed to it, with 2 parameters,
+to which each key and value is in turn bound to at the time of execution. The block parameters are `-`, which is
+the convention for a parameter that we are not going to use, and `number`, this is the parameter that each value/string
+from the hash will be bound.
+
+The block passed to `sort_by` is very important because it contains the basis for sorting the calling hash. Within the
+block the `[]`/string element reference method is used on the return value of the `split` method invoked on the string
+passed to `number`. The block will return in turn the character/integer at index 0 of each array returned by `split`,
+so it will return 2, 4, 2, 1. These are return values of the block, which will be used by `sort_by` to return a new
+nested array. This outer array contains each hash from the caller in the sorted on the criterion of the first number
+in each value.
+
+This code returns a nested array, `[[:Jimmy, "123-123-1234"], [:Jenny, "230-867-5309"], [:joe, "230-432-1234"], [:Skylar, "432-555-5555"]]`.
+
+This code demonstrates the concept of sorting and the importance of the return value of the block for the `sort_by`
+method as the method uses the return value of the block for each element as the basis on which the numbers are sorted.
+
+This code also demonstates the concept of `method chaining` which is when a method is invoked on the return value of calling
+another method on an object.
+=end
+
+contacts = {
+  Jenny: '230-867-5309',
+  Skylar: '432-555-5555',
+  joe: '230-432-1234',
+  Jimmy: '123-123-1234'
+}
+
+contacts.sort_by do |name, _|
+  name.capitalize
+end
+=begin
+Local variable`contacs` is initialized to a hash with 4 keys and values, keys are all Symbol objects, values are Strings.
+
+`sort_by` is invoked on `contacts` on line 3. A `do..end` block is passed to it, with the block parameters `name` and `-`,
+to which each key and value is bound in turn at the time of execution.
+
+`-` is the convention for a block variable that is unused.
+
+Within the block the `capitalize` method is invoked on the key passed to `name`. This means that the names are to be
+sorted on the basis of capital letters first, so for example `J` comes before `j`, as in the ASCII table. This can be
+verified by calling the `.ord` numbers on both of them. For `J` it's 74, for `j` it's 106.
+
+The return value of this code is a nested array `[[:Jenny, "230-867-5309"], [:Jimmy, "123-123-1234"], [:joe, "230-432-1234"], [:Skylar, "432-555-5555"]] `,
+
+This code demonstrates a few things. first, `-`, which is the convention for a block variable that is unused.
+More importantly it demonstrates sorting, specifically how `sort_by` uses the return value of the block for each
+element in order to sort the elements in the calling object.
+=end
+
+#51.
+hash = { chris: '510-204-5555', sam: '510-909-5526', adrienne: '650-433-2112' }
+
+hash.sort_by do |name, number|
+  p name.length * number.split('-')[2][0].to_i
+end
+=begin
+On line 1 local variable `hash` is initialized to a hash with 3 elements, all keys are Symbol class objects, all values
+are Strings. A `do..end` block is passed to `sort_by` with block parameters `name` and `number` to which each key and
+each value are bound in turn at the time of execution.
+
+Within the block, the `p` method is invoked and the expression `name.length * number.split('-')[2][0].to_i` is
+passed to it. The argument passed to `p` is the return value of invoking the length method on the value bound to `name`
+(this method call returns an integer) on which in turn the `*` method is invoked. The `*` method is passed an argument
+that is the return value of the `to_i` method called on the return value of invoking the string element string element
+reference method `[]`, called on array elements reference called on the return value of `split`.
+
+For the first element key value pair, for `chris`, the `lengh` method returns integer `5`, for the '510-204-5555' the
+`split` method returns `["510", "204", "5555"] `, the `p[2]` method returns `"5555"`, the `[0]` method returns
+string `"5"`, the `to_i` method returns integer 5. So we have an expression 5 * 5 passed to `p`. This outputs to the
+console `25` and returns 25. This is the return value of the block for for the first key-value pair in the calling hash.
+
+The subsequent return values are `15` and `16` and according to these values, the return values of the block the calling
+array will be sorted.
+
+This code returns a nested array`[[:sam, "510-909-5526"], [:adrienne, "650-433-2112"], [:chris, "510-204-5555"]]`.
+
+This code demonstrates chaining of the methods so invoking a method on the return value of another method(paragraph 2)
+
+It also demonstrates the concept of sorting and the importance of the return value of the block for the `sort_by`
+method as this method uses the return value of the block for each element as the basis for sorting the objects in the
+caller. `sort_by` returns a nested array of the same size as the caller.
+=end
+
+#52
+words = %w(cantaloupe apple durian bananas)
+
+# default uses <=> to compare collection elements
+words.min #SORTS LEXICOGRAPHICALLY
+words.min(2)
+
+# with a block
+words.min { |a, b| a.size <=> b.size }
+words.min(2) { |a, b| a.size <=> b.size }
+=begin
+On line 1 a local variable `words` is initialized to `["cantaloupe", "apple", "durian", "bananas"] `, using syntactical
+sugar syntax `%w(cantaloupe apple durian bananas)`.
+
+On line 4 the `min` value is called without an argument or a block on `words` array.
+This returns the smallest element based on lexicographical order, which is `"apple".`
+Whe we call the same method with an argument 2 and a block, the return value is `["apple", bananas]`, again this is
+according to the lexicographical order so `a` comes first, then `b`, etc.
+
+When we invoke the same method without an argument but with a block, the logic within the block is defining how we
+want the elements to be compared. The spaceship operator `<=>`, which is a method is used and this operator is invoked
+on the return value of the `size` method invoked on the element bound to `a` and `b`. This returns `"apple"`.
+
+When we call the same method with an argument, `2`, and without a block ()on penultimate line) the returned object is
+an array, `["apple", "bananas"]` because the `<=>` methods compares the elements lexicographically, returning - 1
+if the first element is smaller, 0 if they're equal and 1 if the first element is greater. Therefore the `min` method with
+integer `2` passed as an argument returns an array `["apple", "bananas"]`. These 2 elements are smallest lexicographically.
+
+As for the last line, it returns `["apple", "durian"]` because these 2 elements are smallest when we compare them by size.
+
+The concept demonstrated here is how important the return value of the block is and that we can be more intentional
+as to how we want to employ the method to give us the return values based on our specific requirements. It also demonstrates
+the difference between using the `min` method with or without an argument and with or without a block.
+=end
+
+#53
+words = %w(cantaloupe apple durian)
+
+# sort by amount of vowels
+words.min_by { |word| word.count("aeiou") }
+
+words.min_by(2) { |word| word.count("aeiou") }
+
 # #54.
 # def add_one_to(nums)
 #   0.upto(nums.length) do |i|
@@ -1335,7 +1485,7 @@ we were comparing integers.
 words = %w(card soap knife crab soapy coin sand king kill)
 words.sort
 =begin
-The first line is using a shortcut `%w` to create an array of strings so the return value of this line is
+The first line is using syntactic sugar `%w` to create an array of strings so the return value of this line is
 `["card", "soap", "knife", "crab", "soapy", "coin", "sand", "king", "kill"] `.
 
 The second line will sort these strings alphabetically using the `sort` method, which in turns uses the `<=>` symbol,
@@ -1502,3 +1652,12 @@ When the if statement is executed, the puts method is invoked, outputting the in
 nil back to the map method. When the else statement is executed, the integer object referenced by num is returned and
 nothing is output.
 =end
+
+words = %w(cantaloupe apple durian bananas)
+
+words.min
+words.min { |a, b| a.size <=> b.size }
+
+
+words.min(2)
+words.min(2) { |a, b| a.size <=> b.size }
