@@ -1,9 +1,10 @@
 # Code Snippets to analyze/describe
 
-###### For all the snippets describe what is happening with specific focus on return values, expected output and the concept demonstrated.
+###### For all the snippets describe what is happening with specific focus on return values, expected output and the
+# concept demonstrated.
 # Be particular about using clear and accurate language.
 
-#1.
+# 1
 p 2 <=> 1
 p 1 <=> 2
 p 2 <=> 2
@@ -25,7 +26,7 @@ p 1 <=> 'a'
 # Last line will output NIL because the objects we are trying to compare are different object types.
 
 
-#2.
+# 2
 'a' <=> 'b'
 'apple' <=> 'ape'
 'cat' <=> 'catty'
@@ -40,7 +41,7 @@ p 1 <=> 'a'
 # Last line returns -1 because the second out of the 2 compared strings is longer.
 
 
-#3.
+# 3
 def remove_evens!(arr)
   cloned_arr = arr.dup
   cloned_arr.each do |num|
@@ -75,7 +76,7 @@ This code will return `[1, 3, 5].`
 The concept demonstrated here is shallow copy. Btw, making a deep copy is very difficult in Ruby, but possible.
 =end
 
-#4.
+# 4
 array = ['a', 'b', 'c', 'd', 'e']
 
 array.each do |letter|
@@ -102,11 +103,11 @@ The concepts represented here are iteration and mutation.
 =end
 
 
-#5.
+# 5
 names = ["george", "bobbi", "joel", "susan"]
 names = names.each do |name|
-          name.capitalize
-        end
+  name.capitalize
+end
 
 p names
 =begin
@@ -124,7 +125,7 @@ When we use the `p` method on the last line and pass it `names` as an argument, 
 The concept represented here is that of iteration, return value from the block and return value of each.
 =end
 
-#6.
+# 6
 names = ["george", "bobbi", "joel", "susan"]
 names.each do |name|
   puts name.capitalize
@@ -148,7 +149,7 @@ what is returned, however, is the calling array, `["george", "bobbi", "joel", "s
 not take into consideration the return value of the block passed to it but rather returns the calling object.
 =end
 
-#7.
+# 7
 [[1, 2], [3, 4]].each do |arr|
   puts arr.first
 end
@@ -164,7 +165,7 @@ into consideration the return value of the block but returns the array it was in
 The concept represented here is iteration and return value of the block.
 =end
 
-#8.
+# 8
 [[1, 2], [3, 4]].map do |arr|
   puts arr.first
 end
@@ -186,7 +187,7 @@ return value of the block,`map` uses it to transform the array it was invoked on
 based on the return value of the block.
 =end
 
-#9.
+# 9
 [1, 2, 3].each_with_index do |num, index|
   puts "The index of #{num} is #{index}."
 end
@@ -211,7 +212,7 @@ it returns an Enumerator object.
 The concept represented here is interpolation, iteration and the return value of the block.
 =end
 
-#10.
+# 10
 { a: "ant", b: "bear", c: "cat" }.each_with_index do |element, index|
   puts "The index of #{element} is #{index}."
 end
@@ -234,7 +235,7 @@ As for the return value of this code, it will return `{ a: "ant", b: "bear", c: 
 called with the block, returns the calling object. If called without a block, it returns an Enumerator object.
 =end
 
-#11.
+# 11
 arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 arr.select { |n| n.odd? }
 =begin
@@ -253,7 +254,7 @@ The concept represented here is iteration because `select` is an iterating metho
 `select` is using it.
 =end
 
-#12.
+# 12
 snowy_owl = {
   "type"=>"Bird",
   "diet"=>"Carnivore",
@@ -282,7 +283,7 @@ This code represents the concept of selection because the `select` method is use
 iterating method. Also, the return value of the block because `select` is using it.
 =end
 
-#13.
+# 13
 arr_a = %w(ant bat cat)
 arr_b = arr_a.dup
 
@@ -313,7 +314,7 @@ the `dup` or `clone` method. Shallow copy means that only the objec is copied bu
 This is in opposition to deep copy, which is very difficult to do in Ruby.
 =end
 
-#14.
+# 14
 arr_a = %w(ant bat cat)
 arr_b = arr_a.dup
 
@@ -339,7 +340,7 @@ The concept represented here is that of a shallow copy (as explained above). The
 difficult to do in Ruby but possible, it is called Marshalling.
 =end
 
-#15.
+# 15
 arr_a = %w(ant bat cat)
 arr_b = arr_a.dup
 
@@ -374,7 +375,7 @@ copy of an element but those are shallow copies as explained above. It is diffic
 this is called marshalling.
 =end
 
-#16.
+# 16
 ['dog', 'cat', 'pig'].sort_by do |word|
   word[1]
 end
@@ -391,7 +392,7 @@ The concept demonstrated here is sorting and return value of the block, specific
 of its block as the basis on which to sort the calling array.
 =end
 
-#17.
+# 17
 [[2, 4], [2, 1, 4], [0, 1, 2], [3, 2, 0], [0, 1], [3, 2, 5]].sort
 =begin
 The `sort` method is invoked on the nested array `[[2, 4], [2, 1, 4], [0, 1, 2], [3, 2, 0], [0, 1], [3, 2, 5]]`.
@@ -407,7 +408,7 @@ anything.
 The concept represented here is sorting namely how sort analyzes the caller in order to return a result.
 =end
 
-#18.
+# 18
 { a: "ant", b: "bear", c: "cat" }.each_with_object([]) do |pair, array|
   array << pair.last
 end
@@ -427,7 +428,7 @@ The `pair` is passed as an array, that's why we can use the array `last` method.
 This code represents iteration and creation of an a new object out of the calling object.
 =end
 
-#19.
+# 19
 { a: "ant", b: "bear", c: "cat" }.each_with_object({}) do |(key, value), hash|
   hash[value] = key
 end
@@ -446,7 +447,7 @@ The concept demonstrated here is iteration as well as block's return value, whic
 the new hash. Also `hash element reference` is demonstrated on line 2, where we use `[]=` method to assign the value to a key.
 =end
 
-#20.
+# 20
 [{a: 1}, {b: 2, c: 3}, {d: 4, e: 5, f: 6}].map do |hsh|
   incremented_hash = {}
   hsh.each do |key, value|
@@ -475,9 +476,9 @@ and also blocks because `map` method uses the return value of the block in as th
 We can say that this code also demonstrates iteration because we iterate through the hash passed from the calling array
 to `hsh` block parameter. And also hash element assignment because we use the `[]=` syntax to assign values to keys in
 the `incremented_hash`.
-
 =end
-#21.
+
+# 21
 [{a: 1}, {b: 2, c: 3}, {d: 4, e: 5, f: 6}].each_with_object([]) do |hsh, arr|
   incremented_hash = {}
   hsh.each do |key, value|
@@ -526,7 +527,7 @@ representing the memo object that was initially passed and iteratively built.
 Key concepts demonstrated include iteration, method return values, and hash element assignment.
 =end
 
-#22.
+# 22
 a = [1, 2, 3]
 a.map { |x| puts x**2 }
 =begin
@@ -548,7 +549,7 @@ This code demonstrates the concept of iteration because `map` is an iterating me
 considers the return value of the block to return a new transformed array.
 =end
 
-#23.
+# 23
 [[[1, 2], [3, 4]], [5, 6]].map do |arr|
   arr.map do |el|
     if el.to_s.to_i == el   # it's an integer
@@ -584,7 +585,7 @@ return value of the block, which it uses to transform its caller. It returns a n
 the block.
 =end
 
-#24.
+# 24
 [[1, 2], [3, 4]].map do |arr|
   arr.map do |num|
     num * 2
@@ -604,9 +605,9 @@ to the return value of the block.
 
 The concept demonstrated here is iteration and transformation, specifically how map uses return value of the block in
 order to return a new, transformed array.
-
 =end
-#25.
+
+# 25
 [[[1], [2], [3], [4]], [['a'], ['b'], ['c']]].map do |element1|
   element1.each do |element2|
     element2.partition do |element3|
@@ -634,7 +635,7 @@ Map uses return value of the block as the basis of transforming the array it's i
 with the return value of the block at all but it always returns its caller instead.
 =end
 
-#26.
+# 26
 [[8, 13, 27], ['apple', 'banana', 'cantaloupe']].map do |arr|
   arr.select do |item|
     if item.to_s.to_i == item    # if it's an integer
@@ -676,7 +677,7 @@ of the caller. `map` always returns the array of the same size as the caller.
 =end
 
 
-#27.
+# 27
 [{ a: 'ant', b: 'elephant' }, { c: 'cat' }].select do |hash|
   hash.all? do |key, value|
     value[0] == key.to_s
@@ -703,7 +704,7 @@ from the caller based on the return value of the block. If the return value of t
 So this code returns [{:c=>"cat"}].
 =end
 
-#28.
+# 28
 arr = [{a: [1, 2, 3]}, {b: [2, 4, 6], c: [3, 6], d: [4]}, {e: [8], f: [6, 10]}]
 arr.select do |hash|
   hash.all? do |key, value|
@@ -745,7 +746,7 @@ The return value of this code is `[{:e=>[8], :f=>[6, 10]}]`.
 This snippet demonstrates how important the return value of the block is for iterating methods `select` and `all?`.
 =end
 
-#29
+# 29
 arr = [['1', '8', '11'], ['2', '6', '13'], ['2', '12', '15'], ['1', '8', '9']]
 arr.sort_by do |sub_arr|
   sub_arr.map do |num|
@@ -753,7 +754,7 @@ arr.sort_by do |sub_arr|
   end
 end
 
-#30
+# 30
 odd, even = [1, 2, 3].partition do |num|
   num.odd?
 end
@@ -777,7 +778,7 @@ This code demonstrates how the `partition` method uses the return value of the b
 elements in the calling array into 2 inner arrays.
 =end
 
-#31.
+# 31
 experiment = [["???", "!!!", "?!?!"], ["select_me!", "please_select_me?", "how about_me?"], ["what does it mean to be a string?", 'true']]
 
 experiment2 = experiment.each do |array|
@@ -802,11 +803,11 @@ So when we invoke the `p` method on line 7 and 8 and pass `experiment` and `expe
 also the return value will be same for both lines, namely ` [["???", "!!!", "?!?!"], ["select_me!", "please_select_me?", "how about_me?"], ["what does it mean to be a string?", "true"]] `
 =end
 
-#32.
+# 32
 array = [1, 2, 3, 4, 5]
 
 array.select do |num|
-   puts num if num.odd?
+  puts num if num.odd?
 end
 =begin
 On line 1 an `array` is initialized and made reference `[1, 2, 3, 4, 5]`.
@@ -825,7 +826,7 @@ a new array. Here in this example, both nil and false are consired `falsy` value
 `[]` is returned by this code. The code prints `1`, `3` and `5` on separate lines.
 =end
 
-#33
+# 33
 arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 new_array = arr.select do |n|
@@ -850,7 +851,7 @@ select an an argument returned a respectively 2, 3, 4, 5, 6, 7. 8. 9. 10, 11 res
 becasue only `nil` and `false` are considered `falsy` in Ruby.
 =end
 
-#34.
+# 34
 arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 new_array = arr.select do |n|
@@ -879,7 +880,7 @@ Concept demonstrated here is how important the return value of the block is for 
 value of this method.
 =end
 
-#35.
+# 35
 words = %w(jump trip laugh run talk)
 
 new_array = words.map do |word|
@@ -910,12 +911,12 @@ the basis for transformation that `map` performs. Besides,`map` always returns a
 array that it was invoked on.
 =end
 
-#36.
+# 36
 arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 incremented = arr.map do |n|
-            n + 1
-            end
+  n + 1
+end
 p incremented
 =begin
 On line 1 variable`arr` is initialized to reference an array `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`
@@ -938,7 +939,7 @@ it is invoked on according to the return value of the block. Besides `map` alway
 to the calling array size.
 =end
 
-#37.
+# 37
 arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 new_array = arr.map do |n|
@@ -968,7 +969,7 @@ is concerned with the return value of the block because it uses it for transform
 Also, `map` returns a new array of the same size as the calling array.
 =end
 
-#38.
+# 38
 arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 new_array = arr.map do |n|
@@ -1000,7 +1001,7 @@ This demonstrates how important the block's return value is to the iterating met
 object based on the return value of the block and it returns a new array of the same size as the calling array.
 =end
 
-#39
+# 39
 a = "hello"
 
 [1, 2, 3].map { |num| a }
@@ -1021,7 +1022,7 @@ array, which then maps uses to transorm the calling array and return a new one. 
 size as the array that it was invoked on.
 =end
 
-#40.
+# 40
 [1, 2, 3].select do |num|
   num > 5
   'hi'
@@ -1049,7 +1050,7 @@ element is truthy/evaluates as true, then that element is selected and placed in
 `select` returns a new array of the same size or of smaller size than the size of the caller.
 =end
 
-#41.
+# 41
 ['ant', 'bat', 'caterpillar'].count do |str|
   str.length < 4
 end
@@ -1069,12 +1070,12 @@ and a block given, calls the block on each element and returns the count of elem
 a truthy value.
 =end
 
-#42.
+# 42
 ['ant', 'bear', 'cat'].each_with_object({}) do |value, hash|
   hash[value[0]] = value
 end
 
-#43.
+# 43
 ['ant', 'bear', 'caterpillar'].pop.size
 =begin
 `pop`method is invoked on array literal  `['ant', 'bear', 'caterpillar']`. This method removes the last
@@ -1086,7 +1087,7 @@ Also, another concept is `mutation` because `pop` is a mutating method, it perma
 Mutating methods usually have a `!` at the end but not all of them, like for example `pop`.
 =end
 
-#44.
+# 44
 [1, 2, 3].any? do |num|
   puts num
   num.odd?
@@ -1109,7 +1110,7 @@ when to return. It doesn't iterate over all elements but only until the block's 
 here is already the element at index 0.
 =end
 
-#45.
+# 45
 arr = [1, 2, 3, 4, 5]
 arr.take(2)
 =begin
@@ -1122,7 +1123,7 @@ is non-destructive so it does not mutate the caller.
 The concept demonstrated here is extraction of several consecutive elements of an array without mutating the caller.
 =end
 
-#46.
+# 46
 { a: 'ant', b: 'bear' }.map do |key, value|
   if value.size > 3
     value
@@ -1146,7 +1147,7 @@ return value depends on it. `map` method considers the return value of the block
 that it performs. `map` always returns a new array of the same size as the object that it was invoked on.
 =end
 
-#47.
+# 47
 [1, 2, 3].map do |num|
   if num > 1
     puts num
@@ -1177,7 +1178,7 @@ The concept demonstrated is the importance of the return's block value for the i
 transformation of the calling array.`map` always returns a new array of the same size as the array that it was invoked on.
 =end
 
-#48.
+# 48
 [123, 432, 543, 642, 543, 256].sort_by do |num|
   num.digits.first
 end
@@ -1202,7 +1203,7 @@ This code also demonstates the concept of `method chaining` which is when a meth
 another method on an object.
 =end
 
-#49.
+# 49
 contacts = {
   Jenny: '230-867-5309',
   Skylar: '432-555-5555',
@@ -1238,6 +1239,7 @@ This code also demonstates the concept of `method chaining` which is when a meth
 another method on an object.
 =end
 
+# 50
 contacts = {
   Jenny: '230-867-5309',
   Skylar: '432-555-5555',
@@ -1267,7 +1269,7 @@ More importantly it demonstrates sorting, specifically how `sort_by` uses the re
 element in order to sort the elements in the calling object.
 =end
 
-#51.
+# 51
 hash = { chris: '510-204-5555', sam: '510-909-5526', adrienne: '650-433-2112' }
 
 hash.sort_by do |name, number|
@@ -1301,7 +1303,7 @@ method as this method uses the return value of the block for each element as the
 caller. `sort_by` returns a nested array of the same size as the caller.
 =end
 
-#52
+# 52
 words = %w(cantaloupe apple durian bananas)
 
 # default uses <=> to compare collection elements
@@ -1336,7 +1338,7 @@ as to how we want to employ the method to give us the return values based on our
 the difference between using the `min` method with or without an argument and with or without a block.
 =end
 
-#53
+# 53
 words = %w(cantaloupe apple durian)
 
 # sort by amount of vowels
@@ -1344,52 +1346,110 @@ words.min_by { |word| word.count("aeiou") }
 
 words.min_by(2) { |word| word.count("aeiou") }
 
-# #54.
-# def add_one_to(nums)
-#   0.upto(nums.length) do |i|
-#     nums[i] += 1
-#   end
-#   nums
-# end
-#
-# numbers = [0, 1, 2, 3, 4]
-#
-# p add_one_to(numbers)
-# p numbers
-#
-# ```
-#
-# ```ruby
-# #55.
-# def test(b)
-#   b.map {|letter| "I like the letter: #{letter}"}
-# end
-#
-# a = ['a', 'b', 'c']
-# test(a)
-#
-# ```
-#
-# ```ruby
-# #56.
-# [1, 2, 3].reject do |num|
-#   puts num > 2
-# end
-#
-# ```
-#
-# ```ruby
-# #57.
-# { a: "ant", b: "bear", c: "cat" }.include?("ant")
-#
-# ```
-#
-# ```ruby
-# #58.
-# { flour: '1c', sugar: '.5c', eggs: 2 }.first(2)
-#
-# ```
-# 58.
+# 54
+def add_one_to(nums)
+  0.upto(nums.length - 1) do |i|
+    nums[i] += 1
+  end
+  nums
+end
+
+numbers = [0, 1, 2, 3, 4]
+
+p add_one_to(numbers)
+p numbers
+=begin
+On lines 1-6 `add_to_one` method is defined with 1 parameter, `nums`
+
+Within the body of the method `upto` method is invoked on integer `0`, with an argument of the return value of invoking
+`length` method on `nums` and also a `do..end` block with the block parameter `i`, to which each element is passed in turn at the
+time of execution.
+
+Further, array element reference is used to single out of the argument array the integer that is referenced by `i` and
+invoke the `+` method and pass `1` as an argument to it. This action adds `1` to each number of the argument array.
+
+On one but last line of the method `nums` is returned.
+
+When we invoke the `p` method and pass the return value of invoking `add_one_to` method with `numbers` passed as an
+argument, a `NoMethodError (undefined method `+' for nil:NilClass)` error is thrown. This is because when the `upto`
+method executes, since the argument passed is `nums.length`, this returns integer `5` but `upto` will iterate from `0`
+to  `5`, which is 6 times. When it iterates the 6th time, it will go out of bounds of the array, arr[i] with `i`
+referencing integer `6`returns `nil` and hence the error, indicating that the `+` method does not exist on Nil objects.
+
+The concepts demonstrated here is `out of bounds concept`, specifically that it's possible to use array element reference
+with integer as index and that when that index is out of bounds, does not exist in the array, then Ruby does not return
+an error but returns `nil`.
+=end
+
+# 55
+def test(b)
+  b.map { |letter| "I like the letter: #{letter}" }
+end
+
+a = ['a', 'b', 'c']
+test(a)
+=begin
+`test` method is defined on lines 1-3, with 1 parameter, `b`. Within the body of the method, `map` method is invoked
+on `b` and a `{}` block is passed to it, with the block parameter `letter`, to which each element of the calling array
+is in turn bound. The block's return value is the string `"I like the letter: #{letter}"`.
+`#{}` is interpolation syntax, at the time of execution it inserts the string representation of the value bound to `letter`.
+
+`map` transforms the calling array according to the return value of the block and it always returns an array of the same
+size as the caller.
+
+This code returns an array `["I like the letter: a", "I like the letter: b", "I like the letter: c"] `.
+
+The concept demonstrated here is that of transformation.
+`map` method considers the return value of the block because it uses it as the basis for
+transformation that it performs.
+`map` always returns a new array of the same size as the object that it was invoked on.
+=end
+
+# 56
+[1, 2, 3].reject do |num|
+  puts num > 2
+end
+=begin
+`reject` method is invoked on an array object `[1, 2, 3]`, a `do..end` block is passed to `map` with the block parameter
+`num`, to which each element from the array is in turn bound at the time of iteration/execution.
+
+Within the block `puts` method is invoked on the return value of invoking the `>` method on the integer bound to `num`.
+The `<` method is passed `2` as an argument. The expression in the block is evaluated and for integer `1`, it ouputs
+`false` to the console and returns `nil`. For integer `2`, it outputs `false` to the console and returns `nil`.
+For the third element it outputs `true` to the console and returns `nil`.
+
+The block return value is very important for `reject`, which removes those elements from the array, for which the return
+value of the block evaluates as true. In this case, there is no such elements, which means no integers will be removed
+from the calling array.
+
+This code outputs `false`, `false` and `true` on separate lines and returns a new array `[1, 2, 3]`.
+=end
+
+# 57
+{ a: "ant", b: "bear", c: "cat" }.include?("ant")
+=begin
+`include?` method is invoked on a hash literal `{ a: "ant", b: "bear", c: "cat" }`. The method takes 1 argument,
+a string object `"ant"`. The `include?` method is an alias for `key?` which returns `true` when the calling hash has
+a key with the value specified in the argument and `false` if it doesn't.
+
+This code returns 'false' because the specified key `"ant"` is not a key in this hash.
+
+The concept represented in this code is the use of the `include?` method with a hash.
+=end
+
+# 58
+{ flour: '1c', sugar: '.5c', eggs: 2 }.first(2)
+=begin
+`first` method is invoked on a hash literal `{ flour: '1c', sugar: '.5c', eggs: 2 }`. The method takes an argument,
+integer `2.`
+
+This method will take the first key-value elements from the hash and return them as a nested array.
+
+The concept demonstrated here is return values from invoking methods, specifically that `first` called on a hash
+returns an an array.
+=end
+
+# 58
 arr = [-10, nil, 'false', [], true]
 
 selected = arr.map do |element|
@@ -1401,7 +1461,7 @@ p selected.size
 
 # `Array#map` method transforms the argument array according to the return value of the block and returns a new array.
 # In this case, the return value of the block for each element passed to it, is the element itself.
-#
+
 # That is why each element will be returned by the block and used to transform the argument array, except that in this
 # case we don't see any transformation because the array that `map` returns looks the same as the argument array.
 
@@ -1410,37 +1470,33 @@ p selected.size
 
 # When we print the size of `selected` on the last line, it's going to be 5,
 # just like the size of the original array on the first line.
-#
-# This is because `map` returns and array that is of the same size as the original array on which `map` was called.
+
+# This is because `map` returns a new array that is of the same size as the original array on which `map` was called.
 
 # This snippet represents the concept of transformation.
 
-
-# 59.
+# 59
 # snippets from Ali
 # Write a method that takes a nested array of sub-arrays of integers and returns a new array
 # with each nested array sorted into an additional two sub-arrays with the the even integers in the first sub-array
 # and the odd integers in the second.
 
 # -first even, then odd
-# def odd_and_even(arr)
-#
-#   arr.map do |subarray|
-#     subarray.partition do |number|
-#       number.even?
-#    end
-#   end
-#
-# end
-#
-# arr1 = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
-# p odd_and_even(arr1) == [[[2], [1, 3]], [[4, 6], [5]], [[8], [7, 9]]] ####[[2], [1, 3]] AND [[4, 6], [5]], [[8], [7, 9]]
-#
-# arr2 = [[1, 3, 5], [7, 9, 11]]
-# p odd_and_even(arr2) == [[[], [1, 3, 5]], [[], [7, 9, 11]]]
+def odd_and_even(arr)
 
-# puts
-#60
+  arr.map do |subarray|
+    subarray.partition { |number| number.even? }
+  end
+
+end
+
+arr1 = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+p odd_and_even(arr1) == [[[2], [1, 3]], [[4, 6], [5]], [[8], [7, 9]]] #[[2], [1, 3]] AND [[4, 6], [5]], [[8], [7, 9]]
+
+arr2 = [[1, 3, 5], [7, 9, 11]]
+p odd_and_even(arr2) == [[[], [1, 3, 5]], [[], [7, 9, 11]]]
+
+# 60
 [[[1], [2], [3], [4]], [['a'], ['b'], ['c']]].map do |element1|
   element1.each do |element2| # element2 is in turn [1][2][3][4]["a"]["b"]["c"]
     element2.partition do |element3| # it is an array so we can call partition on it
@@ -1448,63 +1504,65 @@ p selected.size
     end
   end
 =begin
-  Explain the return value of this code.
+Explain the return value of this code.
 
 The return value of this code is a new array  `[[[1], [2], [3], [4]], [["a"], ["b"], ["c"]]]`.
 
 This is because the `Array#map` method transforms the calling array according to  the return value of the block
 passed to it. The return value of the block is `[[[1], [2], [3], [4]], [["a"], ["b"], ["c"]]]` ,
 since the `Array#each` method was invoked on each array passed to the block parameter `element1`.
-each`  does not use the block’s return value but instead returns the object that it was called on.
+each` does not use the block’s return value but instead returns the object that it was called on.
 This object, `[[[1], [2], [3], [4]], [["a"], ["b"], ["c"]]]` is now used by map for transformation, on line 1.
 
 It could be added that it doesn’t matter that the `partition` method is invoked on the array passed to the
 block parameter `element2`  on line 3 and also that then the partition method is passed a block with the
-block parameter `element3` and then in turn the `size` method is called on the array passed to `element3` and that returns in turn integer 1, 1, 1, 1, 1, 1, 1 and then finally that the `<` method is called on that integer each time and this whole expression `1 < 1` returns `false` each time.  None of this matters because `each` doesn’t use the block’s return value.
+block parameter `element3` and then in turn the `size` method is called on the array passed to `element3`
+and that returns in turn integer 1, 1, 1, 1, 1, 1, 1 and then finally that the `<` method is called on that integer
+each time and this whole expression `1 < 1` returns `false` each time.
+None of this matters because `each` doesn’t use the block’s return value.
 
 The concept represented here is `transformation` and `iteration`, both `map` and `each` are iterating methods
-but the first one uses the blocks return value to transform the caller and return a new array, while the
-second does not use the blocks return value and returns the caller instead.
+but the first one uses the block's return value to transform the caller and return a new array, while the
+second does not use the block's return value and returns the caller instead.
 =end
 
-#61
-a = ["1","2","11","13","14"]
-p a.sort
+# 61
+  a = ["1","2","11","13","14"]
+  p a.sort
 =begin
-This code when printed will output `["1", "11", "13", "14", "2"] ` because sort compares strings character by character
+This code when printed will output `["1", "11", "13", "14", "2"]` because `sort` compares strings character by character
 according to their value in the ASCII table. So `"1"` will be followed by `"11"` because the second character that is
-of the lowest value, of all second characters in all the strings is 1. Then the second characters are compared and that's
-why `"12"` will come next and then `"13"` and `"14"`. Only then we look again at the first character, a character that is greater
-than the previous first character used for comparison, `"1"`. Now the string is `"2"` and this is the string with the greatest
-value of all of the strings in the calling array. That is why the string `"2"` comes as last, which would not happen if
-we were comparing integers.
+of the lowest value, of all second characters in all the strings is 1. Then the second characters are compared and
+that's why `"12"` will come next and then `"13"` and `"14"`. Only then we look again at the first character, a character
+that is greater than the previous first character used for comparison, `"1"`. Now the string is `"2"` and this is the
+string with the greatest value of all of the strings in the calling array. That is why the string `"2"` comes as last,
+which would not happen if we were comparing integers.
 =end
 
-
-#62
-words = %w(card soap knife crab soapy coin sand king kill)
-words.sort
+# 62
+  words = %w(card soap knife crab soapy coin sand king kill)
+  words.sort
 =begin
-The first line is using syntactic sugar `%w` to create an array of strings so the return value of this line is
-`["card", "soap", "knife", "crab", "soapy", "coin", "sand", "king", "kill"] `.
+The first line is using syntactic sugar syntax`%w` to create an array of strings so the return value of this line is
+`["card", "soap", "knife", "crab", "soapy", "coin", "sand", "king", "kill"]`.
 
 The second line will sort these strings alphabetically using the `sort` method, which in turns uses the `<=>` symbol,
 called rocket operator, to compare the strings. How the rocket operator works is that it compares every character in the
 string and based on that decides which string will be considered smaller and which greater. If the strings are equal up
 to the last character but one string is longer, the longer string will be considered greater. So the `<=>` will check
-for the value of each character in the ASCII table and return -1 if the first character is lesser in value that tne second,
-0 if they are equal, and 1 if the second character is greater.
+for the value of each character in the ASCII table and return -1 if the first character is lesser in value that
+the second,0 if they are equal, and 1 if the first character is greater.
 
 The last line of this code will return `["card", "coin", "crab", "kill", "king", "knife", "sand", "soap", "soapy"].`
 =end
 
-#63
-selected_foods = [['apple', 'kiwi'], ['artichoke', 'broccoli']].select do |arr|
-  arr.select do |food|
-    food.start_with?('a')
+# 63
+  selected_foods = [['apple', 'kiwi'], ['artichoke', 'broccoli']].select do |arr|
+    arr.select do |food|
+      food.start_with?('a')
+    end
   end
-end
-p selected_foods
+  p selected_foods
 =begin
 mine:
 On the first line `selected_foods` is initialized to the return value of invoking `select` method on a nested array
@@ -1568,11 +1626,11 @@ The concept represented here is selection, specifically the fact that select use
 in order to select elements from the caller and place them in a new array.
 =end
 
-#64
-[1, 2, 3].any? do |num|
-  puts num
-  num.odd?
-end
+# 64
+  [1, 2, 3].any? do |num|
+    puts num
+    num.odd?
+  end
 =begin
 Array#any? method is called on array object [1, 2, 3]. A block delimited by keywords `do..end` is passed to `any?`
 with the block parameter `num`.
@@ -1590,12 +1648,12 @@ any? checks if the return value of the last line of the block is `truthy` and it
 The method returns `true` and stops iterating so the block will not be executed for the subsequent elements of the array.
 =end
 
-#65 redoing with remarks from Allister about putting more code references because there's a lot going on here
-[{ a: 'ant', b: 'elephant' }, { c: 'cat' }].select do |hash|
-  hash.all? do |key, value|
-    value[0] == key.to_s
+# 65 redoing with remarks from Allister about putting more code references because there's a lot going on here
+  [{ a: 'ant', b: 'elephant' }, { c: 'cat' }].select do |hash|
+    hash.all? do |key, value|
+      value[0] == key.to_s
+    end
   end
-end
 =begin
 `Array#select` method is called on an array of 2 hashes, [{ a: 'ant', b: 'elephant' }, { c: 'cat' }]. A block denoted by
 the keywords `do..end` is passed to it, with the block parameter `hash`. Within this outer block, `all?` method is called
@@ -1619,17 +1677,18 @@ As for select, it considers the return value of the block as well, if it is trut
 take that element and place it in a new array, which will be ultimately returned.
 =end
 
-#66
-[1, 2, 3].map do |num|
-  if num > 1
-    puts num
-  else
-    num
+# 66
+
+  [1, 2, 3].map do |num|
+    if num > 1
+      puts num
+    else
+      num
+    end
   end
 end
-end
 =begin
-Arrray#map method is called on the array literal [1, 2, 3]. The method takes a block, (delimited by do..end ) with
+Array#map method is called on the array literal [1, 2, 3]. The method takes a block, (delimited by do..end ) with
 block parameter num, to which each consecutive element will be in turn bound at the time of execution.
 Within the block we have a conditional `if..else` statement, a control flow structure that allows us to conditionally
 execute code based on whether the condition is true or false.
@@ -1652,12 +1711,3 @@ When the if statement is executed, the puts method is invoked, outputting the in
 nil back to the map method. When the else statement is executed, the integer object referenced by num is returned and
 nothing is output.
 =end
-
-words = %w(cantaloupe apple durian bananas)
-
-words.min
-words.min { |a, b| a.size <=> b.size }
-
-
-words.min(2)
-words.min(2) { |a, b| a.size <=> b.size }
