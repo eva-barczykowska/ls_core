@@ -73,7 +73,7 @@ def major_sum(arr)
   result.each do |num|
     return num if -num == max
   end
-  
+
   result.max
 end
 p major_sum([1, 2, 3, 4, 0, 0, -3, -2]) == 10
