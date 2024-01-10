@@ -25,24 +25,36 @@ A:
 - & does the job he he
 - but if I didn't know this:
 
+- initialize `common` to []
+
 - iterate over unique elements from the first array
-- iterate over the 2nd array uniq and if any element was there in the first array, add it to `result`
+- iterate over the 2nd array uniq and if any element was there in the first array, add it to `common`
 - return result
 =end
 
 def common_elements(a1, a2)
-  a1.unique.each do |a1_num|
-    a2.uniq.eadh do |a2_num|
-      res << a1_num if a1_num == a2_num
+  common = []
+
+  a1.uniq.each do |a1_num|
+    a2.uniq.each do |a2_num|
+      common << a1_num if a1_num == a2_num
     end
   end
 
-  res
+  common
 end
-common_elements([-1, 3, 4, 6, 7, 9], [1, 3]) == [3]
+p common_elements([-1, 3, 4, 6, 7, 9], [1, 3]) == [3]
+p common_elements([1, 3, 4, 6, 7, 9], [1, 2, 3, 4, 7, 10]) == [1, 3, 4, 7]
+p common_elements([1, 2, 2, 2, 3, 4, 5], [1, 2, 4, 5]) == [1, 2, 4, 5]
+p common_elements([1, 2, 3, 4, 5], [10, 12, 13, 15]) == []
 
-common_elements([1, 3, 4, 6, 7, 9], [1, 2, 3, 4, 7, 10]) == [1, 3, 4, 7]
+puts
 
-common_elements([1, 2, 2, 2, 3, 4, 5], [1, 2, 4, 5]) == [1, 2, 4, 5]
-
-common_elements([1, 2, 3, 4, 5], [10, 12, 13, 15]) == []
+def common_elements(a1, a2)
+  a1 & a2
+end
+p common_elements([-1, 'a'], [1, 3, 'a']) == ['a']
+p common_elements([-1, 3, 4, 6, 7, 9], [1, 3]) == [3]
+p common_elements([1, 3, 4, 6, 7, 9], [1, 2, 3, 4, 7, 10]) == [1, 3, 4, 7]
+p common_elements([1, 2, 2, 2, 3, 4, 5], [1, 2, 4, 5]) == [1, 2, 4, 5]
+p common_elements([1, 2, 3, 4, 5], [10, 12, 13, 15]) == []
