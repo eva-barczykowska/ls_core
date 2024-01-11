@@ -181,81 +181,112 @@ p fragment("abcde", 100) == "a b c d e"
 p fragment("abcde", 0) == "i cannot be less than 1"
 p fragment("", 1) == ""
 
-# Kim's idea - won't work
-# str = "abcde" # => with integer 2, expected "ace bd ce d e"
-# temp << str.chars.each_with_index.select { |i| i % int == 0 }
-# index 0 -- 0 % 2 == 0 - takes char at index 0, which is "a" -- OK
-# index 1 -- 1 % 2 == 1 - takes char at index 1, which is "b" -- NOT OK
-# index 2 -- 2 % 2 == 0
-# index 3 -- 3 % 2 == 1
-# index 4 -- 4 % 2 == 0
+puts "remarks from Philip"
 
-# temp << str.chars.each_with_index.select { |i| i % int != 0 }
-# index 0 -- 0 % 2 == 0
-# index 1 -- 1 % 2 == 1 - takes char at index 1, which is "b" -- NOT OK
-# index 2 -- 2 % 2 == 0
-# index 3 -- 3 % 2 == 1 - takes char at index 1, which is "b" -- NOT OK
-# index 4 -- 4 % 2 == 0
+# 1. Because you use gsub! on line 5, your solution mutates the calling string:
+# str = "a b c d e"
+# fragment(str) # p str #=> "abcde"
+#
+# 2. We never actually need to use an array arr instead of our original string str.
+#
+# 3. After making those changes, we can actually remove some guard clauses - return "" if str.empty? and
+# if str.include?(" ") - the rest of the program logic handles them BUT use the non-mutating version of gsub
+# because the mutating version - gsub! - returns nil if no changes are made.
+#
+# 4. Rather than initializing temp and ith_char outside the loop and manually resetting them to starting values,
+# we can just let variable scoping rules handle this for us:
+def fragment(str, int)
+  return "i cannot be less than 1" if int == 0
+  final = []
 
+  str = str.gsub(" ", "")
+  starting_letter = 0
 
-# arr = str.chars
-# starting_letter = 0
-# temp = ''
-#  loop do
-# temp << arr[starting_letter]
-#  temp << str.chars.each_with_index.select { |i| i % int == 0 } # this selects all chars so shift after is no good
-# #  str.shift
-# end
+  loop do
+    break if starting_letter >= str.size
+    ith_char = starting_letter + int
+    temp = str[starting_letter]
+    loop do
+      break if ith_char >= str.size
+      temp << str[ith_char]
+      ith_char += int
+    end
+    final << temp
+    starting_letter += 1
+  end
 
-# - what if I loop
-# - select char at index
-# - shift by required integer
-# - add char again
-# - finish when arr chars over
-
-# "abcde"
-#  01234
-# ace - bd - ce - e, ----- 0,2,4 - 1,3 - 2,4 - 4
-
-# abcd
-# add index 0, a, shift 2, str is now cde
-# add index 0, c, shift 2, str is now e
-# add index 0, e
-puts "other solution"
-str = "abcde"
-arr = str.chars
-ith = 2
-
-counter = 0
-temp = ''
-final = ''
-loop do
-  break if arr[counter] == nil
-  temp << arr[counter]
-  p temp
-  final += temp
-  p "final is #{final}"
-  temp = ''
-  arr.shift(ith)
+  final.join(" ")
 end
-p final
-p arr
 
-# abcd
-# <a
-# cd
-# <c
-# e
-# <e
-puts "solving according to the algorithm from Philip"
-# TA session with Philip - his suggestion:
+p fragment("a b c d e", 2) == "ace bd ce d e"
+p fragment("abcde", 1) == "abcde bcde cde de e"
+p fragment("mary had a little lamb", 3) == "mydila ahatem raltlb ydila hatem altlb dila atem ltlb ila tem tlb la em lb a m b"
+p fragment("abcde", 100) == "a b c d e"
+p fragment("abcde", 0) == "i cannot be less than 1"
+p fragment("", 1) == ""
 
-#  - iterate over the string without spaces, starting with char at index 1
-#    - at each outer iteration, we get the whole word
-#    - given "a b c d e", 2, at the first outer iteration we have ["ace"]
-#    - iterate over the string without spaces starting with starting_index until str.size
-#      - at each inner iteration, we compose the word composed of starting char + every ith character
-#      - given "a b c d e", 2, at the first inner iteration we have "a", at the second we have "ac", etc.
+# Kim's solution
+def fragment(str, int)
+  return 'i cannot be less than 1' if int == 0
 
-#  - populate `result` with char at that index + every character at index 2nd argument
+  arr = str.delete(' ').chars  # ["a", "b", "c", "d", "e"]
+  return_arr = []              #   0    1    2    3    4
+
+  loop do
+    break if arr.empty?
+    return_arr << arr.select.with_index { |elem, idx| idx % int == 0 }.join
+    arr.shift
+  end
+
+  return_arr.join(" ")
+end
+
+p fragment("a b c d e", 2)# == "ace bd ce d e"
+# p fragment("abcde", 1) == "abcde bcde cde de e"
+# p fragment("mary had a little lamb", 3) == "mydila ahatem raltlb ydila hatem altlb dila atem ltlb ila tem tlb la em lb a m b"
+# p fragment("abcde", 100) == "a b c d e"
+# p fragment("abcde", 0) == "i cannot be less than 1"
+# p fragment("", 1) == ""
+
+# FIRST ITERATION
+# arr            ["a", "b", "c", "d", "e"]
+# indices          0    1    2    3    4
+# index 0 -- 0 % 2 == 0 - takes char at index 0, which is "a" -- OK
+# index 1 -- 1 % 2 == 1 - doesn't take char at this index
+# index 2 -- 2 % 2 == 0 - takes char at index 2, which is "e" -- OK
+# index 3 -- 3 % 2 == 1 - doesn't take char at this index
+# index 4 -- 4 % 2 == 0 - takes char at index 4, which is "e" -- OK
+# shift!
+
+# SECOND ITERATION
+# arr            ["b", "c", "d", "e"]
+# indices          0    1    2    3
+# index 0 -- 0 % 2 == 0 - takes char at index 0, which is "b" -- OK
+# index 1 -- 1 % 2 == 1 - doesn't take char at this index
+# index 2 -- 2 % 2 == 0 - takes char at index 2, which is "d" -- OK
+# index 3 -- 3 % 2 == 1 - doesn't take char at this index
+
+# THIRD ITERATION
+# arr            ["c", "d", "e"]
+# indices          0    1    2
+# index 0 -- 0 % 2 == 0 - takes char at index 0, which is "c" -- OK
+# index 1 -- 1 % 2 == 1 - doesn't take char at this index
+# index 2 -- 2 % 2 == 0 - takes char at index 2, which is "3" -- OK
+
+# FOURTH ITERATION
+# arr            ["d", "e"]
+# indices          0    1
+# index 0 -- 0 % 2 == 0 - takes char at index 0, which is "d" -- OK
+# index 1 -- 1 % 2 == 1 - doesn't take char at this index
+
+# FIFTH ITERATION
+# arr            ["d", "e"]
+# indices          0    1
+# index 0 -- 0 % 2 == 0 - takes char at index 0, which is "d" -- OK
+# index 1 -- 1 % 2 == 1 - doesn't take char at this index
+
+# SIXTH ITERATION
+# arr            ["e"]
+# indices          0
+# index 0 -- 0 % 2 == 0 - takes char at index 0, which is "e" -- OK
 
