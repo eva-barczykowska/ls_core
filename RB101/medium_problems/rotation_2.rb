@@ -106,7 +106,7 @@ def rotate_rightmost_digits(number, n)
   all_digits.join.to_i
 end
 
-# all_digits[-n..-1] returns the last n digits of the array - a nice shorcut to know!
+# all_digits[-n..-1] returns the last n digits of the array - a nice shortcut to know!
 
 # We pass all_digits[-n..-1] to our rotate_array method from the previous exercise,
 # and that method returns a new array with the digits rotated as needed.
