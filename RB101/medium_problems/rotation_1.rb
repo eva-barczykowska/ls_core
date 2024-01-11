@@ -52,3 +52,37 @@ p rotate_array(['a']) == ['a']
 x = [1, 2, 3, 4]
 p rotate_array(x) == [2, 3, 4, 1]   # => true
 p x == [1, 2, 3, 4]                 # => true
+
+puts
+
+# ls solution
+def rotate_array(array)
+  array[1..-1] + [array[0]]
+end
+p rotate_array([7, 3, 5, 2, 9, 1]) == [3, 5, 2, 9, 1, 7]
+p rotate_array(['a', 'b', 'c']) == ['b', 'c', 'a']
+p rotate_array(['a']) == ['a']
+
+x = [1, 2, 3, 4]
+p rotate_array(x) == [2, 3, 4, 1]   # => true
+p x == [1, 2, 3, 4]                 # => true
+
+puts
+
+# Further Exploration
+# Write a method that rotates a string instead of an array. Do the same thing for integers.
+# You may use rotate_array from inside your new method.
+#
+def rotate(str)
+  str[1..-1] + str[0]
+end
+
+x = "ewa"
+p rotate(x) == "wae"
+x == "ewa"
+p rotate("barczykowska") == "arczykowskab"
+
+def rotate(int)
+  (int.to_s[1..-1] + int.to_s[0]).to_i
+end
+p rotate(1975) == 9751
