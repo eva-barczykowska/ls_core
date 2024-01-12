@@ -1,9 +1,9 @@
 # creating pairs of elements from a given array
 arr = [1, 2, 3, 4, 5, 6, 7, 8]
 result = []
-(0...arr.size).each do |index|
-  (index + 1...arr.size).each do |second_index|
-    result << [arr[index], arr[second_index]]
+(0...arr.size).each do |first|
+  (index + 1...arr.size).each do |second|
+    result << [arr[first], arr[second]]
   end
 end
 
@@ -27,12 +27,11 @@ substrings = []
 end
 
 puts
-puts
 puts "Substrings are:"
 p substrings
 
 # creating pairs of integers and adding to an array
-# result shouls be [[1, 25], [1, 8], [1, 10], [25, 8], [25, 10], [8, 10]]
+# result should be [[1, 25], [1, 8], [1, 10], [25, 8], [25, 10], [8, 10]]
 integers_array = [1, 25, 8, 10]
 pairs = []
 
@@ -124,3 +123,89 @@ end
 p fibonacci?(40)
 p fibonacci?(5)
 p fibonacci?(13)
+
+#str = "impeccable"
+# 1. LEADING SUBSTRINGS
+# get leading substrings of increasing size starting from char at index 0 and ending with the last character
+# i-im-imp-impe-impec-impecc-impecca-impeccab-impeccabl-imppeccable
+
+# arr = []
+# 0.upto(str.size - 1) do |index|
+#   arr << str[0..index] #str[] is alias for the slice method
+#   p arr
+# end
+
+# ["i"]
+# ["i", "im"]
+# ["i", "im", "imp"]
+# ["i", "im", "imp", "impe"]
+# ["i", "im", "imp", "impe", "impec"]
+# ["i", "im", "imp", "impe", "impec", "impecc"]
+# ["i", "im", "imp", "impe", "impec", "impecc", "impecca"]
+# ["i", "im", "imp", "impe", "impec", "impecc", "impecca", "impeccab"]
+# ["i", "im", "imp", "impe", "impec", "impecc", "impecca", "impeccab", "impeccabl"]
+# ["i", "im", "imp", "impe", "impec", "impecc", "impecca", "impeccab", "impeccabl", "impeccable"]
+
+# 2. ALL SUBSTRINGS
+# arr = []
+# 0.upto(str.size - 1) do |starting_index|
+#   starting_index.upto(str.size - 1) do |ending_index|
+#   arr << str[starting_index..ending_index]
+#   end
+# end
+#  p arr
+#  ["i", "im", "imp", "impe", "impec", "impecc", "impecca", "impeccab", "impeccabl", "impeccable", "m", "mp", "mpe", "mpec", "mpecc", "mpecca", "mpeccab", "mpeccabl", "mpeccable", "p", "pe", "pec", "pecc", "pecca", "peccab", "peccabl", "peccable", "e", "ec", "ecc", "ecca", "eccab", "eccabl", "eccable", "c", "cc", "cca", "ccab", "ccabl", "ccable", "c", "ca", "cab", "cabl", "cable", "a", "ab", "abl", "able", "b", "bl", "ble", "l", "le", "e"]
+
+# 3. Get substrings of size 2
+
+# ["im"]
+# ["im", "mp"]
+# ["im", "mp", "pe"]
+# ["im", "mp", "pe", "ec"]
+# ["im", "mp", "pe", "ec", "cc"]
+# ["im", "mp", "pe", "ec", "cc", "ca"]
+# ["im", "mp", "pe", "ec", "cc", "ca", "ab"]
+# ["im", "mp", "pe", "ec", "cc", "ca", "ab", "bl"]
+# ["im", "mp", "pe", "ec", "cc", "ca", "ab", "bl", "le"]
+
+# Given an array, create an array of all subarrays that have a length of 3
+
+
+# write in PEDAC WHERE YOU WANT TO FINISH GRABBING INDICES
+#arr = [1, 2, 3, 4, 5, 6, 7, 8]
+# result = []
+# (0..arr.size - 3).each do |starting_index|
+#   # (starting_index...arr.size).each do |ending_index|
+#     result << arr.slice(starting_index, 3)
+# end
+# p result
+
+# [[1, 2, 3], [2, 3, 4], [3, 4, 5], [4, 5, 6], [5, 6, 7], [6, 7, 8]]
+
+# Given an array, create an array of all pairs of elements in the array (not just consecutive):
+
+arr = [1, 2, 3, 4, 5]
+# - outer iteration: itereate from index 0 to -2, grab the first element of the pair
+#   -inner iteration: iterate from starting index until the last element of the array
+#   - while iterating, grab int at the current index + the int at next index
+#   - continue this until you reach the end of the array
+#  - go back to outer iteration and strt with index 1
+
+# [1, 2, 3, 4, 5]
+#  0  1  2  3  4
+#  result = []
+#  (0..arr.size - 2).each do |first_num|
+#   (first_num + 1...arr.size).each do |second_num|
+#     result << [arr[first_num], arr[second_num]]
+#   end
+# end
+# p result
+
+# [[1, 2], [1, 3], [1, 4], [1, 5], [2, 3], [2, 4], [2, 5], [3, 4], [3, 5], [4, 5]]
+
+# focus on getting
+# - substrings of specific size from all substrings
+# - pairs
+# - triplets, so arrays of 3
+# - quadruplets so arrays of 4
+# - quintuplets so arrays of 5
