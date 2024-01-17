@@ -152,6 +152,6 @@ p find_suspects(pockets, [1, 7, 5, 2]) == nil
 p find_suspects(pockets, []) == [:bob, :tom, :jane]
 p find_suspects(pockets, [7]) == [:bob, :tom]
 
-puts
-p [7] - [1, 2] # checking their items - allowed items,  a fantastic way to fish out and compare arrays
-p [2, 5] - [1, 2]
+# puts
+# p [7] - [1, 2] # checking their items - allowed items,  a fantastic way to fish out and compare arrays
+# p [2, 5] - [1, 2]
