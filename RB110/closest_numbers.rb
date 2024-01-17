@@ -46,7 +46,7 @@ A:
 - for the least value, return the key
 =end
 def closest_numbers(arr)
-  h= {}
+  h = {}
   pairs = []
 
   (0...arr.size).each do |first_number|
