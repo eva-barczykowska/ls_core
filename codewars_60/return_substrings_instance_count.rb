@@ -157,3 +157,73 @@ end
 p solution('abcdeb','b') == 2
 p solution('abcdeb', 'a') == 1
 p solution('abbc', 'bb') == 1
+
+puts
+
+=begin
+Complete the solution so that it returns the number of times the search_text is found within the full_text. Overlap is not permitted : "aaa" contains 1 instance of "aa", not 2.
+
+Usage example:
+full_text = "aa_bb_cc_dd_bb_e", search_text = "bb" == 2 since "bb"
+
+full_text = "aaabbbcccc", search_text = "bbb" == 1
+PEDAC:
+P:
+- write a method that takes 2 strings as arguments, string and search_string
+- method returns how many times search_string is found in string
+- overlap is not permitted
+
+E:
+p solution('abcdeb','b') == 2
+=> 'a-b-cde-b-'
+
+p solution('abcdeb', 'a') == 1
+=>'-a-bcdeb'
+
+p solution('abbc', 'bb') == 1
+=> 'abbc'
+
+DS:
+input: 2 strings
+output: integer
+
+N: scan
+
+A:
+- count how many times a seach_string occurs and populate array with every instance of search_string occurs
+
+- return the size of that array
+=end
+
+def solution(string, search_string)
+  string.scan(search_string).count
+end
+p solution('abcdeb','b') == 2
+p solution('abcdeb', 'a') == 1
+p solution('abbc', 'bb') == 1
+
+puts
+# if I didn't have the scan method
+# initialize `arr` to store substrings
+
+# - iterate over the string and slice it from index 0 to index - 1: this gives me starting index of the substring
+# - iterate from starting_index until array.size - 1, this gives me ending index of the substring
+# - populate arr with substrings
+
+# - in the substrings array, count how many times I have a certain subarray that is equal to the ssearch_string
+
+# return its size
+
+def solution(string, search_string)
+  arr = []
+  (0...string.size).each do |starting_index|
+    (starting_index...string.size).each do |ending_index|
+      arr << string[starting_index..ending_index]
+    end
+  end
+  arr.select { |subarr| subarr == search_string }.size
+end
+
+p solution('abcdeb','b') #== 2
+p solution('abcdeb', 'a') #== 1
+p solution('abbc', 'bb')# == 1
