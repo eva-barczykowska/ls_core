@@ -167,3 +167,63 @@ end
 # p minimum_sum([1, 2, 3, 4, 5, 6]) == 15
 p minimum_sum([55, 2, 6, 5, 1, 2, 9, 3, 5, 100]) #== 16
 # p minimum_sum([-1, -5, -3, 0, -1, 2, -4]) == -10
+
+puts
+=begin
+# Write a method that takes one argument: an array of integers.
+# The method should return the minimum sum of 5 consecutive
+# numbers in the array. If the array contains fewer than 5
+# elements, the method should return nil.
+
+PEDAC
+P:
+- write a method that takes an array of integers as an argumetn
+- method returns minimum sum of 5 consecutive integers in this argument array
+- if array has fewer than 5 integers, return nil
+= nums can be negative
+
+# Examples:
+p minimum_sum([1, 2, 3, 4]) == nil
+=> fewer than 5
+
+p minimum_sum([1, 2, 3, 4, 5, 6]) == 15
+1+2+3+4+5=15
+2+3+4+5+6=20 => minimum sum is 18
+
+p minimum_sum([55, 2, 6, 5, 1, 2, 9, 3, 5, 100]) == 16
+
+p minimum_sum([-1, -5, -3, 0, -1, 2, -4]) == -10
+
+# The tests above should print "true".
+
+DS:
+input: array of integers
+output: nil or minimum sum, an integer
+
+A:
+
+- return nil if arr has less than 5 elements
+
+- initialize `sums`
+
+- populate `sums` with all possible sums of consecutive 5 integers
+
+- select min sum from this array and return it
+=end
+
+def minimum_sum(arr)
+  return nil if arr.size < 5
+  sums = []
+
+  (0..arr.size - 5).each do |index|
+    sums << arr.slice(index, 5)
+  end
+
+  sums.map { |a| a.sum }.min
+end
+
+p minimum_sum([1, 2, 3, 4]) == nil
+p minimum_sum([1, 2, 3, 4, 5, 6]) == 15
+p minimum_sum([55, 2, 6, 5, 1, 2, 9, 3, 5, 100]) == 16
+p minimum_sum([-1, -5, -3, 0, -1, 2, -4]) == -10
+
