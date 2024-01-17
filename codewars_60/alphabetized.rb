@@ -118,3 +118,89 @@ puts
 # p alphabetized(" a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z") == "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ"
 # p alphabetized("!@$%^&*()_+=-`,") == ""
 # p alphabetized("CodeWars can't Load Today") == "aaaaCcdddeLnooorstTWy"
+#
+puts
+=begin
+45. Alphabetized
+(https://www.codewars.com/kata/5970df092ef474680a0000c9/train/ruby)
+6 kyu
+
+The alphabetized kata
+Re-order the characters of a string, so that they are concatenated into a new string in "case-insensitively-alphabetical-order-of-appearance" order. Whitespace and punctuation shall simply be removed!
+** remove space and punctuation > order the chars in a case insensitive way
+
+The input is restricted to contain no numerals and only words containing the english alphabet letters.
+
+Example:
+
+alphabetized("The Holy Bible") # "BbeehHilloTy"
+=begin pedac
+
+*************Problem********************
+Overall goal: to write a method that takes a string of words and returns a new string containing one word which is ordered alphabetically ascending
+initial input: string of words or word
+overall output: new string/1 word sorted alphabetically
+
+explicit requirements:
+remove all spaces and punctuation
+sort the chars ascending by char downcase
+
+
+
+implicit requirements:
+ empty string retns empty string
+ string wtih 1 space returns empty string
+questions:
+
+**********Examples/Test cases************
+p alphabetized("") == ""
+** empty string retns empty string
+p alphabetized(" ") == ""
+** string wtih 1 space returns empty string > because the space was deleted
+p alphabetized(" a") == "a"
+** space + a > space is deleted > a is returned
+p alphabetized("a ") == "a"
+p alphabetized(" a ") == "a"
+p alphabetized("A b B a") == "AabB"
+** delete spaces > AabB
+p alphabetized(" a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z") == "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ"
+
+*************Data Structure**************
+
+
+***************Algorithm*****************
+Overall approach: string  > delete all non alpha chars into word > convert string to array using chars > iterate over array using sort > sort ascending > convert back to a string w/o a space > return this string
+
+*/  delete all non alpha chars in the string
+details: gsub.(/[^a-zA-A]/, '')
+
+*/ convert cleaned string to array
+details: chars
+
+*/ iterate over the array and sort ascending
+details: sort |a, b| a <=> b
+
+*/ convert sorted array back to string
+details: join w/o space
+
+*/
+details:
+
+*/
+details:
+
+=end
+
+def alphabetized(string)
+  string.gsub(/[^a-zA-Z]/, '').chars.sort { |a, b| a.downcase <=> b.downcase}.join # last test case returns false
+end
+p alphabetized("")  == ""
+p alphabetized(" ") == ""
+p alphabetized(" a") == "a"
+p alphabetized("a ") == "a"
+p alphabetized(" a ") == "a"
+p alphabetized("A b B a") == "AabB"
+p alphabetized(" a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z") == "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ"
+
+
+
