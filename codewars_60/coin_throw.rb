@@ -51,22 +51,15 @@ A:
 
 def coin(n)
   coins = ['H', 'T']
-  permutations = coins.repeated_permutation(n).to_a
 
-  if permutations.size == 2
-    permutations = permutations.flatten
-  else
-  permutations = permutations.map { |a| a.join }
-  end
-
-  permutations
+  coins.repeated_permutation(n).to_a.map(&:join) # repeated permutations. takes an argument and it can be bigger than the caller size
 end
 
 p coin(1) == ["H","T"]
-p coin(1) == ["T","H"]
 p coin(2) == ["HH", "HT", "TH", "TT"]
 p coin(3) == ["HHH", "HHT", "HTH", "HTT", "THH", "THT", "TTH", "TTT"]
 
+puts
 =begin
 In this kata you will be given an integer n, which is the number of times that is thrown a coin. You will have to return an array of string for all the possibilities (heads[H] and tails[T]). Examples:
 
@@ -80,7 +73,8 @@ When finished sort them alphabetically.
 INPUT:
 0 < n < 18
 
-Careful with performance!! You'll have to pass 3 basic test (n = 1, n = 2, n = 3), many medium tests (3 < n <= 10) and many large tests (10 < n < 18)
+Careful with performance!! You'll have to pass 3 basic test (n = 1, n = 2, n = 3), many medium tests (3 < n <= 10)
+and many large tests (10 < n < 18)
 
 PEDAC
 P:
@@ -115,35 +109,20 @@ A:
 - join inner arrays into strings in order to return an array of strings
 =end
 
+# solving with permutations, instead of repeated_permutations requires us to prepare coins because we need to
+# pass an argument to permutation and if it's bigger than the coins array, our result will be an empty array
+# (and not an error!)
 
+# so here argument cannot be bigger than the caller size!
 def coin(n)
   coins = ['H', 'T']
-  permutations = coins.repeated_permutation(n).to_a
+  coins = coins * n # preparing coins
 
-  # if permutations.size == 2
-  #   permutations = permutations.flatten
-  # else
-  permutations = permutations.map { |a| a.join }
-  # end
-
-  permutations
-end
-
-p coin(1) == ["H","T"]
-p coin(1) == ["T","H"]
-p coin(2) == ["HH", "HT", "TH", "TT"]
-p coin(3) == ["HHH", "HHT", "HTH", "HTT", "THH", "THT", "TTH", "TTT"]
-
-
-def coin(n)
-  coins = ['H', 'T']
-  coins = coins * n
 
   permutations = []
   coins.permutation(n) { |permutation| permutations << permutation }
 
-  permutations = permutations.uniq
-  permutations = permutations.map { |a| a.join }
+  permutations = permutations.uniq.map { |a| a.join }
 
   permutations.sort
 end
