@@ -52,8 +52,8 @@ A:
 def coin(n)
   coins = ['H', 'T']
 
-  coins.repeated_permutation(n).to_a.map(&:join) # repeated permutations. takes an argument and it can be bigger than the caller size
-end
+  coins.repeated_permutation(n).to_a.map(&:join) # repeated permutations. takes an argument that CAN be bigger than the caller size
+end                                              # in case of permutations, it CAN'T
 
 p coin(1) == ["H","T"]
 p coin(2) == ["HH", "HT", "TH", "TT"]
@@ -130,3 +130,36 @@ end
 p coin(1) == ["H","T"]
 p coin(2) == ["HH", "HT", "TH", "TT"]
 p coin(3) == ["HHH", "HHT", "HTH", "HTT", "THH", "THT", "TTH", "TTT"]
+
+puts
+
+# solution from codewars with Enumerable#flat_map
+# Returns a new array with the concatenated results of running block once for every element in enum.
+# # [1, 2, 3, 4].flat_map { |e| [e, -e] } #=> [1, -1, 2, -2, 3, -3, 4, -4]
+
+array = ["H","T"]
+def coin(n)
+  return %w(H T) if n == 1
+
+  coin(n - 1).flat_map { |option| ['H' + option, 'T' + option] }.sort  #before sort: ["HH", "TH", "HT", "TT"]
+end
+p coin(1) == ["H","T"]
+p coin(2) == ["HH", "HT", "TH", "TT"]
+p coin(3) == ["HHH", "HHT", "HTH", "HTT", "THH", "THT", "TTH", "TTT"]
+
+puts
+
+def coin(n)
+  result = ['H', 'T']
+  return result if n == 1
+
+  1.upto(n-1) do
+    result = result.product(['H', 'T']).map(&:join) # after using product method: [["H", "H"], ["H", "T"], ["T", "H"], ["T", "T"]]
+  end
+
+  result
+end
+
+p coin(1) #== ["H","T"]
+p coin(2) #== ["HH", "HT", "TH", "TT"]
+# p coin(3) == ["HHH", "HHT", "HTH", "HTT", "THH", "THT", "TTH", "TTT"]
