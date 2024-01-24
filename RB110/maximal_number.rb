@@ -72,3 +72,72 @@ end
 p maximal_number(152) == 52
 p maximal_number(1001) == 101
 
+puts
+
+=begin
+Given an integer n, find the maximal number you can obtain by deleting exactly one digit of the given number.
+
+PEDAC
+Problem:
+- write a method that takes an int n as an arg
+- the method returns the maximal number you can obtain by deleting 1 digit
+
+Examples:
+delete_digit(791983) == 91983
+=>
+-91983 -deleting at index 0
+7 1983 -deleting at index 1
+79 983 -deleting at index 2
+791 83 -deleting at index 3
+7919 3 -deleting at index 4
+79198- -deleting at index 5
+=> the max num is 91983
+
+delete_digit(152) == 52
+=> 52, 15, 12 => max is 52
+
+delete_digit(1001) == 101
+=> 001, 101, 101, 100
+
+delete_digit(10) == 1
+=> 0, 1
+
+Data Structures:
+input: int
+output: int
+
+Notes:
+
+Algorithm:
+- change input n to s and then to an []
+
+- loop over the array as many times as its size
+- each time looping, delete the digit at the counter
+- delete_at is destructive so I'd need to make a copy first and then delete num at counter
+- and append the copy (without the deleted in the previous step number)
+- join array and append it to `result`
+- transform `result`, which is an array of strings into an [] of integers
+- find and return the max int
+=end
+
+def delete_digit(n)
+  return n if n.to_s.size == 1
+  arr_of_num_strings = n.to_s.chars
+
+  result = []
+  counter = 0
+  loop do
+    break if counter > arr_of_num_strings.size - 1
+    copy = arr_of_num_strings.dup
+    copy.delete_at(counter)
+    result << copy.join
+    counter += 1
+  end
+
+  result.map(&:to_i).max
+end
+p delete_digit(791983) == 91983
+p delete_digit(152) == 52
+p delete_digit(1001) == 101
+p delete_digit(10) == 1
+
