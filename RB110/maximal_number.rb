@@ -142,3 +142,33 @@ p delete_digit(1001) == 101
 p delete_digit(10) == 1
 p delete_digit(199) == 99
 p delete_digit(9) == 9
+
+puts
+
+def delete_digit(number)
+  # Return number if number is 1 digit
+  return number if number.to_s.size == 1
+
+  # Convert number to string then to an array of characters
+
+  numbers = number.to_s.chars
+
+  # Iterate through the index of numbers
+  # Create new string from
+  # index 0 -> index before current index + index after current index -> last index
+  # Join each characters
+  # Convert to integer
+  # Push each sub-number to the temp Array
+  # Return max integer from temp Array
+
+  numbers.size.times.with_object([]) do |index, temp|
+    temp << (numbers[0...index] + numbers[index + 1..-1]).join.to_i
+    p temp
+  end.max
+end
+
+p delete_digit(791983) == 91983
+p delete_digit(152) == 52
+p delete_digit(1001) == 101
+p delete_digit(10) == 1
+p delete_digit(2) == 2
