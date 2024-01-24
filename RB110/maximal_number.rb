@@ -140,4 +140,4 @@ p delete_digit(791983) == 91983
 p delete_digit(152) == 52
 p delete_digit(1001) == 101
 p delete_digit(10) == 1
-
+p delete_digit(199) #== 99
