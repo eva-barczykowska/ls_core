@@ -83,3 +83,33 @@ p palindromes('hello-madam-did-madam-goodbye') == [
   '-madam-', 'madam', 'ada', 'oo'
 ]
 p palindromes('knitting cassettes') == ['nittin', 'itti', 'tt', 'ss', 'settes', 'ette', 'tt']
+
+puts
+# with upto method
+def get_substrings(str)
+  substrings = []
+
+  (0.upto(str.size)).each do |starting_index| # excluding index 3 (size is 4, excludes 3 => so up to 3) - I don't want d as a starting character
+    ((starting_index + 1)..(str.size - 1)).each do |ending_index| # if I want the last character, I need to do ..(str.size - 1)
+      substrings << str[starting_index..ending_index]
+    end
+  end
+  substrings
+end
+p get_substrings('abcd')# == ["ab", "abc", "abcd", "bc", "bcd", "cd"]
+
+
+def palindromes(str)
+  substrings = get_substrings(str)
+
+  substrings.select { |s| s == s.reverse }
+end
+
+p palindromes('abcd') == []
+p palindromes('madam') == ['madam', 'ada']
+p palindromes('hello-madam-did-madam-goodbye') == [
+  'll', '-madam-', '-madam-did-madam-', 'madam', 'madam-did-madam', 'ada',
+  'adam-did-mada', 'dam-did-mad', 'am-did-ma', 'm-did-m', '-did-', 'did',
+  '-madam-', 'madam', 'ada', 'oo'
+]
+p palindromes('knitting cassettes') == ['nittin', 'itti', 'tt', 'ss', 'settes', 'ette', 'tt']
