@@ -78,15 +78,16 @@ puts
 def uniq_chars str1, str2
   arr1 = str1.chars.uniq
   arr2 = str2.chars.uniq
+
   intersection = arr1.intersection(arr2)
-  arr1_subtracted = arr1.dup - intersection
+
+  arr1_subtracted = arr1.dup - intersection # very nice!
   arr2_subtracted = arr2.dup - intersection
+
   arr1_subtracted.join + arr2_subtracted.join
 end
-
 p uniq_chars("xyab","xzca") == "ybzc"
 p uniq_chars("a","z") == "az"
 p uniq_chars("abcd","de") == "abce"
 p uniq_chars("abc","abba") == "c"
 p uniq_chars("xyz","zxy") == ""
-
