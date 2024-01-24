@@ -104,4 +104,38 @@ p count_boomerangs([9, 5, 9, 5, 1, 1, 1]) == 2
 p count_boomerangs([5, 6, 6, 7, 6, 3, 9]) == 1
 p count_boomerangs([4, 4, 4, 9, 9, 9, 9]) == 0
 
+puts
+
+#Nick
+def count_boomerangs source_array
+  array_of_3_length_subarrays = []
+  source_array.each_cons(3){|sub_array| array_of_3_length_subarrays << sub_array}
+
+  array_valid_boomerangs = array_of_3_length_subarrays.reject do |sub_array|
+    sub_array.uniq.length == 1 || sub_array.first != sub_array.last
+  end
+  array_valid_boomerangs.size
+end
+count_boomerangs([9, 5, 9, 5, 1, 1, 1]) == 2
+count_boomerangs([5, 6, 6, 7, 6, 3, 9]) == 1
+count_boomerangs([4, 4, 4, 9, 9, 9, 9]) == 0
+
+puts
+
+def count_boomerangs(array)
+  subarrays = []
+
+  array.size - 3.times do |index|
+    subarrays << array.slice(index, 3)
+  end
+
+  subarrays.select do |s|
+    (s.first == s.last) && (s[0] != s[1])
+  end.size
+end
+
+count_boomerangs([9, 5, 9, 5, 1, 1, 1]) == 2
+count_boomerangs([5, 6, 6, 7, 6, 3, 9]) == 1
+count_boomerangs([4, 4, 4, 9, 9, 9, 9]) == 0
+
 
