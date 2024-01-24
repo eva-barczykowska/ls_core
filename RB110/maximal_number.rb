@@ -121,6 +121,7 @@ Algorithm:
 =end
 
 def delete_digit(n)
+  return n if n.to_s.size == 1
   arr_of_num_strings = n.to_s.chars
 
   result = []
@@ -140,3 +141,4 @@ p delete_digit(152) == 52
 p delete_digit(1001) == 101
 p delete_digit(10) == 1
 p delete_digit(199) == 99
+p delete_digit(9) == 9
