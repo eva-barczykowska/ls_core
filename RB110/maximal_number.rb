@@ -160,15 +160,129 @@ def delete_digit(number)
   # Convert to integer
   # Push each sub-number to the temp Array
   # Return max integer from temp Array
-
+  # --------6  times.with_object([]) never used it like this!-----------------------------------------
   numbers.size.times.with_object([]) do |index, temp|
     temp << (numbers[0...index] + numbers[index + 1..-1]).join.to_i
     p temp
   end.max
 end
+=begin
+ .with_object - is useful when you want to accumulate values into a specific object during iteration,
+ and you want to return that object at the end of the iteration.
 
+numbers.size.times: This iterates numbers.size times, where numbers is assumed to be an array.
+It iterates over the indices of the array, from 0 to numbers.size - 1.
+
+.with_object([]): This method is used to create an object to be passed as an argument to the block,
+which in this case is an empty array []. This array is referred to as temp within the block.
+
+do |index, temp|: The block takes two parameters - index and temp. index represents the current iteration index,
+and temp is the array being constructed.
+
+temp << (numbers[0...index] + numbers[index + 1..-1]).join.to_i: In each iteration, it constructs a new array by
+excluding the element at the current index (numbers[0...index] + numbers[index + 1..-1]), then joins the array elements
+into a string (join) and converts that string to an integer (to_i). This integer is then appended to the temp array.
+
+p temp: This prints the current state of the temp array.
+
+.max: Finally, after the loop, it returns the maximum value from the temp array.
+This is essentially finding the maximum integer obtained by excluding one element at a time from the original
+array numbers.
+
+In summary, the code is generating an array (temp) of integers, where each integer is obtained by removing one element
+at a time from the original array numbers. The result is the maximum integer from this set.
+=end
+def delete_digit(number)
+  return number if number.to_s.size == 1
+  numbers = number.to_s.chars # ["7", "9", "1", "9", "8", "3"] in case of the fist test case
+
+  numbers.size.times.with_object([]) do |index, temp| # creating access to index and to temp array that we will use later
+    temp << (numbers[0...index] + numbers[index + 1..-1]).join.to_i
+    # .with_object - is useful when you want to accumulate values into a specific object during iteration,
+    # and you want to return that object at the end of the iteration.
+    # WE ARE RETURNING AS MANY VALUES AS THE ARRAY MINUS THE INDEX WE SKIP - PERFECT!
+  end.max
+
+end
+# .with_object - is useful when you want to accumulate values into a specific object during iteration,
+# and you want to return that object at the end of the iteration.
 p delete_digit(791983) == 91983
 p delete_digit(152) == 52
 p delete_digit(1001) == 101
 p delete_digit(10) == 1
 p delete_digit(2) == 2
+
+puts
+# another solution from Nina
+=begin
+Given an integer n, find the maximal number you can obtain by deleting
+exactly one digit of the given number.
+
+delete_digit(791983) == 91983
+delete_digit(152) == 52
+delete_digit(1001) == 101
+delete_digit(10) == 1
+
+P:
+Input: integer n
+output: integer
+given an integer you need to delete one num character. delete the num that would leave you
+with the largest number possible with one only one character deleted.
+- the numbers have to be in same order as original integer with the missing character
+
+E:
+delete_digit(791983) == 91983
+91983
+71983
+79983
+79183
+79193
+79198
+delete_digit(152) == 52
+52
+12
+15
+delete_digit(1001) == 101
+101
+01
+11
+10
+delete_digit(10) == 1
+1
+0
+
+D: Array with indices to compare
+Notes:
+- could also start at the largest number in the array
+- create sub-arrays from there
+
+A:
+- Return the original_int if the length in characters is equal to 1
+- Convert original_int to an array with each number split up into characters
+  - Make sure original_int order is maintained
+- Find all possible subarray combinations with a length 1 less than original_int
+  - should then have an array of sub_array combos
+- Transform subarrays of characters back to whole numbers
+  - should then have an array of integers
+- sort the array from largest to smallest
+- return first integer from sorted array
+
+=end
+
+# def delete_digit(original_num)
+#   return original_num if original_num.to_s.length == 1
+#
+#   original_num
+#     .digits
+#     .reverse
+#     .combination(original_num.to_s.length - 1)
+#     .map { |num_arr| num_arr.join.to_i }
+#     .sort { |a, b| b <=> a }
+#     .first
+# end
+#
+# p delete_digit(791983) == 91983
+# p delete_digit(152) == 52
+# p delete_digit(1001) == 101
+# p delete_digit(10) == 1
+# p delete_digit(2) == 2
