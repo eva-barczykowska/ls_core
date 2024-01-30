@@ -72,44 +72,9 @@ A:
 Feedback:
 - focus/think about what is the real essence of the problem
 - what is the HYPOTHESIS? Add after Problem
-- describe conceptually if this would work, check irb
+- describe conceptually if this would work, check in irb
 
-A2:
-- iterate through this array
--
-=end
-
-def is_a_float_with_no_decimal(float)
-  float == float.to_i
-end
-
-def is_int_array(input)
-  return false if input.class != Array
-  return false if input.include?(nil) || input.empty?
-  return false if input.all? { |e| !(e.is_a?(Integer) || e.is_a?(Float)) }
-  return true if input.all? { |e| e.is_a?(Integer) }
-
-  floats = input.grep(Float)
-  floats.all? { |float| is_a_float_with_no_decimal(float) }
-end
-
-p is_int_array([1, 2, 3, 4]) == true
-p is_int_array([-11, -12, -13, -14]) == true
-p is_int_array([1.0, 2.0, 3.0]) == true
-p is_int_array([1, 2, nil]) == false
-p is_int_array([1.0, 2.0, 3.0001]) == false
-p is_int_array(["-1"]) == false
-p is_int_array([1.2, 1.8, 3] ) == false
-p is_int_array(nil) == false
-p is_int_array("") == false
-p is_int_array([nil]) == false
-p is_int_array([]) == false
-
-puts
-
-=begin
- this solution doesn't pass codewars
-# A2:
+# A:
 - initialize `result`
 - iterate through this array
 - if element is an integer, add `true` to the `result` array
@@ -137,6 +102,44 @@ p is_int_array([1, 2, nil]) == false
 p is_int_array([1.0, 2.0, 3.0001]) == false
 p is_int_array(["-1"]) == false
 p is_int_array([1.2, 1.8, 3] ) == false
+p is_int_array(nil) == false
+p is_int_array("") == false
+p is_int_array([nil]) == false
+p is_int_array([]) == true
+
+puts
+
+def is_int_array(arr)
+  return false unless arr.is_a? Array
+
+  arr.all? do |num|
+    num.to_i == num
+  end
+end
+p is_int_array([1, 2, 3, 4]) == true
+p is_int_array([-11, -12, -13, -14]) == true
+p is_int_array([1.0, 2.0, 3.0]) == true
+p is_int_array([1, 2, nil]) == false
+p is_int_array([1.0, 2.0, 3.0001]) == false
+p is_int_array(["-1"]) == false
+p is_int_array([1.2, 1.8, 3] ) == false
+p is_int_array(nil) == false
+p is_int_array("") == false
+p is_int_array([nil]) == false
+p is_int_array([]) == true
+
+puts
+
+def is_int_array(arr)
+  arr.is_a?(Array) && arr.all? { |x| x.to_i == x }
+end
+p is_int_array([1, 2, 3, 4]) == true
+p is_int_array([-11, -12, -13, -14]) == true
+p is_int_array([1.0, 2.0, 3.0]) == true
+p is_int_array([1, 2, nil]) == false
+p is_int_array([1.0, 2.0, 3.0001]) == false
+p is_int_array(["-1"]) == false
+p is_int_array([1.2, 1.8, 3]) == false
 p is_int_array(nil) == false
 p is_int_array("") == false
 p is_int_array([nil]) == false
