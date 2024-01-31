@@ -82,7 +82,7 @@ a = ['a', 'aa', 'aaa']
 a.cycle(2) { |elements| result << elements }
 p result
 
-result = [1, 10, 9, 80].inject(0) { |sum, number| sum + number}
+result = [1, 10, 9, 80].inject(0) { |sum, number| sum + number }
 p result
 
 result = [1, 10, 9, 80].inject(:+)
@@ -92,4 +92,14 @@ names = %w(ewa anita barczykowska)
 p names
 names = names.map(&:upcase)
 p names
+
+str = 'ewa'
+str.each_char { |char| p char }
+
+p str.bytes # method treats str as a collection of bytes
+p 'e'.ord
+
+converted = str.bytes
+p converted.map { |c| c.chr } # converting back from code bytes to characters
+
 
