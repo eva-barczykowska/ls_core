@@ -251,7 +251,7 @@ p fragment("a b c d e", 2)# == "ace bd ce d e"
 # p fragment("", 1) == ""
 
 # first we need to delete spaces/clean the string
-# ITERATION 0
+# ITERATION 1
 # arr            ["a", "b", "c", "d", "e"], int = 2
 # indices          0    1    2    3    4
 # index 0 -- 0 % 2 == 0 - takes char at index 0, which is "a" -- OK          *** we always mod index by the integer
@@ -261,7 +261,7 @@ p fragment("a b c d e", 2)# == "ace bd ce d e"
 # index 4 -- 4 % 2 == 0 - takes char at index 4, which is "e" -- OK
 # shift
 
-# ITERATION 1
+# ITERATION 2
 # arr            ["b", "c", "d", "e"]
 # indices          0    1    2    3
 # index 0 -- 0 % 2 == 0 - takes char at index 0, which is "b" -- OK
@@ -270,21 +270,21 @@ p fragment("a b c d e", 2)# == "ace bd ce d e"
 # index 3 -- 3 % 2 == 1 - doesn't take char at this index
 # shift
 
-# ITERATION 2
+# ITERATION 3
 # arr            ["c", "d", "e"]
 # indices          0    1    2
 # index 0 -- 0 % 2 == 0 - takes char at index 0, which is "c" -- OK
 # index 1 -- 1 % 2 == 1 - doesn't take char at this index
 # index 2 -- 2 % 2 == 0 - takes char at index 2, which is "3" -- OK
 
-# ITERATION 3
+# ITERATION 4
 # arr            ["d", "e"]
 # indices          0    1
 # index 0 -- 0 % 2 == 0 - takes char at index 0, which is "d" -- OK
 # index 1 -- 1 % 2 == 1 - doesn't take char at this index
 # shift
 
-# ITERATION 4
+# ITERATION 5
 # arr            ["e"]
 # indices          0    1
 # index 0 -- 0 % 2 == 0 - takes char at index 0, which is "d" -- OK
@@ -713,4 +713,61 @@ def fragment(str, int)
   return_arr.join(" ")
 end
 p fragment("a b c d e", 2)# == "ace bd ce d e"
+
+puts
+puts "rewriting code for the scoping Medium article: code before and code after:"
+def fragment(str, int)
+  return "i cannot be less than 1" if int == 0
+  final = []
+
+  str = str.gsub(" ", "")
+
+  temp = ''
+  starting_letter = 0
+  ith_char = int
+
+  loop do
+    break if starting_letter >= str.size
+    temp << str[starting_letter]
+    loop do
+      break if ith_char >= str.size
+      temp << str[ith_char]
+      ith_char += int
+    end
+    final << temp
+    temp = ''
+    starting_letter += 1
+    ith_char = starting_letter + int
+  end
+  final.join(" ")
+end
+
+p fragment("a b c d e", 2) == "ace bd ce d e"
+
+# refactored
+
+def fragment(str, int)
+  return "i cannot be less than 1" if int == 0
+  final = []
+
+  str = str.gsub(" ", "")
+  starting_letter = 0
+
+  loop do
+    break if starting_letter >= str.size
+    ith_char = starting_letter + int
+    temp = str[starting_letter]
+    loop do
+      break if ith_char >= str.size
+      temp << str[ith_char]
+      ith_char += int
+    end
+    final << temp
+    starting_letter += 1
+  end
+
+  final.join(" ")
+end
+
+p fragment("a b c d e", 2) == "ace bd ce d e"
 
