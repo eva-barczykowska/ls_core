@@ -309,6 +309,24 @@ p find_children("CbcBcbaA") == "AaBbbCcc"
 p find_children("xXfuUuuF") == "FfUuuuXx"
 p find_children("") == ""
 
+puts
+puts "the solution I really liked because of its clarity:"
+
+def find_children(dancing_brigade)
+  dancing_brigade.chars.sort_by { |c| [c.downcase, c] }.join
+end
+# like the use of a meaningful name for method argument
+# how does the block work?
+# if the characters are all equal they will be sorted alphabetically so...
+# we are saying sort it AS IF they were all in one case
+# c.downcase there is crucial because it allows to sort 'as if'
+# also notice the ARRAY as a return value of sort-by
+p find_children("abBA") == "AaBb"
+p find_children("AaaaaZazzz") == "AaaaaaZzzz"
+p find_children("CbcBcbaA") == "AaBbbCcc"
+p find_children("xXfuUuuF") == "FfUuuuXx"
+p find_children("") == ""
+
 
 
 
