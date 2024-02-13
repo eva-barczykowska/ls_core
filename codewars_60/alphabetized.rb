@@ -38,16 +38,15 @@
 # join and return a str
 # Code
 
-
 puts "my try"
 def alphabetized(str)
   keys = ('a'..'z').to_a
 
-  hsh = keys.each_with_object({}) { |letter, hsh| hsh[letter] = [] }
+  hsh = keys.each_with_object({}) { |letter, hsh| hsh[letter] = [] } # an array to accumulate each letter of the alphabet as keys and empty [] as values
 
   arr = str.chars
   arr.each do |char|
-    if hsh.keys.include?(char.downcase)
+    if hsh.keys.include?(char.downcase) # if the lowercase version of the current character is in the alphabet, add this character(whichever case it is in)
       hsh[char.downcase] << char
     end
   end
@@ -171,17 +170,17 @@ p alphabetized(" a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F
 ***************Algorithm*****************
 Overall approach: string  > delete all non alpha chars into word > convert string to array using chars > iterate over array using sort > sort ascending > convert back to a string w/o a space > return this string
 
-*/  delete all non alpha chars in the string
-details: gsub.(/[^a-zA-A]/, '')
+delete all non alpha chars in the string
 
-*/ convert cleaned string to array
-details: chars
 
-*/ iterate over the array and sort ascending
-details: sort |a, b| a <=> b
+convert cleaned string to array
 
-*/ convert sorted array back to string
-details: join w/o space
+
+iterate over the array and sort ascending
+
+
+ convert sorted array back to string
+
 
 */
 details:
@@ -202,5 +201,89 @@ p alphabetized(" a ") == "a"
 p alphabetized("A b B a") == "AabB"
 p alphabetized(" a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z") == "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ"
 
+puts "session with Uy"
+=begin
+[Train: Alphabetized \| Codewars](https://www.codewars.com/kata/5970df092ef474680a0000c9/train/ruby)
+6 kyu
+The alphabetized kata
+Re-order the characters of a string, so that they are concatenated into a new string in "case-insensitively-alphabetical-order-of-appearance" order. Whitespace and punctuation shall simply be removed!
 
+The input is restricted to contain no numerals and only words containing the english alphabet letters.
+
+Example:
+
+alphabetized("The Holy Bible") # "BbeehHilloTy"
+=end
+
+=begin
+
+
+- PROBLEM
+  - Input: string that contains characters
+  - Output: new string with requirements below
+
+  - Rules:
+    -re-order the characters of a String
+    - return a new string
+      - not case sensitive
+      - do not need to worry about the order of lowercase and uppercase letter
+      - alphabetical order
+      - remove the Whitespace and punctuation
+    - dont need to verify the inputs
+
+- EXAMPLE
+  -alphabetized("The Holy Bible") # "BbeehHilloTy"
+
+- DATA STRUCTURE
+  - should be an array so we can iterate through all of the characters.
+
+- ALGORITHM
+  - convert string to array to have access to
+
+- start building `return_string
+
+ - iterate over the input array  ["T", "h", "e", " ", "H", "o", "l", "y", " ", "B", "i", "b", "l", "e"], remove spaces
+- how to compare these characters with the alphabet? Do I need to compare them with the alphabet?
+- iterate over the alphabet of both uppercase and lower case and see if A/a is included in the string
+- get index of a and A
+- see which index is smaller in the input string and get that one
+- then remove that letter in the input string and add it to the `return string`
+- repeat this process until there is no more uppercase/lowercase letters in the array - helper methoc
+
+-move to the next letter in the array
+
+- once done with all the letters, return the string
+
+=end
+alphabetized("The Holy Bible") # "BbeehHilloTy"
+# p alphabetized("") == ""
+# p alphabetized(" ") == ""
+# p alphabetized(" a") == "a"
+# p alphabetized("a ") == "a"
+# p alphabetized(" a ") == "a"
+# p alphabetized("A b B a") == "AabB"
+# p alphabetized(" a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z") == "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ"
+
+puts
+# solutions that I liked from Codewars
+def alphabetized(s)
+  alphabet = ("a".."z").to_a
+  string = ""
+
+  alphabet.each do |alpha|
+    s.each_char do |char|
+      if alpha == char.downcase
+        string += char
+      end
+    end
+  end
+  return string
+end
+alphabetized("The Holy Bible") # "BbeehHilloTy"
+p alphabetized("") == ""
+p alphabetized(" ") == ""
+p alphabetized(" a") == "a"
+p alphabetized("a ") == "a"
+p alphabetized(" a ") == "a"
+p alphabetized("A b B a") == "AabB"
 
