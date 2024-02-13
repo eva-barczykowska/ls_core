@@ -102,3 +102,44 @@ p clean_string("abc####d##c#") #== ""
 p clean_string("a#bc#d") #== "bd"
 p clean_string("abc#d##c")# == "ac"
 p clean_string("#######")# == ""
+
+# Ekerin's solution
+# ALGORITHM
+# =========
+#   + create Array of characters from Input
+# + create Array to capture new Characters
+#
+# + iterate over Characters Array
+# + if current character is `#`,
+#                           - remove last character in Array of New Characters
+# - ** do not include in New Characters Array **
+#                                         + otherwise,
+#                                       - add current character to New Characters Array
+#
+# + build New String from New Characters Array
+# + return New String
+# =end
+#
+def clean_string(str)
+  new_chars = []
+  chars = str.chars
+
+  chars.each do |char|
+    if char == '#'
+      new_chars.pop # and we can pop even an empty array! [].pop returns nil but we don't care about the return method
+    else
+      new_chars << char
+    end
+  end
+
+  # new_chars
+
+  new_str = new_chars.join
+end
+
+p clean_string('abc#d##c') == "ac"
+p clean_string('abc####d##c#') == ""
+p clean_string("#######") ==  ""
+p clean_string("") ==  ""
+p clean_string("123#456##abcde###f#") == "124ab"
+p clean_string("shenanigans##not##so#fast####") == "shenanigans"
