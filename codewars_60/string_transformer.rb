@@ -103,7 +103,7 @@ p string_transformer("You Know When  THAT  Hotline Bling") == "bLING hOTLINE  th
 puts
 # solutions  that I liked (from Codewars)
 def get_spaces(str)
-  str = str.reverse # such a geat idea!!!
+  str = str.reverse # such a great idea!!!
   spaces = []
   str.each_char.with_index { |chr, idx| spaces << idx if chr == ' ' } # get index if spaces
   spaces
