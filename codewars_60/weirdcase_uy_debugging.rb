@@ -47,53 +47,54 @@ A:
 - what happens at the transition?? how to make the index 0
 =end
 
-def weirdcase(str)
-  index_in_word = 0
-  index_in_sentence = 0
-
-  loop do
-    p "outer loop starts"
-    index_in_word = 0
-    p "index in word at the beginning of OUTER LOOP #{index_in_word}"
-    break if index_in_sentence >= str.size
-
-    loop do
-      p "inner loop"
-      p str[index_in_word]
-      str[index_in_sentence] = str[index_in_sentence].upcase if index_in_word.even?
-      str[index_in_sentence] = str[index_in_sentence].downcase if index_in_word.odd?
-      index_in_word += 1
-      index_in_sentence += 1 #what am I doing at the space?
-      # index_in_word = 0 && index_in_sentence += 1 if str[index_in_word] == " "
-      break if str[index_in_word] == " "
-    end
-
-    index_in_sentence += 1
-    p index_in_sentence
-    p index_in_word
-    p str[index_in_sentence]
-    p "Ewa was here"
-  end
-
-  str
-end
+# undefined method `upcase' for nil:NilClass (NoMethodError)
+# def weirdcase(str)
+#   index_in_word = 0
+#   index_in_sentence = 0
+#
+#   loop do
+#     p "outer loop starts"
+#     index_in_word = 0
+#     p "index in word at the beginning of OUTER LOOP #{index_in_word}"
+#     break if index_in_sentence >= str.size
+#
+#     loop do
+#       p "inner loop"
+#       p str[index_in_word]
+#       str[index_in_sentence] = str[index_in_sentence].upcase if index_in_word.even?
+#       str[index_in_sentence] = str[index_in_sentence].downcase if index_in_word.odd?
+#       index_in_word += 1
+#       index_in_sentence += 1 #what am I doing at the space?
+#       # index_in_word = 0 && index_in_sentence += 1 if str[index_in_word] == " "
+#       break if str[index_in_word] == " "
+#     end
+#
+#     index_in_sentence += 1
+#     p index_in_sentence
+#     p index_in_word
+#     p str[index_in_sentence]
+#     p "Ewa was here"
+#   end
+#
+#   str
+# end
 # p weirdcase( "String" ) #== "StRiNg"
-p weirdcase( "Weird string case" ) #== "WeIrD StRiNg CaSe"
+# p weirdcase( "Weird string case" ) #== "WeIrD StRiNg CaSe"
 
 # def weirdcase(str)
 # word_counter = 0
 # string_counter = 0
-
+#
 # loop do
 #   break if word_counter >= str.size
-
+#
 #   str[word_counter] = str[word_counter].upcase if word_counter.even?
 #   str[word_counter] = str[word_counter].downcase if word_counter.odd?
 #   word_counter = 0 if str[word_counter.next] == " "
 #   word_counter += 1
-
+#
 #   string_counter += 1
-
+#
 # end
 #   str_array = str.split(" ")
 #   str_array.each do |word|
@@ -105,24 +106,6 @@ p weirdcase( "Weird string case" ) #== "WeIrD StRiNg CaSe"
 
 # p weirdcase( "String" ) #== "StRiNg"
 # p weirdcase( "Weird string case" ) #== "WeIrD StRiNg CaSe"
-
-# def weirdcase(str)
-#   counter = 0
-
-#   loop do
-#     break if counter >= str.size
-#     str[counter] = str[counter].upcase! if counter.even? # why ! is a problem?
-
-#     str[counter] = str[counter].downcase! if counter.odd?
-
-
-#     counter += 1
-
-#   end
-
-#   str
-# end
-
 
 
 puts "Uy"
@@ -233,28 +216,28 @@ A:
 # p weirdcase( "String" ) #== "StRiNg"
 # p weirdcase( "Weird string case" ) #== "WeIrD StRiNg CaSe"
 
-#second
+#second - this doesn't work, nil error `[]=': no implicit conversion of nil into String (TypeError)
 # def weirdcase(str)
 #   index_in_sentence = 0
-
+#
 #   # while str[index_in_sentence] != nil
 #   loop do #changed to loop method
 #     index_in_sentence += 1 if str[index_in_sentence] == " " # this is how we skip the space
 #     index_in_word = 0 #it will be reset at every start of the outer loop
-
-
+#
+#
 #     loop do
 #       break if str[index_in_sentence] == " " || str[index_in_sentence] == nil
-
+#
 #     str[index_in_sentence] = str[index_in_sentence].upcase if index_in_word.even?
 #     str[index_in_sentence] = str[index_in_sentence].downcase if index_in_word.odd?
 #     index_in_word += 1
 #     index_in_sentence += 1 # we need to keep track of both index_in_word and index_in_sentence
 #     end
-
+#
 #      break if str[index_in_sentence] == nil # we break when str if finished
 #  end
-
+#
 #  str
 # end
 # p weirdcase( "String" ) #== "StRiNg"
@@ -262,29 +245,90 @@ A:
 
 # what about the !  not working??? that's because the destructive version of the method returns nil if there was
 # no action done, i.e. the string wasn't downcased because it already WAS in lowercase
-def weirdcase(str)
-  index_in_sentence = 0
+# def weirdcase(str) # use this example for a Medium article
+#   index_in_sentence = 0
+#
+#   # while str[index_in_sentence] != nil
+#   # does the non-destructive and destructive method work differently? OF COURSE!!! AHA MOMENT
+#   loop do #changed to loop method
+#     index_in_sentence += 1 if str[index_in_sentence] == " " # this is how we skip the space
+#     index_in_word = 0 #it will be reset at every start of the outer loop
+#
+#
+#     loop do
+#       break if str[index_in_sentence] == " " || str[index_in_sentence] == nil
+#
+#       str[index_in_sentence] = str[index_in_sentence].upcase! if index_in_word.even?
+#       str[index_in_sentence] = str[index_in_sentence].downcase! if index_in_word.odd?
+#       index_in_word += 1
+#       index_in_sentence += 1 # we need to keep track of both index_in_word and index_in_sentence
+#     end
+#
+#     break if str[index_in_sentence] == nil # we break when str if finished
+#   end
 
-  # while str[index_in_sentence] != nil
-  # does the non-destructive and destructive method work differently? OF COURSE!!! AHA MOMENT
-  loop do #changed to loop method
-    index_in_sentence += 1 if str[index_in_sentence] == " " # this is how we skip the space
-    index_in_word = 0 #it will be reset at every start of the outer loop
+#   str
+# end
+# p weirdcase( "String" ) #== "StRiNg"
+# p weirdcase( "Weird string case" ) #== "WeIrD StRiNg CaSe"
 
+# other solutions from codewars
+def weirdcase(string)
+  string.split(' ').map do |word|
+    word.split('').each_with_index.map do |char, i|
+      i % 2 == 0 ? char.upcase : char.downcase
+    end.join('')
+  end.join(' ')
+end
+p weirdcase( "String" ) #== "StRiNg"
+p weirdcase( "Weird string case" ) #== "WeIrD StRiNg CaSe"
 
-    loop do
-      break if str[index_in_sentence] == " " || str[index_in_sentence] == nil
+puts
 
-      str[index_in_sentence] = str[index_in_sentence].upcase! if index_in_word.even?
-      str[index_in_sentence] = str[index_in_sentence].downcase! if index_in_word.odd?
-      index_in_word += 1
-      index_in_sentence += 1 # we need to keep track of both index_in_word and index_in_sentence
+# with next (what I originally wante to do!)
+def weirdcase(string)
+  counter = 0
+  string.each_char.with_index do |char, index|
+    if char == ' '
+      counter = 0
+      next
+    else
+      counter.even? ? string[index] = char.upcase : string[index] = char.downcase
+      counter += 1
     end
-
-    break if str[index_in_sentence] == nil # we break when str if finished
   end
+    string
+end
+p weirdcase( "String" ) #== "StRiNg"
+p weirdcase( "Weird string case" ) #== "WeIrD StRiNg CaSe"
 
-  str
+puts
+
+# refactoring
+def weirdcase(string)
+  counter = 0
+  string.each_char.with_index do |char, index|
+    if char == ' '
+      counter = 0 && next
+    else
+      counter.even? ? string[index] = char.upcase : string[index] = char.downcase
+      counter += 1
+    end
+  end
+    string
+end
+p weirdcase( "String" ) #== "StRiNg"
+p weirdcase( "Weird string case" ) #== "WeIrD StRiNg CaSe"
+
+puts
+def weirdcase string
+  counter = 0
+  for char in 0...string.length
+    counter = -1 if string[char] == ' '
+    counter % 2 == 0 ? string[char] = string[char].upcase : string[char] = string[char].downcase
+    counter += 1
+  end
+  string
 end
 p weirdcase( "String" ) #== "StRiNg"
 p weirdcase( "Weird string case" ) #== "WeIrD StRiNg CaSe"
