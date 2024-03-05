@@ -171,3 +171,25 @@ p expanded_form(42) == '40 + 2'
 p expanded_form(70304) == '70000 + 300 + 4'
 
 #so this aproach is to convert input integer to a string, then to characters and reverse those. 
+
+# feedback from Wook - think about summary of 3 possible approaches
+# Problem:
+#   You will be given a number and you will need to return it as a string in expanded 
+#   form. For example:
+
+#   expanded_form(12); # Should return '10 + 2'
+#   expanded_form(42); # Should return '40 + 2'
+#   expanded_form(70304); # Should return '70000 + 300 + 4'
+
+# Idea 1:
+# one-sentence description
+# Create a multiplier 1 and counter 0. Itearate over the digits with counter and each add the multiplied digit to result, each time increasing multiplier and advancing which digit you're looking at. Then join the array of digits if it contains no zeros, if it does, remove zeros first.
+
+# Idea 2:
+# one-sentence description
+# Convert input integer to a string, characters and reverse. Iterate over this array of characters with index
+# and add as many zeros to an element as is the index, except when the element is 0, then don't add anything, just move on.
+# Finally reverse back, join on the " + " and return.
+
+# Idea 3:
+# Sorry I don't have anything at this time.
