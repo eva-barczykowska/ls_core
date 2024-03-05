@@ -325,3 +325,59 @@ Your code should be able to work for both lower and capital case letters.
 "abcde"     -->  "abcde"           # no digits
 "1111"      -->  ""                # no characters to repeat
 ""          -->  ""                # empty string
+
+puts
+=begin
+Given a string that includes alphanumeric characters ("3a4B2d") return the expansion of that string: The numeric values represent the occurrence of each letter preceding that numeric value. There should be no numeric characters in the final string.
+
+Notes
+The first occurrence of a numeric value should be the number of times each character behind it is repeated, until the next numeric value appears
+If there are multiple consecutive numeric characters, only the last one should be used (ignore the previous ones)
+Empty strings should return an empty string.
+Your code should be able to work for both lower and capital case letters.
+
+P:
+-method takes a string with numbers
+-method returns only letters, each letter is printed the number of times indicated by the first integer BEFORE it
+-code should work for both upper and lowercase
+
+E:
+"3D2a5d2f"  -->  "DDDaadddddff"
+=>                DDDaadddddff
+
+"3abc"      -->  "aaabbbccc"
+=>                aaabbbccc
+
+"3d332f2a"  -->  "dddffaa"
+                  dddffaa
+
+"abcde"     -->  "abcde" 
+=> no numbers, return str argument
+
+"1111"      -->  ""
+=> all numbers, return empty str
+
+""          -->  ""
+=> empty str, return empty str
+
+DS:
+input: str with numbers
+
+output: str without numbers
+
+N: reverse_each
+----test verbally
+----come up with pattern that takes care of ALL the testcases
+----come up with a new patters/new idea
+----practise coming up with different ideas
+A:
+- initialize `new_str`
+- iterate over the string
+ - if
+
+s = "3D2a5d2f"
+
+# p str_expansion("3D2a5d2f") == "DDDaadddddff"
+# p str_expansion("3abc") == "aaabbbccc"
+# p str_expansion("3d332f2a") == "dddffaa"
+
