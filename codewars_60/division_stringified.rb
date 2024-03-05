@@ -85,6 +85,7 @@ PlanB
 =end
 def division_stringified(num1, num2)
   number = (num1.to_f / num2.to_f).round
+  p number
   
   return number.to_s if number.to_s.size <= 3
 
@@ -108,7 +109,7 @@ end
 # p division_stringified(6874, 67) == "103"
 # p division_stringified(1, 10) == "0"
 
-p division_stringified(503394930, 43) #== "11,760,859"
+p division_stringified(503394930, 43) #== "11,706,859"
 p division_stringified(100000, 1) #== "100,000"
 p division_stringified(10000000000000, 1) == "100,000"
 
@@ -145,9 +146,10 @@ p division_stringified(5, 2) == "3"
 p division_stringified(7, 3 )== "2"
 p division_stringified(6874, 67) == "103"
 p division_stringified(1, 10) == "0"
-p division_stringified(503394930, 43) #== "11,760,859"
+p division_stringified(503394930, 43) == "11,706,859"
 p division_stringified(100000, 1) == "100,000"
-p division_stringified(10000000000000, 1) #== "100,000"
+p division_stringified(10000000000000, 1) == "100,000"
+
 
 puts "Implementing 3rd idea"
 # Idea 3:
@@ -166,16 +168,14 @@ puts "Implementing 3rd idea"
 # return `result_string`
 def division_stringified(n1, n2)
   number = (n1.to_f / n2.to_f)
-  p number
   array = number.round.digits
-  p array
 
   chunks_of_3 = []
 
   until array.empty?
     chunks_of_3 << array.shift(3)
   end
-  p chunks_of_3
+
 
   result_string = ""
 
@@ -191,9 +191,10 @@ p division_stringified(5, 2) == "3"
 p division_stringified(7, 3 )== "2"
 p division_stringified(6874, 67) == "103"
 p division_stringified(1, 10) == "0"
-p division_stringified(503394930, 43) #== "11,760,859"
-p division_stringified(100000, 1) #== "100,000"
+p division_stringified(503394930, 43) == "11,706,859"
 p division_stringified(10000000000000, 1) == "100,000"
+p division_stringified(100000, 1) == "100,000"
+
 
 
 # refactored, this is not a good solution!
@@ -221,7 +222,8 @@ p division_stringified(10000000000000, 1) == "100,000"
 
 #   result_string
 # end
-# p division_stringified(503394930, 43) #== "11,760,859"
+# p division_stringified(503394930, 43) #== "11,706,859"
 # p division_stringified(100000, 1) #== "100,000"
-# p division_stringified(10000000000000, 1) #== "100,000"
+# p division_stringified(10000000000000, 1) == "100,000"
+
 
