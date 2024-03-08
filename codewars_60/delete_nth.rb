@@ -15,7 +15,11 @@ DS:
 input: array
 output: array with each number repeated not more than n times
 
-H: Iterate each number and as you do, count the count of this number in the result array. If it is more than n, don't add this number but move on, if it less than n, add this number and move on.
+Idea1
+Iterate each number and as you do, count the count of this number in the result array. If it is more than n, don't add this number but move on, if it less than n, add this number and move on.
+
+Idea 2
+Reject numbers from the input array based on whether the count of a given number is greater than n, the second argument. Save result to a new_array and return it.
 
   A:
   -init  `result` []
