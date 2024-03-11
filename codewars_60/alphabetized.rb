@@ -287,3 +287,39 @@ p alphabetized("a ") == "a"
 p alphabetized(" a ") == "a"
 p alphabetized("A b B a") == "AabB"
 
+puts
+=begin
+--- A 
+- return empty string if given_string.empty?
+- return empty string if string is just whitespace
+  - given_string.chars.all? { |char| char == ' ' }
+
+- remove all whitespaces from string & create an array of just chars
+  - array - array [ ' ' ]
+- 
+- SORT all characters by alphabetical order
+  - #sort by alphabetical order 
+  - #downcase help prioritize character appearance
+- CONVERT my array back into a string
+  - join
+=end
+
+puts
+
+def alphabetized(string)
+  return '' if string.empty?
+  return '' if string.chars.all? { |char| char == ' ' }
+  string =  string.split('') - [' ']
+  string.sort_by { |char| char.downcase }.join
+end
+
+p alphabetized("The Holy Bible") == "BbeehHilloTy"
+p alphabetized("") == ""
+p alphabetized(" ") == ""
+p alphabetized(" a") == "a"
+p alphabetized("a ") == "a"
+p alphabetized(" a ") == "a"
+p alphabetized("A b B a") == "AabB"
+
+p alphabetized(" a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z") == "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ"
+
