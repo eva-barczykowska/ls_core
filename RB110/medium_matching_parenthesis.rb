@@ -117,3 +117,39 @@ p balanced?('Hey!') == true
 p balanced?(')Hey!(') == false
 p balanced?('What ((is))) up(') == false
 p balanced?('What ())(is() up') == false
+
+puts
+
+# -CREATE `opening` array
+# -ITERATE over each char of the arg string
+# if char is `)`, add it to `opening`
+# --if char is a closing parenthesis, and `opening` aray is empty, return false
+# --if it is `(`, add it to `opening`
+# --if char is a closing parenthesis, and `opening` is NOT empty, remove last element
+#
+# -after the iteration finished:
+# -is `opening` array is empty, return `true` from the method, else return `false`
+
+def balanced?(str)
+  opening = []
+
+  str.each_char do |char|
+    if char == '('
+      opening << char
+    elsif char == ')' && opening.empty?
+      return false
+    elsif char == ')'
+      opening.delete_at(-1)
+    end
+  end
+  opening.empty?
+end
+p balanced?('What (is) this?') == true
+p balanced?('What is) this?') == false
+p balanced?('What (is this?') == false
+p balanced?('((What) (is this))?') == true
+p balanced?('((What)) (is this))?') == false
+p balanced?('Hey!') == true
+p balanced?(')Hey!(') == false
+p balanced?('What ((is))) up(') == false
+p balanced?('What ())(is() up') == false
