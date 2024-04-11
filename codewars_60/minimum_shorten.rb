@@ -106,34 +106,47 @@ puts
 #
 # + generate New String from Characters and return
 
-# def minimum_shorten(str, limit)
-#   arr_of_chars = str.chars
+VOWELS = %w[a e i o u]
+puts 'here'
+def minimum_shorten(str, limit)
+  chars = str.chars
+  vowel_count = VOWELS.map { |vowel| str.count(vowel) }.sum
+  alpha_chars = chars.reject { |char| char == ' ' }
+  removals = alpha_chars.count - limit
 
-#   vowels = arr_of_chars.select { |ch| %w[a e o u i].include?(ch) }
+  return str if str.length < limit
+  return '' if removals > vowel_count
 
-#   vowel_count = 0
-#   alpha_chars_count = arr_of_chars.select { |char| char != ' ' }
-#   removals_count = alpha_chars_count.size - limit
+  removed = 0
 
-#   removals = 0
-#   vowels.each do |vowel|
-#     if str.include?(vowel)
-#       arr_of_chars.reverse_each.with_index do |letter, _index|
-#         break if removals == removals_count
+  VOWELS.each do |vowel|
+    break if removed == removals
 
-#         index_to_delete = arr_of_chars.index(letter)
-#         arr_of_chars.delete_at(index_to_delete)
-#       end
-#     end
-#     removals += 1
-#   end
-#   arr_of_chars
-# end
-# p minimum_shorten('eeea', 3) == 'eee'
-# p minimum_shorten('This is a test sentence', 18) == 'This is  test sentence'
-# p minimum_shorten('Hello World', 8) #== 'Hllo Wrld'
-# p minimum_shorten('Short', 10) == 'Short'
-# p minimum_shorten('A very long sentence with many vowels', 10) == ''
+    # puts "vowel : #{vowel}"
+
+    next unless chars.include?(vowel)
+
+    (chars.length - 1).downto(0) do |i|
+      break if removed == removals
+
+      char = chars[i]
+      # puts "  character : #{char}"
+      if char == vowel
+        chars.delete_at(i)
+        removed += 1
+      end
+    end
+  end
+
+  chars.join
+end
+p minimum_shorten('eeea', 3) == 'eee'
+p minimum_shorten('This is a test sentence', 18) == 'This is  test sentence'
+p minimum_shorten('Hello World', 8) == 'Hllo Wrld'
+p minimum_shorten('Short', 10) == 'Short'
+p minimum_shorten('A very long sentence with many vowels', 10) == ''
+
+puts
 
 # Problem: Given a string and an integer arg, return a string
 #
@@ -167,6 +180,8 @@ puts
 #   - else the size of the array is > than the char limit
 #     - delete the current char if its an 'a'
 #   - decremeent last_char variable to track index positions accordingly
+
+# Helper method:
 # - ITERATE over chars
 #   - repeat above process except for 'e'
 # - ITERATE over chars
@@ -176,4 +191,106 @@ puts
 # - ITERATE over chars
 #   - repeat above process except for 'u'
 # - RETURN mutated string
+
+def delete_vowel(string, vowel, limit)
+  last_char = string.size - 1
+  letters = string.chars.reverse
+
+  letters.each do |char|
+    next if string.delete(' ').size <= limit # don't do anything if nothing needs to be done - nice!
+
+    if char == vowel
+      string = string.chars
+      string.delete_at(last_char)
+      string = string.join
+    end
+    last_char -= 1
+  end
+
+  string
+end
+
+def minimum_shorten(string, char_limit)
+  return '' if (string.chars - %w[a e i o u]).size > char_limit
+
+  string = delete_vowel(string, 'a', char_limit)
+  string = delete_vowel(string, 'e', char_limit)
+  string = delete_vowel(string, 'i', char_limit)
+  string = delete_vowel(string, 'o', char_limit)
+  string = delete_vowel(string, 'u', char_limit)
+end
+p minimum_shorten('eeea', 3) == 'eee'
+p minimum_shorten('This is a test sentence', 18) == 'This is  test sentence'
+p minimum_shorten('Hello World', 8) == 'Hllo Wrld'
+p minimum_shorten('Short', 10) == 'Short'
+p minimum_shorten('A very long sentence with many vowels', 10) == ''
+
+puts
+puts 'another solution from Ekerin'
+# ALGORITHM
+# =========
+#   2
+# -----
+# > ... same as previous algorithm until altering characters ...
 #
+# + iterate Removals many times and remove right-most occurence of highest priority vowel
+#   + if Characters includes 'a'
+#     - remove rightmost 'a'
+#     >> GO TO NEXT ITERATION
+#   + if Characters includes 'e'
+#     - remove rightmost 'e'
+#     >> GO TO NEXT ITERATION
+#   + if Characters includes 'i'
+#     - remove rightmost 'i'
+#     >> GO TO NEXT ITERATION
+#   + if Characters includes 'o'
+#     - remove rightmost 'o'
+#     >> GO TO NEXT ITERATION
+#   + if Characters includes 'u'
+#     - remove rightmost 'u'
+#     >> GO TO NEXT ITERATION
+#
+# + join Characters to generate New String
+# + return New String
+VOWELS = %w[a e i o u]
+
+def minimum_shorten(str, limit)
+  chars = str.chars
+  vowel_count = VOWELS.map { |vowel| str.count(vowel) }.sum
+  alpha_chars = chars.reject { |char| char == ' ' }
+  removals = alpha_chars.count - limit
+
+  return str if str.length < limit
+  return '' if removals > vowel_count
+
+  removed = 0
+
+  #   2
+  # -------
+  puts removals
+  removals.times do
+    # VOWELS.each do |vowel|
+    #   return chars.join if chars.reject{|char| char == ' '}.length == limit
+    #   chars.delete_at(chars.rindex(vowel)) if chars.include?(vowel)
+    # # puts chars.rindex('a')
+    # end
+
+    if chars.include?('a')
+      chars.delete_at(chars.rindex('a'))
+    elsif chars.include?('e')
+      chars.delete_at(chars.rindex('e'))
+    elsif chars.include?('i')
+      chars.delete_at(chars.rindex('i'))
+    elsif chars.include?('o')
+      chars.delete_at(chars.rindex('o'))
+    elsif chars.include?('u')
+      chars.delete_at(chars.rindex('u'))
+    end
+  end
+  chars.join
+end
+p minimum_shorten('eeea', 3) == 'eee'
+p minimum_shorten('This is a test sentence', 18) == 'This is  test sentence'
+p minimum_shorten('Hello World', 8) == 'Hllo Wrld'
+p minimum_shorten('Short', 10) == 'Short'
+p minimum_shorten('A very long sentence with many vowels', 10) == ''
