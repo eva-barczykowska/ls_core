@@ -80,6 +80,61 @@ p minimum_shorten('Short', 10) == 'Short'
 p minimum_shorten('A very long sentence with many vowels', 10) == ''
 
 puts
+# # Ekerin
+# ALGORITHM
+# =========
+# + generate `chars`
+# + select vowels from `chars` to generate `vowels`
+# + generate `vowel_count`
+# + generate alpha_chars_count
+#   + select non-space characters to generate Array
+# + generate removals_count
+#
+# > checks
+#   + return `' '` if vowel_count < removals_count
+#   + return String if its Length is less than Character Limit
+#
+# > track removals while removing vowels
+# + initialize `removals` to `0`
+# + iterate over Vowels in order -- 'a', 'e', 'i', 'o', 'u'
+#   + if current vowel exists in String
+#     + iterate over indices from back to front (#down_to, #reverse_each)
+#       + stop iterating if required number of removals have occurred
+#       + if current character in Array of Characters matches current Vowel
+#         + remove Character at current index
+#         + increment number of removals by `1`
+#
+# + generate New String from Characters and return
+
+# def minimum_shorten(str, limit)
+#   arr_of_chars = str.chars
+
+#   vowels = arr_of_chars.select { |ch| %w[a e o u i].include?(ch) }
+
+#   vowel_count = 0
+#   alpha_chars_count = arr_of_chars.select { |char| char != ' ' }
+#   removals_count = alpha_chars_count.size - limit
+
+#   removals = 0
+#   vowels.each do |vowel|
+#     if str.include?(vowel)
+#       arr_of_chars.reverse_each.with_index do |letter, _index|
+#         break if removals == removals_count
+
+#         index_to_delete = arr_of_chars.index(letter)
+#         arr_of_chars.delete_at(index_to_delete)
+#       end
+#     end
+#     removals += 1
+#   end
+#   arr_of_chars
+# end
+# p minimum_shorten('eeea', 3) == 'eee'
+# p minimum_shorten('This is a test sentence', 18) == 'This is  test sentence'
+# p minimum_shorten('Hello World', 8) #== 'Hllo Wrld'
+# p minimum_shorten('Short', 10) == 'Short'
+# p minimum_shorten('A very long sentence with many vowels', 10) == ''
+
 # Problem: Given a string and an integer arg, return a string
 #
 # Rules:
