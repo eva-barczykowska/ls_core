@@ -57,3 +57,26 @@ puts negate('Yes, I said no but now I say yes.') == 'No, I said yes but now I sa
 puts negate('no way, yes way!') == 'yes way, no way!'
 puts negate('Yesterday is not today?') == 'Yesterday is not today?'
 puts negate('No, I do not know!') == 'Yes, I do not know!'
+
+# how can this be improved?
+# -extract swapping values to a constant since nothing is goign to change there, it's a reference
+# -move it outside the method, it's easier to read method's code then
+# -rename reference to SWAP
+
+SWAP = { 'Yes' => 'No', 'Yes.' => 'No.', 'Yes,' => 'No,', 'Yes?' => 'No?', 'Yes!' => 'No!', 'yes.' => 'no.',
+         'yes' => 'no', 'yes,' => 'no,', 'yes?' => 'no?', 'yes!' => 'no!', 'No' => 'Yes', 'No.' => 'Yes.', 'No,' => 'Yes,', 'No?' => 'Yes?', 'No!' => 'Yes!', 'no' => 'yes', 'no.' => 'yes.', 'no,' => 'yes,', 'no?' => 'yes?', 'no!' => 'yes!' }
+p SWAP
+def negate(str)
+  new_str = []
+
+  arr = str.split.each do |word|
+    new_str << word unless SWAP.keys.include?(word)
+    new_str << SWAP[word] if SWAP.keys.include?(word)
+  end
+
+  new_str.join(' ')
+end
+puts negate('Yes, I said no but now I say yes.') == 'No, I said yes but now I say no.'
+puts negate('no way, yes way!') == 'yes way, no way!'
+puts negate('Yesterday is not today?') == 'Yesterday is not today?'
+puts negate('No, I do not know!') == 'Yes, I do not know!'
