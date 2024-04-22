@@ -59,4 +59,22 @@ p minSubLength([1, 10, 5, 2, 7], 9) == 1
 p minSubLength([1, 11, 100, 1, 0, 200, 3, 2, 1, 250], 280) == 4
 p minSubLength([1, 2, 4], 8) == 0
 
-# didn't analyze all the examples, arrays of 1 element are also considered!!!
+# or better
+def minSubLength(arr, target)
+  return 0 if arr.sum < target
+
+  all_subarrays = []
+
+  (0...arr.size).each do |starting_index|
+    (starting_index...arr.size).each do |ending_index|
+      subarray = arr[starting_index..ending_index]
+      all_subarrays << subarray if subarray.sum >= target
+    end
+  end
+
+  all_subarrays.sort_by(&:size).first.size
+end
+p minSubLength([2, 3, 1, 2, 4, 3], 7) == 2
+p minSubLength([1, 10, 5, 2, 7], 9) == 1
+p minSubLength([1, 11, 100, 1, 0, 200, 3, 2, 1, 250], 280) == 4
+p minSubLength([1, 2, 4], 8) == 0
