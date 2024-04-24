@@ -124,3 +124,32 @@ p find_fibonacci_slices([5, 5, 10, 15, 24, 40]) == [[5, 5, 10], [5, 5, 10, 15], 
 p find_fibonacci_slices([1, 2, 4, 6, 10,
                          16]) == [[2, 4, 6], [2, 4, 6, 10], [2, 4, 6, 10, 16], [4, 6, 10], [4, 6, 10, 16], [6, 10, 16]]
 p find_fibonacci_slices([10, 22, 33, 43, 56]) == []
+
+puts
+
+# solution with upto
+def find_fibonacci_slices(nums)
+  last_index = nums.size - 1
+  fib_sequences = []
+
+  0.upto(last_index - 2) do |start_ind| # upto
+    (start_ind + 2).upto(last_index) do |end_ind|
+      slice = nums[start_ind..end_ind]
+
+      case slice[-3] + slice[-2] == slice[-1]
+      when true then fib_sequences << slice
+      else break
+      end
+    end
+  end
+
+  fib_sequences
+end
+p find_fibonacci_slices([1, 1, 2, 3, 5,
+                         8]) == [[1, 1, 2], [1, 1, 2, 3], [1, 1, 2, 3, 5], [1, 1, 2, 3, 5, 8], [1, 2, 3], [1, 2, 3, 5], [1, 2, 3, 5, 8],
+                                 [2, 3, 5], [2, 3, 5, 8], [3, 5, 8]]
+p find_fibonacci_slices([2, 4, 7, 11, 18]) == [[4, 7, 11], [4, 7, 11, 18], [7, 11, 18]]
+p find_fibonacci_slices([5, 5, 10, 15, 24, 40]) == [[5, 5, 10], [5, 5, 10, 15], [5, 10, 15]]
+p find_fibonacci_slices([1, 2, 4, 6, 10,
+                         16]) == [[2, 4, 6], [2, 4, 6, 10], [2, 4, 6, 10, 16], [4, 6, 10], [4, 6, 10, 16], [6, 10, 16]]
+p find_fibonacci_slices([10, 22, 33, 43, 56]) == []
