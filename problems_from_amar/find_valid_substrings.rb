@@ -70,3 +70,70 @@ p find_valid_substrings('hello', 'el') == %w[h o]
 p find_valid_substrings('12345', '3') == %w[1 12 2 4 45 5]
 p find_valid_substrings('abcde',
                         'xyz') == %w[a ab abc abcd abcde b bc bcd bcde c cd cde d de e]
+
+puts
+# Ekerin's solution
+
+# ALGORITHM - sliding window
+# ==========================
+# + generate Array of invalid characters from bad_chars
+
+# > generate Array of consecutive valid characters
+
+# + generate `start_i`, 0
+# + generate `end_i`, 0
+
+# + iterate until start_i and end_i are greater than or equal to length of String
+#   + generate `start_char`
+#   + generate `end_char`
+
+#   + break loop if `start_i` and `end_i` are same last index
+
+#   + check if `end_char` is valid
+#     + if so,
+#       + add slice from `start_i` to `end_i` to substrings
+#       + increment `end_i` by `1`
+
+#       + if `j` is greater than or equal to length of String
+#         + reassign `i` and `j` to character following `i`
+
+#     + if not,
+#       + start_i && end_i are (current end_i + 1)
+
+# + return Array of Substrings
+
+# =end
+
+def valid_char?(char, bad_chars)
+  !bad_chars.include?(char)
+end
+
+def find_valid_substrings(start_str, bad_chars)
+  valid_substrings = []
+  invalid_chars = bad_chars.chars
+
+  i = 0
+  j = 0
+
+  loop do
+    break if (i >= (start_str.length)) && (j >= (start_str.length))
+
+    i_char = start_str[i]
+    j_char = start_str[j]
+
+    if valid_char?(j_char, invalid_chars)
+      valid_substrings << start_str[i..j]
+      j += 1
+
+      i = j = i + 1 if j >= start_str.length
+    else
+      i = j = i + 1
+    end
+  end
+
+  valid_substrings
+end
+p find_valid_substrings('test', 't') == %w[e es s]
+p find_valid_substrings('hello', 'el') == %w[h o]
+p find_valid_substrings('12345', '3') == %w[1 12 2 4 45 5]
+p find_valid_substrings('abcde', 'xyz') == %w[a ab abc abcd abcde b bc bcd bcde c cd cde d de e]
