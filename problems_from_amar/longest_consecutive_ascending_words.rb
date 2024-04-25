@@ -1,7 +1,7 @@
 # Write a function called longestConsecutiveAscendingWords that
-# takes a sentence as input and finds all consecutive word where the succeeding
+# takes a sentence as input and finds all consecutive words where the succeeding
 # word is longer than the previous. The function should return an array of
-# these pairs. Punctuation marks should be considered part of a word
+# these words. Punctuation marks should be considered part of a word
 # (e.g., "hello," and "hello" are different words).
 #
 # Problem
@@ -12,30 +12,36 @@
 #
 # Test cases
 # =============
-#
+# 1.
 # puts longest_consecutive_ascending_words("The quick brown fox jumps over the lazy dog").inspect # [ 'The', 'quick' ]
-# => second word is longer than the first one, I need pairs
-# => The quick => [ 'The', 'quick' ]
-# ++++++ possible pairs +++++
+
+# ++++++ possible words +++++
 # The quick
 # fox jumps -equal lenth as the last previous one, why does the first one get returned?
 # the lazy
 #
+# 2.
 # puts longest_consecutive_ascending_words("A journey of a thousand miles begins with a single step").inspect # [ 'A', 'journey' ]
-# => 'A' coz there was nothing before and 'journey' => [ 'A', 'journey' ]
-# ++++++ possible pairs +++++
+
+# ++++++ possible words +++++
 # A journey
 # a thousand
 # a single
-#
+# -----------On what basis are we returning the first sequence?????-------------------------
+
+# 3. 
 # puts longest_consecutive_ascending_words("Easy come easy go").inspect # [ 'Easy' ]
 # => it's only Easy coz it's longest
-# ++++++ possible pairs +++++
-# why?????
+
+# ++++++ possible words +++++
+-
+# why this expected result is given?????? (coz the first word always gets picked up?)
 #
+# 4. 
 # puts longest_consecutive_ascending_words("Tiny bird flew over the peaceful countryside").inspect # [ 'the', 'peaceful', 'countryside' ]
 # => makes sense
-# ++++++ possible pairs +++++
+
+# ++++++ possible words +++++
 # the peaceful countryside
 #
 #
