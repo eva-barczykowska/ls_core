@@ -50,67 +50,65 @@
 # ************** Refactor **************
 
 # Differentiate between EXPLICIT AND IMPLICIT requirements?
-=begin
-def minimum_sum(arr)
-  results = []
-  counter = 0
-
-  while counter <= arr.size - 5
-    results << arr.take(5)
-    arr.shift
-  end
-
-  results.each_with_object({}) { |subarr, hash| hash[subarr] = subarr.sum }.values.min
-
-end
-
-p minimum_sum([1, 2, 3, 4]) == nil
-p minimum_sum([1, 2, 3, 4, 5, 6]) == 15
-p minimum_sum([55, 2, 6, 5, 1, 2, 9, 3, 5, 100]) == 16
-p minimum_sum([-1, -5, -3, 0, -1, 2, -4]) == -10
-
-puts
-puts "solution with each_cons"
-a = [1, 2, 3, 4, 5, 6]
-a.each_cons(5) do |group|
-  p group
-end
-
-def minimum_sum(arr)
-  results = []
-  arr.each_cons(5) { |group| results << group }
-  results.each_with_object({}) { |subarr, hash| hash[subarr] = subarr.sum }.values.min
-end
-
-p minimum_sum([1, 2, 3, 4]) == nil
-p minimum_sum([1, 2, 3, 4, 5, 6]) == 15
-p minimum_sum([55, 2, 6, 5, 1, 2, 9, 3, 5, 100]) == 16
-p minimum_sum([-1, -5, -3, 0, -1, 2, -4]) == -10
-
-puts
-puts "sedrick's suggestion"
-
-def mininum_sum(arr)
-  arr = [8,1,2,2,3, 3, 4, 8, 6, 12, 3]
-  take = 3
-  result = []
-
-  until arr.size < take
-    result << arr.take(take) # not this variable name
-    arr.shift
-  end
-
-  result
-end
-
-puts
-
-p minimum_sum([1, 2, 3, 4]) == nil
-p minimum_sum([1, 2, 3, 4, 5, 6]) == 15
-p minimum_sum([55, 2, 6, 5, 1, 2, 9, 3, 5, 100]) == 16
-p minimum_sum([-1, -5, -3, 0, -1, 2, -4]) == -10
-=end
-puts "refactor"
+# def minimum_sum(arr)
+#   results = []
+#   counter = 0
+#
+#   while counter <= arr.size - 5
+#     results << arr.take(5)
+#     arr.shift
+#   end
+#
+#   results.each_with_object({}) { |subarr, hash| hash[subarr] = subarr.sum }.values.min
+#
+# end
+#
+# p minimum_sum([1, 2, 3, 4]) == nil
+# p minimum_sum([1, 2, 3, 4, 5, 6]) == 15
+# p minimum_sum([55, 2, 6, 5, 1, 2, 9, 3, 5, 100]) == 16
+# p minimum_sum([-1, -5, -3, 0, -1, 2, -4]) == -10
+#
+# puts
+# puts "solution with each_cons"
+# a = [1, 2, 3, 4, 5, 6]
+# a.each_cons(5) do |group|
+#   p group
+# end
+#
+# def minimum_sum(arr)
+#   results = []
+#   arr.each_cons(5) { |group| results << group }
+#   results.each_with_object({}) { |subarr, hash| hash[subarr] = subarr.sum }.values.min
+# end
+#
+# p minimum_sum([1, 2, 3, 4]) == nil
+# p minimum_sum([1, 2, 3, 4, 5, 6]) == 15
+# p minimum_sum([55, 2, 6, 5, 1, 2, 9, 3, 5, 100]) == 16
+# p minimum_sum([-1, -5, -3, 0, -1, 2, -4]) == -10
+#
+# puts
+# puts "sedrick's suggestion"
+#
+# def mininum_sum(arr)
+#   arr = [8,1,2,2,3, 3, 4, 8, 6, 12, 3]
+#   take = 3
+#   result = []
+#
+#   until arr.size < take
+#     result << arr.take(take) # not this variable name
+#     arr.shift
+#   end
+#
+#   result
+# end
+#
+# puts
+#
+# p minimum_sum([1, 2, 3, 4]) == nil
+# p minimum_sum([1, 2, 3, 4, 5, 6]) == 15
+# p minimum_sum([55, 2, 6, 5, 1, 2, 9, 3, 5, 100]) == 16
+# p minimum_sum([-1, -5, -3, 0, -1, 2, -4]) == -10
+puts 'refactor'
 
 def minimum_sum(arr)
   nums_to_extract = 5
@@ -124,7 +122,7 @@ def minimum_sum(arr)
   result.map { |subarray| subarray.sum }.min
 end
 
-p minimum_sum([1, 2, 3, 4]) == nil
+p minimum_sum([1, 2, 3, 4]).nil?
 p minimum_sum([1, 2, 3, 4, 5, 6]) == 15
 p minimum_sum([55, 2, 6, 5, 1, 2, 9, 3, 5, 100]) == 16
 p minimum_sum([-1, -5, -3, 0, -1, 2, -4]) == -10
@@ -137,9 +135,11 @@ def minimum_sum(arr)
   groups = []
   nums_to_retrieve = 5
 
-  (0...arr.size).each do |idx| #grabbing index to extract numbers from array
-    break if arr[idx...nums_to_retrieve].length < 5 #putting this first so that it doesn't go through all indices but breaks
-    groups << arr[idx...nums_to_retrieve] #extracting from arr and storing in groups array
+  (0...arr.size).each do |idx| # grabbing index to extract numbers from array
+    # putting this first so that it doesn't go through all indices but breaks
+    break if arr[idx...nums_to_retrieve].length < 5
+
+    groups << arr[idx...nums_to_retrieve] # extracting from arr and storing in groups array
     nums_to_retrieve += 1
   end
 
@@ -169,50 +169,49 @@ p minimum_sum([55, 2, 6, 5, 1, 2, 9, 3, 5, 100]) #== 16
 # p minimum_sum([-1, -5, -3, 0, -1, 2, -4]) == -10
 
 puts
-=begin
-# Write a method that takes one argument: an array of integers.
+# # Write a method that takes one argument: an array of integers.
 # The method should return the minimum sum of 5 consecutive
 # numbers in the array. If the array contains fewer than 5
 # elements, the method should return nil.
-
-PEDAC
-P:
-- write a method that takes an array of integers as an argumetn
-- method returns minimum sum of 5 consecutive integers in this argument array
-- if array has fewer than 5 integers, return nil
-= nums can be negative
-
+#
+# PEDAC
+# P:
+# - write a method that takes an array of integers as an argumetn
+# - method returns minimum sum of 5 consecutive integers in this argument array
+# - if array has fewer than 5 integers, return nil
+# = nums can be negative
+#
 # Examples:
-p minimum_sum([1, 2, 3, 4]) == nil
-=> fewer than 5
-
-p minimum_sum([1, 2, 3, 4, 5, 6]) == 15
-1+2+3+4+5=15
-2+3+4+5+6=20 => minimum sum is 18
-
-p minimum_sum([55, 2, 6, 5, 1, 2, 9, 3, 5, 100]) == 16
-
-p minimum_sum([-1, -5, -3, 0, -1, 2, -4]) == -10
-
+# p minimum_sum([1, 2, 3, 4]) == nil
+# => fewer than 5
+#
+# p minimum_sum([1, 2, 3, 4, 5, 6]) == 15
+# 1+2+3+4+5=15
+# 2+3+4+5+6=20 => minimum sum is 18
+#
+# p minimum_sum([55, 2, 6, 5, 1, 2, 9, 3, 5, 100]) == 16
+#
+# p minimum_sum([-1, -5, -3, 0, -1, 2, -4]) == -10
+#
 # The tests above should print "true".
-
-DS:
-input: array of integers
-output: nil or minimum sum, an integer
-
-A:
-
-- return nil if arr has less than 5 elements
-
-- initialize `sums`
-
-- populate `sums` with all possible sums of consecutive 5 integers
-
-- select min sum from this array and return it
-=end
+#
+# DS:
+# input: array of integers
+# output: nil or minimum sum, an integer
+#
+# A:
+#
+# - return nil if arr has less than 5 elements
+#
+# - initialize `sums`
+#
+# - populate `sums` with all possible sums of consecutive 5 integers
+#
+# - select min sum from this array and return it
 
 def minimum_sum(arr)
   return nil if arr.size < 5
+
   sums = []
 
   (0..arr.size - 5).each do |index|
@@ -222,8 +221,60 @@ def minimum_sum(arr)
   sums.map { |a| a.sum }.min
 end
 
-p minimum_sum([1, 2, 3, 4]) == nil
+p minimum_sum([1, 2, 3, 4]).nil?
 p minimum_sum([1, 2, 3, 4, 5, 6]) == 15
 p minimum_sum([55, 2, 6, 5, 1, 2, 9, 3, 5, 100]) == 16
 p minimum_sum([-1, -5, -3, 0, -1, 2, -4]) == -10
 
+puts
+#  Write a method that takes one argument: an array of integers.
+# The method should return the minimum sum of 5 consecutive
+# numbers in the array. If the array contains fewer than 5
+# elements, the method should return nil.
+#
+# problem
+# =======
+# -method takes an array of integers
+# -method returns the MIN SUM of 5 consecutive integers in the array
+# -if there are fewer than 5 numbers, return nil
+# - numbers can be negative
+#
+#
+# Examples:
+# p minimum_sum([1, 2, 3, 4]) == nil
+# => fewer than 5 nums
+#
+# p minimum_sum([1, 2, 3, 4, 5, 6]) == 15
+# => [1, 2, 3, 4, 5] => 14
+# => [2, 3, 4, 5, 6] => 15
+#
+# p minimum_sum([55, 2, 6, 5, 1, 2, 9, 3, 5, 100]) == 16
+# p minimum_sum([-1, -5, -3, 0, -1, 2, -4]) == -10
+# The tests above should print "true".
+#
+#
+# Allgorith
+# =========
+# -RETURN nil if arr size is elss than 5
+# -create slices array 5 elements each
+# --start with 1st ellement at index 0 and finish at 5 from the end
+# --sllice 5 ellements from the starting index and move on by 1
+# --store sliced of 5 in the slices array
+#
+# -ITERATE over the sllices and sum them
+# -sort sums and return first, it will be the smallest
+def minimum_sum(arr)
+  return nil if arr.size < 5
+
+  slices = []
+
+  (0..arr.size - 5).each do |start|
+    slices << arr.slice(start, 5)
+  end
+
+  slices.map(&:sum).sort.first
+end
+p minimum_sum([1, 2, 3, 4]).nil?
+p minimum_sum([1, 2, 3, 4, 5, 6]) == 15
+p minimum_sum([55, 2, 6, 5, 1, 2, 9, 3, 5, 100]) == 16
+p minimum_sum([-1, -5, -3, 0, -1, 2, -4]) == -10
