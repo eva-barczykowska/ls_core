@@ -81,7 +81,6 @@ p closest_numbers([12, 7, 17]) == [12, 7]
 
 puts
 
-
 # Write a method that takes an array of integers and returns the
 # two numbers that are closest together in value.
 
@@ -143,7 +142,7 @@ def closest_numbers(arr)
   start = 0
   finish = 1
 
-  while start < arr.size - 1 #while 0 < 4 so the last index is 3!!!!
+  while start < arr.size - 1 # while 0 < 4 so the last index is 3!!!!
     while finish < arr.size
       groups << [arr[start], arr[finish]]
       finish += 1
@@ -158,7 +157,6 @@ end
 p closest_numbers([5, 25, 15, 11, 20]) == [15, 11]
 p closest_numbers([19, 25, 32, 4, 27, 16]) == [25, 27]
 p closest_numbers([12, 7, 17]) == [12, 7]
-
 
 def closest_numbers(array)
   sub_arrays = []
@@ -178,3 +176,86 @@ p closest_numbers([5, 25, 15, 11, 20]) == [15, 11]
 p closest_numbers([19, 25, 32, 4, 27, 16]) == [25, 27]
 p closest_numbers([12, 7, 17]) == [12, 7]
 
+puts
+
+# Write a method that takes an array of integers and returns the
+# two numbers that are closest together in value.
+#
+# Problem
+# =======
+# --method takes an array of integers
+# -methjod returnns integers that are closest in value
+# -onlly positive
+#
+# Examples:
+# ============
+# p closest_numbers([5, 25, 15, 11, 20]) == [15, 11]
+# 5,25
+# 5,15
+# 5,11
+# 5,20
+# -25, 15
+# -25, 11
+# -25,20
+# --15, 11 =>4
+# --15, 20
+# --11,20
+# p closest_numbers([19, 25, 32, 4, 27, 16]) == [25, 27]
+#
+# p closest_numbers([12, 7, 18]) == [12, 7]
+# The tests above should print "true".
+#
+# Algorithm
+# =========
+# -INIT all_pairs
+# --ITERATE over the array
+# --start outer it. with inndex 0 and cont. untill arr.size - 2
+# --start inner it. with index 1 and continue to arr.size -1
+# --using arr element ref. retrieve e.from inner, el. from outer i. and
+# --store pairs in all_pairs as an array
+#
+# -ITERATE over alll_pairs, store pair as a key in a hash, value is abs.value of minusing secondn vallue from the first
+def closest_numbers(arr)
+  all_pairs = []
+
+  (0..arr.size - 2).each do |start|
+    (start + 1...arr.size).each do |finish|
+      pair = [arr[start], arr[finish]]
+      all_pairs << pair
+    end
+  end
+
+  hash = {}
+  all_pairs.each do |pair|
+    hash[pair] = (pair.first - pair.last).abs
+  end
+
+  min_value = hash.values.min
+
+  hash.each do |k, v|
+    return k if v == min_value
+  end
+end
+p closest_numbers([5, 25, 15, 11, 20]) == [15, 11]
+p closest_numbers([19, 25, 32, 4, 27, 16]) == [25, 27]
+p closest_numbers([12, 7, 18]) == [12, 7]
+
+# refactor
+def closest_numbers(arr)
+  all_pairs = []
+  closest = {}
+
+  (0..arr.size - 2).each do |start|
+    (start + 1...arr.size).each do |finish|
+      pair = [arr[start], arr[finish]]
+      closest[pair] = (pair.first - pair.last).abs
+    end
+  end
+
+  min_value = closest.values.min
+
+  closest.each { |k, v| return k if v == min_value }
+end
+p closest_numbers([5, 25, 15, 11, 20]) == [15, 11]
+p closest_numbers([19, 25, 32, 4, 27, 16]) == [25, 27]
+p closest_numbers([12, 7, 18]) == [12, 7]
