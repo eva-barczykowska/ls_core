@@ -72,3 +72,29 @@ p repeated_substring('xyxy') #== ['xy', 2]
 p repeated_substring('xyz') #== ['xyz', 1]
 p repeated_substring('aaaaaaaa') #== ['a', 8]
 p repeated_substring('superduper') #== ['superduper', 1]
+
+puts
+
+def even_substrings(digits)
+  count = 0
+  n = digits.length
+
+  # Iterate through all possible substrings
+  (0...n).each do |i|
+    (i...n).each do |j|
+      substring = digits[i..j]
+
+      # Check if the substring forms an even number
+      count += 1 if substring.to_i.even?
+    end
+  end
+
+  count
+end
+
+# Test cases
+puts even_substrings('1432')      # Output: 6
+puts even_substrings('3145926')   # Output: 16
+puts even_substrings('2718281')   # Output: 16
+puts even_substrings('13579')     # Output: 0
+puts even_substrings('143232')    # Output: 12
