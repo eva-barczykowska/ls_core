@@ -324,3 +324,5 @@ p decode(%w[ZoL heLlo XX]) == [1, 0, 0]
 p decode(['foUrsCoreAnd', 'seven', '']) == [2, 0, 0]
 p decode(%w[lucYintheskyWith dIaMonDs]) == [8, 1]
 p decode([]) == []
+
+# this is a Medium article
