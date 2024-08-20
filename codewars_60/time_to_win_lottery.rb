@@ -66,14 +66,15 @@ Algorithm
 - when iteration finished, compare score to the second argument, expected score
 - if score is equal or greater, return 'Winner!', else return 'Loser!'
 =end
+
+# TODO refactor
 def calculate_mini_win(inner_ticket)
   array_of_characters = inner_ticket[0].chars
   ascii = array_of_characters.map {|char| char.ord}
   ascii.any? { |int| int == inner_ticket[1]}
 end
-
-# p calculate_mini_win(['ABC', 65])
-# p calculate_mini_win(['BYHT', 74])
+p calculate_mini_win(['ABC', 65])
+p calculate_mini_win(['BYHT', 74])
 def get_jackpot_results(ticket, win)
   score = 0
   ticket.each do |inner_ticket|
@@ -105,8 +106,6 @@ def get_jackpot_results(ticket, win)
 
   score >= win ? 'Winner!': 'Loser!'
 end
-
-
 p get_jackpot_results([['ABC', 65], ['HGR', 74], ['BYHT', 74]], 2) == 'Loser!'
 p get_jackpot_results([['ABC', 65], ['HGR', 74], ['BYHT', 74]], 1) == 'Winner!'
 p get_jackpot_results([['HGTYRE', 74], ['BE', 66], ['JKTY', 74]], 3) == 'Loser!'
